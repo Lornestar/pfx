@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.Signup_Header
+{
+    font-weight:bold;
+    font-size:large;
+    color:Blue;
+}
+
+.Signup_Left_Columns
+{
+    width:150px;
+}
+
+.FinePrint
+{
+    font-size:small;
+}
