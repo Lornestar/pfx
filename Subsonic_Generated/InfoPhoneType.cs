@@ -126,18 +126,18 @@ namespace Peerfx_DB
 				schema.SchemaName = @"dbo";
 				//columns
 				
-				TableSchema.TableColumn colvarPhoneTypeKey = new TableSchema.TableColumn(schema);
-				colvarPhoneTypeKey.ColumnName = "Phone_Type_Key";
-				colvarPhoneTypeKey.DataType = DbType.Int32;
-				colvarPhoneTypeKey.MaxLength = 0;
-				colvarPhoneTypeKey.AutoIncrement = false;
-				colvarPhoneTypeKey.IsNullable = false;
-				colvarPhoneTypeKey.IsPrimaryKey = true;
-				colvarPhoneTypeKey.IsForeignKey = false;
-				colvarPhoneTypeKey.IsReadOnly = false;
-				colvarPhoneTypeKey.DefaultSetting = @"";
-				colvarPhoneTypeKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhoneTypeKey);
+				TableSchema.TableColumn colvarInfoPhoneTypeKey = new TableSchema.TableColumn(schema);
+				colvarInfoPhoneTypeKey.ColumnName = "info_phone_type_key";
+				colvarInfoPhoneTypeKey.DataType = DbType.Int32;
+				colvarInfoPhoneTypeKey.MaxLength = 0;
+				colvarInfoPhoneTypeKey.AutoIncrement = false;
+				colvarInfoPhoneTypeKey.IsNullable = false;
+				colvarInfoPhoneTypeKey.IsPrimaryKey = true;
+				colvarInfoPhoneTypeKey.IsForeignKey = false;
+				colvarInfoPhoneTypeKey.IsReadOnly = false;
+				colvarInfoPhoneTypeKey.DefaultSetting = @"";
+				colvarInfoPhoneTypeKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInfoPhoneTypeKey);
 				
 				TableSchema.TableColumn colvarPhoneTypeText = new TableSchema.TableColumn(schema);
 				colvarPhoneTypeText.ColumnName = "Phone_Type_Text";
@@ -162,12 +162,12 @@ namespace Peerfx_DB
 		
 		#region Props
 		  
-		[XmlAttribute("PhoneTypeKey")]
+		[XmlAttribute("InfoPhoneTypeKey")]
 		[Bindable(true)]
-		public int PhoneTypeKey 
+		public int InfoPhoneTypeKey 
 		{
-			get { return GetColumnValue<int>(Columns.PhoneTypeKey); }
-			set { SetColumnValue(Columns.PhoneTypeKey, value); }
+			get { return GetColumnValue<int>(Columns.InfoPhoneTypeKey); }
+			set { SetColumnValue(Columns.InfoPhoneTypeKey, value); }
 		}
 		  
 		[XmlAttribute("PhoneTypeText")]
@@ -197,11 +197,11 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varPhoneTypeKey,string varPhoneTypeText)
+		public static void Insert(int varInfoPhoneTypeKey,string varPhoneTypeText)
 		{
 			InfoPhoneType item = new InfoPhoneType();
 			
-			item.PhoneTypeKey = varPhoneTypeKey;
+			item.InfoPhoneTypeKey = varInfoPhoneTypeKey;
 			
 			item.PhoneTypeText = varPhoneTypeText;
 			
@@ -215,11 +215,11 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varPhoneTypeKey,string varPhoneTypeText)
+		public static void Update(int varInfoPhoneTypeKey,string varPhoneTypeText)
 		{
 			InfoPhoneType item = new InfoPhoneType();
 			
-				item.PhoneTypeKey = varPhoneTypeKey;
+				item.InfoPhoneTypeKey = varInfoPhoneTypeKey;
 			
 				item.PhoneTypeText = varPhoneTypeText;
 			
@@ -236,7 +236,7 @@ namespace Peerfx_DB
         #region Typed Columns
         
         
-        public static TableSchema.TableColumn PhoneTypeKeyColumn
+        public static TableSchema.TableColumn InfoPhoneTypeKeyColumn
         {
             get { return Schema.Columns[0]; }
         }
@@ -254,7 +254,7 @@ namespace Peerfx_DB
 		#region Columns Struct
 		public struct Columns
 		{
-			 public static string PhoneTypeKey = @"Phone_Type_Key";
+			 public static string InfoPhoneTypeKey = @"info_phone_type_key";
 			 public static string PhoneTypeText = @"Phone_Type_Text";
 						
 		}

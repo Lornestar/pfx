@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Peerfx.Site" %>
-
+<%@ Register Src="~/User_Controls/Login.ascx" tagname="Login" tagprefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,31 +14,44 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <telerik:RadScriptManager ID="ScriptManager" runat="server" />            
+        <telerik:RadScriptManager ID="ScriptManager" runat="server" />       
+        <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+        </telerik:RadAjaxLoadingPanel>     
         <center>
             <table width="950px">
                 <tr>
                     <td>
-                        <table>
+                        <table width=100%>
                             <tr>
                                 <td>
-                                    <img src="Images/Peerfx_logo.png" />
+                                <a href="default.aspx">
+                                    <img src="../Images/Peerfx_logo.png" />
+                                    </a>
                                 </td>
-                                <td>
-                                    Home
-                                </td>
-                                <td>
-                                    | Product Tour
-                                </td>
-                                <td>
-                                    | Sign Up
-                                </td>
-                                <td>
-                                    | About us
-                                </td>
-                                <td>
-                                    | Contact us
-                                </td>
+                                <td style=" float:right;">
+                                    <table >
+                                        <tr>
+                                            <td>
+                                                Home
+                                            </td>
+                                            <td>
+                                                | <a href="Admin_Deposits.aspx">Deposits</a>
+                                            </td>
+                                            <td>
+                                                | <a href="Admin_Users.aspx">Users</a>
+                                            </td>
+                                            <td>
+                                                | About us
+                                            </td>
+                                            <td>
+                                                | Contact us
+                                            </td>
+                                            <td>
+                                                <uc1:Login id="ucLogin" runat="Server"></uc1:Login>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>                                
                             </tr>
                         </table>
                     </td>

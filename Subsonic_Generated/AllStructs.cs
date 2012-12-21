@@ -18,13 +18,23 @@ namespace Peerfx_DB
 	public partial struct Tables
 	{
 		
+		public static readonly string BankAccount = @"Bank_Accounts";
+        
+		public static readonly string InfoBank = @"Info_Banks";
+        
 		public static readonly string InfoCountryCodeList = @"Info_Country_Code_List";
         
 		public static readonly string InfoCountryList = @"Info_Country_List";
         
+		public static readonly string InfoCurrency = @"Info_Currencies";
+        
 		public static readonly string InfoPhoneType = @"Info_Phone_Type";
         
-		public static readonly string InfoReferralQuestion = @"Info_Referral_Questions";
+		public static readonly string InfoSecurityQuestion = @"Info_Security_Questions";
+        
+		public static readonly string InfoVerificationMethod = @"Info_Verification_Methods";
+        
+		public static readonly string TransactionsExternal = @"Transactions_External";
         
 		public static readonly string UserStatus = @"User_Statuses";
         
@@ -34,11 +44,23 @@ namespace Peerfx_DB
         
 		public static readonly string UsersSecurityAnswer = @"Users_Security_Answers";
         
+		public static readonly string UsersVerified = @"Users_Verified";
+        
 	}
 	#endregion
     #region Schemas
     public partial class Schemas {
 		
+		public static TableSchema.Table BankAccount
+		{
+            get { return DataService.GetSchema("Bank_Accounts", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table InfoBank
+		{
+            get { return DataService.GetSchema("Info_Banks", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table InfoCountryCodeList
 		{
             get { return DataService.GetSchema("Info_Country_Code_List", "Peerfx"); }
@@ -49,14 +71,29 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Info_Country_List", "Peerfx"); }
 		}
         
+		public static TableSchema.Table InfoCurrency
+		{
+            get { return DataService.GetSchema("Info_Currencies", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table InfoPhoneType
 		{
             get { return DataService.GetSchema("Info_Phone_Type", "Peerfx"); }
 		}
         
-		public static TableSchema.Table InfoReferralQuestion
+		public static TableSchema.Table InfoSecurityQuestion
 		{
-            get { return DataService.GetSchema("Info_Referral_Questions", "Peerfx"); }
+            get { return DataService.GetSchema("Info_Security_Questions", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table InfoVerificationMethod
+		{
+            get { return DataService.GetSchema("Info_Verification_Methods", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table TransactionsExternal
+		{
+            get { return DataService.GetSchema("Transactions_External", "Peerfx"); }
 		}
         
 		public static TableSchema.Table UserStatus
@@ -79,6 +116,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Users_Security_Answers", "Peerfx"); }
 		}
         
+		public static TableSchema.Table UsersVerified
+		{
+            get { return DataService.GetSchema("Users_Verified", "Peerfx"); }
+		}
+        
 	
     }
     #endregion
@@ -86,6 +128,8 @@ namespace Peerfx_DB
     public partial struct Views 
     {
 		
+		public static readonly string VwTransactionsExternal = @"vw_Transactions_External";
+        
 		public static readonly string VwUsersInfo = @"vw_Users_Info";
         
     }

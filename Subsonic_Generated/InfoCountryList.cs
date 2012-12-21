@@ -126,21 +126,21 @@ namespace Peerfx_DB
 				schema.SchemaName = @"dbo";
 				//columns
 				
-				TableSchema.TableColumn colvarCountryKey = new TableSchema.TableColumn(schema);
-				colvarCountryKey.ColumnName = "Country_Key";
-				colvarCountryKey.DataType = DbType.Int32;
-				colvarCountryKey.MaxLength = 0;
-				colvarCountryKey.AutoIncrement = false;
-				colvarCountryKey.IsNullable = false;
-				colvarCountryKey.IsPrimaryKey = true;
-				colvarCountryKey.IsForeignKey = false;
-				colvarCountryKey.IsReadOnly = false;
-				colvarCountryKey.DefaultSetting = @"";
-				colvarCountryKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCountryKey);
+				TableSchema.TableColumn colvarInfoCountryKey = new TableSchema.TableColumn(schema);
+				colvarInfoCountryKey.ColumnName = "info_country_key";
+				colvarInfoCountryKey.DataType = DbType.Int32;
+				colvarInfoCountryKey.MaxLength = 0;
+				colvarInfoCountryKey.AutoIncrement = false;
+				colvarInfoCountryKey.IsNullable = false;
+				colvarInfoCountryKey.IsPrimaryKey = true;
+				colvarInfoCountryKey.IsForeignKey = false;
+				colvarInfoCountryKey.IsReadOnly = false;
+				colvarInfoCountryKey.DefaultSetting = @"";
+				colvarInfoCountryKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInfoCountryKey);
 				
 				TableSchema.TableColumn colvarCountryValue = new TableSchema.TableColumn(schema);
-				colvarCountryValue.ColumnName = "Country_Value";
+				colvarCountryValue.ColumnName = "country_value";
 				colvarCountryValue.DataType = DbType.String;
 				colvarCountryValue.MaxLength = 2;
 				colvarCountryValue.AutoIncrement = false;
@@ -153,7 +153,7 @@ namespace Peerfx_DB
 				schema.Columns.Add(colvarCountryValue);
 				
 				TableSchema.TableColumn colvarCountryText = new TableSchema.TableColumn(schema);
-				colvarCountryText.ColumnName = "Country_Text";
+				colvarCountryText.ColumnName = "country_text";
 				colvarCountryText.DataType = DbType.String;
 				colvarCountryText.MaxLength = 50;
 				colvarCountryText.AutoIncrement = false;
@@ -175,12 +175,12 @@ namespace Peerfx_DB
 		
 		#region Props
 		  
-		[XmlAttribute("CountryKey")]
+		[XmlAttribute("InfoCountryKey")]
 		[Bindable(true)]
-		public int CountryKey 
+		public int InfoCountryKey 
 		{
-			get { return GetColumnValue<int>(Columns.CountryKey); }
-			set { SetColumnValue(Columns.CountryKey, value); }
+			get { return GetColumnValue<int>(Columns.InfoCountryKey); }
+			set { SetColumnValue(Columns.InfoCountryKey, value); }
 		}
 		  
 		[XmlAttribute("CountryValue")]
@@ -218,11 +218,11 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varCountryKey,string varCountryValue,string varCountryText)
+		public static void Insert(int varInfoCountryKey,string varCountryValue,string varCountryText)
 		{
 			InfoCountryList item = new InfoCountryList();
 			
-			item.CountryKey = varCountryKey;
+			item.InfoCountryKey = varInfoCountryKey;
 			
 			item.CountryValue = varCountryValue;
 			
@@ -238,11 +238,11 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varCountryKey,string varCountryValue,string varCountryText)
+		public static void Update(int varInfoCountryKey,string varCountryValue,string varCountryText)
 		{
 			InfoCountryList item = new InfoCountryList();
 			
-				item.CountryKey = varCountryKey;
+				item.InfoCountryKey = varInfoCountryKey;
 			
 				item.CountryValue = varCountryValue;
 			
@@ -261,7 +261,7 @@ namespace Peerfx_DB
         #region Typed Columns
         
         
-        public static TableSchema.TableColumn CountryKeyColumn
+        public static TableSchema.TableColumn InfoCountryKeyColumn
         {
             get { return Schema.Columns[0]; }
         }
@@ -286,9 +286,9 @@ namespace Peerfx_DB
 		#region Columns Struct
 		public struct Columns
 		{
-			 public static string CountryKey = @"Country_Key";
-			 public static string CountryValue = @"Country_Value";
-			 public static string CountryText = @"Country_Text";
+			 public static string InfoCountryKey = @"info_country_key";
+			 public static string CountryValue = @"country_value";
+			 public static string CountryText = @"country_text";
 						
 		}
 		#endregion

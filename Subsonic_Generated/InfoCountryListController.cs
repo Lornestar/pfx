@@ -50,9 +50,9 @@ namespace Peerfx_DB
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoCountryListCollection FetchByID(object CountryKey)
+        public InfoCountryListCollection FetchByID(object InfoCountryKey)
         {
-            InfoCountryListCollection coll = new InfoCountryListCollection().Where("Country_Key", CountryKey).Load();
+            InfoCountryListCollection coll = new InfoCountryListCollection().Where("info_country_key", InfoCountryKey).Load();
             return coll;
         }
 		
@@ -64,14 +64,14 @@ namespace Peerfx_DB
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object CountryKey)
+        public bool Delete(object InfoCountryKey)
         {
-            return (InfoCountryList.Delete(CountryKey) == 1);
+            return (InfoCountryList.Delete(InfoCountryKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object CountryKey)
+        public bool Destroy(object InfoCountryKey)
         {
-            return (InfoCountryList.Destroy(CountryKey) == 1);
+            return (InfoCountryList.Destroy(InfoCountryKey) == 1);
         }
         
         
@@ -80,11 +80,11 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int CountryKey,string CountryValue,string CountryText)
+	    public void Insert(int InfoCountryKey,string CountryValue,string CountryText)
 	    {
 		    InfoCountryList item = new InfoCountryList();
 		    
-            item.CountryKey = CountryKey;
+            item.InfoCountryKey = InfoCountryKey;
             
             item.CountryValue = CountryValue;
             
@@ -98,13 +98,13 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int CountryKey,string CountryValue,string CountryText)
+	    public void Update(int InfoCountryKey,string CountryValue,string CountryText)
 	    {
 		    InfoCountryList item = new InfoCountryList();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.CountryKey = CountryKey;
+			item.InfoCountryKey = InfoCountryKey;
 				
 			item.CountryValue = CountryValue;
 				

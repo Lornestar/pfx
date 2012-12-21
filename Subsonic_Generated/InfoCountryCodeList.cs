@@ -126,18 +126,18 @@ namespace Peerfx_DB
 				schema.SchemaName = @"dbo";
 				//columns
 				
-				TableSchema.TableColumn colvarCountryKey = new TableSchema.TableColumn(schema);
-				colvarCountryKey.ColumnName = "Country_Key";
-				colvarCountryKey.DataType = DbType.Int32;
-				colvarCountryKey.MaxLength = 0;
-				colvarCountryKey.AutoIncrement = true;
-				colvarCountryKey.IsNullable = false;
-				colvarCountryKey.IsPrimaryKey = true;
-				colvarCountryKey.IsForeignKey = false;
-				colvarCountryKey.IsReadOnly = false;
-				colvarCountryKey.DefaultSetting = @"";
-				colvarCountryKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCountryKey);
+				TableSchema.TableColumn colvarInfoCountryKey = new TableSchema.TableColumn(schema);
+				colvarInfoCountryKey.ColumnName = "info_country_key";
+				colvarInfoCountryKey.DataType = DbType.Int32;
+				colvarInfoCountryKey.MaxLength = 0;
+				colvarInfoCountryKey.AutoIncrement = true;
+				colvarInfoCountryKey.IsNullable = false;
+				colvarInfoCountryKey.IsPrimaryKey = true;
+				colvarInfoCountryKey.IsForeignKey = false;
+				colvarInfoCountryKey.IsReadOnly = false;
+				colvarInfoCountryKey.DefaultSetting = @"";
+				colvarInfoCountryKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInfoCountryKey);
 				
 				TableSchema.TableColumn colvarCountryCode = new TableSchema.TableColumn(schema);
 				colvarCountryCode.ColumnName = "Country_Code";
@@ -188,12 +188,12 @@ namespace Peerfx_DB
 		
 		#region Props
 		  
-		[XmlAttribute("CountryKey")]
+		[XmlAttribute("InfoCountryKey")]
 		[Bindable(true)]
-		public int CountryKey 
+		public int InfoCountryKey 
 		{
-			get { return GetColumnValue<int>(Columns.CountryKey); }
-			set { SetColumnValue(Columns.CountryKey, value); }
+			get { return GetColumnValue<int>(Columns.InfoCountryKey); }
+			set { SetColumnValue(Columns.InfoCountryKey, value); }
 		}
 		  
 		[XmlAttribute("CountryCode")]
@@ -259,11 +259,11 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varCountryKey,string varCountryCode,string varCountryText,string varCountryTimeZone)
+		public static void Update(int varInfoCountryKey,string varCountryCode,string varCountryText,string varCountryTimeZone)
 		{
 			InfoCountryCodeList item = new InfoCountryCodeList();
 			
-				item.CountryKey = varCountryKey;
+				item.InfoCountryKey = varInfoCountryKey;
 			
 				item.CountryCode = varCountryCode;
 			
@@ -284,7 +284,7 @@ namespace Peerfx_DB
         #region Typed Columns
         
         
-        public static TableSchema.TableColumn CountryKeyColumn
+        public static TableSchema.TableColumn InfoCountryKeyColumn
         {
             get { return Schema.Columns[0]; }
         }
@@ -316,7 +316,7 @@ namespace Peerfx_DB
 		#region Columns Struct
 		public struct Columns
 		{
-			 public static string CountryKey = @"Country_Key";
+			 public static string InfoCountryKey = @"info_country_key";
 			 public static string CountryCode = @"Country_Code";
 			 public static string CountryText = @"Country_Text";
 			 public static string CountryTimeZone = @"Country_Time_Zone";

@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="Peerfx.Admin.Admin" %>
+
+<%@ Register Src="~/User_Controls/Login.ascx" tagname="Login" tagprefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Peerfx - Clever Currency</title>
+    <link href="../Peerfx.css" rel="stylesheet" type="text/css" />
+    <META NAME="GOOGLEBOT" CONTENT="NOINDEX, NOFOLLOW">
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <telerik:RadScriptManager ID="ScriptManager" runat="server" />            
+        <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+        </telerik:RadAjaxLoadingPanel>
+        <center>
+            <table width="1000px">
+                <tr>
+                    <td>
+                        <table width=100%>
+                            <tr>
+                                <td>
+                                <a href="../default.aspx">
+                                    <img src="../Images/Peerfx_logo.png" />
+                                    </a>
+                                </td>
+                                <td style=" float:right;">
+                                    <table border=1>
+                                        <tr>
+                                            <td>
+                                                Home
+                                            </td>
+                                            <td>
+                                                | <a href="Admin_Deposits.aspx">Deposits</a>
+                                            </td>
+                                            <td>
+                                                | <a href="Admin_Users.aspx">Users</a>
+                                            </td>
+                                            <td>
+                                                | About us
+                                            </td>
+                                            <td>
+                                                | Contact us
+                                            </td>
+                                            <td>
+                                                <uc1:Login id="ucLogin" runat="Server"></uc1:Login>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>                                
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <b>ADMIN PAGES</b>
+                        <asp:ContentPlaceHolder ID="Main" runat="server">
+        
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        
+    </div>
+    </form>
+</body>
+</html>

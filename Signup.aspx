@@ -25,7 +25,7 @@ Sign up
                     </Tabs>
                 </telerik:RadTabStrip>
 
-                <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0" >                
+                <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0" BorderWidth=1>                
                 <!--*************Tab1************-->
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="corporatePageView">
                         <table>
@@ -329,7 +329,7 @@ Sign up
                     </telerik:RadPageView>
                     <!--*************Tab3************-->
 
-                    <telerik:RadPageView runat="server" ID="RadPageView3" CssClass="productsPageView">
+                    <telerik:RadPageView runat="server" ID="RadPageView3" CssClass="productsPageView" BorderWidth=1>
                         <table>
                             <tr>
                                 <td colspan=2>
@@ -442,7 +442,7 @@ Sign up
                     </telerik:RadPageView>
 
                     <!--*************Tab4************-->
-                    <telerik:RadPageView runat="server" ID="RadPageView4" CssClass="productsPageView">
+                    <telerik:RadPageView runat="server" ID="RadPageView4" CssClass="productsPageView" BorderWidth=1>
                         <table>
                             <tr>
                                 <td class="Signup_Header">

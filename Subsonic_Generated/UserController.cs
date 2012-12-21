@@ -80,10 +80,12 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus)
+	    public void Insert(string AccountNumber,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus,bool? Isadmin)
 	    {
 		    User item = new User();
 		    
+            item.AccountNumber = AccountNumber;
+            
             item.Title = Title;
             
             item.FirstName = FirstName;
@@ -106,6 +108,8 @@ namespace Peerfx_DB
             
             item.UserStatus = UserStatus;
             
+            item.Isadmin = Isadmin;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -114,13 +118,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int UserKey,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus)
+	    public void Update(int UserKey,string AccountNumber,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus,bool? Isadmin)
 	    {
 		    User item = new User();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
 			item.UserKey = UserKey;
+				
+			item.AccountNumber = AccountNumber;
 				
 			item.Title = Title;
 				
@@ -143,6 +149,8 @@ namespace Peerfx_DB
 			item.SignedUp = SignedUp;
 				
 			item.UserStatus = UserStatus;
+				
+			item.Isadmin = Isadmin;
 				
 	        item.Save(UserName);
 	    }

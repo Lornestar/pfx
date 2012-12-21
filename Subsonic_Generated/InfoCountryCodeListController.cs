@@ -50,9 +50,9 @@ namespace Peerfx_DB
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoCountryCodeListCollection FetchByID(object CountryKey)
+        public InfoCountryCodeListCollection FetchByID(object InfoCountryKey)
         {
-            InfoCountryCodeListCollection coll = new InfoCountryCodeListCollection().Where("Country_Key", CountryKey).Load();
+            InfoCountryCodeListCollection coll = new InfoCountryCodeListCollection().Where("info_country_key", InfoCountryKey).Load();
             return coll;
         }
 		
@@ -64,14 +64,14 @@ namespace Peerfx_DB
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object CountryKey)
+        public bool Delete(object InfoCountryKey)
         {
-            return (InfoCountryCodeList.Delete(CountryKey) == 1);
+            return (InfoCountryCodeList.Delete(InfoCountryKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object CountryKey)
+        public bool Destroy(object InfoCountryKey)
         {
-            return (InfoCountryCodeList.Destroy(CountryKey) == 1);
+            return (InfoCountryCodeList.Destroy(InfoCountryKey) == 1);
         }
         
         
@@ -98,13 +98,13 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int CountryKey,string CountryCode,string CountryText,string CountryTimeZone)
+	    public void Update(int InfoCountryKey,string CountryCode,string CountryText,string CountryTimeZone)
 	    {
 		    InfoCountryCodeList item = new InfoCountryCodeList();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.CountryKey = CountryKey;
+			item.InfoCountryKey = InfoCountryKey;
 				
 			item.CountryCode = CountryCode;
 				

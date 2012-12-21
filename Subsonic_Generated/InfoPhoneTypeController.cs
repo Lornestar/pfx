@@ -50,9 +50,9 @@ namespace Peerfx_DB
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoPhoneTypeCollection FetchByID(object PhoneTypeKey)
+        public InfoPhoneTypeCollection FetchByID(object InfoPhoneTypeKey)
         {
-            InfoPhoneTypeCollection coll = new InfoPhoneTypeCollection().Where("Phone_Type_Key", PhoneTypeKey).Load();
+            InfoPhoneTypeCollection coll = new InfoPhoneTypeCollection().Where("info_phone_type_key", InfoPhoneTypeKey).Load();
             return coll;
         }
 		
@@ -64,14 +64,14 @@ namespace Peerfx_DB
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object PhoneTypeKey)
+        public bool Delete(object InfoPhoneTypeKey)
         {
-            return (InfoPhoneType.Delete(PhoneTypeKey) == 1);
+            return (InfoPhoneType.Delete(InfoPhoneTypeKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object PhoneTypeKey)
+        public bool Destroy(object InfoPhoneTypeKey)
         {
-            return (InfoPhoneType.Destroy(PhoneTypeKey) == 1);
+            return (InfoPhoneType.Destroy(InfoPhoneTypeKey) == 1);
         }
         
         
@@ -80,11 +80,11 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int PhoneTypeKey,string PhoneTypeText)
+	    public void Insert(int InfoPhoneTypeKey,string PhoneTypeText)
 	    {
 		    InfoPhoneType item = new InfoPhoneType();
 		    
-            item.PhoneTypeKey = PhoneTypeKey;
+            item.InfoPhoneTypeKey = InfoPhoneTypeKey;
             
             item.PhoneTypeText = PhoneTypeText;
             
@@ -96,13 +96,13 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int PhoneTypeKey,string PhoneTypeText)
+	    public void Update(int InfoPhoneTypeKey,string PhoneTypeText)
 	    {
 		    InfoPhoneType item = new InfoPhoneType();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.PhoneTypeKey = PhoneTypeKey;
+			item.InfoPhoneTypeKey = InfoPhoneTypeKey;
 				
 			item.PhoneTypeText = PhoneTypeText;
 				

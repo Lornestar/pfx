@@ -8,6 +8,9 @@ using System.Collections;
 using Telerik.Web.UI;
 using System.Data;
 using SubSonic;
+using System.Net.Mail;
+using System.Net.Mime;
+
 
 namespace Peerfx
 {
@@ -32,72 +35,66 @@ namespace Peerfx
                 DataTable dtcountries = Master.populatecountrylist();
 
                 ddlcountryresidence.DataTextField = "Country_Text";
-                ddlcountryresidence.DataValueField = "Country_Key";
+                ddlcountryresidence.DataValueField = "info_country_key";
                 ddlcountryresidence.DataSource = dtcountries;
                 ddlcountryresidence.DataBind();
                 
                 ddlCountrytab2.DataTextField = "Country_Text";
-                ddlCountrytab2.DataValueField = "Country_Key";
+                ddlCountrytab2.DataValueField = "info_country_key";
                 ddlCountrytab2.DataSource = dtcountries;
                 ddlCountrytab2.DataBind();
 
 
                 ddlIdentityNationality.DataTextField = "Country_Text";
-                ddlIdentityNationality.DataValueField = "Country_Key";
+                ddlIdentityNationality.DataValueField = "info_country_key";
                 ddlIdentityNationality.DataSource = dtcountries;
                 ddlIdentityNationality.DataBind();
 
                 DataTable dtcountrycodes = Master.populatecountrycodelist();
 
                 ddlPhoneCountryCode1.DataTextField = "Country_Code";
-                ddlPhoneCountryCode1.DataValueField = "Country_Key";
+                ddlPhoneCountryCode1.DataValueField = "info_country_key";
                 ddlPhoneCountryCode1.DataSource = dtcountrycodes;
                 ddlPhoneCountryCode1.DataBind();
 
                 ddlPhoneCountryCode2.DataTextField = "Country_Code";
-                ddlPhoneCountryCode2.DataValueField = "Country_Key";
+                ddlPhoneCountryCode2.DataValueField = "info_country_key";
                 ddlPhoneCountryCode2.DataSource = dtcountrycodes;
                 ddlPhoneCountryCode2.DataBind();
 
                 DataTable dtphonetype = Master.populatephonetype();
 
                 ddlPhoneType1.DataTextField = "Phone_Type_Text";
-                ddlPhoneType1.DataValueField = "Phone_Type_Key";
+                ddlPhoneType1.DataValueField = "info_phone_type_key";
                 ddlPhoneType1.DataSource = dtphonetype;
                 ddlPhoneType1.DataBind();
 
                 ddlPhoneType2.DataTextField = "Phone_Type_Text";
-                ddlPhoneType2.DataValueField = "Phone_Type_Key";
+                ddlPhoneType2.DataValueField = "info_phone_type_key";
                 ddlPhoneType2.DataSource = dtphonetype;
                 ddlPhoneType2.DataBind();
 
                 DataTable dtsecurityquestions = Master.populatesecurityquestions();
 
                 ddlSecurityQuestion1.DataTextField = "question";
-                ddlSecurityQuestion1.DataValueField = "security_questions_key";
+                ddlSecurityQuestion1.DataValueField = "info_security_questions_key";
                 ddlSecurityQuestion1.DataSource = dtsecurityquestions;
                 ddlSecurityQuestion1.DataBind();
 
                 ddlSecurityQuestion2.DataTextField = "question";
-                ddlSecurityQuestion2.DataValueField = "security_questions_key";
+                ddlSecurityQuestion2.DataValueField = "info_security_questions_key";
                 ddlSecurityQuestion2.DataSource = dtsecurityquestions;
                 ddlSecurityQuestion2.DataBind();
 
                 ddlSecurityQuestion3.DataTextField = "question";
-                ddlSecurityQuestion3.DataValueField = "security_questions_key";
+                ddlSecurityQuestion3.DataValueField = "info_security_questions_key";
                 ddlSecurityQuestion3.DataSource = dtsecurityquestions;
                 ddlSecurityQuestion3.DataBind();
+                
             }
             if (hduserkey.Value != "0")
             {
                 user_key = Convert.ToInt32(hduserkey.Value);
-            }
-            if (RadTabStrip1.SelectedIndex == 3)
-            {                
-                DataTable dtuserinfo = Master.view_users_info(user_key);
-                lblemailaddress.Text = dtuserinfo.Rows[0]["email"].ToString();
-                lblemailaddress2.Text = lblemailaddress.Text;
-                lblclientnumber.Text = dtuserinfo.Rows[0]["user_key"].ToString();
             }
         }
 
@@ -200,12 +197,24 @@ namespace Peerfx
 
                 //go to next screen
                 changetab(3);
+
+                //made it to confirmation screen
+                DataTable dtuserinfo = Master.view_users_info_dt(user_key);
+                lblemailaddress.Text = dtuserinfo.Rows[0]["email"].ToString();
+                lblemailaddress2.Text = lblemailaddress.Text;
+                lblclientnumber.Text = dtuserinfo.Rows[0]["user_key"].ToString();
+
+                //send verification email
+                SendGrid sg = new SendGrid();
+                sg.Send_Email_Verification(user_key);
             }
             else
             {
             }
             
         }
+
+        
 
     }
 }

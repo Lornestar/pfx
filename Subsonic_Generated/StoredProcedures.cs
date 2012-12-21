@@ -28,6 +28,70 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Transaction_External_Status Procedure
+        /// </summary>
+        public static StoredProcedure UpdateTransactionExternalStatus(int? txexternalkey, int? txexternalstatus, string ipaddress, int? userkey, int? userkeyupdated)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Transaction_External_Status", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@tx_external_key", txexternalkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@tx_external_status", txexternalstatus, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@ip_address", ipaddress, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@user_key_updated", userkeyupdated, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Transactions_External Procedure
+        /// </summary>
+        public static StoredProcedure UpdateTransactionsExternal(int? txexternalkey, int? txexternalstatus, int? txexternaltype, int? currency, decimal? amount, int? senderbankaccountkey, int? receiverbankaccountkey, string ipaddress, int? userkeyupdated, string txexternaldescription, string senderbankname, string senderbankaccount, string receiverbankname, string receiverbankaccount, int? userkey, string bankreference, int? txexternalkeyreturn)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Transactions_External", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@tx_external_key", txexternalkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@tx_external_status", txexternalstatus, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@tx_external_type", txexternaltype, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@amount", amount, DbType.Currency, 4, 19);
+        	
+            sp.Command.AddParameter("@sender_bank_account_key", senderbankaccountkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@receiver_bank_account_key", receiverbankaccountkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@ip_address", ipaddress, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@user_key_updated", userkeyupdated, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@tx_external_description", txexternaldescription, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@sender_bank_name", senderbankname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@sender_bank_account", senderbankaccount, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@receiver_bank_name", receiverbankname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@receiver_bank_account", receiverbankaccount, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@bank_reference", bankreference, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddOutputParameter("@tx_external_key_return", DbType.Int32, 0, 10);
+            
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Users Procedure
         /// </summary>
         public static StoredProcedure UpdateUsers(int? userkey, string title, string firstname, string middlename, string lastname, DateTime? dob, int? countryresidence, string email, string ipaddress, int? userkeyreturn)
@@ -132,6 +196,46 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Verification_Email Procedure
+        /// </summary>
+        public static StoredProcedure UpdateVerificationEmail(int? userkey, bool? isverified, string ipaddress, string uniquekey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Verification_Email", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@isverified", isverified, DbType.Boolean, null, null);
+        	
+            sp.Command.AddParameter("@ip_address", ipaddress, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@unique_key", uniquekey, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Admin_Deposits Procedure
+        /// </summary>
+        public static StoredProcedure ViewAdminDeposits(int? txexternalstatus)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Admin_Deposits", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@tx_external_status", txexternalstatus, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Banks Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoBanks()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Banks", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Info_Country_Code_List Procedure
         /// </summary>
         public static StoredProcedure ViewInfoCountryCodeList()
@@ -147,6 +251,16 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewInfoCountryList()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Country_List", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Currencies Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCurrencies()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Currencies", DataService.GetInstance("Peerfx"), "");
         	
             return sp;
         }
@@ -172,6 +286,58 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_System_Bank_Accounts Procedure
+        /// </summary>
+        public static StoredProcedure ViewSystemBankAccounts()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_System_Bank_Accounts", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the view_Transaction_External Procedure
+        /// </summary>
+        public static StoredProcedure ViewTransactionExternal()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("view_Transaction_External", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Admin Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersAdmin()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Admin", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_All Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersAll()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_All", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Email Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersEmail(string Email)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Email", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@Email", Email, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Users_Info Procedure
         /// </summary>
         public static StoredProcedure ViewUsersInfo(int? userkey)
@@ -191,6 +357,34 @@ namespace Peerfx_DB{
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Security_Answers", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Verified Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersVerified(int? userkey, int? verificationmethodskey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Verified", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@verification_methods_key", verificationmethodskey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Verified_byCode Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersVerifiedByCode(string uniquekey, int? verificationmethodskey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Verified_byCode", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@unique_key", uniquekey, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@verification_methods_key", verificationmethodskey, DbType.Int32, 0, 10);
         	
             return sp;
         }

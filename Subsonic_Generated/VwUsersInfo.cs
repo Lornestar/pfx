@@ -69,6 +69,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarUserKey);
                 
+                TableSchema.TableColumn colvarAccountNumber = new TableSchema.TableColumn(schema);
+                colvarAccountNumber.ColumnName = "account_number";
+                colvarAccountNumber.DataType = DbType.AnsiString;
+                colvarAccountNumber.MaxLength = 10;
+                colvarAccountNumber.AutoIncrement = false;
+                colvarAccountNumber.IsNullable = true;
+                colvarAccountNumber.IsPrimaryKey = false;
+                colvarAccountNumber.IsForeignKey = false;
+                colvarAccountNumber.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarAccountNumber);
+                
                 TableSchema.TableColumn colvarTitle = new TableSchema.TableColumn(schema);
                 colvarTitle.ColumnName = "title";
                 colvarTitle.DataType = DbType.String;
@@ -201,6 +213,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarUserStatus);
                 
+                TableSchema.TableColumn colvarIsadmin = new TableSchema.TableColumn(schema);
+                colvarIsadmin.ColumnName = "isadmin";
+                colvarIsadmin.DataType = DbType.Boolean;
+                colvarIsadmin.MaxLength = 0;
+                colvarIsadmin.AutoIncrement = false;
+                colvarIsadmin.IsNullable = true;
+                colvarIsadmin.IsPrimaryKey = false;
+                colvarIsadmin.IsForeignKey = false;
+                colvarIsadmin.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarIsadmin);
+                
                 TableSchema.TableColumn colvarAddress1 = new TableSchema.TableColumn(schema);
                 colvarAddress1.ColumnName = "address1";
                 colvarAddress1.DataType = DbType.String;
@@ -237,18 +261,6 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarCity);
                 
-                TableSchema.TableColumn colvarCountry = new TableSchema.TableColumn(schema);
-                colvarCountry.ColumnName = "country";
-                colvarCountry.DataType = DbType.Int32;
-                colvarCountry.MaxLength = 0;
-                colvarCountry.AutoIncrement = false;
-                colvarCountry.IsNullable = true;
-                colvarCountry.IsPrimaryKey = false;
-                colvarCountry.IsForeignKey = false;
-                colvarCountry.IsReadOnly = false;
-                
-                schema.Columns.Add(colvarCountry);
-                
                 TableSchema.TableColumn colvarState = new TableSchema.TableColumn(schema);
                 colvarState.ColumnName = "state";
                 colvarState.DataType = DbType.String;
@@ -260,6 +272,18 @@ namespace Peerfx_DB{
                 colvarState.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarState);
+                
+                TableSchema.TableColumn colvarCountry = new TableSchema.TableColumn(schema);
+                colvarCountry.ColumnName = "country";
+                colvarCountry.DataType = DbType.Int32;
+                colvarCountry.MaxLength = 0;
+                colvarCountry.AutoIncrement = false;
+                colvarCountry.IsNullable = true;
+                colvarCountry.IsPrimaryKey = false;
+                colvarCountry.IsForeignKey = false;
+                colvarCountry.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarCountry);
                 
                 TableSchema.TableColumn colvarPostalcode = new TableSchema.TableColumn(schema);
                 colvarPostalcode.ColumnName = "postalcode";
@@ -381,18 +405,6 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarPassportnumber);
                 
-                TableSchema.TableColumn colvarExpr1 = new TableSchema.TableColumn(schema);
-                colvarExpr1.ColumnName = "Expr1";
-                colvarExpr1.DataType = DbType.DateTime;
-                colvarExpr1.MaxLength = 0;
-                colvarExpr1.AutoIncrement = false;
-                colvarExpr1.IsNullable = true;
-                colvarExpr1.IsPrimaryKey = false;
-                colvarExpr1.IsForeignKey = false;
-                colvarExpr1.IsReadOnly = false;
-                
-                schema.Columns.Add(colvarExpr1);
-                
                 TableSchema.TableColumn colvarUsername = new TableSchema.TableColumn(schema);
                 colvarUsername.ColumnName = "username";
                 colvarUsername.DataType = DbType.String;
@@ -416,6 +428,18 @@ namespace Peerfx_DB{
                 colvarPassword.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarPassword);
+                
+                TableSchema.TableColumn colvarUserInfoFull = new TableSchema.TableColumn(schema);
+                colvarUserInfoFull.ColumnName = "user_info_full";
+                colvarUserInfoFull.DataType = DbType.String;
+                colvarUserInfoFull.MaxLength = 214;
+                colvarUserInfoFull.AutoIncrement = false;
+                colvarUserInfoFull.IsNullable = true;
+                colvarUserInfoFull.IsPrimaryKey = false;
+                colvarUserInfoFull.IsForeignKey = false;
+                colvarUserInfoFull.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarUserInfoFull);
                 
                 
                 BaseSchema = schema;
@@ -478,6 +502,20 @@ namespace Peerfx_DB{
             set 
 		    {
 			    SetColumnValue("user_key", value);
+            }
+        }
+	      
+        [XmlAttribute("AccountNumber")]
+        [Bindable(true)]
+        public string AccountNumber 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("account_number");
+		    }
+            set 
+		    {
+			    SetColumnValue("account_number", value);
             }
         }
 	      
@@ -635,6 +673,20 @@ namespace Peerfx_DB{
             }
         }
 	      
+        [XmlAttribute("Isadmin")]
+        [Bindable(true)]
+        public bool? Isadmin 
+	    {
+		    get
+		    {
+			    return GetColumnValue<bool?>("isadmin");
+		    }
+            set 
+		    {
+			    SetColumnValue("isadmin", value);
+            }
+        }
+	      
         [XmlAttribute("Address1")]
         [Bindable(true)]
         public string Address1 
@@ -677,20 +729,6 @@ namespace Peerfx_DB{
             }
         }
 	      
-        [XmlAttribute("Country")]
-        [Bindable(true)]
-        public int? Country 
-	    {
-		    get
-		    {
-			    return GetColumnValue<int?>("country");
-		    }
-            set 
-		    {
-			    SetColumnValue("country", value);
-            }
-        }
-	      
         [XmlAttribute("State")]
         [Bindable(true)]
         public string State 
@@ -702,6 +740,20 @@ namespace Peerfx_DB{
             set 
 		    {
 			    SetColumnValue("state", value);
+            }
+        }
+	      
+        [XmlAttribute("Country")]
+        [Bindable(true)]
+        public int? Country 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("country");
+		    }
+            set 
+		    {
+			    SetColumnValue("country", value);
             }
         }
 	      
@@ -845,20 +897,6 @@ namespace Peerfx_DB{
             }
         }
 	      
-        [XmlAttribute("Expr1")]
-        [Bindable(true)]
-        public DateTime? Expr1 
-	    {
-		    get
-		    {
-			    return GetColumnValue<DateTime?>("Expr1");
-		    }
-            set 
-		    {
-			    SetColumnValue("Expr1", value);
-            }
-        }
-	      
         [XmlAttribute("Username")]
         [Bindable(true)]
         public string Username 
@@ -886,6 +924,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("password", value);
             }
         }
+	      
+        [XmlAttribute("UserInfoFull")]
+        [Bindable(true)]
+        public string UserInfoFull 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("user_info_full");
+		    }
+            set 
+		    {
+			    SetColumnValue("user_info_full", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -895,6 +947,8 @@ namespace Peerfx_DB{
 		    
 		    
             public static string UserKey = @"user_key";
+            
+            public static string AccountNumber = @"account_number";
             
             public static string Title = @"title";
             
@@ -918,15 +972,17 @@ namespace Peerfx_DB{
             
             public static string UserStatus = @"user_status";
             
+            public static string Isadmin = @"isadmin";
+            
             public static string Address1 = @"address1";
             
             public static string Address2 = @"address2";
             
             public static string City = @"city";
             
-            public static string Country = @"country";
-            
             public static string State = @"state";
+            
+            public static string Country = @"country";
             
             public static string Postalcode = @"postalcode";
             
@@ -948,11 +1004,11 @@ namespace Peerfx_DB{
             
             public static string Passportnumber = @"passportnumber";
             
-            public static string Expr1 = @"Expr1";
-            
             public static string Username = @"username";
             
             public static string Password = @"password";
+            
+            public static string UserInfoFull = @"user_info_full";
             
 	    }
 	    #endregion

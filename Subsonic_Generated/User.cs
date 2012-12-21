@@ -139,6 +139,19 @@ namespace Peerfx_DB
 				colvarUserKey.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarUserKey);
 				
+				TableSchema.TableColumn colvarAccountNumber = new TableSchema.TableColumn(schema);
+				colvarAccountNumber.ColumnName = "account_number";
+				colvarAccountNumber.DataType = DbType.AnsiString;
+				colvarAccountNumber.MaxLength = 10;
+				colvarAccountNumber.AutoIncrement = false;
+				colvarAccountNumber.IsNullable = true;
+				colvarAccountNumber.IsPrimaryKey = false;
+				colvarAccountNumber.IsForeignKey = false;
+				colvarAccountNumber.IsReadOnly = false;
+				colvarAccountNumber.DefaultSetting = @"";
+				colvarAccountNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountNumber);
+				
 				TableSchema.TableColumn colvarTitle = new TableSchema.TableColumn(schema);
 				colvarTitle.ColumnName = "title";
 				colvarTitle.DataType = DbType.String;
@@ -282,6 +295,19 @@ namespace Peerfx_DB
 				colvarUserStatus.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarUserStatus);
 				
+				TableSchema.TableColumn colvarIsadmin = new TableSchema.TableColumn(schema);
+				colvarIsadmin.ColumnName = "isadmin";
+				colvarIsadmin.DataType = DbType.Boolean;
+				colvarIsadmin.MaxLength = 0;
+				colvarIsadmin.AutoIncrement = false;
+				colvarIsadmin.IsNullable = true;
+				colvarIsadmin.IsPrimaryKey = false;
+				colvarIsadmin.IsForeignKey = false;
+				colvarIsadmin.IsReadOnly = false;
+				colvarIsadmin.DefaultSetting = @"";
+				colvarIsadmin.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsadmin);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -298,6 +324,14 @@ namespace Peerfx_DB
 		{
 			get { return GetColumnValue<int>(Columns.UserKey); }
 			set { SetColumnValue(Columns.UserKey, value); }
+		}
+		  
+		[XmlAttribute("AccountNumber")]
+		[Bindable(true)]
+		public string AccountNumber 
+		{
+			get { return GetColumnValue<string>(Columns.AccountNumber); }
+			set { SetColumnValue(Columns.AccountNumber, value); }
 		}
 		  
 		[XmlAttribute("Title")]
@@ -387,6 +421,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<int?>(Columns.UserStatus); }
 			set { SetColumnValue(Columns.UserStatus, value); }
 		}
+		  
+		[XmlAttribute("Isadmin")]
+		[Bindable(true)]
+		public bool? Isadmin 
+		{
+			get { return GetColumnValue<bool?>(Columns.Isadmin); }
+			set { SetColumnValue(Columns.Isadmin, value); }
+		}
 		
 		#endregion
 		
@@ -407,9 +449,11 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus)
+		public static void Insert(string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,bool? varIsadmin)
 		{
 			User item = new User();
+			
+			item.AccountNumber = varAccountNumber;
 			
 			item.Title = varTitle;
 			
@@ -433,6 +477,8 @@ namespace Peerfx_DB
 			
 			item.UserStatus = varUserStatus;
 			
+			item.Isadmin = varIsadmin;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -443,11 +489,13 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus)
+		public static void Update(int varUserKey,string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,bool? varIsadmin)
 		{
 			User item = new User();
 			
 				item.UserKey = varUserKey;
+			
+				item.AccountNumber = varAccountNumber;
 			
 				item.Title = varTitle;
 			
@@ -471,6 +519,8 @@ namespace Peerfx_DB
 			
 				item.UserStatus = varUserStatus;
 			
+				item.Isadmin = varIsadmin;
+			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -491,79 +541,93 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn TitleColumn
+        public static TableSchema.TableColumn AccountNumberColumn
         {
             get { return Schema.Columns[1]; }
         }
         
         
         
-        public static TableSchema.TableColumn FirstNameColumn
+        public static TableSchema.TableColumn TitleColumn
         {
             get { return Schema.Columns[2]; }
         }
         
         
         
-        public static TableSchema.TableColumn MiddleNameColumn
+        public static TableSchema.TableColumn FirstNameColumn
         {
             get { return Schema.Columns[3]; }
         }
         
         
         
-        public static TableSchema.TableColumn LastNameColumn
+        public static TableSchema.TableColumn MiddleNameColumn
         {
             get { return Schema.Columns[4]; }
         }
         
         
         
-        public static TableSchema.TableColumn DobColumn
+        public static TableSchema.TableColumn LastNameColumn
         {
             get { return Schema.Columns[5]; }
         }
         
         
         
-        public static TableSchema.TableColumn CountryResidenceColumn
+        public static TableSchema.TableColumn DobColumn
         {
             get { return Schema.Columns[6]; }
         }
         
         
         
-        public static TableSchema.TableColumn EmailColumn
+        public static TableSchema.TableColumn CountryResidenceColumn
         {
             get { return Schema.Columns[7]; }
         }
         
         
         
-        public static TableSchema.TableColumn IpAddressColumn
+        public static TableSchema.TableColumn EmailColumn
         {
             get { return Schema.Columns[8]; }
         }
         
         
         
-        public static TableSchema.TableColumn LastChangedColumn
+        public static TableSchema.TableColumn IpAddressColumn
         {
             get { return Schema.Columns[9]; }
         }
         
         
         
-        public static TableSchema.TableColumn SignedUpColumn
+        public static TableSchema.TableColumn LastChangedColumn
         {
             get { return Schema.Columns[10]; }
         }
         
         
         
-        public static TableSchema.TableColumn UserStatusColumn
+        public static TableSchema.TableColumn SignedUpColumn
         {
             get { return Schema.Columns[11]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn UserStatusColumn
+        {
+            get { return Schema.Columns[12]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn IsadminColumn
+        {
+            get { return Schema.Columns[13]; }
         }
         
         
@@ -573,6 +637,7 @@ namespace Peerfx_DB
 		public struct Columns
 		{
 			 public static string UserKey = @"user_key";
+			 public static string AccountNumber = @"account_number";
 			 public static string Title = @"title";
 			 public static string FirstName = @"first_name";
 			 public static string MiddleName = @"middle_name";
@@ -584,6 +649,7 @@ namespace Peerfx_DB
 			 public static string LastChanged = @"last_changed";
 			 public static string SignedUp = @"signed_up";
 			 public static string UserStatus = @"user_status";
+			 public static string Isadmin = @"isadmin";
 						
 		}
 		#endregion
