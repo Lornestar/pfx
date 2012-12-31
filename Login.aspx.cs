@@ -31,6 +31,7 @@ namespace Peerfx
             {
                 //log them in                           
                 HttpContext.Current.Session["currentuser"] = user;
+                Response.Redirect("/User/Dashboard.aspx");
             }
             else
             {

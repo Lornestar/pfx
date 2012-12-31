@@ -19,8 +19,9 @@ namespace Peerfx.User_Controls
                 //is logged in
                 pnlLoginSignup.Visible = false;
                 pnlSignedIn.Visible = true;
-                Users users = sitetemp.getcurrentuser();
+                Users users = sitetemp.getcurrentuser(false);
                 lblusername.Text = users.Email;
+                hypAdmin.Visible = true;
             }
         }
 

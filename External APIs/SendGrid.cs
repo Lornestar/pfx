@@ -8,7 +8,7 @@ using System.Web.Security;
 using System.Net.Mail;
 using System.Net.Mime;
 
-namespace Peerfx
+namespace Peerfx.External_APIs
 {
     public class SendGrid
     {

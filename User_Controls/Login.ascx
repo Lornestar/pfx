@@ -10,6 +10,8 @@
                 <div style="float:right;">
                 <asp:Label ID=lblusername runat=server>Email Address</asp:Label>
                 <br />
+                <asp:HyperLink ID=hypAdmin runat=server Text="Admin Stuff" runat=server NavigateUrl="~/Admin/Admin_Default.aspx"></asp:HyperLink>
+                <br />
                 <telerik:RadButton ID=btnlogout runat=server Text="Logout" 
                         onclick="btnlogout_Click"></telerik:RadButton>
                 </div>

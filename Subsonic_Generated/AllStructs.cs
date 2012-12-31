@@ -28,11 +28,15 @@ namespace Peerfx_DB
         
 		public static readonly string InfoCurrency = @"Info_Currencies";
         
+		public static readonly string InfoFeeType = @"Info_Fee_Types";
+        
 		public static readonly string InfoPhoneType = @"Info_Phone_Type";
         
 		public static readonly string InfoSecurityQuestion = @"Info_Security_Questions";
         
 		public static readonly string InfoVerificationMethod = @"Info_Verification_Methods";
+        
+		public static readonly string TransactionFee = @"Transaction_Fees";
         
 		public static readonly string TransactionsExternal = @"Transactions_External";
         
@@ -76,6 +80,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Info_Currencies", "Peerfx"); }
 		}
         
+		public static TableSchema.Table InfoFeeType
+		{
+            get { return DataService.GetSchema("Info_Fee_Types", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table InfoPhoneType
 		{
             get { return DataService.GetSchema("Info_Phone_Type", "Peerfx"); }
@@ -89,6 +98,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table InfoVerificationMethod
 		{
             get { return DataService.GetSchema("Info_Verification_Methods", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table TransactionFee
+		{
+            get { return DataService.GetSchema("Transaction_Fees", "Peerfx"); }
 		}
         
 		public static TableSchema.Table TransactionsExternal

@@ -18,6 +18,7 @@
                             <telerik:GridBoundColumn DataField="last_changed" HeaderText="Last Online" UniqueName="last_changed">
                             </telerik:GridBoundColumn>  
                         </Columns>
+                        <CommandItemSettings ShowAddNewRecordButton=false />
                     </MasterTableView>
                 </telerik:RadGrid>
 

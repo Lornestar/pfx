@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Peerfx.Models;
+using System.Configuration;
 
 namespace Peerfx
 {
@@ -17,7 +18,7 @@ namespace Peerfx
 
         }
 
-        public Users getcurrentuser()
+        public Users getcurrentuser(bool MustbeAdmin)
         {
             Users user = new Users();
             //Check if logged in
@@ -25,11 +26,18 @@ namespace Peerfx
             {
                 //User logged in
                 user = (Users)HttpContext.Current.Session["currentuser"];
+                user = view_users_info(user.User_key);
+                HttpContext.Current.Session["currentuser"] = user;
+                if ((user.Isadmin == false) && (MustbeAdmin))
+                {
+                    //Redirect to login page
+                    HttpContext.Current.Response.Redirect(ConfigurationSettings.AppSettings["Root_url"] + "Login.aspx");
+                }
             }
             else
             {
                 //Redirect to login page
-                Response.Redirect("Login.aspx");
+                HttpContext.Current.Response.Redirect(ConfigurationSettings.AppSettings["Root_url"] + "Login.aspx");
             }
             return user;
         }
@@ -261,5 +269,19 @@ namespace Peerfx
             DataSet dstemp = Peerfx_DB.SPs.ViewUsersAll().GetDataSet();
             return dstemp.Tables[0];
         }
+
+        public DataTable view_transaction_fees(int tx_type)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewTransactionFees(tx_type).GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public DataTable view_transaction_fees_txkey(int tx_type, int tx_key)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewTransactionFeesTxkey(tx_type, tx_key).GetDataSet();
+            return dstemp.Tables[0];
+        }
+        
+        
     }
 }

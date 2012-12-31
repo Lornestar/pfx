@@ -1,17 +1,14 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="Peerfx.Admin.Admin" %>
 
 <%@ Register Src="~/User_Controls/Login.ascx" tagname="Login" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/Header.ascx" tagname="Header" tagprefix="uc2" %>
+<%@ Register Src="~/User_Controls/Footer.ascx" tagname="Footer" tagprefix="uc3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>Peerfx - Clever Currency</title>
-    <link href="../Peerfx.css" rel="stylesheet" type="text/css" />
-    <META NAME="GOOGLEBOT" CONTENT="NOINDEX, NOFOLLOW">
-    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <uc2:Header id="ucHeader" runat="Server"></uc2:Header>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -31,7 +28,7 @@
                                     </a>
                                 </td>
                                 <td style=" float:right;">
-                                    <table border=1>
+                                    <table >
                                         <tr>
                                             <td>
                                                 Home
@@ -66,10 +63,16 @@
                         </asp:ContentPlaceHolder>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <uc3:Footer id="Footer" runat="Server"></uc3:Footer>
+                    </td>
+                </tr>
             </table>
         </center>
         
-    </div>
+    </div>    
     </form>
 </body>
 </html>
+

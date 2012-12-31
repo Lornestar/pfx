@@ -2,7 +2,6 @@
 
 <%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
-
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1">
 
 <telerik:RadTabStrip ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" OnTabClick="RadTabStrip1_TabClick">
@@ -19,10 +18,71 @@
                 <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0">
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
                         
-                        <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False"  OnNeedDataSource="RadGrid1_NeedDataSource"
-                         OnInsertCommand="RadGrid1_InsertCommand" OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true">
-                             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="tx_external_key" AutoGenerateColumns="False" InsertItemPageIndexAction="ShowItemOnCurrentPage">
-                                <Columns>                                                                        
+                        <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False" AllowAutomaticUpdates="False" OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true"
+                         OnDetailTableDataBind="RadGrid1_DetailTableDataBind" OnItemUpdated="RadGrid1_ItemUpdated"  AllowMultiRowEdit="True"
+                         AllowAutomaticDeletes="True">
+                             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="tx_external_key" AutoGenerateColumns="False" InsertItemPageIndexAction="ShowItemOnCurrentPage" Name="Deposits" >
+                                <DetailTables>
+                                    <telerik:GridTableView DataKeyNames="tx_fees_key" Name="Fees" Width="100%" CommandItemDisplay="Top" AllowAutomaticInserts="False" AutoGenerateColumns="False" AllowAutomaticUpdates="False">
+                                        <Columns>       
+                                        <telerik:GridEditCommandColumn ButtonType="ImageButton" UniqueName="EditCommandColumn1">
+                                            <HeaderStyle Width="20px"></HeaderStyle>
+                                            <ItemStyle CssClass="MyImageButton"></ItemStyle>
+                                        </telerik:GridEditCommandColumn>                                                           
+                                            <telerik:GridTemplateColumn DataField="tx_fees_key" HeaderText="Key" UniqueName="tx_fees_key" SortExpression="tx_fees_key">
+                                                <InsertItemTemplate>                                            
+                                                </InsertItemTemplate>
+                                                <EditItemTemplate>
+                                                    <asp:Label ID=lbltxfeeskey runat=server Visible=false></asp:Label>
+                                                </EditItemTemplate>
+                                             </telerik:GridTemplateColumn>
+                                             <telerik:GridTemplateColumn DataField="amount" HeaderText="Amount" UniqueName="amount" >
+                                                <InsertItemTemplate>
+                                                    <telerik:radnumerictextbox ID=txtamount runat=server Type=Currency >
+                                                    </telerik:radnumerictextbox>
+                                                </InsertItemTemplate>                                                                                        
+                                                <EditItemTemplate>
+                                                    <telerik:radnumerictextbox ID=txtamount runat=server Type=Currency >
+                                                    </telerik:radnumerictextbox>
+                                                </EditItemTemplate>
+                                             </telerik:GridTemplateColumn>                                         
+                                         <telerik:GridTemplateColumn DataField="info_currency_code" HeaderText="Currency" UniqueName="info_currency_code" >
+                                            <InsertItemTemplate>
+                                                <telerik:RadComboBox ID="ddlcurrency" runat="server" Width="150px">
+                                                </telerik:RadComboBox>
+                                            </InsertItemTemplate>
+                                            <EditItemTemplate>
+                                                <telerik:RadComboBox ID="ddlcurrency" runat="server" Width="150px">
+                                                </telerik:RadComboBox>
+                                            </EditItemTemplate>
+                                         </telerik:GridTemplateColumn>
+                                         <telerik:GridBoundColumn DataField="description" HeaderText="Description" SortExpression="description"
+                                            UniqueName="description" >                                        
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn DataField="date_created" HeaderText="Date" UniqueName="date_created">
+                                            <InsertItemTemplate>                                            
+                                            </InsertItemTemplate>
+                                            <EditItemTemplate>
+                                            </EditItemTemplate>
+                                         </telerik:GridTemplateColumn>
+                                        </Columns>
+                                        <AlternatingItemStyle BackColor="#EEEEEE" />                                                                                
+                                        <CommandItemSettings ShowAddNewRecordButton="true" AddNewRecordText="Add New Fee" />                                        
+                                        <EditFormSettings ColumnNumber="2" CaptionDataField="tx_fees_key" InsertCaption="New Fee">
+                                            <FormTableItemStyle Wrap="False"></FormTableItemStyle>
+                                            <FormCaptionStyle CssClass="EditFormHeader"></FormCaptionStyle>
+                                            <FormMainTableStyle GridLines="None" CellSpacing="0" CellPadding="3"
+                                                Width="100%"></FormMainTableStyle>
+                                            <FormTableStyle CellSpacing="0" CellPadding="2" Height="110px">
+                                            </FormTableStyle>
+                                            <FormTableAlternatingItemStyle Wrap="False"></FormTableAlternatingItemStyle>
+                                            <EditColumn ButtonType=PushButton InsertText="Insert Deposit" UniqueName="EditCommandColumn1" CancelText="Cancel">                                                                                  </EditColumn>
+                                            <FormTableButtonRowStyle HorizontalAlign="Right" CssClass="EditFormButtonRow"></FormTableButtonRowStyle>                                    
+                                        </EditFormSettings>
+                                        
+                                    </telerik:GridTableView>
+                                </DetailTables>
+                                <Columns>                                         
                                     <telerik:GridTemplateColumn DataField="tx_external_key" HeaderText="Key" UniqueName="tx_external_key" SortExpression="tx_external_key">
                                         <InsertItemTemplate>                                            
                                         </InsertItemTemplate>
@@ -54,6 +114,10 @@
                                             </telerik:radnumerictextbox>
                                         </InsertItemTemplate>
                                      </telerik:GridTemplateColumn>                                     
+                                     <telerik:GridTemplateColumn DataField="proceeds" HeaderText="Proceeds" UniqueName="proceeds" SortExpression="proceeds">
+                                                <InsertItemTemplate>                                            
+                                                </InsertItemTemplate>
+                                             </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn DataField="last_changed" HeaderText="Date" UniqueName="last_changed">
                                         <InsertItemTemplate>                                            
                                         </InsertItemTemplate>
@@ -77,8 +141,9 @@
                                                 </tr>
                                             </table>                                                                                        
                                         </ItemTemplate>
-                                     </telerik:GridTemplateColumn>
+                                     </telerik:GridTemplateColumn>                                     
                                 </Columns>
+                                <CommandItemSettings ShowAddNewRecordButton="true" AddNewRecordText="Add New Deposit"/>
                                 <AlternatingItemStyle BackColor="#EEEEEE" />
                                  <EditFormSettings ColumnNumber="2" CaptionDataField="tx_external_key" InsertCaption="New Deposit">
                                     <FormTableItemStyle Wrap="False"></FormTableItemStyle>

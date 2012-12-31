@@ -114,6 +114,15 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Signup.aspx" />
+    <Content Include="TestCurrencyCloud.aspx" />
+    <Content Include="TestRadgrid.aspx" />
+    <Content Include="User\Add_Funds.aspx" />
+    <Content Include="User\Dashboard.aspx" />
+    <Content Include="User\Exchange.aspx" />
+    <Content Include="User\Settings.aspx" />
+    <Content Include="User\Withdraw.aspx" />
+    <Content Include="User_Controls\Footer.ascx" />
+    <Content Include="User_Controls\Header.ascx" />
     <Content Include="User_Controls\Login.ascx" />
     <Content Include="Verification_Email.aspx" />
     <Content Include="Web.config" />
@@ -160,6 +169,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="External APIs\CurrencyCloud.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,7 +179,7 @@
     </Compile>
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendGrid.cs" />
+    <Compile Include="External APIs\SendGrid.cs" />
     <Compile Include="Signup.aspx.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -188,6 +198,76 @@
     <Compile Include="Subsonic_Generated\StoredProcedures.cs" />
     <Compile Include="Subsonic_Generated\User.cs" />
     <Compile Include="Subsonic_Generated\UserController.cs" />
+    <Compile Include="TestCurrencyCloud.aspx.cs">
+      <DependentUpon>TestCurrencyCloud.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestCurrencyCloud.aspx.designer.cs">
+      <DependentUpon>TestCurrencyCloud.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestRadgrid.aspx.cs">
+      <DependentUpon>TestRadgrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestRadgrid.aspx.designer.cs">
+      <DependentUpon>TestRadgrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Add_Funds.aspx.cs">
+      <DependentUpon>Add_Funds.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Add_Funds.aspx.designer.cs">
+      <DependentUpon>Add_Funds.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Exchange.aspx.cs">
+      <DependentUpon>Exchange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Exchange.aspx.designer.cs">
+      <DependentUpon>Exchange.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\User.Master.cs">
+      <DependentUpon>User.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\User.Master.designer.cs">
+      <DependentUpon>User.Master</DependentUpon>
+    </Compile>
+    <Compile Include="User\Withdraw.aspx.cs">
+      <DependentUpon>Withdraw.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Withdraw.aspx.designer.cs">
+      <DependentUpon>Withdraw.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\Footer.ascx.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\Footer.ascx.designer.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\Login.ascx.cs">
       <DependentUpon>Login.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -210,6 +290,7 @@
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <None Include="App_Data\RadSpell\fr-FR.tdf" />
     <Content Include="Site.Master" />
+    <Content Include="User\User.Master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -230,7 +311,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

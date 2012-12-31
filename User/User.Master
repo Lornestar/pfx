@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="User.master.cs" Inherits="Peerfx.User.User" %>
+<%@ Register Src="~/User_Controls/Login.ascx" tagname="Login" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/Header.ascx" tagname="Header" tagprefix="uc2" %>
+<%@ Register Src="~/User_Controls/Footer.ascx" tagname="Footer" tagprefix="uc3" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <uc2:Header id="ucHeader" runat="Server"></uc2:Header>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <telerik:RadScriptManager ID="ScriptManager" runat="server" />       
+        <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+        </telerik:RadAjaxLoadingPanel>     
+        <center>
+            <table width="950px">
+                <tr>
+                    <td>
+                        <table width=100%>
+                            <tr>
+                                <td>
+                                <a href="Dashboard.aspx">
+                                    <img src="../Images/Peerfx_logo.png" />
+                                    </a>
+                                </td>
+                                <td style=" float:right;">
+                                    <table >
+                                        <tr>
+                                            <td>
+                                                <a href="Dashboard.aspx">Home</a>
+                                            </td>                                            
+                                            <td>
+                                                | <a href="Add_Funds.aspx">Add Funds</a>
+                                            </td>
+                                            <td>
+                                                | <a href="Withdraw.aspx">Withdraw</a>
+                                            </td>
+                                            <td>
+                                                | <a href="Exchange.aspx">Exchange Funds</a>
+                                            </td>
+                                            <td>
+                                                | <a href="Settings.aspx">Account Settings</a>
+                                            </td>
+                                            <td>
+                                                | Contact us
+                                            </td>
+                                            <td>
+                                                <uc1:Login id="ucLogin" runat="Server"></uc1:Login>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>                                
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:ContentPlaceHolder ID="Main" runat="server">
+        
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <uc3:Footer id="Footer" runat="Server"></uc3:Footer>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        
+    </div>
+    
+    </form>
+</body>
+</html>

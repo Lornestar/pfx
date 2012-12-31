@@ -205,7 +205,7 @@ namespace Peerfx
                 lblclientnumber.Text = dtuserinfo.Rows[0]["user_key"].ToString();
 
                 //send verification email
-                SendGrid sg = new SendGrid();
+                External_APIs.SendGrid sg = new External_APIs.SendGrid();
                 sg.Send_Email_Verification(user_key);
             }
             else
