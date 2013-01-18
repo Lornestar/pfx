@@ -152,6 +152,19 @@ namespace Peerfx_DB
 				colvarOrganizationName.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarOrganizationName);
 				
+				TableSchema.TableColumn colvarDescription = new TableSchema.TableColumn(schema);
+				colvarDescription.ColumnName = "description";
+				colvarDescription.DataType = DbType.String;
+				colvarDescription.MaxLength = 100;
+				colvarDescription.AutoIncrement = false;
+				colvarDescription.IsNullable = true;
+				colvarDescription.IsPrimaryKey = false;
+				colvarDescription.IsForeignKey = false;
+				colvarDescription.IsReadOnly = false;
+				colvarDescription.DefaultSetting = @"";
+				colvarDescription.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDescription);
+				
 				TableSchema.TableColumn colvarFeeBase = new TableSchema.TableColumn(schema);
 				colvarFeeBase.ColumnName = "fee_base";
 				colvarFeeBase.DataType = DbType.Currency;
@@ -269,6 +282,14 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.OrganizationName, value); }
 		}
 		  
+		[XmlAttribute("Description")]
+		[Bindable(true)]
+		public string Description 
+		{
+			get { return GetColumnValue<string>(Columns.Description); }
+			set { SetColumnValue(Columns.Description, value); }
+		}
+		  
 		[XmlAttribute("FeeBase")]
 		[Bindable(true)]
 		public decimal? FeeBase 
@@ -344,11 +365,13 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varOrganizationName,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2)
+		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
 			item.OrganizationName = varOrganizationName;
+			
+			item.Description = varDescription;
 			
 			item.FeeBase = varFeeBase;
 			
@@ -374,13 +397,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varInfoFeeTypes,string varOrganizationName,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2)
+		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
 				item.InfoFeeTypes = varInfoFeeTypes;
 			
 				item.OrganizationName = varOrganizationName;
+			
+				item.Description = varDescription;
 			
 				item.FeeBase = varFeeBase;
 			
@@ -423,51 +448,58 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn FeeBaseColumn
+        public static TableSchema.TableColumn DescriptionColumn
         {
             get { return Schema.Columns[2]; }
         }
         
         
         
-        public static TableSchema.TableColumn FeePercentageColumn
+        public static TableSchema.TableColumn FeeBaseColumn
         {
             get { return Schema.Columns[3]; }
         }
         
         
         
-        public static TableSchema.TableColumn FeeAddonColumn
+        public static TableSchema.TableColumn FeePercentageColumn
         {
             get { return Schema.Columns[4]; }
         }
         
         
         
-        public static TableSchema.TableColumn FeeMinColumn
+        public static TableSchema.TableColumn FeeAddonColumn
         {
             get { return Schema.Columns[5]; }
         }
         
         
         
-        public static TableSchema.TableColumn FeeMaxColumn
+        public static TableSchema.TableColumn FeeMinColumn
         {
             get { return Schema.Columns[6]; }
         }
         
         
         
-        public static TableSchema.TableColumn Currency1Column
+        public static TableSchema.TableColumn FeeMaxColumn
         {
             get { return Schema.Columns[7]; }
         }
         
         
         
-        public static TableSchema.TableColumn Currency2Column
+        public static TableSchema.TableColumn Currency1Column
         {
             get { return Schema.Columns[8]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn Currency2Column
+        {
+            get { return Schema.Columns[9]; }
         }
         
         
@@ -478,6 +510,7 @@ namespace Peerfx_DB
 		{
 			 public static string InfoFeeTypes = @"info_fee_types";
 			 public static string OrganizationName = @"organization_name";
+			 public static string Description = @"description";
 			 public static string FeeBase = @"fee_base";
 			 public static string FeePercentage = @"fee_percentage";
 			 public static string FeeAddon = @"fee_addon";

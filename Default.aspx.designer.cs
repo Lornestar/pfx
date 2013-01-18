@@ -13,12 +13,12 @@ namespace Peerfx {
     public partial class _Default {
         
         /// <summary>
-        /// btnsignup control.
+        /// ucExchangeCurrency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnsignup;
+        protected global::Peerfx.User_Controls.ExchangeCurrency ucExchangeCurrency;
     }
 }

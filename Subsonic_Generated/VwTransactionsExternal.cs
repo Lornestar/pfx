@@ -213,6 +213,78 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarBankReference);
                 
+                TableSchema.TableColumn colvarSenderBankName = new TableSchema.TableColumn(schema);
+                colvarSenderBankName.ColumnName = "sender_bank_name";
+                colvarSenderBankName.DataType = DbType.String;
+                colvarSenderBankName.MaxLength = 50;
+                colvarSenderBankName.AutoIncrement = false;
+                colvarSenderBankName.IsNullable = true;
+                colvarSenderBankName.IsPrimaryKey = false;
+                colvarSenderBankName.IsForeignKey = false;
+                colvarSenderBankName.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarSenderBankName);
+                
+                TableSchema.TableColumn colvarSenderBankAccount = new TableSchema.TableColumn(schema);
+                colvarSenderBankAccount.ColumnName = "sender_bank_account";
+                colvarSenderBankAccount.DataType = DbType.AnsiString;
+                colvarSenderBankAccount.MaxLength = 50;
+                colvarSenderBankAccount.AutoIncrement = false;
+                colvarSenderBankAccount.IsNullable = true;
+                colvarSenderBankAccount.IsPrimaryKey = false;
+                colvarSenderBankAccount.IsForeignKey = false;
+                colvarSenderBankAccount.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarSenderBankAccount);
+                
+                TableSchema.TableColumn colvarReceiverBankName = new TableSchema.TableColumn(schema);
+                colvarReceiverBankName.ColumnName = "receiver_bank_name";
+                colvarReceiverBankName.DataType = DbType.String;
+                colvarReceiverBankName.MaxLength = 50;
+                colvarReceiverBankName.AutoIncrement = false;
+                colvarReceiverBankName.IsNullable = true;
+                colvarReceiverBankName.IsPrimaryKey = false;
+                colvarReceiverBankName.IsForeignKey = false;
+                colvarReceiverBankName.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarReceiverBankName);
+                
+                TableSchema.TableColumn colvarReceiverBankAccount = new TableSchema.TableColumn(schema);
+                colvarReceiverBankAccount.ColumnName = "receiver_bank_account";
+                colvarReceiverBankAccount.DataType = DbType.AnsiString;
+                colvarReceiverBankAccount.MaxLength = 50;
+                colvarReceiverBankAccount.AutoIncrement = false;
+                colvarReceiverBankAccount.IsNullable = true;
+                colvarReceiverBankAccount.IsPrimaryKey = false;
+                colvarReceiverBankAccount.IsForeignKey = false;
+                colvarReceiverBankAccount.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarReceiverBankAccount);
+                
+                TableSchema.TableColumn colvarDateCreated = new TableSchema.TableColumn(schema);
+                colvarDateCreated.ColumnName = "date_created";
+                colvarDateCreated.DataType = DbType.DateTime;
+                colvarDateCreated.MaxLength = 0;
+                colvarDateCreated.AutoIncrement = false;
+                colvarDateCreated.IsNullable = true;
+                colvarDateCreated.IsPrimaryKey = false;
+                colvarDateCreated.IsForeignKey = false;
+                colvarDateCreated.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarDateCreated);
+                
+                TableSchema.TableColumn colvarDateProcessed = new TableSchema.TableColumn(schema);
+                colvarDateProcessed.ColumnName = "date_processed";
+                colvarDateProcessed.DataType = DbType.DateTime;
+                colvarDateProcessed.MaxLength = 0;
+                colvarDateProcessed.AutoIncrement = false;
+                colvarDateProcessed.IsNullable = true;
+                colvarDateProcessed.IsPrimaryKey = false;
+                colvarDateProcessed.IsForeignKey = false;
+                colvarDateProcessed.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarDateProcessed);
+                
                 TableSchema.TableColumn colvarInfoCurrenciesKey = new TableSchema.TableColumn(schema);
                 colvarInfoCurrenciesKey.ColumnName = "info_currencies_key";
                 colvarInfoCurrenciesKey.DataType = DbType.Int32;
@@ -261,53 +333,65 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarInfoCurrencyCountry);
                 
-                TableSchema.TableColumn colvarSenderBankName = new TableSchema.TableColumn(schema);
-                colvarSenderBankName.ColumnName = "sender_bank_name";
-                colvarSenderBankName.DataType = DbType.String;
-                colvarSenderBankName.MaxLength = 50;
-                colvarSenderBankName.AutoIncrement = false;
-                colvarSenderBankName.IsNullable = true;
-                colvarSenderBankName.IsPrimaryKey = false;
-                colvarSenderBankName.IsForeignKey = false;
-                colvarSenderBankName.IsReadOnly = false;
+                TableSchema.TableColumn colvarVwSenderBankName = new TableSchema.TableColumn(schema);
+                colvarVwSenderBankName.ColumnName = "vw_sender_bank_name";
+                colvarVwSenderBankName.DataType = DbType.String;
+                colvarVwSenderBankName.MaxLength = 50;
+                colvarVwSenderBankName.AutoIncrement = false;
+                colvarVwSenderBankName.IsNullable = true;
+                colvarVwSenderBankName.IsPrimaryKey = false;
+                colvarVwSenderBankName.IsForeignKey = false;
+                colvarVwSenderBankName.IsReadOnly = false;
                 
-                schema.Columns.Add(colvarSenderBankName);
+                schema.Columns.Add(colvarVwSenderBankName);
                 
-                TableSchema.TableColumn colvarSenderBankAccount = new TableSchema.TableColumn(schema);
-                colvarSenderBankAccount.ColumnName = "sender_bank_account";
-                colvarSenderBankAccount.DataType = DbType.AnsiString;
-                colvarSenderBankAccount.MaxLength = 50;
-                colvarSenderBankAccount.AutoIncrement = false;
-                colvarSenderBankAccount.IsNullable = true;
-                colvarSenderBankAccount.IsPrimaryKey = false;
-                colvarSenderBankAccount.IsForeignKey = false;
-                colvarSenderBankAccount.IsReadOnly = false;
+                TableSchema.TableColumn colvarVwSenderBankAccount = new TableSchema.TableColumn(schema);
+                colvarVwSenderBankAccount.ColumnName = "vw_sender_bank_account";
+                colvarVwSenderBankAccount.DataType = DbType.AnsiString;
+                colvarVwSenderBankAccount.MaxLength = 50;
+                colvarVwSenderBankAccount.AutoIncrement = false;
+                colvarVwSenderBankAccount.IsNullable = true;
+                colvarVwSenderBankAccount.IsPrimaryKey = false;
+                colvarVwSenderBankAccount.IsForeignKey = false;
+                colvarVwSenderBankAccount.IsReadOnly = false;
                 
-                schema.Columns.Add(colvarSenderBankAccount);
+                schema.Columns.Add(colvarVwSenderBankAccount);
                 
-                TableSchema.TableColumn colvarReceiverBankName = new TableSchema.TableColumn(schema);
-                colvarReceiverBankName.ColumnName = "receiver_bank_name";
-                colvarReceiverBankName.DataType = DbType.String;
-                colvarReceiverBankName.MaxLength = 50;
-                colvarReceiverBankName.AutoIncrement = false;
-                colvarReceiverBankName.IsNullable = true;
-                colvarReceiverBankName.IsPrimaryKey = false;
-                colvarReceiverBankName.IsForeignKey = false;
-                colvarReceiverBankName.IsReadOnly = false;
+                TableSchema.TableColumn colvarVwReceiverBankName = new TableSchema.TableColumn(schema);
+                colvarVwReceiverBankName.ColumnName = "vw_receiver_bank_name";
+                colvarVwReceiverBankName.DataType = DbType.String;
+                colvarVwReceiverBankName.MaxLength = 50;
+                colvarVwReceiverBankName.AutoIncrement = false;
+                colvarVwReceiverBankName.IsNullable = true;
+                colvarVwReceiverBankName.IsPrimaryKey = false;
+                colvarVwReceiverBankName.IsForeignKey = false;
+                colvarVwReceiverBankName.IsReadOnly = false;
                 
-                schema.Columns.Add(colvarReceiverBankName);
+                schema.Columns.Add(colvarVwReceiverBankName);
                 
-                TableSchema.TableColumn colvarReceiverBankAccount = new TableSchema.TableColumn(schema);
-                colvarReceiverBankAccount.ColumnName = "receiver_bank_account";
-                colvarReceiverBankAccount.DataType = DbType.AnsiString;
-                colvarReceiverBankAccount.MaxLength = 50;
-                colvarReceiverBankAccount.AutoIncrement = false;
-                colvarReceiverBankAccount.IsNullable = true;
-                colvarReceiverBankAccount.IsPrimaryKey = false;
-                colvarReceiverBankAccount.IsForeignKey = false;
-                colvarReceiverBankAccount.IsReadOnly = false;
+                TableSchema.TableColumn colvarVwReceiverBankAccount = new TableSchema.TableColumn(schema);
+                colvarVwReceiverBankAccount.ColumnName = "vw_receiver_bank_account";
+                colvarVwReceiverBankAccount.DataType = DbType.AnsiString;
+                colvarVwReceiverBankAccount.MaxLength = 50;
+                colvarVwReceiverBankAccount.AutoIncrement = false;
+                colvarVwReceiverBankAccount.IsNullable = true;
+                colvarVwReceiverBankAccount.IsPrimaryKey = false;
+                colvarVwReceiverBankAccount.IsForeignKey = false;
+                colvarVwReceiverBankAccount.IsReadOnly = false;
                 
-                schema.Columns.Add(colvarReceiverBankAccount);
+                schema.Columns.Add(colvarVwReceiverBankAccount);
+                
+                TableSchema.TableColumn colvarProceeds = new TableSchema.TableColumn(schema);
+                colvarProceeds.ColumnName = "proceeds";
+                colvarProceeds.DataType = DbType.Decimal;
+                colvarProceeds.MaxLength = 0;
+                colvarProceeds.AutoIncrement = false;
+                colvarProceeds.IsNullable = true;
+                colvarProceeds.IsPrimaryKey = false;
+                colvarProceeds.IsForeignKey = false;
+                colvarProceeds.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarProceeds);
                 
                 
                 BaseSchema = schema;
@@ -541,6 +625,90 @@ namespace Peerfx_DB{
             }
         }
 	      
+        [XmlAttribute("SenderBankName")]
+        [Bindable(true)]
+        public string SenderBankName 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("sender_bank_name");
+		    }
+            set 
+		    {
+			    SetColumnValue("sender_bank_name", value);
+            }
+        }
+	      
+        [XmlAttribute("SenderBankAccount")]
+        [Bindable(true)]
+        public string SenderBankAccount 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("sender_bank_account");
+		    }
+            set 
+		    {
+			    SetColumnValue("sender_bank_account", value);
+            }
+        }
+	      
+        [XmlAttribute("ReceiverBankName")]
+        [Bindable(true)]
+        public string ReceiverBankName 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("receiver_bank_name");
+		    }
+            set 
+		    {
+			    SetColumnValue("receiver_bank_name", value);
+            }
+        }
+	      
+        [XmlAttribute("ReceiverBankAccount")]
+        [Bindable(true)]
+        public string ReceiverBankAccount 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("receiver_bank_account");
+		    }
+            set 
+		    {
+			    SetColumnValue("receiver_bank_account", value);
+            }
+        }
+	      
+        [XmlAttribute("DateCreated")]
+        [Bindable(true)]
+        public DateTime? DateCreated 
+	    {
+		    get
+		    {
+			    return GetColumnValue<DateTime?>("date_created");
+		    }
+            set 
+		    {
+			    SetColumnValue("date_created", value);
+            }
+        }
+	      
+        [XmlAttribute("DateProcessed")]
+        [Bindable(true)]
+        public DateTime? DateProcessed 
+	    {
+		    get
+		    {
+			    return GetColumnValue<DateTime?>("date_processed");
+		    }
+            set 
+		    {
+			    SetColumnValue("date_processed", value);
+            }
+        }
+	      
         [XmlAttribute("InfoCurrenciesKey")]
         [Bindable(true)]
         public int InfoCurrenciesKey 
@@ -597,59 +765,73 @@ namespace Peerfx_DB{
             }
         }
 	      
-        [XmlAttribute("SenderBankName")]
+        [XmlAttribute("VwSenderBankName")]
         [Bindable(true)]
-        public string SenderBankName 
+        public string VwSenderBankName 
 	    {
 		    get
 		    {
-			    return GetColumnValue<string>("sender_bank_name");
+			    return GetColumnValue<string>("vw_sender_bank_name");
 		    }
             set 
 		    {
-			    SetColumnValue("sender_bank_name", value);
+			    SetColumnValue("vw_sender_bank_name", value);
             }
         }
 	      
-        [XmlAttribute("SenderBankAccount")]
+        [XmlAttribute("VwSenderBankAccount")]
         [Bindable(true)]
-        public string SenderBankAccount 
+        public string VwSenderBankAccount 
 	    {
 		    get
 		    {
-			    return GetColumnValue<string>("sender_bank_account");
+			    return GetColumnValue<string>("vw_sender_bank_account");
 		    }
             set 
 		    {
-			    SetColumnValue("sender_bank_account", value);
+			    SetColumnValue("vw_sender_bank_account", value);
             }
         }
 	      
-        [XmlAttribute("ReceiverBankName")]
+        [XmlAttribute("VwReceiverBankName")]
         [Bindable(true)]
-        public string ReceiverBankName 
+        public string VwReceiverBankName 
 	    {
 		    get
 		    {
-			    return GetColumnValue<string>("receiver_bank_name");
+			    return GetColumnValue<string>("vw_receiver_bank_name");
 		    }
             set 
 		    {
-			    SetColumnValue("receiver_bank_name", value);
+			    SetColumnValue("vw_receiver_bank_name", value);
             }
         }
 	      
-        [XmlAttribute("ReceiverBankAccount")]
+        [XmlAttribute("VwReceiverBankAccount")]
         [Bindable(true)]
-        public string ReceiverBankAccount 
+        public string VwReceiverBankAccount 
 	    {
 		    get
 		    {
-			    return GetColumnValue<string>("receiver_bank_account");
+			    return GetColumnValue<string>("vw_receiver_bank_account");
 		    }
             set 
 		    {
-			    SetColumnValue("receiver_bank_account", value);
+			    SetColumnValue("vw_receiver_bank_account", value);
+            }
+        }
+	      
+        [XmlAttribute("Proceeds")]
+        [Bindable(true)]
+        public decimal? Proceeds 
+	    {
+		    get
+		    {
+			    return GetColumnValue<decimal?>("proceeds");
+		    }
+            set 
+		    {
+			    SetColumnValue("proceeds", value);
             }
         }
 	    
@@ -686,6 +868,18 @@ namespace Peerfx_DB{
             
             public static string BankReference = @"bank_reference";
             
+            public static string SenderBankName = @"sender_bank_name";
+            
+            public static string SenderBankAccount = @"sender_bank_account";
+            
+            public static string ReceiverBankName = @"receiver_bank_name";
+            
+            public static string ReceiverBankAccount = @"receiver_bank_account";
+            
+            public static string DateCreated = @"date_created";
+            
+            public static string DateProcessed = @"date_processed";
+            
             public static string InfoCurrenciesKey = @"info_currencies_key";
             
             public static string InfoCurrencyCode = @"info_currency_code";
@@ -694,13 +888,15 @@ namespace Peerfx_DB{
             
             public static string InfoCurrencyCountry = @"info_currency_country";
             
-            public static string SenderBankName = @"sender_bank_name";
+            public static string VwSenderBankName = @"vw_sender_bank_name";
             
-            public static string SenderBankAccount = @"sender_bank_account";
+            public static string VwSenderBankAccount = @"vw_sender_bank_account";
             
-            public static string ReceiverBankName = @"receiver_bank_name";
+            public static string VwReceiverBankName = @"vw_receiver_bank_name";
             
-            public static string ReceiverBankAccount = @"receiver_bank_account";
+            public static string VwReceiverBankAccount = @"vw_receiver_bank_account";
+            
+            public static string Proceeds = @"proceeds";
             
 	    }
 	    #endregion

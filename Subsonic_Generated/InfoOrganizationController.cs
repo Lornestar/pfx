@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Fee_Types
+    /// Controller class for Info_Organizations
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoFeeTypeController
+    public partial class InfoOrganizationController
     {
         // Preload our schema..
-        InfoFeeType thisSchemaLoad = new InfoFeeType();
+        InfoOrganization thisSchemaLoad = new InfoOrganization();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoFeeTypeCollection FetchAll()
+        public InfoOrganizationCollection FetchAll()
         {
-            InfoFeeTypeCollection coll = new InfoFeeTypeCollection();
-            Query qry = new Query(InfoFeeType.Schema);
+            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            Query qry = new Query(InfoOrganization.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoFeeTypeCollection FetchByID(object InfoFeeTypes)
+        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
         {
-            InfoFeeTypeCollection coll = new InfoFeeTypeCollection().Where("info_fee_types", InfoFeeTypes).Load();
+            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoFeeTypeCollection FetchByQuery(Query qry)
+        public InfoOrganizationCollection FetchByQuery(Query qry)
         {
-            InfoFeeTypeCollection coll = new InfoFeeTypeCollection();
+            InfoOrganizationCollection coll = new InfoOrganizationCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoFeeTypes)
+        public bool Delete(object InfoOrganizationsKey)
         {
-            return (InfoFeeType.Delete(InfoFeeTypes) == 1);
+            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoFeeTypes)
+        public bool Destroy(object InfoOrganizationsKey)
         {
-            return (InfoFeeType.Destroy(InfoFeeTypes) == 1);
+            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
         }
         
         
@@ -80,27 +80,19 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2)
+	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,bool? Isbank)
 	    {
-		    InfoFeeType item = new InfoFeeType();
+		    InfoOrganization item = new InfoOrganization();
 		    
             item.OrganizationName = OrganizationName;
             
-            item.Description = Description;
+            item.UserKeyUpdated = UserKeyUpdated;
             
-            item.FeeBase = FeeBase;
+            item.LastChanged = LastChanged;
             
-            item.FeePercentage = FeePercentage;
+            item.OrganizationDescription = OrganizationDescription;
             
-            item.FeeAddon = FeeAddon;
-            
-            item.FeeMin = FeeMin;
-            
-            item.FeeMax = FeeMax;
-            
-            item.Currency1 = Currency1;
-            
-            item.Currency2 = Currency2;
+            item.Isbank = Isbank;
             
 	    
 		    item.Save(UserName);
@@ -110,31 +102,23 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoFeeTypes,string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2)
+	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,bool? Isbank)
 	    {
-		    InfoFeeType item = new InfoFeeType();
+		    InfoOrganization item = new InfoOrganization();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoFeeTypes = InfoFeeTypes;
+			item.InfoOrganizationsKey = InfoOrganizationsKey;
 				
 			item.OrganizationName = OrganizationName;
 				
-			item.Description = Description;
+			item.UserKeyUpdated = UserKeyUpdated;
 				
-			item.FeeBase = FeeBase;
+			item.LastChanged = LastChanged;
 				
-			item.FeePercentage = FeePercentage;
+			item.OrganizationDescription = OrganizationDescription;
 				
-			item.FeeAddon = FeeAddon;
-				
-			item.FeeMin = FeeMin;
-				
-			item.FeeMax = FeeMax;
-				
-			item.Currency1 = Currency1;
-				
-			item.Currency2 = Currency2;
+			item.Isbank = Isbank;
 				
 	        item.Save(UserName);
 	    }

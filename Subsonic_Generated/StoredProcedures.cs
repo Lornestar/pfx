@@ -28,6 +28,20 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Info_CurrencyCloud_Tokens Procedure
+        /// </summary>
+        public static StoredProcedure UpdateInfoCurrencyCloudTokens(int? cctokenkey, string cctoken)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Info_CurrencyCloud_Tokens", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@cctokenkey", cctokenkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@cctoken", cctoken, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Transaction_External_Status Procedure
         /// </summary>
         public static StoredProcedure UpdateTransactionExternalStatus(int? txexternalkey, int? txexternalstatus, string ipaddress, int? userkey, int? userkeyupdated)
@@ -287,6 +301,62 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewInfoCurrencies()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Currencies", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Currencies_CanBuy Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCurrenciesCanBuy()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Currencies_CanBuy", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Currencies_CanSell Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCurrenciesCanSell()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Currencies_CanSell", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Currencies_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCurrenciesSpecific(int? CurrencyKey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Currencies_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@Currency_Key", CurrencyKey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_CurrencyCloud_Tokens Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCurrencyCloudTokens()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_CurrencyCloud_Tokens", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Fee_Types Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoFeeTypes(int? currency1, int? currency2)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Fee_Types", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currency1", currency1, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency2", currency2, DbType.Int32, 0, 10);
         	
             return sp;
         }

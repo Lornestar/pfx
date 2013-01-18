@@ -20,15 +20,17 @@ namespace Peerfx_DB
 		
 		public static readonly string BankAccount = @"Bank_Accounts";
         
-		public static readonly string InfoBank = @"Info_Banks";
-        
 		public static readonly string InfoCountryCodeList = @"Info_Country_Code_List";
         
 		public static readonly string InfoCountryList = @"Info_Country_List";
         
 		public static readonly string InfoCurrency = @"Info_Currencies";
         
+		public static readonly string InfoCurrencyCloudToken = @"Info_CurrencyCloud_Tokens";
+        
 		public static readonly string InfoFeeType = @"Info_Fee_Types";
+        
+		public static readonly string InfoOrganization = @"Info_Organizations";
         
 		public static readonly string InfoPhoneType = @"Info_Phone_Type";
         
@@ -60,11 +62,6 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Bank_Accounts", "Peerfx"); }
 		}
         
-		public static TableSchema.Table InfoBank
-		{
-            get { return DataService.GetSchema("Info_Banks", "Peerfx"); }
-		}
-        
 		public static TableSchema.Table InfoCountryCodeList
 		{
             get { return DataService.GetSchema("Info_Country_Code_List", "Peerfx"); }
@@ -80,9 +77,19 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Info_Currencies", "Peerfx"); }
 		}
         
+		public static TableSchema.Table InfoCurrencyCloudToken
+		{
+            get { return DataService.GetSchema("Info_CurrencyCloud_Tokens", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table InfoFeeType
 		{
             get { return DataService.GetSchema("Info_Fee_Types", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table InfoOrganization
+		{
+            get { return DataService.GetSchema("Info_Organizations", "Peerfx"); }
 		}
         
 		public static TableSchema.Table InfoPhoneType
@@ -142,6 +149,8 @@ namespace Peerfx_DB
     public partial struct Views 
     {
 		
+		public static readonly string VwInfoBank = @"vw_info_banks";
+        
 		public static readonly string VwTransactionsExternal = @"vw_Transactions_External";
         
 		public static readonly string VwUsersInfo = @"vw_Users_Info";

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Collections;
 
 namespace Peerfx
 {
@@ -12,7 +13,7 @@ namespace Peerfx
         protected void Page_Load(object sender, EventArgs e)
         {
             External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
-            string strtemp = cc.Authentication_New(0);
+           Hashtable hstemp = cc.Exchange_Rate_ccy_pair(2,1);
         }
     }
 }

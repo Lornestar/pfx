@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Peerfx.Models;
 using System.Configuration;
+using System.Collections;
 
 namespace Peerfx
 {
@@ -241,6 +242,167 @@ namespace Peerfx
             return users;
         }
 
+        public string GetCurrencySymbol(string strtemp)
+        {            
+            string strsymbol = "$";
+
+            if (strtemp.Contains("EUR"))
+            {
+                strsymbol = "€";
+            }
+            else if (strtemp.Contains("GBP"))
+            {
+                strsymbol = "£";
+            }
+            else if (strtemp.Contains("ILS"))
+            {
+                strsymbol = "₪";
+            }
+            else if (strtemp.Contains("PLN"))
+            {
+                strsymbol = "zł";
+            }
+            return strsymbol;
+        }
+
+        public DateTime getcurrencyclouddate(string thedate){
+            //"20110218-10:37:11"
+            DateTime dttemp;
+            if (thedate.Length == 8)
+            {
+                dttemp = DateTime.ParseExact(thedate,"yyyyMMdd",null);
+            }
+            else{
+                dttemp = DateTime.ParseExact(thedate,"yyyyMMdd-HH:mm:ss",null);
+            }
+            return dttemp;
+        }
+
+        public Quote getQuote(decimal sellamount, int sellcurrency, int buycurrency)
+        {
+            Quote quotetemp = new Quote();
+            External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
+            Hashtable hstemp = cc.Exchange_Rate_ccy_pair(sellcurrency,buycurrency); 
+
+            if (!hstemp.ContainsValue("error")){
+                quotetemp.Bid_Price_Timestamp = getcurrencyclouddate(hstemp["bid_price_timestamp"].ToString());
+                quotetemp.Bid_Price = Convert.ToDecimal(hstemp["bid_price"]);
+                quotetemp.Broker_Bid = Convert.ToDecimal(hstemp["broker_bid"]);
+                quotetemp.Offer_Price_Timestamp = getcurrencyclouddate(hstemp["offer_price_timestamp"].ToString());
+                quotetemp.Offer_Price = Convert.ToDecimal(hstemp["offer_price"]);
+                quotetemp.Broker_Offer = Convert.ToDecimal(hstemp["broker_offer"]);
+                quotetemp.Market_Price = Convert.ToDecimal(hstemp["market_price"]);
+                quotetemp.Value_Date = getcurrencyclouddate(hstemp["value_date"].ToString());
+                quotetemp.Quote_Condition = hstemp["quote_condition"].ToString();
+                quotetemp.Real_Market = hstemp["real_market"].ToString();
+                quotetemp.Ccy_Pair = hstemp["ccy_pair"].ToString();
+                                
+                //calculate Peerfx servicefee & rate
+                
+                if (sellamount > 0)
+                {   
+                    quotetemp.Sellamount = sellamount;
+                    decimal peerfxservicefee = 0;
+                    decimal buyamount = 0;
+                    decimal peerfxrate = 0;                    
+
+                    //Calculate peerfx service fee
+                    Fees fees = getFees(sellcurrency,buycurrency);                    
+
+                    //peerfxrate
+                    peerfxrate = quotetemp.Broker_Offer;
+                    if (fees.Fee_Percentage != 0){
+                        peerfxrate += fees.Fee_Percentage;
+                    }
+                    
+                    //peerfx service fee
+                    if (fees.Fee_Base != 0)
+                    {
+                        peerfxservicefee += fees.Fee_Base;
+                    }
+                    if (fees.Fee_Addon != 0)
+                    {
+                        peerfxservicefee += fees.Fee_Addon;
+                    }
+                    if (fees.Fee_Min != 0)
+                    {
+                        if (fees.Fee_Min > peerfxservicefee){
+                            peerfxservicefee = fees.Fee_Min;
+                        }
+                    }
+                    if (fees.Fee_Max != 0)
+                    {
+                        if (fees.Fee_Max < peerfxservicefee){
+                            peerfxservicefee = fees.Fee_Max;
+                        }
+                    }
+
+                    //calculate buyingamount
+                    buyamount = sellamount * peerfxrate;
+                    buyamount = buyamount - peerfxservicefee;
+
+                    //assign values
+                    quotetemp.Peerfx_Servicefee = decimal.Round(peerfxservicefee,2);
+                    quotetemp.Peerfx_Rate = peerfxrate;                    
+                    quotetemp.Buyamount = decimal.Round(buyamount,2);
+                }                
+            }
+            return quotetemp;
+        }
+
+        public Fees getFees(int sellcurrency, int buycurrency)
+        {
+            Fees fees = new Fees();
+
+            DataSet dstemp = Peerfx_DB.SPs.ViewInfoFeeTypes(sellcurrency, buycurrency).GetDataSet();
+            
+            if (dstemp.Tables[0].Rows[0]["organization_name"] != DBNull.Value)
+            {
+                fees.Organization_Name = dstemp.Tables[0].Rows[0]["organization_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["description"] != DBNull.Value)
+            {
+                fees.Description = dstemp.Tables[0].Rows[0]["description"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["fee_base"] != DBNull.Value)
+            {
+                fees.Fee_Base = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["fee_base"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["fee_percentage"] != DBNull.Value)
+            {
+                fees.Fee_Percentage = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["fee_percentage"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["fee_addon"] != DBNull.Value)
+            {
+                fees.Fee_Addon = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["fee_addon"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["fee_min"] != DBNull.Value)
+            {
+                fees.Fee_Min = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["fee_min"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["fee_max"] != DBNull.Value)
+            {
+                fees.Fee_Max = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["fee_max"]);
+            }
+            if (sellcurrency > 0)
+            {
+                fees.Currency1 = sellcurrency;
+            }
+            if (buycurrency > 0)
+            {
+                fees.Currency2 = buycurrency;
+            }
+
+            return fees;
+        }
+
+        public string getcurrencycode(int currency_key)
+        {
+            Site sitetemp = new Site();
+            DataTable dttemp = sitetemp.view_info_currency_specific(currency_key);
+            return dttemp.Rows[0]["info_currency_code"].ToString();
+        }
+
         public DataTable view_info_banks()
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewInfoBanks().GetDataSet();
@@ -250,6 +412,12 @@ namespace Peerfx
         public DataTable view_info_currencies()
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrencies().GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public DataTable view_info_currency_specific(int currency_key)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currency_key).GetDataSet();
             return dstemp.Tables[0];
         }
 
@@ -281,7 +449,17 @@ namespace Peerfx
             DataSet dstemp = Peerfx_DB.SPs.ViewTransactionFeesTxkey(tx_type, tx_key).GetDataSet();
             return dstemp.Tables[0];
         }
-        
-        
+
+        public DataTable view_info_currencies_cansell()
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrenciesCanSell().GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public DataTable view_info_currencies_canbuy()
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrenciesCanBuy().GetDataSet();
+            return dstemp.Tables[0];
+        }
     }
 }
