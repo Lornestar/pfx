@@ -265,6 +265,18 @@ namespace Peerfx
             return strsymbol;
         }
 
+        public int getbankaccountcurrency(int bankaccountkey)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewBankAccountsSpecific(bankaccountkey).GetDataSet();
+
+            int currencykey = 0;
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                currencykey = Convert.ToInt32(dstemp.Tables[0].Rows[0]["currency_key"]);
+            }
+            return currencykey;
+        }
+
         public DateTime getcurrencyclouddate(string thedate){
             //"20110218-10:37:11"
             DateTime dttemp;
@@ -403,6 +415,19 @@ namespace Peerfx
             return dttemp.Rows[0]["info_currency_code"].ToString();
         }
 
+        public Int64 getpaymentobject(int bankaccountkey)
+        {
+            //input bankaccountkey output paymentobjectkey
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectBankAccount(bankaccountkey).GetDataSet();
+
+            Int64 paymentobjectkey = 0;
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                paymentobjectkey = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]);
+            }
+            return paymentobjectkey;
+        }
+
         public DataTable view_info_banks()
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewInfoBanks().GetDataSet();
@@ -459,6 +484,18 @@ namespace Peerfx
         public DataTable view_info_currencies_canbuy()
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrenciesCanBuy().GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public DataTable view_payments_confirmed()
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentsConfirmed().GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public DataTable view_bank_accounts_users()
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewBankAccountsUsers().GetDataSet();
             return dstemp.Tables[0];
         }
     }

@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ExchangeCurrency.aspx.cs" Inherits="Peerfx.ExchangeCurrency" MasterPageFile="~/Site.Master"%>
 
+<%@ Register Src="~/User_Controls/UserInfo.ascx" tagname="UserInfo" tagprefix="uc1" %>
+
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
 <asp:HiddenField ID="hdbuyrate" runat=server value="0"/>
@@ -7,6 +9,7 @@
 <asp:HiddenField ID="hdbuycurrencysymbol" runat=server Value="$" />
 <asp:HiddenField ID="hdservicefee" runat=server Value="0" />
 <asp:HiddenField ID="hdbuyamount" runat=server Value="0" />
+<asp:HiddenField ID="hduserkey" runat=server Value="0" />
 
 <telerik:RadAjaxLoadingPanel runat="server" ID="LoadingPanelExchangeCurrency">
         </telerik:RadAjaxLoadingPanel>
@@ -33,18 +36,21 @@
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue1">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlCreatePayment" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                <UpdatedControls>                    
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue2">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlConfirmPayment" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnBack2">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlConfirmPayment" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
         </AjaxSettings>
@@ -128,7 +134,9 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Panel ID=pnlloggedinsender runat=server Visible=false></asp:Panel>
+                                            <asp:Panel ID=pnlloggedinsender runat=server Visible=false>
+                                                <uc1:UserInfo ID="ucUserInfo1" runat=server />
+                                            </asp:Panel>
                                             <asp:Panel ID=pnlnewsender runat=server>
                                                 <table>
                                                     <tr>                                                        
@@ -321,8 +329,8 @@
                     </telerik:RadPageView>
                     <!--**********************Tab1*****************************************************-->
                     <!--**********************Tab2*****************************************************-->
-                    <telerik:RadPageView runat="server" ID="RadPageView2" CssClass="corporatePageView">
-                    <asp:Panel ID="pnlConfirmPayment" runat=server>
+                    <telerik:RadPageView runat="server" ID="RadPageView2" CssClass="corporatePageView">                    
+                    <asp:Panel ID="pnlConfirmPayment" runat=server Visible=true>                    
                     <table>
                         <tr valign=top>
                             <td>                                
@@ -380,8 +388,10 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Panel ID=Panel2 runat=server Visible=false></asp:Panel>
-                                            <asp:Panel ID=Panel3 runat=server>
+                                            <asp:Panel ID=pnlloggedinsender2 runat=server Visible=false>
+                                                <uc1:UserInfo ID="ucUserInfo2" runat=server />
+                                            </asp:Panel>
+                                            <asp:Panel ID=pnlnewsender2 runat=server>
                                                 <table>
                                                     <tr>                                                        
                                                         <td>
@@ -530,16 +540,16 @@
                             <td>                                
                                 <table>
                                     <tr>
-                                        <td colspan=2 class="Exchange_Header">Transaction #<asp:Label ID=lbltxnum runat=server></asp:Label></td>
+                                        <td colspan=2 class="Exchange_Header">Payment #<asp:Label ID=lblpaymentnum runat=server></asp:Label></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Amount:
+                                            Send Amount:
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblalreadyconfirmedamount" runat=server>amount</asp:Label>
+                                            <asp:Label ID="lblalreadyconfirmedquotesenderamount" runat=server>amount</asp:Label>
                                         </td>
-                                    </tr>
+                                    </tr>                                    
                                     <tr>
                                         <td>
                                         From:
@@ -592,14 +602,55 @@
                                             </asp:Panel>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            Description:
+                                        </td>
+                                        <td>
+                                            <asp:Label ID=lblalreadyconfirmeddescription runat=server>description</asp:Label>
+                                        </td>
+                                    </tr>
                                 </table>    
                                                        
                             </td>
                             <td style="width:60%;">
                                 <table width=100%>
-                                    <tr>
+                                    <tr valign=top>
                                         <td>
-                                            INSTRUCTIONS
+                                            <ol>
+                                                <li>
+                                                    Activate your payment by transferring the required deposit to the Peerfx deposit account.
+                                                </li>
+                                                <li>
+                                                    We will confirm the receipt of your deposit within 4 working hours after it reaches our bank account.
+                                                </li>
+                                            </ol>
+                                            <div class="FinePrint">
+                                                Note that the deposit payment will have to originate from a bank account in the name of "<asp:Label ID="lblalreadyconfirmedfrom2" runat=server></asp:Label>", otherwise the payment will not be activated.
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                    Amount:
+                                                    <br />
+                                                    <asp:Label ID=lblalreadyconfirmedquotesenderamount2 runat=server>amount</asp:Label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        To:
+                                                        <asp:Label ID=lblalreadyconfirmedpeerfxname runat=server>Peerfx</asp:Label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Bank Account:
+                                                        fdsjiojsfdio
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
                                 </table>

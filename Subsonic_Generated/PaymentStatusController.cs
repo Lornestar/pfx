@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for Payment_Status
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class PaymentStatusController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        PaymentStatus thisSchemaLoad = new PaymentStatus();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public PaymentStatusCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            PaymentStatusCollection coll = new PaymentStatusCollection();
+            Query qry = new Query(PaymentStatus.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public PaymentStatusCollection FetchByID(object PaymentStatusKey)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            PaymentStatusCollection coll = new PaymentStatusCollection().Where("payment_status_key", PaymentStatusKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public PaymentStatusCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            PaymentStatusCollection coll = new PaymentStatusCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object PaymentStatusKey)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (PaymentStatus.Delete(PaymentStatusKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object PaymentStatusKey)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (PaymentStatus.Destroy(PaymentStatusKey) == 1);
         }
         
         
@@ -80,19 +80,13 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(int PaymentStatusKey,string PaymentStatusDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    PaymentStatus item = new PaymentStatus();
 		    
-            item.OrganizationName = OrganizationName;
+            item.PaymentStatusKey = PaymentStatusKey;
             
-            item.UserKeyUpdated = UserKeyUpdated;
-            
-            item.LastChanged = LastChanged;
-            
-            item.OrganizationDescription = OrganizationDescription;
-            
-            item.OrganizationType = OrganizationType;
+            item.PaymentStatusDescription = PaymentStatusDescription;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +96,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int PaymentStatusKey,string PaymentStatusDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    PaymentStatus item = new PaymentStatus();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.PaymentStatusKey = PaymentStatusKey;
 				
-			item.OrganizationName = OrganizationName;
-				
-			item.UserKeyUpdated = UserKeyUpdated;
-				
-			item.LastChanged = LastChanged;
-				
-			item.OrganizationDescription = OrganizationDescription;
-				
-			item.OrganizationType = OrganizationType;
+			item.PaymentStatusDescription = PaymentStatusDescription;
 				
 	        item.Save(UserName);
 	    }

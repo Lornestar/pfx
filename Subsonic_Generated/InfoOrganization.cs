@@ -191,18 +191,18 @@ namespace Peerfx_DB
 				colvarOrganizationDescription.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarOrganizationDescription);
 				
-				TableSchema.TableColumn colvarIsbank = new TableSchema.TableColumn(schema);
-				colvarIsbank.ColumnName = "isbank";
-				colvarIsbank.DataType = DbType.Boolean;
-				colvarIsbank.MaxLength = 0;
-				colvarIsbank.AutoIncrement = false;
-				colvarIsbank.IsNullable = true;
-				colvarIsbank.IsPrimaryKey = false;
-				colvarIsbank.IsForeignKey = false;
-				colvarIsbank.IsReadOnly = false;
-				colvarIsbank.DefaultSetting = @"";
-				colvarIsbank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarIsbank);
+				TableSchema.TableColumn colvarOrganizationType = new TableSchema.TableColumn(schema);
+				colvarOrganizationType.ColumnName = "organization_type";
+				colvarOrganizationType.DataType = DbType.Int32;
+				colvarOrganizationType.MaxLength = 0;
+				colvarOrganizationType.AutoIncrement = false;
+				colvarOrganizationType.IsNullable = true;
+				colvarOrganizationType.IsPrimaryKey = false;
+				colvarOrganizationType.IsForeignKey = false;
+				colvarOrganizationType.IsReadOnly = false;
+				colvarOrganizationType.DefaultSetting = @"";
+				colvarOrganizationType.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOrganizationType);
 				
 				BaseSchema = schema;
 				//add this schema to the provider
@@ -254,12 +254,12 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.OrganizationDescription, value); }
 		}
 		  
-		[XmlAttribute("Isbank")]
+		[XmlAttribute("OrganizationType")]
 		[Bindable(true)]
-		public bool? Isbank 
+		public int? OrganizationType 
 		{
-			get { return GetColumnValue<bool?>(Columns.Isbank); }
-			set { SetColumnValue(Columns.Isbank, value); }
+			get { return GetColumnValue<int?>(Columns.OrganizationType); }
+			set { SetColumnValue(Columns.OrganizationType, value); }
 		}
 		
 		#endregion
@@ -281,7 +281,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varOrganizationName,int? varUserKeyUpdated,DateTime? varLastChanged,string varOrganizationDescription,bool? varIsbank)
+		public static void Insert(string varOrganizationName,int? varUserKeyUpdated,DateTime? varLastChanged,string varOrganizationDescription,int? varOrganizationType)
 		{
 			InfoOrganization item = new InfoOrganization();
 			
@@ -293,7 +293,7 @@ namespace Peerfx_DB
 			
 			item.OrganizationDescription = varOrganizationDescription;
 			
-			item.Isbank = varIsbank;
+			item.OrganizationType = varOrganizationType;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -305,7 +305,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varInfoOrganizationsKey,string varOrganizationName,int? varUserKeyUpdated,DateTime? varLastChanged,string varOrganizationDescription,bool? varIsbank)
+		public static void Update(int varInfoOrganizationsKey,string varOrganizationName,int? varUserKeyUpdated,DateTime? varLastChanged,string varOrganizationDescription,int? varOrganizationType)
 		{
 			InfoOrganization item = new InfoOrganization();
 			
@@ -319,7 +319,7 @@ namespace Peerfx_DB
 			
 				item.OrganizationDescription = varOrganizationDescription;
 			
-				item.Isbank = varIsbank;
+				item.OrganizationType = varOrganizationType;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -369,7 +369,7 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn IsbankColumn
+        public static TableSchema.TableColumn OrganizationTypeColumn
         {
             get { return Schema.Columns[5]; }
         }
@@ -385,7 +385,7 @@ namespace Peerfx_DB
 			 public static string UserKeyUpdated = @"user_key_updated";
 			 public static string LastChanged = @"last_changed";
 			 public static string OrganizationDescription = @"organization_description";
-			 public static string Isbank = @"isbank";
+			 public static string OrganizationType = @"organization_type";
 						
 		}
 		#endregion

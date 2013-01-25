@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for Info_Organization_Type
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class InfoOrganizationTypeController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        InfoOrganizationType thisSchemaLoad = new InfoOrganizationType();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public InfoOrganizationTypeCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            InfoOrganizationTypeCollection coll = new InfoOrganizationTypeCollection();
+            Query qry = new Query(InfoOrganizationType.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public InfoOrganizationTypeCollection FetchByID(object InfoOrganizationTypeKey)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            InfoOrganizationTypeCollection coll = new InfoOrganizationTypeCollection().Where("info_organization_type_key", InfoOrganizationTypeKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public InfoOrganizationTypeCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            InfoOrganizationTypeCollection coll = new InfoOrganizationTypeCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object InfoOrganizationTypeKey)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (InfoOrganizationType.Delete(InfoOrganizationTypeKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object InfoOrganizationTypeKey)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (InfoOrganizationType.Destroy(InfoOrganizationTypeKey) == 1);
         }
         
         
@@ -80,19 +80,13 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(int InfoOrganizationTypeKey,string InfoOrganizationTypeDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    InfoOrganizationType item = new InfoOrganizationType();
 		    
-            item.OrganizationName = OrganizationName;
+            item.InfoOrganizationTypeKey = InfoOrganizationTypeKey;
             
-            item.UserKeyUpdated = UserKeyUpdated;
-            
-            item.LastChanged = LastChanged;
-            
-            item.OrganizationDescription = OrganizationDescription;
-            
-            item.OrganizationType = OrganizationType;
+            item.InfoOrganizationTypeDescription = InfoOrganizationTypeDescription;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +96,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int InfoOrganizationTypeKey,string InfoOrganizationTypeDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    InfoOrganizationType item = new InfoOrganizationType();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.InfoOrganizationTypeKey = InfoOrganizationTypeKey;
 				
-			item.OrganizationName = OrganizationName;
-				
-			item.UserKeyUpdated = UserKeyUpdated;
-				
-			item.LastChanged = LastChanged;
-				
-			item.OrganizationDescription = OrganizationDescription;
-				
-			item.OrganizationType = OrganizationType;
+			item.InfoOrganizationTypeDescription = InfoOrganizationTypeDescription;
 				
 	        item.Save(UserName);
 	    }

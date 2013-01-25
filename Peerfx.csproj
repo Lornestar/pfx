@@ -71,6 +71,7 @@
   <ItemGroup>
     <Content Include="Admin\Admin_Default.aspx" />
     <Content Include="Admin\Admin_Deposits.aspx" />
+    <Content Include="Admin\Admin_Payment_Schedule.aspx" />
     <Content Include="Admin\Admin_Users.aspx" />
     <Content Include="App_Data\RadCaptcha\0.wav" />
     <Content Include="App_Data\RadCaptcha\1.wav" />
@@ -130,6 +131,7 @@
     <Content Include="User_Controls\Footer.ascx" />
     <Content Include="User_Controls\Header.ascx" />
     <Content Include="User_Controls\Login.ascx" />
+    <Content Include="User_Controls\UserInfo.ascx" />
     <Content Include="Verification_Email.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -160,6 +162,13 @@
     </Compile>
     <Compile Include="Admin\Admin_Deposits.aspx.designer.cs">
       <DependentUpon>Admin_Deposits.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Admin_Payment_Schedule.aspx.cs">
+      <DependentUpon>Admin_Payment_Schedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin_Payment_Schedule.aspx.designer.cs">
+      <DependentUpon>Admin_Payment_Schedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Admin_Users.aspx.cs">
       <DependentUpon>Admin_Users.aspx</DependentUpon>
@@ -297,6 +306,13 @@
     <Compile Include="User_Controls\Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
     </Compile>
+    <Compile Include="User_Controls\UserInfo.ascx.cs">
+      <DependentUpon>UserInfo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\UserInfo.ascx.designer.cs">
+      <DependentUpon>UserInfo.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Verification_Email.aspx.cs">
       <DependentUpon>Verification_Email.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -333,7 +349,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

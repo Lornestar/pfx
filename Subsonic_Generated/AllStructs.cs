@@ -30,6 +30,8 @@ namespace Peerfx_DB
         
 		public static readonly string InfoFeeType = @"Info_Fee_Types";
         
+		public static readonly string InfoOrganizationType = @"Info_Organization_Type";
+        
 		public static readonly string InfoOrganization = @"Info_Organizations";
         
 		public static readonly string InfoPhoneType = @"Info_Phone_Type";
@@ -38,9 +40,27 @@ namespace Peerfx_DB
         
 		public static readonly string InfoVerificationMethod = @"Info_Verification_Methods";
         
+		public static readonly string PaymentObjectType = @"Payment_Object_Types";
+        
+		public static readonly string PaymentObject = @"Payment_Objects";
+        
+		public static readonly string PaymentSchedule = @"Payment_Schedule";
+        
+		public static readonly string PaymentStatus = @"Payment_Status";
+        
+		public static readonly string Payment = @"Payments";
+        
+		public static readonly string PurposeType = @"Purpose_Types";
+        
+		public static readonly string Quote = @"Quotes";
+        
 		public static readonly string TransactionFee = @"Transaction_Fees";
         
+		public static readonly string TransactionStatus = @"Transaction_Status";
+        
 		public static readonly string TransactionsExternal = @"Transactions_External";
+        
+		public static readonly string UserRecipient = @"User_Recipients";
         
 		public static readonly string UserStatus = @"User_Statuses";
         
@@ -87,6 +107,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Info_Fee_Types", "Peerfx"); }
 		}
         
+		public static TableSchema.Table InfoOrganizationType
+		{
+            get { return DataService.GetSchema("Info_Organization_Type", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table InfoOrganization
 		{
             get { return DataService.GetSchema("Info_Organizations", "Peerfx"); }
@@ -107,14 +132,59 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Info_Verification_Methods", "Peerfx"); }
 		}
         
+		public static TableSchema.Table PaymentObjectType
+		{
+            get { return DataService.GetSchema("Payment_Object_Types", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table PaymentObject
+		{
+            get { return DataService.GetSchema("Payment_Objects", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table PaymentSchedule
+		{
+            get { return DataService.GetSchema("Payment_Schedule", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table PaymentStatus
+		{
+            get { return DataService.GetSchema("Payment_Status", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table Payment
+		{
+            get { return DataService.GetSchema("Payments", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table PurposeType
+		{
+            get { return DataService.GetSchema("Purpose_Types", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table Quote
+		{
+            get { return DataService.GetSchema("Quotes", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table TransactionFee
 		{
             get { return DataService.GetSchema("Transaction_Fees", "Peerfx"); }
 		}
         
+		public static TableSchema.Table TransactionStatus
+		{
+            get { return DataService.GetSchema("Transaction_Status", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table TransactionsExternal
 		{
             get { return DataService.GetSchema("Transactions_External", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table UserRecipient
+		{
+            get { return DataService.GetSchema("User_Recipients", "Peerfx"); }
 		}
         
 		public static TableSchema.Table UserStatus
@@ -149,6 +219,10 @@ namespace Peerfx_DB
     public partial struct Views 
     {
 		
+		public static readonly string VwBankAccountsSystem = @"vw_Bank_Accounts_System";
+        
+		public static readonly string VwBankAccountsUser = @"vw_Bank_Accounts_Users";
+        
 		public static readonly string VwInfoBank = @"vw_info_banks";
         
 		public static readonly string VwTransactionsExternal = @"vw_Transactions_External";

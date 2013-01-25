@@ -7,18 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Peerfx.User {
+namespace Peerfx.Admin {
     
     
-    public partial class Dashboard {
+    public partial class Admin_Payment_Schedule {
         
         /// <summary>
-        /// ucExchangeCurrency control.
+        /// RadGrid1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Peerfx.User_Controls.ExchangeCurrency ucExchangeCurrency;
+        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new Peerfx.Site Master {
+            get {
+                return ((Peerfx.Site)(base.Master));
+            }
+        }
     }
 }

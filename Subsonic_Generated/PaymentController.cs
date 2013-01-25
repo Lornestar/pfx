@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for Payments
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class PaymentController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        Payment thisSchemaLoad = new Payment();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public PaymentCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            PaymentCollection coll = new PaymentCollection();
+            Query qry = new Query(Payment.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public PaymentCollection FetchByID(object PaymentsKey)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            PaymentCollection coll = new PaymentCollection().Where("payments_key", PaymentsKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public PaymentCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            PaymentCollection coll = new PaymentCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object PaymentsKey)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (Payment.Delete(PaymentsKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object PaymentsKey)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (Payment.Destroy(PaymentsKey) == 1);
         }
         
         
@@ -80,19 +80,23 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(int QuoteKey,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    Payment item = new Payment();
 		    
-            item.OrganizationName = OrganizationName;
+            item.QuoteKey = QuoteKey;
             
-            item.UserKeyUpdated = UserKeyUpdated;
+            item.PaymentStatus = PaymentStatus;
             
-            item.LastChanged = LastChanged;
+            item.DateCreated = DateCreated;
             
-            item.OrganizationDescription = OrganizationDescription;
+            item.RequestorUserKey = RequestorUserKey;
             
-            item.OrganizationType = OrganizationType;
+            item.PaymentObjectSender = PaymentObjectSender;
+            
+            item.PaymentObjectReceiver = PaymentObjectReceiver;
+            
+            item.PaymentDescription = PaymentDescription;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +106,27 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int PaymentsKey,int QuoteKey,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    Payment item = new Payment();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.PaymentsKey = PaymentsKey;
 				
-			item.OrganizationName = OrganizationName;
+			item.QuoteKey = QuoteKey;
 				
-			item.UserKeyUpdated = UserKeyUpdated;
+			item.PaymentStatus = PaymentStatus;
 				
-			item.LastChanged = LastChanged;
+			item.DateCreated = DateCreated;
 				
-			item.OrganizationDescription = OrganizationDescription;
+			item.RequestorUserKey = RequestorUserKey;
 				
-			item.OrganizationType = OrganizationType;
+			item.PaymentObjectSender = PaymentObjectSender;
+				
+			item.PaymentObjectReceiver = PaymentObjectReceiver;
+				
+			item.PaymentDescription = PaymentDescription;
 				
 	        item.Save(UserName);
 	    }

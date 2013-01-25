@@ -7,18 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Peerfx.User {
+namespace Peerfx.User_Controls {
     
     
-    public partial class Dashboard {
+    public partial class UserInfo {
         
         /// <summary>
-        /// ucExchangeCurrency control.
+        /// lblfirstname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Peerfx.User_Controls.ExchangeCurrency ucExchangeCurrency;
+        protected global::System.Web.UI.WebControls.Label lblfirstname;
+        
+        /// <summary>
+        /// lbllastname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbllastname;
     }
 }

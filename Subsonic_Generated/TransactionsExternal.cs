@@ -139,19 +139,6 @@ namespace Peerfx_DB
 				colvarTxExternalKey.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarTxExternalKey);
 				
-				TableSchema.TableColumn colvarTxExternalType = new TableSchema.TableColumn(schema);
-				colvarTxExternalType.ColumnName = "tx_external_type";
-				colvarTxExternalType.DataType = DbType.Int32;
-				colvarTxExternalType.MaxLength = 0;
-				colvarTxExternalType.AutoIncrement = false;
-				colvarTxExternalType.IsNullable = false;
-				colvarTxExternalType.IsPrimaryKey = false;
-				colvarTxExternalType.IsForeignKey = false;
-				colvarTxExternalType.IsReadOnly = false;
-				colvarTxExternalType.DefaultSetting = @"";
-				colvarTxExternalType.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTxExternalType);
-				
 				TableSchema.TableColumn colvarTxExternalStatus = new TableSchema.TableColumn(schema);
 				colvarTxExternalStatus.ColumnName = "tx_external_status";
 				colvarTxExternalStatus.DataType = DbType.Int32;
@@ -165,18 +152,31 @@ namespace Peerfx_DB
 				colvarTxExternalStatus.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarTxExternalStatus);
 				
-				TableSchema.TableColumn colvarUserKey = new TableSchema.TableColumn(schema);
-				colvarUserKey.ColumnName = "user_key";
-				colvarUserKey.DataType = DbType.Int32;
-				colvarUserKey.MaxLength = 0;
-				colvarUserKey.AutoIncrement = false;
-				colvarUserKey.IsNullable = true;
-				colvarUserKey.IsPrimaryKey = false;
-				colvarUserKey.IsForeignKey = false;
-				colvarUserKey.IsReadOnly = false;
-				colvarUserKey.DefaultSetting = @"";
-				colvarUserKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserKey);
+				TableSchema.TableColumn colvarPurposeType = new TableSchema.TableColumn(schema);
+				colvarPurposeType.ColumnName = "purpose_type";
+				colvarPurposeType.DataType = DbType.Int32;
+				colvarPurposeType.MaxLength = 0;
+				colvarPurposeType.AutoIncrement = false;
+				colvarPurposeType.IsNullable = true;
+				colvarPurposeType.IsPrimaryKey = false;
+				colvarPurposeType.IsForeignKey = false;
+				colvarPurposeType.IsReadOnly = false;
+				colvarPurposeType.DefaultSetting = @"";
+				colvarPurposeType.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurposeType);
+				
+				TableSchema.TableColumn colvarPurposeObjectKey = new TableSchema.TableColumn(schema);
+				colvarPurposeObjectKey.ColumnName = "purpose_object_key";
+				colvarPurposeObjectKey.DataType = DbType.Int32;
+				colvarPurposeObjectKey.MaxLength = 0;
+				colvarPurposeObjectKey.AutoIncrement = false;
+				colvarPurposeObjectKey.IsNullable = true;
+				colvarPurposeObjectKey.IsPrimaryKey = false;
+				colvarPurposeObjectKey.IsForeignKey = false;
+				colvarPurposeObjectKey.IsReadOnly = false;
+				colvarPurposeObjectKey.DefaultSetting = @"";
+				colvarPurposeObjectKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurposeObjectKey);
 				
 				TableSchema.TableColumn colvarCurrency = new TableSchema.TableColumn(schema);
 				colvarCurrency.ColumnName = "currency";
@@ -204,31 +204,31 @@ namespace Peerfx_DB
 				colvarAmount.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAmount);
 				
-				TableSchema.TableColumn colvarSenderBankAccountKey = new TableSchema.TableColumn(schema);
-				colvarSenderBankAccountKey.ColumnName = "sender_bank_account_key";
-				colvarSenderBankAccountKey.DataType = DbType.Int32;
-				colvarSenderBankAccountKey.MaxLength = 0;
-				colvarSenderBankAccountKey.AutoIncrement = false;
-				colvarSenderBankAccountKey.IsNullable = true;
-				colvarSenderBankAccountKey.IsPrimaryKey = false;
-				colvarSenderBankAccountKey.IsForeignKey = false;
-				colvarSenderBankAccountKey.IsReadOnly = false;
-				colvarSenderBankAccountKey.DefaultSetting = @"";
-				colvarSenderBankAccountKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSenderBankAccountKey);
+				TableSchema.TableColumn colvarPaymentObjectSender = new TableSchema.TableColumn(schema);
+				colvarPaymentObjectSender.ColumnName = "payment_object_sender";
+				colvarPaymentObjectSender.DataType = DbType.Int64;
+				colvarPaymentObjectSender.MaxLength = 0;
+				colvarPaymentObjectSender.AutoIncrement = false;
+				colvarPaymentObjectSender.IsNullable = true;
+				colvarPaymentObjectSender.IsPrimaryKey = false;
+				colvarPaymentObjectSender.IsForeignKey = false;
+				colvarPaymentObjectSender.IsReadOnly = false;
+				colvarPaymentObjectSender.DefaultSetting = @"";
+				colvarPaymentObjectSender.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPaymentObjectSender);
 				
-				TableSchema.TableColumn colvarReceiverBankAccountKey = new TableSchema.TableColumn(schema);
-				colvarReceiverBankAccountKey.ColumnName = "receiver_bank_account_key";
-				colvarReceiverBankAccountKey.DataType = DbType.Int32;
-				colvarReceiverBankAccountKey.MaxLength = 0;
-				colvarReceiverBankAccountKey.AutoIncrement = false;
-				colvarReceiverBankAccountKey.IsNullable = true;
-				colvarReceiverBankAccountKey.IsPrimaryKey = false;
-				colvarReceiverBankAccountKey.IsForeignKey = false;
-				colvarReceiverBankAccountKey.IsReadOnly = false;
-				colvarReceiverBankAccountKey.DefaultSetting = @"";
-				colvarReceiverBankAccountKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarReceiverBankAccountKey);
+				TableSchema.TableColumn colvarPaymentObjectReceiver = new TableSchema.TableColumn(schema);
+				colvarPaymentObjectReceiver.ColumnName = "payment_object_receiver";
+				colvarPaymentObjectReceiver.DataType = DbType.Int64;
+				colvarPaymentObjectReceiver.MaxLength = 0;
+				colvarPaymentObjectReceiver.AutoIncrement = false;
+				colvarPaymentObjectReceiver.IsNullable = true;
+				colvarPaymentObjectReceiver.IsPrimaryKey = false;
+				colvarPaymentObjectReceiver.IsForeignKey = false;
+				colvarPaymentObjectReceiver.IsReadOnly = false;
+				colvarPaymentObjectReceiver.DefaultSetting = @"";
+				colvarPaymentObjectReceiver.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPaymentObjectReceiver);
 				
 				TableSchema.TableColumn colvarTxExternalDescription = new TableSchema.TableColumn(schema);
 				colvarTxExternalDescription.ColumnName = "tx_external_description";
@@ -295,58 +295,6 @@ namespace Peerfx_DB
 				colvarBankReference.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarBankReference);
 				
-				TableSchema.TableColumn colvarSenderBankName = new TableSchema.TableColumn(schema);
-				colvarSenderBankName.ColumnName = "sender_bank_name";
-				colvarSenderBankName.DataType = DbType.String;
-				colvarSenderBankName.MaxLength = 50;
-				colvarSenderBankName.AutoIncrement = false;
-				colvarSenderBankName.IsNullable = true;
-				colvarSenderBankName.IsPrimaryKey = false;
-				colvarSenderBankName.IsForeignKey = false;
-				colvarSenderBankName.IsReadOnly = false;
-				colvarSenderBankName.DefaultSetting = @"";
-				colvarSenderBankName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSenderBankName);
-				
-				TableSchema.TableColumn colvarSenderBankAccount = new TableSchema.TableColumn(schema);
-				colvarSenderBankAccount.ColumnName = "sender_bank_account";
-				colvarSenderBankAccount.DataType = DbType.AnsiString;
-				colvarSenderBankAccount.MaxLength = 50;
-				colvarSenderBankAccount.AutoIncrement = false;
-				colvarSenderBankAccount.IsNullable = true;
-				colvarSenderBankAccount.IsPrimaryKey = false;
-				colvarSenderBankAccount.IsForeignKey = false;
-				colvarSenderBankAccount.IsReadOnly = false;
-				colvarSenderBankAccount.DefaultSetting = @"";
-				colvarSenderBankAccount.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSenderBankAccount);
-				
-				TableSchema.TableColumn colvarReceiverBankName = new TableSchema.TableColumn(schema);
-				colvarReceiverBankName.ColumnName = "receiver_bank_name";
-				colvarReceiverBankName.DataType = DbType.String;
-				colvarReceiverBankName.MaxLength = 50;
-				colvarReceiverBankName.AutoIncrement = false;
-				colvarReceiverBankName.IsNullable = true;
-				colvarReceiverBankName.IsPrimaryKey = false;
-				colvarReceiverBankName.IsForeignKey = false;
-				colvarReceiverBankName.IsReadOnly = false;
-				colvarReceiverBankName.DefaultSetting = @"";
-				colvarReceiverBankName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarReceiverBankName);
-				
-				TableSchema.TableColumn colvarReceiverBankAccount = new TableSchema.TableColumn(schema);
-				colvarReceiverBankAccount.ColumnName = "receiver_bank_account";
-				colvarReceiverBankAccount.DataType = DbType.AnsiString;
-				colvarReceiverBankAccount.MaxLength = 50;
-				colvarReceiverBankAccount.AutoIncrement = false;
-				colvarReceiverBankAccount.IsNullable = true;
-				colvarReceiverBankAccount.IsPrimaryKey = false;
-				colvarReceiverBankAccount.IsForeignKey = false;
-				colvarReceiverBankAccount.IsReadOnly = false;
-				colvarReceiverBankAccount.DefaultSetting = @"";
-				colvarReceiverBankAccount.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarReceiverBankAccount);
-				
 				TableSchema.TableColumn colvarDateCreated = new TableSchema.TableColumn(schema);
 				colvarDateCreated.ColumnName = "date_created";
 				colvarDateCreated.DataType = DbType.DateTime;
@@ -391,14 +339,6 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.TxExternalKey, value); }
 		}
 		  
-		[XmlAttribute("TxExternalType")]
-		[Bindable(true)]
-		public int TxExternalType 
-		{
-			get { return GetColumnValue<int>(Columns.TxExternalType); }
-			set { SetColumnValue(Columns.TxExternalType, value); }
-		}
-		  
 		[XmlAttribute("TxExternalStatus")]
 		[Bindable(true)]
 		public int TxExternalStatus 
@@ -407,12 +347,20 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.TxExternalStatus, value); }
 		}
 		  
-		[XmlAttribute("UserKey")]
+		[XmlAttribute("PurposeType")]
 		[Bindable(true)]
-		public int? UserKey 
+		public int? PurposeType 
 		{
-			get { return GetColumnValue<int?>(Columns.UserKey); }
-			set { SetColumnValue(Columns.UserKey, value); }
+			get { return GetColumnValue<int?>(Columns.PurposeType); }
+			set { SetColumnValue(Columns.PurposeType, value); }
+		}
+		  
+		[XmlAttribute("PurposeObjectKey")]
+		[Bindable(true)]
+		public int? PurposeObjectKey 
+		{
+			get { return GetColumnValue<int?>(Columns.PurposeObjectKey); }
+			set { SetColumnValue(Columns.PurposeObjectKey, value); }
 		}
 		  
 		[XmlAttribute("Currency")]
@@ -431,20 +379,20 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.Amount, value); }
 		}
 		  
-		[XmlAttribute("SenderBankAccountKey")]
+		[XmlAttribute("PaymentObjectSender")]
 		[Bindable(true)]
-		public int? SenderBankAccountKey 
+		public long? PaymentObjectSender 
 		{
-			get { return GetColumnValue<int?>(Columns.SenderBankAccountKey); }
-			set { SetColumnValue(Columns.SenderBankAccountKey, value); }
+			get { return GetColumnValue<long?>(Columns.PaymentObjectSender); }
+			set { SetColumnValue(Columns.PaymentObjectSender, value); }
 		}
 		  
-		[XmlAttribute("ReceiverBankAccountKey")]
+		[XmlAttribute("PaymentObjectReceiver")]
 		[Bindable(true)]
-		public int? ReceiverBankAccountKey 
+		public long? PaymentObjectReceiver 
 		{
-			get { return GetColumnValue<int?>(Columns.ReceiverBankAccountKey); }
-			set { SetColumnValue(Columns.ReceiverBankAccountKey, value); }
+			get { return GetColumnValue<long?>(Columns.PaymentObjectReceiver); }
+			set { SetColumnValue(Columns.PaymentObjectReceiver, value); }
 		}
 		  
 		[XmlAttribute("TxExternalDescription")]
@@ -487,38 +435,6 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.BankReference, value); }
 		}
 		  
-		[XmlAttribute("SenderBankName")]
-		[Bindable(true)]
-		public string SenderBankName 
-		{
-			get { return GetColumnValue<string>(Columns.SenderBankName); }
-			set { SetColumnValue(Columns.SenderBankName, value); }
-		}
-		  
-		[XmlAttribute("SenderBankAccount")]
-		[Bindable(true)]
-		public string SenderBankAccount 
-		{
-			get { return GetColumnValue<string>(Columns.SenderBankAccount); }
-			set { SetColumnValue(Columns.SenderBankAccount, value); }
-		}
-		  
-		[XmlAttribute("ReceiverBankName")]
-		[Bindable(true)]
-		public string ReceiverBankName 
-		{
-			get { return GetColumnValue<string>(Columns.ReceiverBankName); }
-			set { SetColumnValue(Columns.ReceiverBankName, value); }
-		}
-		  
-		[XmlAttribute("ReceiverBankAccount")]
-		[Bindable(true)]
-		public string ReceiverBankAccount 
-		{
-			get { return GetColumnValue<string>(Columns.ReceiverBankAccount); }
-			set { SetColumnValue(Columns.ReceiverBankAccount, value); }
-		}
-		  
 		[XmlAttribute("DateCreated")]
 		[Bindable(true)]
 		public DateTime? DateCreated 
@@ -554,23 +470,23 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varTxExternalType,int varTxExternalStatus,int? varUserKey,int varCurrency,decimal varAmount,int? varSenderBankAccountKey,int? varReceiverBankAccountKey,string varTxExternalDescription,DateTime varLastChanged,string varIpAddress,int? varUserKeyUpdated,string varBankReference,string varSenderBankName,string varSenderBankAccount,string varReceiverBankName,string varReceiverBankAccount,DateTime? varDateCreated,DateTime? varDateProcessed)
+		public static void Insert(int varTxExternalStatus,int? varPurposeType,int? varPurposeObjectKey,int varCurrency,decimal varAmount,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varTxExternalDescription,DateTime varLastChanged,string varIpAddress,int? varUserKeyUpdated,string varBankReference,DateTime? varDateCreated,DateTime? varDateProcessed)
 		{
 			TransactionsExternal item = new TransactionsExternal();
 			
-			item.TxExternalType = varTxExternalType;
-			
 			item.TxExternalStatus = varTxExternalStatus;
 			
-			item.UserKey = varUserKey;
+			item.PurposeType = varPurposeType;
+			
+			item.PurposeObjectKey = varPurposeObjectKey;
 			
 			item.Currency = varCurrency;
 			
 			item.Amount = varAmount;
 			
-			item.SenderBankAccountKey = varSenderBankAccountKey;
+			item.PaymentObjectSender = varPaymentObjectSender;
 			
-			item.ReceiverBankAccountKey = varReceiverBankAccountKey;
+			item.PaymentObjectReceiver = varPaymentObjectReceiver;
 			
 			item.TxExternalDescription = varTxExternalDescription;
 			
@@ -581,14 +497,6 @@ namespace Peerfx_DB
 			item.UserKeyUpdated = varUserKeyUpdated;
 			
 			item.BankReference = varBankReference;
-			
-			item.SenderBankName = varSenderBankName;
-			
-			item.SenderBankAccount = varSenderBankAccount;
-			
-			item.ReceiverBankName = varReceiverBankName;
-			
-			item.ReceiverBankAccount = varReceiverBankAccount;
 			
 			item.DateCreated = varDateCreated;
 			
@@ -604,25 +512,25 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(long varTxExternalKey,int varTxExternalType,int varTxExternalStatus,int? varUserKey,int varCurrency,decimal varAmount,int? varSenderBankAccountKey,int? varReceiverBankAccountKey,string varTxExternalDescription,DateTime varLastChanged,string varIpAddress,int? varUserKeyUpdated,string varBankReference,string varSenderBankName,string varSenderBankAccount,string varReceiverBankName,string varReceiverBankAccount,DateTime? varDateCreated,DateTime? varDateProcessed)
+		public static void Update(long varTxExternalKey,int varTxExternalStatus,int? varPurposeType,int? varPurposeObjectKey,int varCurrency,decimal varAmount,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varTxExternalDescription,DateTime varLastChanged,string varIpAddress,int? varUserKeyUpdated,string varBankReference,DateTime? varDateCreated,DateTime? varDateProcessed)
 		{
 			TransactionsExternal item = new TransactionsExternal();
 			
 				item.TxExternalKey = varTxExternalKey;
 			
-				item.TxExternalType = varTxExternalType;
-			
 				item.TxExternalStatus = varTxExternalStatus;
 			
-				item.UserKey = varUserKey;
+				item.PurposeType = varPurposeType;
+			
+				item.PurposeObjectKey = varPurposeObjectKey;
 			
 				item.Currency = varCurrency;
 			
 				item.Amount = varAmount;
 			
-				item.SenderBankAccountKey = varSenderBankAccountKey;
+				item.PaymentObjectSender = varPaymentObjectSender;
 			
-				item.ReceiverBankAccountKey = varReceiverBankAccountKey;
+				item.PaymentObjectReceiver = varPaymentObjectReceiver;
 			
 				item.TxExternalDescription = varTxExternalDescription;
 			
@@ -633,14 +541,6 @@ namespace Peerfx_DB
 				item.UserKeyUpdated = varUserKeyUpdated;
 			
 				item.BankReference = varBankReference;
-			
-				item.SenderBankName = varSenderBankName;
-			
-				item.SenderBankAccount = varSenderBankAccount;
-			
-				item.ReceiverBankName = varReceiverBankName;
-			
-				item.ReceiverBankAccount = varReceiverBankAccount;
 			
 				item.DateCreated = varDateCreated;
 			
@@ -666,21 +566,21 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn TxExternalTypeColumn
+        public static TableSchema.TableColumn TxExternalStatusColumn
         {
             get { return Schema.Columns[1]; }
         }
         
         
         
-        public static TableSchema.TableColumn TxExternalStatusColumn
+        public static TableSchema.TableColumn PurposeTypeColumn
         {
             get { return Schema.Columns[2]; }
         }
         
         
         
-        public static TableSchema.TableColumn UserKeyColumn
+        public static TableSchema.TableColumn PurposeObjectKeyColumn
         {
             get { return Schema.Columns[3]; }
         }
@@ -701,14 +601,14 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn SenderBankAccountKeyColumn
+        public static TableSchema.TableColumn PaymentObjectSenderColumn
         {
             get { return Schema.Columns[6]; }
         }
         
         
         
-        public static TableSchema.TableColumn ReceiverBankAccountKeyColumn
+        public static TableSchema.TableColumn PaymentObjectReceiverColumn
         {
             get { return Schema.Columns[7]; }
         }
@@ -750,44 +650,16 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn SenderBankNameColumn
+        public static TableSchema.TableColumn DateCreatedColumn
         {
             get { return Schema.Columns[13]; }
         }
         
         
         
-        public static TableSchema.TableColumn SenderBankAccountColumn
-        {
-            get { return Schema.Columns[14]; }
-        }
-        
-        
-        
-        public static TableSchema.TableColumn ReceiverBankNameColumn
-        {
-            get { return Schema.Columns[15]; }
-        }
-        
-        
-        
-        public static TableSchema.TableColumn ReceiverBankAccountColumn
-        {
-            get { return Schema.Columns[16]; }
-        }
-        
-        
-        
-        public static TableSchema.TableColumn DateCreatedColumn
-        {
-            get { return Schema.Columns[17]; }
-        }
-        
-        
-        
         public static TableSchema.TableColumn DateProcessedColumn
         {
-            get { return Schema.Columns[18]; }
+            get { return Schema.Columns[14]; }
         }
         
         
@@ -797,22 +669,18 @@ namespace Peerfx_DB
 		public struct Columns
 		{
 			 public static string TxExternalKey = @"tx_external_key";
-			 public static string TxExternalType = @"tx_external_type";
 			 public static string TxExternalStatus = @"tx_external_status";
-			 public static string UserKey = @"user_key";
+			 public static string PurposeType = @"purpose_type";
+			 public static string PurposeObjectKey = @"purpose_object_key";
 			 public static string Currency = @"currency";
 			 public static string Amount = @"amount";
-			 public static string SenderBankAccountKey = @"sender_bank_account_key";
-			 public static string ReceiverBankAccountKey = @"receiver_bank_account_key";
+			 public static string PaymentObjectSender = @"payment_object_sender";
+			 public static string PaymentObjectReceiver = @"payment_object_receiver";
 			 public static string TxExternalDescription = @"tx_external_description";
 			 public static string LastChanged = @"last_changed";
 			 public static string IpAddress = @"ip_address";
 			 public static string UserKeyUpdated = @"user_key_updated";
 			 public static string BankReference = @"bank_reference";
-			 public static string SenderBankName = @"sender_bank_name";
-			 public static string SenderBankAccount = @"sender_bank_account";
-			 public static string ReceiverBankName = @"receiver_bank_name";
-			 public static string ReceiverBankAccount = @"receiver_bank_account";
 			 public static string DateCreated = @"date_created";
 			 public static string DateProcessed = @"date_processed";
 						

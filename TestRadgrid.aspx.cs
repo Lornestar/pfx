@@ -17,7 +17,7 @@ namespace Peerfx
 
         protected void RadGrid1_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dstemp = Peerfx_DB.SPs.ViewAdminDeposits(1).GetDataSet();
+            DataSet dstemp = Peerfx_DB.SPs.ViewAdminDeposits(false).GetDataSet();
             RadGrid1.DataSource = dstemp.Tables[0];
         }
     }

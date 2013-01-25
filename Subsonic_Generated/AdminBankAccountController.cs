@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for Admin_Bank_Accounts
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class AdminBankAccountController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        AdminBankAccount thisSchemaLoad = new AdminBankAccount();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public AdminBankAccountCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            AdminBankAccountCollection coll = new AdminBankAccountCollection();
+            Query qry = new Query(AdminBankAccount.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public AdminBankAccountCollection FetchByID(object AdminBankAccounts)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            AdminBankAccountCollection coll = new AdminBankAccountCollection().Where("admin_bank_accounts", AdminBankAccounts).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public AdminBankAccountCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            AdminBankAccountCollection coll = new AdminBankAccountCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object AdminBankAccounts)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (AdminBankAccount.Delete(AdminBankAccounts) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object AdminBankAccounts)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (AdminBankAccount.Destroy(AdminBankAccounts) == 1);
         }
         
         
@@ -80,19 +80,11 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(int BankAccountKey)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    AdminBankAccount item = new AdminBankAccount();
 		    
-            item.OrganizationName = OrganizationName;
-            
-            item.UserKeyUpdated = UserKeyUpdated;
-            
-            item.LastChanged = LastChanged;
-            
-            item.OrganizationDescription = OrganizationDescription;
-            
-            item.OrganizationType = OrganizationType;
+            item.BankAccountKey = BankAccountKey;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +94,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int AdminBankAccounts,int BankAccountKey)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    AdminBankAccount item = new AdminBankAccount();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.AdminBankAccounts = AdminBankAccounts;
 				
-			item.OrganizationName = OrganizationName;
-				
-			item.UserKeyUpdated = UserKeyUpdated;
-				
-			item.LastChanged = LastChanged;
-				
-			item.OrganizationDescription = OrganizationDescription;
-				
-			item.OrganizationType = OrganizationType;
+			item.BankAccountKey = BankAccountKey;
 				
 	        item.Save(UserName);
 	    }

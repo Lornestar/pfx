@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for Quotes
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class QuoteController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        Quote thisSchemaLoad = new Quote();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public QuoteCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            QuoteCollection coll = new QuoteCollection();
+            Query qry = new Query(Quote.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public QuoteCollection FetchByID(object QuotesKey)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            QuoteCollection coll = new QuoteCollection().Where("quotes_key", QuotesKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public QuoteCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            QuoteCollection coll = new QuoteCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object QuotesKey)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (Quote.Delete(QuotesKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object QuotesKey)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (Quote.Destroy(QuotesKey) == 1);
         }
         
         
@@ -80,19 +80,27 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(decimal? SellAmount,int? SellCurrency,decimal? BuyAmount,int? BuyCurrency,decimal? Rate,decimal? ServiceFee,DateTime? PromisedDeliveryDate,DateTime? ActualDeliveryDate,DateTime DateCreated)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    Quote item = new Quote();
 		    
-            item.OrganizationName = OrganizationName;
+            item.SellAmount = SellAmount;
             
-            item.UserKeyUpdated = UserKeyUpdated;
+            item.SellCurrency = SellCurrency;
             
-            item.LastChanged = LastChanged;
+            item.BuyAmount = BuyAmount;
             
-            item.OrganizationDescription = OrganizationDescription;
+            item.BuyCurrency = BuyCurrency;
             
-            item.OrganizationType = OrganizationType;
+            item.Rate = Rate;
+            
+            item.ServiceFee = ServiceFee;
+            
+            item.PromisedDeliveryDate = PromisedDeliveryDate;
+            
+            item.ActualDeliveryDate = ActualDeliveryDate;
+            
+            item.DateCreated = DateCreated;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +110,31 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int QuotesKey,decimal? SellAmount,int? SellCurrency,decimal? BuyAmount,int? BuyCurrency,decimal? Rate,decimal? ServiceFee,DateTime? PromisedDeliveryDate,DateTime? ActualDeliveryDate,DateTime DateCreated)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    Quote item = new Quote();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.QuotesKey = QuotesKey;
 				
-			item.OrganizationName = OrganizationName;
+			item.SellAmount = SellAmount;
 				
-			item.UserKeyUpdated = UserKeyUpdated;
+			item.SellCurrency = SellCurrency;
 				
-			item.LastChanged = LastChanged;
+			item.BuyAmount = BuyAmount;
 				
-			item.OrganizationDescription = OrganizationDescription;
+			item.BuyCurrency = BuyCurrency;
 				
-			item.OrganizationType = OrganizationType;
+			item.Rate = Rate;
+				
+			item.ServiceFee = ServiceFee;
+				
+			item.PromisedDeliveryDate = PromisedDeliveryDate;
+				
+			item.ActualDeliveryDate = ActualDeliveryDate;
+				
+			item.DateCreated = DateCreated;
 				
 	        item.Save(UserName);
 	    }

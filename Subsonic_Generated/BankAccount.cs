@@ -144,7 +144,7 @@ namespace Peerfx_DB
 				colvarUserKey.DataType = DbType.Int32;
 				colvarUserKey.MaxLength = 0;
 				colvarUserKey.AutoIncrement = false;
-				colvarUserKey.IsNullable = false;
+				colvarUserKey.IsNullable = true;
 				colvarUserKey.IsPrimaryKey = false;
 				colvarUserKey.IsForeignKey = false;
 				colvarUserKey.IsReadOnly = false;
@@ -165,44 +165,18 @@ namespace Peerfx_DB
 				colvarCurrencyKey.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCurrencyKey);
 				
-				TableSchema.TableColumn colvarBankKey = new TableSchema.TableColumn(schema);
-				colvarBankKey.ColumnName = "bank_key";
-				colvarBankKey.DataType = DbType.String;
-				colvarBankKey.MaxLength = 10;
-				colvarBankKey.AutoIncrement = false;
-				colvarBankKey.IsNullable = false;
-				colvarBankKey.IsPrimaryKey = false;
-				colvarBankKey.IsForeignKey = false;
-				colvarBankKey.IsReadOnly = false;
-				colvarBankKey.DefaultSetting = @"";
-				colvarBankKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarBankKey);
-				
-				TableSchema.TableColumn colvarBankAccountX = new TableSchema.TableColumn(schema);
-				colvarBankAccountX.ColumnName = "bank_account";
-				colvarBankAccountX.DataType = DbType.AnsiString;
-				colvarBankAccountX.MaxLength = 50;
-				colvarBankAccountX.AutoIncrement = false;
-				colvarBankAccountX.IsNullable = false;
-				colvarBankAccountX.IsPrimaryKey = false;
-				colvarBankAccountX.IsForeignKey = false;
-				colvarBankAccountX.IsReadOnly = false;
-				colvarBankAccountX.DefaultSetting = @"";
-				colvarBankAccountX.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarBankAccountX);
-				
-				TableSchema.TableColumn colvarLastChanged = new TableSchema.TableColumn(schema);
-				colvarLastChanged.ColumnName = "last_changed";
-				colvarLastChanged.DataType = DbType.DateTime;
-				colvarLastChanged.MaxLength = 0;
-				colvarLastChanged.AutoIncrement = false;
-				colvarLastChanged.IsNullable = false;
-				colvarLastChanged.IsPrimaryKey = false;
-				colvarLastChanged.IsForeignKey = false;
-				colvarLastChanged.IsReadOnly = false;
-				colvarLastChanged.DefaultSetting = @"";
-				colvarLastChanged.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLastChanged);
+				TableSchema.TableColumn colvarOrganizationKey = new TableSchema.TableColumn(schema);
+				colvarOrganizationKey.ColumnName = "organization_key";
+				colvarOrganizationKey.DataType = DbType.Int32;
+				colvarOrganizationKey.MaxLength = 0;
+				colvarOrganizationKey.AutoIncrement = false;
+				colvarOrganizationKey.IsNullable = true;
+				colvarOrganizationKey.IsPrimaryKey = false;
+				colvarOrganizationKey.IsForeignKey = false;
+				colvarOrganizationKey.IsReadOnly = false;
+				colvarOrganizationKey.DefaultSetting = @"";
+				colvarOrganizationKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOrganizationKey);
 				
 				TableSchema.TableColumn colvarBankAccountDescription = new TableSchema.TableColumn(schema);
 				colvarBankAccountDescription.ColumnName = "bank_account_description";
@@ -216,19 +190,6 @@ namespace Peerfx_DB
 				colvarBankAccountDescription.DefaultSetting = @"";
 				colvarBankAccountDescription.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarBankAccountDescription);
-				
-				TableSchema.TableColumn colvarIsSystemAccount = new TableSchema.TableColumn(schema);
-				colvarIsSystemAccount.ColumnName = "is_system_account";
-				colvarIsSystemAccount.DataType = DbType.Boolean;
-				colvarIsSystemAccount.MaxLength = 0;
-				colvarIsSystemAccount.AutoIncrement = false;
-				colvarIsSystemAccount.IsNullable = false;
-				colvarIsSystemAccount.IsPrimaryKey = false;
-				colvarIsSystemAccount.IsForeignKey = false;
-				colvarIsSystemAccount.IsReadOnly = false;
-				colvarIsSystemAccount.DefaultSetting = @"";
-				colvarIsSystemAccount.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarIsSystemAccount);
 				
 				TableSchema.TableColumn colvarUserKeyUpdated = new TableSchema.TableColumn(schema);
 				colvarUserKeyUpdated.ColumnName = "user_key_updated";
@@ -256,6 +217,123 @@ namespace Peerfx_DB
 				colvarIpAddress.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarIpAddress);
 				
+				TableSchema.TableColumn colvarAccountNumber = new TableSchema.TableColumn(schema);
+				colvarAccountNumber.ColumnName = "account_number";
+				colvarAccountNumber.DataType = DbType.AnsiString;
+				colvarAccountNumber.MaxLength = 50;
+				colvarAccountNumber.AutoIncrement = false;
+				colvarAccountNumber.IsNullable = true;
+				colvarAccountNumber.IsPrimaryKey = false;
+				colvarAccountNumber.IsForeignKey = false;
+				colvarAccountNumber.IsReadOnly = false;
+				colvarAccountNumber.DefaultSetting = @"";
+				colvarAccountNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountNumber);
+				
+				TableSchema.TableColumn colvarIban = new TableSchema.TableColumn(schema);
+				colvarIban.ColumnName = "IBAN";
+				colvarIban.DataType = DbType.AnsiString;
+				colvarIban.MaxLength = 50;
+				colvarIban.AutoIncrement = false;
+				colvarIban.IsNullable = true;
+				colvarIban.IsPrimaryKey = false;
+				colvarIban.IsForeignKey = false;
+				colvarIban.IsReadOnly = false;
+				colvarIban.DefaultSetting = @"";
+				colvarIban.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIban);
+				
+				TableSchema.TableColumn colvarBic = new TableSchema.TableColumn(schema);
+				colvarBic.ColumnName = "BIC";
+				colvarBic.DataType = DbType.AnsiString;
+				colvarBic.MaxLength = 50;
+				colvarBic.AutoIncrement = false;
+				colvarBic.IsNullable = true;
+				colvarBic.IsPrimaryKey = false;
+				colvarBic.IsForeignKey = false;
+				colvarBic.IsReadOnly = false;
+				colvarBic.DefaultSetting = @"";
+				colvarBic.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBic);
+				
+				TableSchema.TableColumn colvarABArouting = new TableSchema.TableColumn(schema);
+				colvarABArouting.ColumnName = "ABArouting";
+				colvarABArouting.DataType = DbType.AnsiString;
+				colvarABArouting.MaxLength = 50;
+				colvarABArouting.AutoIncrement = false;
+				colvarABArouting.IsNullable = true;
+				colvarABArouting.IsPrimaryKey = false;
+				colvarABArouting.IsForeignKey = false;
+				colvarABArouting.IsReadOnly = false;
+				colvarABArouting.DefaultSetting = @"";
+				colvarABArouting.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarABArouting);
+				
+				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
+				colvarFirstName.ColumnName = "first_name";
+				colvarFirstName.DataType = DbType.String;
+				colvarFirstName.MaxLength = 100;
+				colvarFirstName.AutoIncrement = false;
+				colvarFirstName.IsNullable = true;
+				colvarFirstName.IsPrimaryKey = false;
+				colvarFirstName.IsForeignKey = false;
+				colvarFirstName.IsReadOnly = false;
+				colvarFirstName.DefaultSetting = @"";
+				colvarFirstName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFirstName);
+				
+				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
+				colvarLastName.ColumnName = "last_name";
+				colvarLastName.DataType = DbType.String;
+				colvarLastName.MaxLength = 100;
+				colvarLastName.AutoIncrement = false;
+				colvarLastName.IsNullable = true;
+				colvarLastName.IsPrimaryKey = false;
+				colvarLastName.IsForeignKey = false;
+				colvarLastName.IsReadOnly = false;
+				colvarLastName.DefaultSetting = @"";
+				colvarLastName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLastName);
+				
+				TableSchema.TableColumn colvarBusinessName = new TableSchema.TableColumn(schema);
+				colvarBusinessName.ColumnName = "business_name";
+				colvarBusinessName.DataType = DbType.String;
+				colvarBusinessName.MaxLength = 100;
+				colvarBusinessName.AutoIncrement = false;
+				colvarBusinessName.IsNullable = true;
+				colvarBusinessName.IsPrimaryKey = false;
+				colvarBusinessName.IsForeignKey = false;
+				colvarBusinessName.IsReadOnly = false;
+				colvarBusinessName.DefaultSetting = @"";
+				colvarBusinessName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBusinessName);
+				
+				TableSchema.TableColumn colvarLastChanged = new TableSchema.TableColumn(schema);
+				colvarLastChanged.ColumnName = "last_changed";
+				colvarLastChanged.DataType = DbType.DateTime;
+				colvarLastChanged.MaxLength = 0;
+				colvarLastChanged.AutoIncrement = false;
+				colvarLastChanged.IsNullable = false;
+				colvarLastChanged.IsPrimaryKey = false;
+				colvarLastChanged.IsForeignKey = false;
+				colvarLastChanged.IsReadOnly = false;
+				colvarLastChanged.DefaultSetting = @"";
+				colvarLastChanged.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLastChanged);
+				
+				TableSchema.TableColumn colvarDateCreated = new TableSchema.TableColumn(schema);
+				colvarDateCreated.ColumnName = "date_created";
+				colvarDateCreated.DataType = DbType.DateTime;
+				colvarDateCreated.MaxLength = 0;
+				colvarDateCreated.AutoIncrement = false;
+				colvarDateCreated.IsNullable = true;
+				colvarDateCreated.IsPrimaryKey = false;
+				colvarDateCreated.IsForeignKey = false;
+				colvarDateCreated.IsReadOnly = false;
+				colvarDateCreated.DefaultSetting = @"";
+				colvarDateCreated.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDateCreated);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -276,9 +354,9 @@ namespace Peerfx_DB
 		  
 		[XmlAttribute("UserKey")]
 		[Bindable(true)]
-		public int UserKey 
+		public int? UserKey 
 		{
-			get { return GetColumnValue<int>(Columns.UserKey); }
+			get { return GetColumnValue<int?>(Columns.UserKey); }
 			set { SetColumnValue(Columns.UserKey, value); }
 		}
 		  
@@ -290,28 +368,12 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.CurrencyKey, value); }
 		}
 		  
-		[XmlAttribute("BankKey")]
+		[XmlAttribute("OrganizationKey")]
 		[Bindable(true)]
-		public string BankKey 
+		public int? OrganizationKey 
 		{
-			get { return GetColumnValue<string>(Columns.BankKey); }
-			set { SetColumnValue(Columns.BankKey, value); }
-		}
-		  
-		[XmlAttribute("BankAccountX")]
-		[Bindable(true)]
-		public string BankAccountX 
-		{
-			get { return GetColumnValue<string>(Columns.BankAccountX); }
-			set { SetColumnValue(Columns.BankAccountX, value); }
-		}
-		  
-		[XmlAttribute("LastChanged")]
-		[Bindable(true)]
-		public DateTime LastChanged 
-		{
-			get { return GetColumnValue<DateTime>(Columns.LastChanged); }
-			set { SetColumnValue(Columns.LastChanged, value); }
+			get { return GetColumnValue<int?>(Columns.OrganizationKey); }
+			set { SetColumnValue(Columns.OrganizationKey, value); }
 		}
 		  
 		[XmlAttribute("BankAccountDescription")]
@@ -320,14 +382,6 @@ namespace Peerfx_DB
 		{
 			get { return GetColumnValue<string>(Columns.BankAccountDescription); }
 			set { SetColumnValue(Columns.BankAccountDescription, value); }
-		}
-		  
-		[XmlAttribute("IsSystemAccount")]
-		[Bindable(true)]
-		public bool IsSystemAccount 
-		{
-			get { return GetColumnValue<bool>(Columns.IsSystemAccount); }
-			set { SetColumnValue(Columns.IsSystemAccount, value); }
 		}
 		  
 		[XmlAttribute("UserKeyUpdated")]
@@ -344,6 +398,78 @@ namespace Peerfx_DB
 		{
 			get { return GetColumnValue<string>(Columns.IpAddress); }
 			set { SetColumnValue(Columns.IpAddress, value); }
+		}
+		  
+		[XmlAttribute("AccountNumber")]
+		[Bindable(true)]
+		public string AccountNumber 
+		{
+			get { return GetColumnValue<string>(Columns.AccountNumber); }
+			set { SetColumnValue(Columns.AccountNumber, value); }
+		}
+		  
+		[XmlAttribute("Iban")]
+		[Bindable(true)]
+		public string Iban 
+		{
+			get { return GetColumnValue<string>(Columns.Iban); }
+			set { SetColumnValue(Columns.Iban, value); }
+		}
+		  
+		[XmlAttribute("Bic")]
+		[Bindable(true)]
+		public string Bic 
+		{
+			get { return GetColumnValue<string>(Columns.Bic); }
+			set { SetColumnValue(Columns.Bic, value); }
+		}
+		  
+		[XmlAttribute("ABArouting")]
+		[Bindable(true)]
+		public string ABArouting 
+		{
+			get { return GetColumnValue<string>(Columns.ABArouting); }
+			set { SetColumnValue(Columns.ABArouting, value); }
+		}
+		  
+		[XmlAttribute("FirstName")]
+		[Bindable(true)]
+		public string FirstName 
+		{
+			get { return GetColumnValue<string>(Columns.FirstName); }
+			set { SetColumnValue(Columns.FirstName, value); }
+		}
+		  
+		[XmlAttribute("LastName")]
+		[Bindable(true)]
+		public string LastName 
+		{
+			get { return GetColumnValue<string>(Columns.LastName); }
+			set { SetColumnValue(Columns.LastName, value); }
+		}
+		  
+		[XmlAttribute("BusinessName")]
+		[Bindable(true)]
+		public string BusinessName 
+		{
+			get { return GetColumnValue<string>(Columns.BusinessName); }
+			set { SetColumnValue(Columns.BusinessName, value); }
+		}
+		  
+		[XmlAttribute("LastChanged")]
+		[Bindable(true)]
+		public DateTime LastChanged 
+		{
+			get { return GetColumnValue<DateTime>(Columns.LastChanged); }
+			set { SetColumnValue(Columns.LastChanged, value); }
+		}
+		  
+		[XmlAttribute("DateCreated")]
+		[Bindable(true)]
+		public DateTime? DateCreated 
+		{
+			get { return GetColumnValue<DateTime?>(Columns.DateCreated); }
+			set { SetColumnValue(Columns.DateCreated, value); }
 		}
 		
 		#endregion
@@ -365,7 +491,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varUserKey,int varCurrencyKey,string varBankKey,string varBankAccountX,DateTime varLastChanged,string varBankAccountDescription,bool varIsSystemAccount,int varUserKeyUpdated,string varIpAddress)
+		public static void Insert(int? varUserKey,int varCurrencyKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -373,19 +499,31 @@ namespace Peerfx_DB
 			
 			item.CurrencyKey = varCurrencyKey;
 			
-			item.BankKey = varBankKey;
-			
-			item.BankAccountX = varBankAccountX;
-			
-			item.LastChanged = varLastChanged;
+			item.OrganizationKey = varOrganizationKey;
 			
 			item.BankAccountDescription = varBankAccountDescription;
-			
-			item.IsSystemAccount = varIsSystemAccount;
 			
 			item.UserKeyUpdated = varUserKeyUpdated;
 			
 			item.IpAddress = varIpAddress;
+			
+			item.AccountNumber = varAccountNumber;
+			
+			item.Iban = varIban;
+			
+			item.Bic = varBic;
+			
+			item.ABArouting = varABArouting;
+			
+			item.FirstName = varFirstName;
+			
+			item.LastName = varLastName;
+			
+			item.BusinessName = varBusinessName;
+			
+			item.LastChanged = varLastChanged;
+			
+			item.DateCreated = varDateCreated;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -397,7 +535,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varBankAccountKey,int varUserKey,int varCurrencyKey,string varBankKey,string varBankAccountX,DateTime varLastChanged,string varBankAccountDescription,bool varIsSystemAccount,int varUserKeyUpdated,string varIpAddress)
+		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -407,19 +545,31 @@ namespace Peerfx_DB
 			
 				item.CurrencyKey = varCurrencyKey;
 			
-				item.BankKey = varBankKey;
-			
-				item.BankAccountX = varBankAccountX;
-			
-				item.LastChanged = varLastChanged;
+				item.OrganizationKey = varOrganizationKey;
 			
 				item.BankAccountDescription = varBankAccountDescription;
-			
-				item.IsSystemAccount = varIsSystemAccount;
 			
 				item.UserKeyUpdated = varUserKeyUpdated;
 			
 				item.IpAddress = varIpAddress;
+			
+				item.AccountNumber = varAccountNumber;
+			
+				item.Iban = varIban;
+			
+				item.Bic = varBic;
+			
+				item.ABArouting = varABArouting;
+			
+				item.FirstName = varFirstName;
+			
+				item.LastName = varLastName;
+			
+				item.BusinessName = varBusinessName;
+			
+				item.LastChanged = varLastChanged;
+			
+				item.DateCreated = varDateCreated;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -455,51 +605,93 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn BankKeyColumn
+        public static TableSchema.TableColumn OrganizationKeyColumn
         {
             get { return Schema.Columns[3]; }
         }
         
         
         
-        public static TableSchema.TableColumn BankAccountXColumn
+        public static TableSchema.TableColumn BankAccountDescriptionColumn
         {
             get { return Schema.Columns[4]; }
         }
         
         
         
-        public static TableSchema.TableColumn LastChangedColumn
+        public static TableSchema.TableColumn UserKeyUpdatedColumn
         {
             get { return Schema.Columns[5]; }
         }
         
         
         
-        public static TableSchema.TableColumn BankAccountDescriptionColumn
+        public static TableSchema.TableColumn IpAddressColumn
         {
             get { return Schema.Columns[6]; }
         }
         
         
         
-        public static TableSchema.TableColumn IsSystemAccountColumn
+        public static TableSchema.TableColumn AccountNumberColumn
         {
             get { return Schema.Columns[7]; }
         }
         
         
         
-        public static TableSchema.TableColumn UserKeyUpdatedColumn
+        public static TableSchema.TableColumn IbanColumn
         {
             get { return Schema.Columns[8]; }
         }
         
         
         
-        public static TableSchema.TableColumn IpAddressColumn
+        public static TableSchema.TableColumn BicColumn
         {
             get { return Schema.Columns[9]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn ABAroutingColumn
+        {
+            get { return Schema.Columns[10]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn FirstNameColumn
+        {
+            get { return Schema.Columns[11]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn LastNameColumn
+        {
+            get { return Schema.Columns[12]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn BusinessNameColumn
+        {
+            get { return Schema.Columns[13]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn LastChangedColumn
+        {
+            get { return Schema.Columns[14]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn DateCreatedColumn
+        {
+            get { return Schema.Columns[15]; }
         }
         
         
@@ -511,13 +703,19 @@ namespace Peerfx_DB
 			 public static string BankAccountKey = @"bank_account_key";
 			 public static string UserKey = @"user_key";
 			 public static string CurrencyKey = @"currency_key";
-			 public static string BankKey = @"bank_key";
-			 public static string BankAccountX = @"bank_account";
-			 public static string LastChanged = @"last_changed";
+			 public static string OrganizationKey = @"organization_key";
 			 public static string BankAccountDescription = @"bank_account_description";
-			 public static string IsSystemAccount = @"is_system_account";
 			 public static string UserKeyUpdated = @"user_key_updated";
 			 public static string IpAddress = @"ip_address";
+			 public static string AccountNumber = @"account_number";
+			 public static string Iban = @"IBAN";
+			 public static string Bic = @"BIC";
+			 public static string ABArouting = @"ABArouting";
+			 public static string FirstName = @"first_name";
+			 public static string LastName = @"last_name";
+			 public static string BusinessName = @"business_name";
+			 public static string LastChanged = @"last_changed";
+			 public static string DateCreated = @"date_created";
 						
 		}
 		#endregion

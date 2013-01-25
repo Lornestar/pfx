@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for Purpose_Types
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class PurposeTypeController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        PurposeType thisSchemaLoad = new PurposeType();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public PurposeTypeCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            PurposeTypeCollection coll = new PurposeTypeCollection();
+            Query qry = new Query(PurposeType.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public PurposeTypeCollection FetchByID(object PurposeTypesKey)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            PurposeTypeCollection coll = new PurposeTypeCollection().Where("purpose_types_key", PurposeTypesKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public PurposeTypeCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            PurposeTypeCollection coll = new PurposeTypeCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object PurposeTypesKey)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (PurposeType.Delete(PurposeTypesKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object PurposeTypesKey)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (PurposeType.Destroy(PurposeTypesKey) == 1);
         }
         
         
@@ -80,19 +80,13 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(int PurposeTypesKey,string PurposeDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    PurposeType item = new PurposeType();
 		    
-            item.OrganizationName = OrganizationName;
+            item.PurposeTypesKey = PurposeTypesKey;
             
-            item.UserKeyUpdated = UserKeyUpdated;
-            
-            item.LastChanged = LastChanged;
-            
-            item.OrganizationDescription = OrganizationDescription;
-            
-            item.OrganizationType = OrganizationType;
+            item.PurposeDescription = PurposeDescription;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +96,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int PurposeTypesKey,string PurposeDescription)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    PurposeType item = new PurposeType();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.PurposeTypesKey = PurposeTypesKey;
 				
-			item.OrganizationName = OrganizationName;
-				
-			item.UserKeyUpdated = UserKeyUpdated;
-				
-			item.LastChanged = LastChanged;
-				
-			item.OrganizationDescription = OrganizationDescription;
-				
-			item.OrganizationType = OrganizationType;
+			item.PurposeDescription = PurposeDescription;
 				
 	        item.Save(UserName);
 	    }

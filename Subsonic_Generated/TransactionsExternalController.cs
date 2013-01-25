@@ -80,23 +80,23 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int TxExternalType,int TxExternalStatus,int? UserKey,int Currency,decimal Amount,int? SenderBankAccountKey,int? ReceiverBankAccountKey,string TxExternalDescription,DateTime LastChanged,string IpAddress,int? UserKeyUpdated,string BankReference,string SenderBankName,string SenderBankAccount,string ReceiverBankName,string ReceiverBankAccount,DateTime? DateCreated,DateTime? DateProcessed)
+	    public void Insert(int TxExternalStatus,int? PurposeType,int? PurposeObjectKey,int Currency,decimal Amount,long? PaymentObjectSender,long? PaymentObjectReceiver,string TxExternalDescription,DateTime LastChanged,string IpAddress,int? UserKeyUpdated,string BankReference,DateTime? DateCreated,DateTime? DateProcessed)
 	    {
 		    TransactionsExternal item = new TransactionsExternal();
 		    
-            item.TxExternalType = TxExternalType;
-            
             item.TxExternalStatus = TxExternalStatus;
             
-            item.UserKey = UserKey;
+            item.PurposeType = PurposeType;
+            
+            item.PurposeObjectKey = PurposeObjectKey;
             
             item.Currency = Currency;
             
             item.Amount = Amount;
             
-            item.SenderBankAccountKey = SenderBankAccountKey;
+            item.PaymentObjectSender = PaymentObjectSender;
             
-            item.ReceiverBankAccountKey = ReceiverBankAccountKey;
+            item.PaymentObjectReceiver = PaymentObjectReceiver;
             
             item.TxExternalDescription = TxExternalDescription;
             
@@ -107,14 +107,6 @@ namespace Peerfx_DB
             item.UserKeyUpdated = UserKeyUpdated;
             
             item.BankReference = BankReference;
-            
-            item.SenderBankName = SenderBankName;
-            
-            item.SenderBankAccount = SenderBankAccount;
-            
-            item.ReceiverBankName = ReceiverBankName;
-            
-            item.ReceiverBankAccount = ReceiverBankAccount;
             
             item.DateCreated = DateCreated;
             
@@ -128,7 +120,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(long TxExternalKey,int TxExternalType,int TxExternalStatus,int? UserKey,int Currency,decimal Amount,int? SenderBankAccountKey,int? ReceiverBankAccountKey,string TxExternalDescription,DateTime LastChanged,string IpAddress,int? UserKeyUpdated,string BankReference,string SenderBankName,string SenderBankAccount,string ReceiverBankName,string ReceiverBankAccount,DateTime? DateCreated,DateTime? DateProcessed)
+	    public void Update(long TxExternalKey,int TxExternalStatus,int? PurposeType,int? PurposeObjectKey,int Currency,decimal Amount,long? PaymentObjectSender,long? PaymentObjectReceiver,string TxExternalDescription,DateTime LastChanged,string IpAddress,int? UserKeyUpdated,string BankReference,DateTime? DateCreated,DateTime? DateProcessed)
 	    {
 		    TransactionsExternal item = new TransactionsExternal();
 	        item.MarkOld();
@@ -136,19 +128,19 @@ namespace Peerfx_DB
 		    
 			item.TxExternalKey = TxExternalKey;
 				
-			item.TxExternalType = TxExternalType;
-				
 			item.TxExternalStatus = TxExternalStatus;
 				
-			item.UserKey = UserKey;
+			item.PurposeType = PurposeType;
+				
+			item.PurposeObjectKey = PurposeObjectKey;
 				
 			item.Currency = Currency;
 				
 			item.Amount = Amount;
 				
-			item.SenderBankAccountKey = SenderBankAccountKey;
+			item.PaymentObjectSender = PaymentObjectSender;
 				
-			item.ReceiverBankAccountKey = ReceiverBankAccountKey;
+			item.PaymentObjectReceiver = PaymentObjectReceiver;
 				
 			item.TxExternalDescription = TxExternalDescription;
 				
@@ -159,14 +151,6 @@ namespace Peerfx_DB
 			item.UserKeyUpdated = UserKeyUpdated;
 				
 			item.BankReference = BankReference;
-				
-			item.SenderBankName = SenderBankName;
-				
-			item.SenderBankAccount = SenderBankAccount;
-				
-			item.ReceiverBankName = ReceiverBankName;
-				
-			item.ReceiverBankAccount = ReceiverBankAccount;
 				
 			item.DateCreated = DateCreated;
 				

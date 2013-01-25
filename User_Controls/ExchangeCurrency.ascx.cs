@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
 using Peerfx.Models;
+using System.Configuration;
 
 namespace Peerfx.User_Controls
 {
@@ -40,7 +41,8 @@ namespace Peerfx.User_Controls
             string payamount = txtsell.Text;
             string paycurrency = ddlsellcurrency.SelectedValue;
             string buycurrency = ddlbuycurrency.SelectedValue;
-            Response.Redirect("ExchangeCurrency.aspx?sell=" + payamount + "&sellc=" + paycurrency + "&buyc=" + buycurrency);
+            
+            Response.Redirect(ConfigurationSettings.AppSettings["Root_url"].ToString() + "ExchangeCurrency.aspx?sell=" + payamount + "&sellc=" + paycurrency + "&buyc=" + buycurrency);
         }
 
         protected void txtsell_TextChanged(object sender, EventArgs e)

@@ -85,15 +85,68 @@
                                 <Columns>                                         
                                     <telerik:GridTemplateColumn DataField="tx_external_key" HeaderText="Key" UniqueName="tx_external_key" SortExpression="tx_external_key">
                                         <InsertItemTemplate>                                            
+                                            <table>
+                                                <tr>
+                                                    <td style="width:200px;">
+                                                    </td>
+                                                    <td>
+                                                        <table >
+                                                            <tr>
+                                                                <td>
+                                                                    Existing Bank Account:
+                                                                </td>
+                                                                <td>
+                                                                    <telerik:RadComboBox ID="ddlexistingbankaccounts" runat="server"></telerik:RadComboBox>
+                                                                </td>
+                                                                <td>
+                                                                    <telerik:RadButton ID="btninsertexisting" runat=server Text="Use Existing Account" CommandName="btninsertexisting"></telerik:RadButton>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    System Bank Account:
+                                                                </td>
+                                                                <td colspan=2>
+                                                                    <telerik:RadComboBox ID="ddlreceiveraccount" runat="server"></telerik:RadComboBox>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Amount:
+                                                                </td>
+                                                                <td colspan=2>
+                                                                    <telerik:RadNumericTextBox ID=txtamountexisting runat=server></telerik:RadNumericTextBox>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Deposit Description:
+                                                                </td>
+                                                                <td colspan=2>
+                                                                    <telerik:RadTextBox ID=txtdeposit runat=server></telerik:RadTextBox>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Bank Reference:
+                                                                </td>
+                                                                <td colspan=2>
+                                                                    <telerik:RadTextBox ID=txtbankref runat=server></telerik:RadTextBox>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>                                                        
                                         </InsertItemTemplate>
                                      </telerik:GridTemplateColumn>
-                                     <telerik:GridDropDownColumn DataField="sender_bank_name1" HeaderText="User Bank" DropDownControlType=RadComboBox 
+                                     <telerik:GridDropDownColumn DataField="sender_bank_name" HeaderText="User Bank" DropDownControlType=RadComboBox 
                                         UniqueName="sender_bank_name">
                                     </telerik:GridDropDownColumn>
-                                    <telerik:GridBoundColumn DataField="sender_bank_account1" HeaderText="User Bank Account" 
+                                    <telerik:GridBoundColumn DataField="sender_bank_account" HeaderText="User Bank Account" 
                                         UniqueName="sender_bank_account">                                        
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridDropDownColumn DataField="receiver_bank_name1" HeaderText="System Bank Account" SortExpression="bank_name" DropDownControlType=RadComboBox 
+                                    <telerik:GridDropDownColumn DataField="receiver_bank_name" HeaderText="System Bank Account" SortExpression="bank_name" DropDownControlType=RadComboBox 
                                         UniqueName="receiver_bank_name">
                                     </telerik:GridDropDownColumn>                                    
                                     <telerik:GridTemplateColumn DataField="info_currency_code" HeaderText="Currency" UniqueName="info_currency_code" >
@@ -102,7 +155,7 @@
                                             </telerik:RadComboBox>
                                         </InsertItemTemplate>
                                      </telerik:GridTemplateColumn>
-                                    <telerik:GridBoundColumn DataField="tx_external_description" HeaderText="Description" SortExpression="tx_external_description"
+                                    <telerik:GridBoundColumn DataField="tx_external_description" HeaderText="Deposit Description" SortExpression="tx_external_description"
                                         UniqueName="tx_external_description" >                                        
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="bank_reference" HeaderText="Bank Reference" SortExpression="bank_reference"
@@ -127,17 +180,21 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <telerik:RadButton ID=btnconnectuser runat=server Text="Connect" CommandName="btnconnectuser"></telerik:RadButton>
-                                                    </td>
-                                                    <td>
+                                                        <telerik:RadButton ID=btnconnectuser runat=server Text="Connect User" CommandName="btnconnectuser"></telerik:RadButton>                                                                               <telerik:RadButton ID=btnconnectpayment runat=server Text="Connect Payment" CommandName="btnconnectpayment"></telerik:RadButton>
                                                         <telerik:RadButton ID=btnremovedeposit runat=server Text="Remove" CommandName="btnremovedeposit"></telerik:RadButton>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan=2>
+                                                    <td >
                                                         <telerik:RadComboBox ID=ddlconnectuser runat=server EmptyMessage="Choose User" >
                                                         </telerik:RadComboBox>
                                                     </td>                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td >
+                                                        <telerik:RadComboBox ID=ddlconnectpayment runat=server EmptyMessage="Choose Payment" >
+                                                        </telerik:RadComboBox>
+                                                    </td>
                                                 </tr>
                                             </table>                                                                                        
                                         </ItemTemplate>
@@ -173,13 +230,13 @@
                                 <Columns>                                                                        
                                     <telerik:GridBoundColumn DataField="tx_external_key" HeaderText="Key" UniqueName="tx_external_key" SortExpression="tx_external_key">
                                      </telerik:GridBoundColumn>
-                                     <telerik:GridBoundColumn DataField="sender_bank_name1" HeaderText="User Bank" UniqueName="sender_bank_name">
+                                    <telerik:GridBoundColumn DataField="sender_bank_name" HeaderText="User Bank" UniqueName="sender_bank_name">
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="sender_bank_account1" HeaderText="User Bank Account" 
+                                    <telerik:GridBoundColumn DataField="sender_bank_account" HeaderText="User Bank Account" 
                                         UniqueName="sender_bank_account">                                        
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="receiver_bank_name1" HeaderText="System Bank Account" SortExpression="bank_name" UniqueName="receiver_bank_name">
-                                    </telerik:GridBoundColumn>                                    
+                                    <telerik:GridBoundColumn DataField="receiver_bank_name" HeaderText="System Bank Account" SortExpression="bank_name" UniqueName="receiver_bank_name">
+                                    </telerik:GridBoundColumn>                                                                        
                                     <telerik:GridBoundColumn DataField="info_currency_code" HeaderText="Currency" UniqueName="info_currency_code" >                                        
                                      </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="tx_external_description" HeaderText="Description" SortExpression="tx_external_description"
@@ -220,5 +277,7 @@
                     </telerik:RadPageView>
                 <!--*******************DUPLICATE DEPOSITS************************-->
                 </telerik:RadMultiPage>
-        </telerik:RadAjaxPanel>
+        </telerik:RadAjaxPanel>        
+
 </asp:Content>
+

@@ -117,18 +117,6 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarOrganizationDescription);
                 
-                TableSchema.TableColumn colvarIsbank = new TableSchema.TableColumn(schema);
-                colvarIsbank.ColumnName = "isbank";
-                colvarIsbank.DataType = DbType.Boolean;
-                colvarIsbank.MaxLength = 0;
-                colvarIsbank.AutoIncrement = false;
-                colvarIsbank.IsNullable = true;
-                colvarIsbank.IsPrimaryKey = false;
-                colvarIsbank.IsForeignKey = false;
-                colvarIsbank.IsReadOnly = false;
-                
-                schema.Columns.Add(colvarIsbank);
-                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -248,20 +236,6 @@ namespace Peerfx_DB{
 			    SetColumnValue("organization_description", value);
             }
         }
-	      
-        [XmlAttribute("Isbank")]
-        [Bindable(true)]
-        public bool? Isbank 
-	    {
-		    get
-		    {
-			    return GetColumnValue<bool?>("isbank");
-		    }
-            set 
-		    {
-			    SetColumnValue("isbank", value);
-            }
-        }
 	    
 	    #endregion
     
@@ -279,8 +253,6 @@ namespace Peerfx_DB{
             public static string LastChanged = @"last_changed";
             
             public static string OrganizationDescription = @"organization_description";
-            
-            public static string Isbank = @"isbank";
             
 	    }
 	    #endregion

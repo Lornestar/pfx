@@ -47,13 +47,13 @@ namespace Peerfx.Admin
 
         protected void RadGrid1_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dstemp = Peerfx_DB.SPs.ViewAdminDeposits(1).GetDataSet();
+            DataSet dstemp = Peerfx_DB.SPs.ViewAdminDeposits(false).GetDataSet();
             RadGrid1.DataSource = dstemp.Tables[0];
         }
 
         protected void RadGrid2_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dstemp = Peerfx_DB.SPs.ViewAdminDeposits(2).GetDataSet();
+            DataSet dstemp = Peerfx_DB.SPs.ViewAdminDeposits(true).GetDataSet();
             RadGrid2.DataSource = dstemp.Tables[0];
         }
 
@@ -74,15 +74,24 @@ namespace Peerfx.Admin
                 int txkey = Convert.ToInt32(item["tx_external_key"].Text);
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectuser");
                 int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
-                Peerfx_DB.SPs.UpdateTransactionExternalStatus(txkey, 2, sitetemp.get_ipaddress(), userkey, 0).Execute();
+                Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 2, userkey).Execute();
                 RadGrid1.Rebind();
-
+            }
+            else if (e.CommandName == "btnconnectpayment")
+            {
+                //connect tx to a payment
+                GridDataItem item = (GridDataItem)e.Item;
+                int txkey = Convert.ToInt32(item["tx_external_key"].Text);
+                RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectpayment");
+                int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
+                Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, userkey).Execute();
+                RadGrid1.Rebind();
             }
             else if (e.CommandName == "btnremovedeposit")
             {
                 GridDataItem item = (GridDataItem)e.Item;
                 int txkey = Convert.ToInt32(item["tx_external_key"].Text);
-                Peerfx_DB.SPs.UpdateTransactionExternalStatus(txkey, 3, sitetemp.get_ipaddress(), null, 0).Execute();
+                Peerfx_DB.SPs.UpdateTransactionExternalStatus(txkey, 3, sitetemp.get_ipaddress(),currentuser.User_key).Execute();
                 RadGrid1.Rebind();
             }
             else if (e.CommandName == "Update")
@@ -96,6 +105,23 @@ namespace Peerfx.Admin
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlcurrency");
                 string description = (item["description"].Controls[0] as TextBox).Text;
                 Peerfx_DB.SPs.UpdateTransactionFees(txfees, 0, 0, Convert.ToDecimal(txtamount.Text), Convert.ToInt32(ddlconnectuser.SelectedValue), description, null,0).Execute();
+            }
+            else if (e.CommandName == "btninsertexisting")
+            {
+                //insert new deposit & connect it to existing bank account
+
+                GridEditFormInsertItem insertedItem = (GridEditFormInsertItem)e.Item;
+                decimal amount = Convert.ToDecimal((insertedItem["tx_external_key"].FindControl("txtamountexisting") as RadNumericTextBox).Text);
+                int sender_bank_key = Convert.ToInt32((insertedItem["tx_external_key"].FindControl("ddlexistingbankaccounts") as RadComboBox).SelectedValue);
+                int receiver_bank_key = Convert.ToInt32((insertedItem["tx_external_key"].FindControl("ddlreceiveraccount") as RadComboBox).SelectedValue);
+                string Description = (insertedItem["tx_external_key"].FindControl("txtdeposit") as RadTextBox).Text;
+                string bankreference = (insertedItem["tx_external_key"].FindControl("txtbankref") as RadTextBox).Text;
+
+                Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, sitetemp.getbankaccountcurrency(receiver_bank_key), amount, sitetemp.getpaymentobject(sender_bank_key), sitetemp.getpaymentobject(receiver_bank_key), sitetemp.get_ipaddress(), currentuser.User_key, Description, bankreference, 0).Execute();
+
+                RadGrid1.EditIndexes.Clear();
+                RadGrid1.MasterTableView.IsItemInserted = false;
+                RadGrid1.MasterTableView.Rebind();  
             }
         }
 
@@ -121,8 +147,8 @@ namespace Peerfx.Admin
                 else
                 {
                     DataRowView row = (DataRowView)e.Item.DataItem;
-                    item["sender_bank_name"].Text = row["sender_bank_name1"].ToString();
-                    item["receiver_bank_name"].Text = row["receiver_bank_name1"].ToString() + " " + row["receiver_bank_account1"].ToString();
+                    item["sender_bank_name"].Text = row["sender_bank_name"].ToString();
+                    item["receiver_bank_name"].Text = row["receiver_bank_name"].ToString() + " " + row["receiver_bank_account"].ToString();
                     item["tx_external_key"].Text = row["tx_external_key"].ToString();
                     item["info_currency_code"].Text = row["info_currency_code"].ToString();
                     item["amount"].Text = row["amount"].ToString();
@@ -132,7 +158,13 @@ namespace Peerfx.Admin
                     ddlconnectuser.DataTextField = "user_info_full";
                     ddlconnectuser.DataValueField = "user_key";
                     ddlconnectuser.DataSource = sitetemp.view_users_all();
-                    ddlconnectuser.DataBind();             
+                    ddlconnectuser.DataBind();
+
+                    RadComboBox ddlconnectpayment = (RadComboBox)item.FindControl("ddlconnectpayment");
+                    ddlconnectpayment.DataTextField = "payments_info";
+                    ddlconnectpayment.DataValueField = "payments_key";
+                    ddlconnectpayment.DataSource = sitetemp.view_payments_confirmed();
+                    ddlconnectpayment.DataBind();             
                 }                                
             }                  
             
@@ -176,11 +208,18 @@ namespace Peerfx.Admin
                         ddlbank.ComboBoxControl.AllowCustomText = true;
 
                         GridDropDownListColumnEditor ddlbank2 = editMan.GetColumnEditor("receiver_bank_name") as GridDropDownListColumnEditor;
-                        ddlbank2.DataTextField = "organization_name_full";
+                        ddlbank2.DataTextField = "bank_account_info";
                         ddlbank2.DataValueField = "bank_account_key";
                         ddlbank2.DataSource = sitetemp.view_system_bank_accounts();
                         ddlbank2.DataBind();
                         ddlbank2.ComboBoxControl.MarkFirstMatch = true;
+
+                        RadComboBox ddlbank3 = (RadComboBox)e.Item.FindControl("ddlreceiveraccount");
+                        ddlbank3.DataTextField = "bank_account_info";
+                        ddlbank3.DataValueField = "bank_account_key";
+                        ddlbank3.DataSource = sitetemp.view_system_bank_accounts();
+                        ddlbank3.DataBind();
+                        ddlbank3.MarkFirstMatch = true;                        
 
                         RadComboBox ddlcurrency = (RadComboBox)e.Item.FindControl("ddlcurrency");
                         ddlcurrency.DataTextField = "info_currency_code";
@@ -188,6 +227,13 @@ namespace Peerfx.Admin
                         ddlcurrency.DataSource = sitetemp.view_info_currencies();
                         ddlcurrency.DataBind();
                         ddlcurrency.MarkFirstMatch = true;
+
+                        RadComboBox ddlexistingbankaccounts = (RadComboBox)e.Item.FindControl("ddlexistingbankaccounts");
+                        ddlexistingbankaccounts.DataTextField = "bank_account_info";
+                        ddlexistingbankaccounts.DataValueField = "payment_object_key";
+                        ddlexistingbankaccounts.DataSource = sitetemp.view_bank_accounts_users();
+                        ddlexistingbankaccounts.DataBind();
+                        ddlexistingbankaccounts.MarkFirstMatch = true;                        
                     }                    
                 }                
             }
@@ -217,7 +263,7 @@ namespace Peerfx.Admin
             }
             else
             {
-                string sender_bank_key = (insertedItem["sender_bank_name"].Controls[0] as RadComboBox).Text;
+                int sender_bank_key = Convert.ToInt32((insertedItem["sender_bank_name"].Controls[0] as RadComboBox).SelectedValue);
                 string sender_bankaccount = (insertedItem["sender_bank_account"].Controls[0] as TextBox).Text;
                 int receiver_bank_key = Convert.ToInt32((insertedItem["receiver_bank_name"].Controls[0] as RadComboBox).SelectedValue);
                 string Description = (insertedItem["tx_external_description"].Controls[0] as TextBox).Text;
@@ -225,7 +271,15 @@ namespace Peerfx.Admin
                 decimal amount = Convert.ToDecimal((insertedItem["amount"].FindControl("txtamount") as RadNumericTextBox).Text);
                 string bankreference = (insertedItem["bank_reference"].Controls[0] as TextBox).Text;
 
-                StoredProcedure sp_NewPendingDeposit = Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, 1, currency, amount, null, receiver_bank_key, sitetemp.get_ipaddress(), null, Description, sender_bank_key, sender_bankaccount, "", "", null, bankreference, 0);
+                StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, currency, Convert.ToInt32(sender_bank_key), null, currentuser.User_key, sitetemp.get_ipaddress(), sender_bankaccount, null, null, null, null, null, null, 0);
+                sp_UpdateBank_account.Execute();
+                int bank_account_key = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
+                //Save payment object
+                StoredProcedure sp_Updatepaymentobject = Peerfx_DB.SPs.UpdatePaymentObjects(0, 1, bank_account_key, 0);
+                sp_Updatepaymentobject.Execute();
+                Int64 paymentobjectsender = Convert.ToInt64(sp_Updatepaymentobject.Command.Parameters[3].ParameterValue);
+
+                StoredProcedure sp_NewPendingDeposit = Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, currency, amount, paymentobjectsender, sitetemp.getpaymentobject(receiver_bank_key), sitetemp.get_ipaddress(), currentuser.User_key, Description, bankreference, 0);
                 sp_NewPendingDeposit.Execute();            
             }            
         }

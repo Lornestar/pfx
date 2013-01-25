@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int UserKey,int CurrencyKey,string BankKey,string BankAccountX,DateTime LastChanged,string BankAccountDescription,bool IsSystemAccount,int UserKeyUpdated,string IpAddress)
+	    public void Insert(int? UserKey,int CurrencyKey,int? OrganizationKey,string BankAccountDescription,int UserKeyUpdated,string IpAddress,string AccountNumber,string Iban,string Bic,string ABArouting,string FirstName,string LastName,string BusinessName,DateTime LastChanged,DateTime? DateCreated)
 	    {
 		    BankAccount item = new BankAccount();
 		    
@@ -88,19 +88,31 @@ namespace Peerfx_DB
             
             item.CurrencyKey = CurrencyKey;
             
-            item.BankKey = BankKey;
-            
-            item.BankAccountX = BankAccountX;
-            
-            item.LastChanged = LastChanged;
+            item.OrganizationKey = OrganizationKey;
             
             item.BankAccountDescription = BankAccountDescription;
-            
-            item.IsSystemAccount = IsSystemAccount;
             
             item.UserKeyUpdated = UserKeyUpdated;
             
             item.IpAddress = IpAddress;
+            
+            item.AccountNumber = AccountNumber;
+            
+            item.Iban = Iban;
+            
+            item.Bic = Bic;
+            
+            item.ABArouting = ABArouting;
+            
+            item.FirstName = FirstName;
+            
+            item.LastName = LastName;
+            
+            item.BusinessName = BusinessName;
+            
+            item.LastChanged = LastChanged;
+            
+            item.DateCreated = DateCreated;
             
 	    
 		    item.Save(UserName);
@@ -110,7 +122,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int BankAccountKey,int UserKey,int CurrencyKey,string BankKey,string BankAccountX,DateTime LastChanged,string BankAccountDescription,bool IsSystemAccount,int UserKeyUpdated,string IpAddress)
+	    public void Update(int BankAccountKey,int? UserKey,int CurrencyKey,int? OrganizationKey,string BankAccountDescription,int UserKeyUpdated,string IpAddress,string AccountNumber,string Iban,string Bic,string ABArouting,string FirstName,string LastName,string BusinessName,DateTime LastChanged,DateTime? DateCreated)
 	    {
 		    BankAccount item = new BankAccount();
 	        item.MarkOld();
@@ -122,19 +134,31 @@ namespace Peerfx_DB
 				
 			item.CurrencyKey = CurrencyKey;
 				
-			item.BankKey = BankKey;
-				
-			item.BankAccountX = BankAccountX;
-				
-			item.LastChanged = LastChanged;
+			item.OrganizationKey = OrganizationKey;
 				
 			item.BankAccountDescription = BankAccountDescription;
-				
-			item.IsSystemAccount = IsSystemAccount;
 				
 			item.UserKeyUpdated = UserKeyUpdated;
 				
 			item.IpAddress = IpAddress;
+				
+			item.AccountNumber = AccountNumber;
+				
+			item.Iban = Iban;
+				
+			item.Bic = Bic;
+				
+			item.ABArouting = ABArouting;
+				
+			item.FirstName = FirstName;
+				
+			item.LastName = LastName;
+				
+			item.BusinessName = BusinessName;
+				
+			item.LastChanged = LastChanged;
+				
+			item.DateCreated = DateCreated;
 				
 	        item.Save(UserName);
 	    }

@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Organizations
+    /// Controller class for User_Recipients
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoOrganizationController
+    public partial class UserRecipientController
     {
         // Preload our schema..
-        InfoOrganization thisSchemaLoad = new InfoOrganization();
+        UserRecipient thisSchemaLoad = new UserRecipient();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoOrganizationCollection FetchAll()
+        public UserRecipientCollection FetchAll()
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
-            Query qry = new Query(InfoOrganization.Schema);
+            UserRecipientCollection coll = new UserRecipientCollection();
+            Query qry = new Query(UserRecipient.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByID(object InfoOrganizationsKey)
+        public UserRecipientCollection FetchByID(object UserRecipientsKey)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection().Where("info_organizations_key", InfoOrganizationsKey).Load();
+            UserRecipientCollection coll = new UserRecipientCollection().Where("user_recipients_key", UserRecipientsKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoOrganizationCollection FetchByQuery(Query qry)
+        public UserRecipientCollection FetchByQuery(Query qry)
         {
-            InfoOrganizationCollection coll = new InfoOrganizationCollection();
+            UserRecipientCollection coll = new UserRecipientCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoOrganizationsKey)
+        public bool Delete(object UserRecipientsKey)
         {
-            return (InfoOrganization.Delete(InfoOrganizationsKey) == 1);
+            return (UserRecipient.Delete(UserRecipientsKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoOrganizationsKey)
+        public bool Destroy(object UserRecipientsKey)
         {
-            return (InfoOrganization.Destroy(InfoOrganizationsKey) == 1);
+            return (UserRecipient.Destroy(UserRecipientsKey) == 1);
         }
         
         
@@ -80,19 +80,15 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Insert(int UserRecipientsKey,int? UserKey,long? PaymentObjectKey)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    UserRecipient item = new UserRecipient();
 		    
-            item.OrganizationName = OrganizationName;
+            item.UserRecipientsKey = UserRecipientsKey;
             
-            item.UserKeyUpdated = UserKeyUpdated;
+            item.UserKey = UserKey;
             
-            item.LastChanged = LastChanged;
-            
-            item.OrganizationDescription = OrganizationDescription;
-            
-            item.OrganizationType = OrganizationType;
+            item.PaymentObjectKey = PaymentObjectKey;
             
 	    
 		    item.Save(UserName);
@@ -102,23 +98,17 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoOrganizationsKey,string OrganizationName,int? UserKeyUpdated,DateTime? LastChanged,string OrganizationDescription,int? OrganizationType)
+	    public void Update(int UserRecipientsKey,int? UserKey,long? PaymentObjectKey)
 	    {
-		    InfoOrganization item = new InfoOrganization();
+		    UserRecipient item = new UserRecipient();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoOrganizationsKey = InfoOrganizationsKey;
+			item.UserRecipientsKey = UserRecipientsKey;
 				
-			item.OrganizationName = OrganizationName;
+			item.UserKey = UserKey;
 				
-			item.UserKeyUpdated = UserKeyUpdated;
-				
-			item.LastChanged = LastChanged;
-				
-			item.OrganizationDescription = OrganizationDescription;
-				
-			item.OrganizationType = OrganizationType;
+			item.PaymentObjectKey = PaymentObjectKey;
 				
 	        item.Save(UserName);
 	    }
