@@ -13,6 +13,24 @@ namespace Peerfx.User {
     public partial class Dashboard {
         
         /// <summary>
+        /// RadListView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadListView RadListView1;
+        
+        /// <summary>
+        /// RadListView2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadListView RadListView2;
+        
+        /// <summary>
         /// ucExchangeCurrency control.
         /// </summary>
         /// <remarks>

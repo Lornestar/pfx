@@ -40,7 +40,7 @@
                                                 | <a href="Admin_Users.aspx">Users</a>
                                             </td>
                                             <td>
-                                                | About us
+                                                | <a href="Admin_Payment.aspx">Payments</a>
                                             </td>
                                             <td>
                                                 | Contact us

@@ -69,18 +69,6 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarTxExternalKey);
                 
-                TableSchema.TableColumn colvarTxExternalType = new TableSchema.TableColumn(schema);
-                colvarTxExternalType.ColumnName = "tx_external_type";
-                colvarTxExternalType.DataType = DbType.Int32;
-                colvarTxExternalType.MaxLength = 0;
-                colvarTxExternalType.AutoIncrement = false;
-                colvarTxExternalType.IsNullable = false;
-                colvarTxExternalType.IsPrimaryKey = false;
-                colvarTxExternalType.IsForeignKey = false;
-                colvarTxExternalType.IsReadOnly = false;
-                
-                schema.Columns.Add(colvarTxExternalType);
-                
                 TableSchema.TableColumn colvarTxExternalStatus = new TableSchema.TableColumn(schema);
                 colvarTxExternalStatus.ColumnName = "tx_external_status";
                 colvarTxExternalStatus.DataType = DbType.Int32;
@@ -397,20 +385,6 @@ namespace Peerfx_DB{
             }
         }
 	      
-        [XmlAttribute("TxExternalType")]
-        [Bindable(true)]
-        public int TxExternalType 
-	    {
-		    get
-		    {
-			    return GetColumnValue<int>("tx_external_type");
-		    }
-            set 
-		    {
-			    SetColumnValue("tx_external_type", value);
-            }
-        }
-	      
         [XmlAttribute("TxExternalStatus")]
         [Bindable(true)]
         public int TxExternalStatus 
@@ -713,8 +687,6 @@ namespace Peerfx_DB{
 		    
 		    
             public static string TxExternalKey = @"tx_external_key";
-            
-            public static string TxExternalType = @"tx_external_type";
             
             public static string TxExternalStatus = @"tx_external_status";
             

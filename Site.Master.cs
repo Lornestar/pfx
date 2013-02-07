@@ -8,6 +8,9 @@ using System.Data;
 using Peerfx.Models;
 using System.Configuration;
 using System.Collections;
+using System.Text;
+using System.Text.RegularExpressions;
+using SubSonic;
 
 namespace Peerfx
 {
@@ -16,7 +19,12 @@ namespace Peerfx
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (isloggedin())
+            {
+                //logged in change navigation links
+                pnlloggedin.Visible = true;
+                pnlloggedout.Visible = false;
+            }
         }
 
         public Users getcurrentuser(bool MustbeAdmin)
@@ -242,26 +250,195 @@ namespace Peerfx
             return users;
         }
 
+        public BankAccounts getBankAccounts(int bankaccountkey, Int64 paymentkey)
+        {
+            DataSet dstemp = new DataSet();
+            BankAccounts tempbankaccount = new BankAccounts();
+
+            if (bankaccountkey > 0)
+            {
+                dstemp = Peerfx_DB.SPs.ViewBankAccountsSpecific(bankaccountkey).GetDataSet();
+                tempbankaccount.Bank_account_key = bankaccountkey;
+                if (dstemp.Tables[0].Rows[0]["payment_object_key"] != DBNull.Value)
+                {
+                    tempbankaccount.Payment_object_key = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]);
+                }
+            }
+            else if (paymentkey > 0)
+            {
+                tempbankaccount.Payment_object_key = paymentkey;
+                dstemp = Peerfx_DB.SPs.ViewBankAccountsSpecificPaymentkey(paymentkey).GetDataSet();
+                if (dstemp.Tables[0].Rows[0]["bank_account_key"] != DBNull.Value)
+                {
+                    tempbankaccount.Bank_account_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["bank_account_key"]);
+                }
+            }
+
+            if (dstemp.Tables[0].Rows[0]["payment_object_type"] != DBNull.Value)
+            {
+                tempbankaccount.Payment_object_type = Convert.ToInt32(dstemp.Tables[0].Rows[0]["payment_object_type"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["date_created"] != DBNull.Value)
+            {
+                tempbankaccount.Date_created = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["date_created"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["user_key"] != DBNull.Value)
+            {
+                tempbankaccount.User_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["user_key"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["organization_key"] != DBNull.Value)
+            {
+                tempbankaccount.Organization_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["organization_key"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["bank_account_description"] != DBNull.Value)
+            {
+                tempbankaccount.Bank_account_description = dstemp.Tables[0].Rows[0]["bank_account_description"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["user_key_updated"] != DBNull.Value)
+            {
+                tempbankaccount.User_key_updated = Convert.ToInt32(dstemp.Tables[0].Rows[0]["user_key_updated"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["ip_address"] != DBNull.Value)
+            {
+                tempbankaccount.Ip_address = dstemp.Tables[0].Rows[0]["ip_address"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["business_name"] != DBNull.Value)
+            {
+                tempbankaccount.Business_name = dstemp.Tables[0].Rows[0]["business_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["last_changed"] != DBNull.Value)
+            {
+                tempbankaccount.Last_changed = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["last_changed"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["bank_account_info"] != DBNull.Value)
+            {
+                tempbankaccount.Bank_account_info = dstemp.Tables[0].Rows[0]["bank_account_info"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["organization_name"] != DBNull.Value)
+            {
+                tempbankaccount.Organization_name = dstemp.Tables[0].Rows[0]["organization_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["country_text"] != DBNull.Value)
+            {
+                tempbankaccount.Country_text = dstemp.Tables[0].Rows[0]["country_text"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["currency_text"] != DBNull.Value)
+            {
+                tempbankaccount.Currency_text = dstemp.Tables[0].Rows[0]["currency_text"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["first_name"] != DBNull.Value)
+            {
+                tempbankaccount.First_name = dstemp.Tables[0].Rows[0]["first_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["last_name"] != DBNull.Value)
+            {
+                tempbankaccount.Last_name = dstemp.Tables[0].Rows[0]["last_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["account_number"] != DBNull.Value)
+            {
+                tempbankaccount.Account_number = dstemp.Tables[0].Rows[0]["account_number"].ToString();                
+            }
+            if (dstemp.Tables[0].Rows[0]["IBAN"] != DBNull.Value)
+            {
+                tempbankaccount.IBAN = dstemp.Tables[0].Rows[0]["IBAN"].ToString();                
+            }
+            if (dstemp.Tables[0].Rows[0]["BIC"] != DBNull.Value)
+            {
+                tempbankaccount.BIC = dstemp.Tables[0].Rows[0]["BIC"].ToString();                
+            }
+            if (dstemp.Tables[0].Rows[0]["ABArouting"] != DBNull.Value)
+            {
+                tempbankaccount.ABArouting = dstemp.Tables[0].Rows[0]["ABArouting"].ToString();                
+            }
+            if (dstemp.Tables[0].Rows[0]["currency_key"] != DBNull.Value)
+            {
+                tempbankaccount.Currency_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["currency_key"].ToString());
+            }
+
+            return tempbankaccount;
+        }
+
+        public string getBankAccountDescription(Int64 paymentobjectkey)
+        {
+            //output bank account in html format
+            string strtemp = "";
+            string strbuffer = "";
+
+            DataSet dstemp = Peerfx_DB.SPs.ViewBankAccountsSpecificPaymentkey(paymentobjectkey).GetDataSet();
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                if (dstemp.Tables[0].Rows[0]["IBAN"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["IBAN"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "IBAN - " + strbuffer + "<br/>";
+                    }
+                }
+                if (dstemp.Tables[0].Rows[0]["BIC"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["BIC"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "BIC - " + strbuffer + "<br/>";
+                    }
+                }
+                if (dstemp.Tables[0].Rows[0]["ABArouting"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["ABArouting"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "ABA Routing - " + strbuffer + "<br/>";
+                    }
+                }
+                if (dstemp.Tables[0].Rows[0]["account_number"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["account_number"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "Account Number - " + strbuffer + "<br/>";
+                    }
+                }
+
+                if (dstemp.Tables[0].Rows[0]["organization_name"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["organization_name"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "Bank Name - " + strbuffer + "<br/>";
+                    }
+                }
+
+                if (dstemp.Tables[0].Rows[0]["country_text"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["country_text"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "Country - " + strbuffer;
+                    }
+                }            
+            }
+            
+
+            return strtemp;
+        }
+
         public string GetCurrencySymbol(string strtemp)
         {            
             string strsymbol = "$";
 
-            if (strtemp.Contains("EUR"))
-            {
-                strsymbol = "€";
-            }
-            else if (strtemp.Contains("GBP"))
-            {
-                strsymbol = "£";
-            }
-            else if (strtemp.Contains("ILS"))
-            {
-                strsymbol = "₪";
-            }
-            else if (strtemp.Contains("PLN"))
-            {
-                strsymbol = "zł";
-            }
+            DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrencySymbol(strtemp.ToUpper()).GetDataSet();
+            strsymbol = dstemp.Tables[0].Rows[0]["info_currency_symbol"].ToString();
+
+            return strsymbol;
+        }
+
+        public string GetCurrencySymbol(int currencykey)
+        {
+            string strsymbol = "$";
+
+            DataSet dstemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currencykey).GetDataSet();
+            strsymbol = dstemp.Tables[0].Rows[0]["info_currency_symbol"].ToString();
             return strsymbol;
         }
 
@@ -463,6 +640,12 @@ namespace Peerfx
             return dstemp.Tables[0];
         }
 
+        public DataTable view_transaction_all_specificpayment(int paymentkey)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewTransactionAllSpecificPayment(paymentkey).GetDataSet();
+            return dstemp.Tables[0];
+        }
+
         public DataTable view_transaction_fees(int tx_type)
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewTransactionFees(tx_type).GetDataSet();
@@ -497,6 +680,31 @@ namespace Peerfx
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewBankAccountsUsers().GetDataSet();
             return dstemp.Tables[0];
+        }
+
+        public DataTable view_payment_status()
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentStatus().GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public Int64 insert_bank_account_returnpaymentobject(int userkey, int currencykey, int organizationkey, string bankaccountdescription, int userkeyupdated, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname)
+        {
+            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, userkey, currencykey, organizationkey, bankaccountdescription, userkeyupdated, get_ipaddress(), accountnumber, IBAN, BIC, ABArouting, firstname, lastname, businessname, 0);
+            sp_UpdateBank_account.Execute();
+            int bankaccountkey = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
+            StoredProcedure sp_UpdatePaymentObject = Peerfx_DB.SPs.UpdatePaymentObjects(0, 1, bankaccountkey, 0);
+            sp_UpdatePaymentObject.Execute();
+            Int64 returnpaymentobject = Convert.ToInt64(sp_UpdatePaymentObject.Command.Parameters[3].ParameterValue.ToString());
+
+            return returnpaymentobject;
+        }
+
+        public bool IsNumeric(string strTextEntry)
+        {
+            Regex objNotWholePattern = new Regex("[^0-9]");
+            return !objNotWholePattern.IsMatch(strTextEntry)
+                 && (strTextEntry != "");
         }
     }
 }

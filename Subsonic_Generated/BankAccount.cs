@@ -165,6 +165,19 @@ namespace Peerfx_DB
 				colvarCurrencyKey.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCurrencyKey);
 				
+				TableSchema.TableColumn colvarCountryKey = new TableSchema.TableColumn(schema);
+				colvarCountryKey.ColumnName = "country_key";
+				colvarCountryKey.DataType = DbType.Int32;
+				colvarCountryKey.MaxLength = 0;
+				colvarCountryKey.AutoIncrement = false;
+				colvarCountryKey.IsNullable = true;
+				colvarCountryKey.IsPrimaryKey = false;
+				colvarCountryKey.IsForeignKey = false;
+				colvarCountryKey.IsReadOnly = false;
+				colvarCountryKey.DefaultSetting = @"";
+				colvarCountryKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCountryKey);
+				
 				TableSchema.TableColumn colvarOrganizationKey = new TableSchema.TableColumn(schema);
 				colvarOrganizationKey.ColumnName = "organization_key";
 				colvarOrganizationKey.DataType = DbType.Int32;
@@ -368,6 +381,14 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.CurrencyKey, value); }
 		}
 		  
+		[XmlAttribute("CountryKey")]
+		[Bindable(true)]
+		public int? CountryKey 
+		{
+			get { return GetColumnValue<int?>(Columns.CountryKey); }
+			set { SetColumnValue(Columns.CountryKey, value); }
+		}
+		  
 		[XmlAttribute("OrganizationKey")]
 		[Bindable(true)]
 		public int? OrganizationKey 
@@ -491,13 +512,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int? varUserKey,int varCurrencyKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
+		public static void Insert(int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
 		{
 			BankAccount item = new BankAccount();
 			
 			item.UserKey = varUserKey;
 			
 			item.CurrencyKey = varCurrencyKey;
+			
+			item.CountryKey = varCountryKey;
 			
 			item.OrganizationKey = varOrganizationKey;
 			
@@ -535,7 +558,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
+		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -544,6 +567,8 @@ namespace Peerfx_DB
 				item.UserKey = varUserKey;
 			
 				item.CurrencyKey = varCurrencyKey;
+			
+				item.CountryKey = varCountryKey;
 			
 				item.OrganizationKey = varOrganizationKey;
 			
@@ -605,93 +630,100 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn OrganizationKeyColumn
+        public static TableSchema.TableColumn CountryKeyColumn
         {
             get { return Schema.Columns[3]; }
         }
         
         
         
-        public static TableSchema.TableColumn BankAccountDescriptionColumn
+        public static TableSchema.TableColumn OrganizationKeyColumn
         {
             get { return Schema.Columns[4]; }
         }
         
         
         
-        public static TableSchema.TableColumn UserKeyUpdatedColumn
+        public static TableSchema.TableColumn BankAccountDescriptionColumn
         {
             get { return Schema.Columns[5]; }
         }
         
         
         
-        public static TableSchema.TableColumn IpAddressColumn
+        public static TableSchema.TableColumn UserKeyUpdatedColumn
         {
             get { return Schema.Columns[6]; }
         }
         
         
         
-        public static TableSchema.TableColumn AccountNumberColumn
+        public static TableSchema.TableColumn IpAddressColumn
         {
             get { return Schema.Columns[7]; }
         }
         
         
         
-        public static TableSchema.TableColumn IbanColumn
+        public static TableSchema.TableColumn AccountNumberColumn
         {
             get { return Schema.Columns[8]; }
         }
         
         
         
-        public static TableSchema.TableColumn BicColumn
+        public static TableSchema.TableColumn IbanColumn
         {
             get { return Schema.Columns[9]; }
         }
         
         
         
-        public static TableSchema.TableColumn ABAroutingColumn
+        public static TableSchema.TableColumn BicColumn
         {
             get { return Schema.Columns[10]; }
         }
         
         
         
-        public static TableSchema.TableColumn FirstNameColumn
+        public static TableSchema.TableColumn ABAroutingColumn
         {
             get { return Schema.Columns[11]; }
         }
         
         
         
-        public static TableSchema.TableColumn LastNameColumn
+        public static TableSchema.TableColumn FirstNameColumn
         {
             get { return Schema.Columns[12]; }
         }
         
         
         
-        public static TableSchema.TableColumn BusinessNameColumn
+        public static TableSchema.TableColumn LastNameColumn
         {
             get { return Schema.Columns[13]; }
         }
         
         
         
-        public static TableSchema.TableColumn LastChangedColumn
+        public static TableSchema.TableColumn BusinessNameColumn
         {
             get { return Schema.Columns[14]; }
         }
         
         
         
-        public static TableSchema.TableColumn DateCreatedColumn
+        public static TableSchema.TableColumn LastChangedColumn
         {
             get { return Schema.Columns[15]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn DateCreatedColumn
+        {
+            get { return Schema.Columns[16]; }
         }
         
         
@@ -703,6 +735,7 @@ namespace Peerfx_DB
 			 public static string BankAccountKey = @"bank_account_key";
 			 public static string UserKey = @"user_key";
 			 public static string CurrencyKey = @"currency_key";
+			 public static string CountryKey = @"country_key";
 			 public static string OrganizationKey = @"organization_key";
 			 public static string BankAccountDescription = @"bank_account_description";
 			 public static string UserKeyUpdated = @"user_key_updated";

@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Admin_Bank_Accounts
+    /// Controller class for Recipients
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class AdminBankAccountController
+    public partial class RecipientController
     {
         // Preload our schema..
-        AdminBankAccount thisSchemaLoad = new AdminBankAccount();
+        Recipient thisSchemaLoad = new Recipient();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public AdminBankAccountCollection FetchAll()
+        public RecipientCollection FetchAll()
         {
-            AdminBankAccountCollection coll = new AdminBankAccountCollection();
-            Query qry = new Query(AdminBankAccount.Schema);
+            RecipientCollection coll = new RecipientCollection();
+            Query qry = new Query(Recipient.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public AdminBankAccountCollection FetchByID(object AdminBankAccountKey)
+        public RecipientCollection FetchByID(object RecipientsKey)
         {
-            AdminBankAccountCollection coll = new AdminBankAccountCollection().Where("admin_bank_account_key", AdminBankAccountKey).Load();
+            RecipientCollection coll = new RecipientCollection().Where("recipients_key", RecipientsKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public AdminBankAccountCollection FetchByQuery(Query qry)
+        public RecipientCollection FetchByQuery(Query qry)
         {
-            AdminBankAccountCollection coll = new AdminBankAccountCollection();
+            RecipientCollection coll = new RecipientCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object AdminBankAccountKey)
+        public bool Delete(object RecipientsKey)
         {
-            return (AdminBankAccount.Delete(AdminBankAccountKey) == 1);
+            return (Recipient.Delete(RecipientsKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object AdminBankAccountKey)
+        public bool Destroy(object RecipientsKey)
         {
-            return (AdminBankAccount.Destroy(AdminBankAccountKey) == 1);
+            return (Recipient.Destroy(RecipientsKey) == 1);
         }
         
         
@@ -80,15 +80,13 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(long PaymentObjectKey,int? ReceivingCurrency,int? ReceivingCountry)
+	    public void Insert(int UserKey,long PaymentObjectKey)
 	    {
-		    AdminBankAccount item = new AdminBankAccount();
+		    Recipient item = new Recipient();
 		    
+            item.UserKey = UserKey;
+            
             item.PaymentObjectKey = PaymentObjectKey;
-            
-            item.ReceivingCurrency = ReceivingCurrency;
-            
-            item.ReceivingCountry = ReceivingCountry;
             
 	    
 		    item.Save(UserName);
@@ -98,19 +96,17 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int AdminBankAccountKey,long PaymentObjectKey,int? ReceivingCurrency,int? ReceivingCountry)
+	    public void Update(int RecipientsKey,int UserKey,long PaymentObjectKey)
 	    {
-		    AdminBankAccount item = new AdminBankAccount();
+		    Recipient item = new Recipient();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.AdminBankAccountKey = AdminBankAccountKey;
+			item.RecipientsKey = RecipientsKey;
+				
+			item.UserKey = UserKey;
 				
 			item.PaymentObjectKey = PaymentObjectKey;
-				
-			item.ReceivingCurrency = ReceivingCurrency;
-				
-			item.ReceivingCountry = ReceivingCountry;
 				
 	        item.Save(UserName);
 	    }

@@ -454,15 +454,6 @@ namespace Peerfx {
         protected global::Telerik.Web.UI.RadTextBox txtaccountnumber;
         
         /// <summary>
-        /// txtdescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtdescription;
-        
-        /// <summary>
         /// txtemailreceiver control.
         /// </summary>
         /// <remarks>
@@ -470,6 +461,15 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txtemailreceiver;
+        
+        /// <summary>
+        /// txtdescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txtdescription;
         
         /// <summary>
         /// btnContinue1 control.
@@ -1003,12 +1003,12 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedpeerfxname;
         
         /// <summary>
-        /// RadPageView4 control.
+        /// lblalreadyconfirmedpeerfxbankaccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView4;
+        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedpeerfxbankaccount;
     }
 }

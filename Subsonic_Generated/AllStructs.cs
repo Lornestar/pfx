@@ -18,6 +18,8 @@ namespace Peerfx_DB
 	public partial struct Tables
 	{
 		
+		public static readonly string AdminBankAccount = @"Admin_Bank_Accounts";
+        
 		public static readonly string BankAccount = @"Bank_Accounts";
         
 		public static readonly string InfoCountryCodeList = @"Info_Country_Code_List";
@@ -54,11 +56,15 @@ namespace Peerfx_DB
         
 		public static readonly string Quote = @"Quotes";
         
+		public static readonly string Recipient = @"Recipients";
+        
 		public static readonly string TransactionFee = @"Transaction_Fees";
         
 		public static readonly string TransactionStatus = @"Transaction_Status";
         
 		public static readonly string TransactionsExternal = @"Transactions_External";
+        
+		public static readonly string TransactionsInternal = @"Transactions_Internal";
         
 		public static readonly string UserRecipient = @"User_Recipients";
         
@@ -77,6 +83,11 @@ namespace Peerfx_DB
     #region Schemas
     public partial class Schemas {
 		
+		public static TableSchema.Table AdminBankAccount
+		{
+            get { return DataService.GetSchema("Admin_Bank_Accounts", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table BankAccount
 		{
             get { return DataService.GetSchema("Bank_Accounts", "Peerfx"); }
@@ -167,6 +178,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Quotes", "Peerfx"); }
 		}
         
+		public static TableSchema.Table Recipient
+		{
+            get { return DataService.GetSchema("Recipients", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table TransactionFee
 		{
             get { return DataService.GetSchema("Transaction_Fees", "Peerfx"); }
@@ -180,6 +196,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table TransactionsExternal
 		{
             get { return DataService.GetSchema("Transactions_External", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table TransactionsInternal
+		{
+            get { return DataService.GetSchema("Transactions_Internal", "Peerfx"); }
 		}
         
 		public static TableSchema.Table UserRecipient
@@ -224,6 +245,10 @@ namespace Peerfx_DB
 		public static readonly string VwBankAccountsUser = @"vw_Bank_Accounts_Users";
         
 		public static readonly string VwInfoBank = @"vw_info_banks";
+        
+		public static readonly string VwPayment = @"vw_Payments";
+        
+		public static readonly string VwTransactionsAll = @"vw_Transactions_All";
         
 		public static readonly string VwTransactionsExternal = @"vw_Transactions_External";
         

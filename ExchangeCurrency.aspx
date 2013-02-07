@@ -23,7 +23,9 @@
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="ddlsellcurrency">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="ddlReceivers" />                    
                 </UpdatedControls>
             </telerik:AjaxSetting>            
             <telerik:AjaxSetting AjaxControlID="ddlbuycurrency">
@@ -33,6 +35,9 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlBankCode"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="pnlABArouting"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="pnlAccountNumber"></telerik:AjaxUpdatedControl>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="ddlReceivers" />                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue1">
@@ -53,6 +58,12 @@
                     <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="ddlReceivers">
+                <UpdatedControls>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
 </telerik:RadAjaxManager>
 
@@ -62,10 +73,8 @@
                         </telerik:RadTab>
                         <telerik:RadTab Text="Confirm Payment" Enabled=false>
                         </telerik:RadTab>
-                        <telerik:RadTab Text="Make Bank Transfer" Enabled=false>
-                        </telerik:RadTab>
-                        <telerik:RadTab Text="Payment Delivered" Enabled=false>
-                        </telerik:RadTab>
+                        <telerik:RadTab Text="Bank Transfer Info" Enabled=false>
+                        </telerik:RadTab>                        
                     </Tabs>
                 </telerik:RadTabStrip>
 
@@ -229,7 +238,8 @@
                                     <tr>
                                         <td>
                                             <asp:Panel ID=pnlexistingreceiver runat=server Visible=false>
-                                                <telerik:RadComboBox ID=ddlReceivers runat=server></telerik:RadComboBox>
+                                                <telerik:RadComboBox ID=ddlReceivers runat=server
+                                                OnSelectedIndexChanged="ddlexistingreceiver_changed" AutoPostBack=true></telerik:RadComboBox>
                                             </asp:Panel>
                                             <asp:Panel ID=pnlnewreceiver runat=server>
                                                 <table>
@@ -289,14 +299,7 @@
                                                                         </table>
                                                                     </td>
                                                                     <td>
-                                                                        <table>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    Exchange Description
-                                                                                    <br />
-                                                                                    <telerik:RadTextBox ID="txtdescription" runat=server EmptyMessage="eg. payroll"></telerik:RadTextBox>
-                                                                                </td>
-                                                                            </tr>
+                                                                        <table>                                                                            
                                                                             <tr>
                                                                                 <td>
                                                                                     Email
@@ -312,6 +315,15 @@
                                                     </tr>
                                                 </table>
                                             </asp:Panel>
+                                            <table>
+                                                <tr>
+                                                                                <td>
+                                                                                    Exchange Description
+                                                                                    <br />
+                                                                                    <telerik:RadTextBox ID="txtdescription" runat=server EmptyMessage="eg. payroll" Width=300></telerik:RadTextBox>
+                                                                                </td>
+                                                                            </tr>
+                                            </table>
                                         </td>                                        
                                     </tr>
                                     <tr>
@@ -613,10 +625,11 @@
                                 </table>    
                                                        
                             </td>
-                            <td style="width:60%;">
+                            <td style="width:70%;">
                                 <table width=100%>
                                     <tr valign=top>
                                         <td>
+                                            <b>NEXT STEPS:</b>
                                             <ol>
                                                 <li>
                                                     Activate your payment by transferring the required deposit to the Peerfx deposit account.
@@ -629,8 +642,12 @@
                                                 Note that the deposit payment will have to originate from a bank account in the name of "<asp:Label ID="lblalreadyconfirmedfrom2" runat=server></asp:Label>", otherwise the payment will not be activated.
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="border:1px solid black; width:50%">
                                             <table>
+                                                <tr>
+                                                    <td><b>Peerfx Deposit Account</b>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td>
                                                     Amount:
@@ -641,17 +658,19 @@
                                                 <tr>
                                                     <td>
                                                         To:
+                                                        <br />
                                                         <asp:Label ID=lblalreadyconfirmedpeerfxname runat=server>Peerfx</asp:Label>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         Bank Account:
-                                                        fdsjiojsfdio
+                                                        <br />
+                                                        <asp:Label ID=lblalreadyconfirmedpeerfxbankaccount runat=server></asp:Label>
                                                     </td>
                                                 </tr>
                                             </table>
-                                        </td>
+                                        </td>                                        
                                     </tr>
                                 </table>
                             </td>
@@ -660,11 +679,7 @@
                         </asp:Panel>                                
                     </telerik:RadPageView>
                     <!--**********************Tab3*****************************************************-->
-                    <!--**********************Tab4*****************************************************-->
-                    <telerik:RadPageView runat="server" ID="RadPageView4" CssClass="corporatePageView">
-                        Payment delivered
-                    </telerik:RadPageView>
-                    <!--**********************Tab4*****************************************************-->
+                    
                 </telerik:RadMultiPage>
                                 
 

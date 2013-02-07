@@ -15,23 +15,23 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
 	/// <summary>
-	/// Strongly-typed collection for the AdminBankAccount class.
+	/// Strongly-typed collection for the Recipient class.
 	/// </summary>
     [Serializable]
-	public partial class AdminBankAccountCollection : ActiveList<AdminBankAccount, AdminBankAccountCollection>
+	public partial class RecipientCollection : ActiveList<Recipient, RecipientCollection>
 	{	   
-		public AdminBankAccountCollection() {}
+		public RecipientCollection() {}
         
         /// <summary>
 		/// Filters an existing collection based on the set criteria. This is an in-memory filter
 		/// Thanks to developingchris for this!
         /// </summary>
-        /// <returns>AdminBankAccountCollection</returns>
-		public AdminBankAccountCollection Filter()
+        /// <returns>RecipientCollection</returns>
+		public RecipientCollection Filter()
         {
             for (int i = this.Count - 1; i > -1; i--)
             {
-                AdminBankAccount o = this[i];
+                Recipient o = this[i];
                 foreach (SubSonic.Where w in this.wheres)
                 {
                     bool remove = false;
@@ -62,14 +62,14 @@ namespace Peerfx_DB
 		
 	}
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the Admin_Bank_Accounts table.
+	/// This is an ActiveRecord class which wraps the Recipients table.
 	/// </summary>
 	[Serializable]
-	public partial class AdminBankAccount : ActiveRecord<AdminBankAccount>, IActiveRecord
+	public partial class Recipient : ActiveRecord<Recipient>, IActiveRecord
 	{
 		#region .ctors and Default Settings
 		
-		public AdminBankAccount()
+		public Recipient()
 		{
 		  SetSQLProps();
 		  InitSetDefaults();
@@ -78,7 +78,7 @@ namespace Peerfx_DB
 		
 		private void InitSetDefaults() { SetDefaults(); }
 		
-		public AdminBankAccount(bool useDatabaseDefaults)
+		public Recipient(bool useDatabaseDefaults)
 		{
 			SetSQLProps();
 			if(useDatabaseDefaults)
@@ -86,14 +86,14 @@ namespace Peerfx_DB
 			MarkNew();
 		}
         
-		public AdminBankAccount(object keyID)
+		public Recipient(object keyID)
 		{
 			SetSQLProps();
 			InitSetDefaults();
 			LoadByKey(keyID);
 		}
 		 
-		public AdminBankAccount(string columnName, object columnValue)
+		public Recipient(string columnName, object columnValue)
 		{
 			SetSQLProps();
 			InitSetDefaults();
@@ -121,23 +121,36 @@ namespace Peerfx_DB
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("Admin_Bank_Accounts", TableType.Table, DataService.GetInstance("Peerfx"));
+				TableSchema.Table schema = new TableSchema.Table("Recipients", TableType.Table, DataService.GetInstance("Peerfx"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
 				
-				TableSchema.TableColumn colvarAdminBankAccountKey = new TableSchema.TableColumn(schema);
-				colvarAdminBankAccountKey.ColumnName = "admin_bank_account_key";
-				colvarAdminBankAccountKey.DataType = DbType.Int32;
-				colvarAdminBankAccountKey.MaxLength = 0;
-				colvarAdminBankAccountKey.AutoIncrement = true;
-				colvarAdminBankAccountKey.IsNullable = false;
-				colvarAdminBankAccountKey.IsPrimaryKey = true;
-				colvarAdminBankAccountKey.IsForeignKey = false;
-				colvarAdminBankAccountKey.IsReadOnly = false;
-				colvarAdminBankAccountKey.DefaultSetting = @"";
-				colvarAdminBankAccountKey.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAdminBankAccountKey);
+				TableSchema.TableColumn colvarRecipientsKey = new TableSchema.TableColumn(schema);
+				colvarRecipientsKey.ColumnName = "recipients_key";
+				colvarRecipientsKey.DataType = DbType.Int32;
+				colvarRecipientsKey.MaxLength = 0;
+				colvarRecipientsKey.AutoIncrement = true;
+				colvarRecipientsKey.IsNullable = false;
+				colvarRecipientsKey.IsPrimaryKey = true;
+				colvarRecipientsKey.IsForeignKey = false;
+				colvarRecipientsKey.IsReadOnly = false;
+				colvarRecipientsKey.DefaultSetting = @"";
+				colvarRecipientsKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRecipientsKey);
+				
+				TableSchema.TableColumn colvarUserKey = new TableSchema.TableColumn(schema);
+				colvarUserKey.ColumnName = "user_key";
+				colvarUserKey.DataType = DbType.Int32;
+				colvarUserKey.MaxLength = 0;
+				colvarUserKey.AutoIncrement = false;
+				colvarUserKey.IsNullable = false;
+				colvarUserKey.IsPrimaryKey = false;
+				colvarUserKey.IsForeignKey = false;
+				colvarUserKey.IsReadOnly = false;
+				colvarUserKey.DefaultSetting = @"";
+				colvarUserKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarUserKey);
 				
 				TableSchema.TableColumn colvarPaymentObjectKey = new TableSchema.TableColumn(schema);
 				colvarPaymentObjectKey.ColumnName = "payment_object_key";
@@ -152,48 +165,30 @@ namespace Peerfx_DB
 				colvarPaymentObjectKey.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPaymentObjectKey);
 				
-				TableSchema.TableColumn colvarReceivingCurrency = new TableSchema.TableColumn(schema);
-				colvarReceivingCurrency.ColumnName = "receiving_currency";
-				colvarReceivingCurrency.DataType = DbType.Int32;
-				colvarReceivingCurrency.MaxLength = 0;
-				colvarReceivingCurrency.AutoIncrement = false;
-				colvarReceivingCurrency.IsNullable = true;
-				colvarReceivingCurrency.IsPrimaryKey = false;
-				colvarReceivingCurrency.IsForeignKey = false;
-				colvarReceivingCurrency.IsReadOnly = false;
-				colvarReceivingCurrency.DefaultSetting = @"";
-				colvarReceivingCurrency.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarReceivingCurrency);
-				
-				TableSchema.TableColumn colvarReceivingCountry = new TableSchema.TableColumn(schema);
-				colvarReceivingCountry.ColumnName = "receiving_country";
-				colvarReceivingCountry.DataType = DbType.Int32;
-				colvarReceivingCountry.MaxLength = 0;
-				colvarReceivingCountry.AutoIncrement = false;
-				colvarReceivingCountry.IsNullable = true;
-				colvarReceivingCountry.IsPrimaryKey = false;
-				colvarReceivingCountry.IsForeignKey = false;
-				colvarReceivingCountry.IsReadOnly = false;
-				colvarReceivingCountry.DefaultSetting = @"";
-				colvarReceivingCountry.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarReceivingCountry);
-				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
-				DataService.Providers["Peerfx"].AddSchema("Admin_Bank_Accounts",schema);
+				DataService.Providers["Peerfx"].AddSchema("Recipients",schema);
 			}
 		}
 		#endregion
 		
 		#region Props
 		  
-		[XmlAttribute("AdminBankAccountKey")]
+		[XmlAttribute("RecipientsKey")]
 		[Bindable(true)]
-		public int AdminBankAccountKey 
+		public int RecipientsKey 
 		{
-			get { return GetColumnValue<int>(Columns.AdminBankAccountKey); }
-			set { SetColumnValue(Columns.AdminBankAccountKey, value); }
+			get { return GetColumnValue<int>(Columns.RecipientsKey); }
+			set { SetColumnValue(Columns.RecipientsKey, value); }
+		}
+		  
+		[XmlAttribute("UserKey")]
+		[Bindable(true)]
+		public int UserKey 
+		{
+			get { return GetColumnValue<int>(Columns.UserKey); }
+			set { SetColumnValue(Columns.UserKey, value); }
 		}
 		  
 		[XmlAttribute("PaymentObjectKey")]
@@ -202,22 +197,6 @@ namespace Peerfx_DB
 		{
 			get { return GetColumnValue<long>(Columns.PaymentObjectKey); }
 			set { SetColumnValue(Columns.PaymentObjectKey, value); }
-		}
-		  
-		[XmlAttribute("ReceivingCurrency")]
-		[Bindable(true)]
-		public int? ReceivingCurrency 
-		{
-			get { return GetColumnValue<int?>(Columns.ReceivingCurrency); }
-			set { SetColumnValue(Columns.ReceivingCurrency, value); }
-		}
-		  
-		[XmlAttribute("ReceivingCountry")]
-		[Bindable(true)]
-		public int? ReceivingCountry 
-		{
-			get { return GetColumnValue<int?>(Columns.ReceivingCountry); }
-			set { SetColumnValue(Columns.ReceivingCountry, value); }
 		}
 		
 		#endregion
@@ -239,15 +218,13 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(long varPaymentObjectKey,int? varReceivingCurrency,int? varReceivingCountry)
+		public static void Insert(int varUserKey,long varPaymentObjectKey)
 		{
-			AdminBankAccount item = new AdminBankAccount();
+			Recipient item = new Recipient();
+			
+			item.UserKey = varUserKey;
 			
 			item.PaymentObjectKey = varPaymentObjectKey;
-			
-			item.ReceivingCurrency = varReceivingCurrency;
-			
-			item.ReceivingCountry = varReceivingCountry;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -259,17 +236,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varAdminBankAccountKey,long varPaymentObjectKey,int? varReceivingCurrency,int? varReceivingCountry)
+		public static void Update(int varRecipientsKey,int varUserKey,long varPaymentObjectKey)
 		{
-			AdminBankAccount item = new AdminBankAccount();
+			Recipient item = new Recipient();
 			
-				item.AdminBankAccountKey = varAdminBankAccountKey;
+				item.RecipientsKey = varRecipientsKey;
+			
+				item.UserKey = varUserKey;
 			
 				item.PaymentObjectKey = varPaymentObjectKey;
-			
-				item.ReceivingCurrency = varReceivingCurrency;
-			
-				item.ReceivingCountry = varReceivingCountry;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -284,30 +259,23 @@ namespace Peerfx_DB
         #region Typed Columns
         
         
-        public static TableSchema.TableColumn AdminBankAccountKeyColumn
+        public static TableSchema.TableColumn RecipientsKeyColumn
         {
             get { return Schema.Columns[0]; }
         }
         
         
         
-        public static TableSchema.TableColumn PaymentObjectKeyColumn
+        public static TableSchema.TableColumn UserKeyColumn
         {
             get { return Schema.Columns[1]; }
         }
         
         
         
-        public static TableSchema.TableColumn ReceivingCurrencyColumn
+        public static TableSchema.TableColumn PaymentObjectKeyColumn
         {
             get { return Schema.Columns[2]; }
-        }
-        
-        
-        
-        public static TableSchema.TableColumn ReceivingCountryColumn
-        {
-            get { return Schema.Columns[3]; }
         }
         
         
@@ -316,10 +284,9 @@ namespace Peerfx_DB
 		#region Columns Struct
 		public struct Columns
 		{
-			 public static string AdminBankAccountKey = @"admin_bank_account_key";
+			 public static string RecipientsKey = @"recipients_key";
+			 public static string UserKey = @"user_key";
 			 public static string PaymentObjectKey = @"payment_object_key";
-			 public static string ReceivingCurrency = @"receiving_currency";
-			 public static string ReceivingCountry = @"receiving_country";
 						
 		}
 		#endregion

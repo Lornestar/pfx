@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Peerfx.Models;
 using System.Data;
 using SubSonic;
+using Telerik.Web.UI;
 
 namespace Peerfx
 {
@@ -47,7 +48,8 @@ namespace Peerfx
                     txtsell.Text = Request.QueryString["sell"].ToString();
                     ddlsellcurrency.SelectedValue = Request.QueryString["sellc"].ToString();
                     ddlbuycurrency.SelectedValue = Request.QueryString["buyc"].ToString();
-                }
+                }                                                      
+                
             }
             if (sitetemp.isloggedin())
             {
@@ -60,6 +62,11 @@ namespace Peerfx
                 pnlnewsender2.Visible = false;
                 ucUserInfo1.Choose_User(currentuser.User_key);
                 ucUserInfo2.Choose_User(currentuser.User_key);
+
+                if (!IsPostBack)
+                {
+                    LoadRecipientList();
+                }
             }
             else if (hduserkey.Value != "0")
             {
@@ -67,9 +74,79 @@ namespace Peerfx
             }
         }
 
+        protected void LoadRecipientList(){
+            //if logged in & have recipient list
+            currentuser = sitetemp.getcurrentuser(false);
+            DataSet dsrecipient = Peerfx_DB.SPs.ViewRecipientsByuserAndcurrency(currentuser.User_key,Convert.ToInt32(ddlbuycurrency.SelectedValue)).GetDataSet();
+            if (dsrecipient.Tables[0].Rows.Count > 0)
+            {
+                //have at least 1 person on list
+                ddlReceivers.DataTextField = "ddltext";
+                ddlReceivers.DataValueField = "payment_object_key";
+                ddlReceivers.DataSource = dsrecipient.Tables[0];
+                ddlReceivers.DataBind();
+
+                RadComboBoxItem rdtemp = new RadComboBoxItem();
+                rdtemp.Value = "0";
+                rdtemp.Text = "New Recipient";
+                ddlReceivers.Items.Add(rdtemp);
+
+                pnlnewreceiver.Visible = false;
+                pnlexistingreceiver.Visible = true;
+                Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
+            }
+            else
+            {
+                pnlnewreceiver.Visible = true;
+                pnlexistingreceiver.Visible = false;
+                Cleartxtreceiverfields();
+            }
+        }
+
         protected void txtsell_TextChanged(object sender, EventArgs e)
         {
-            LoadRates();
+            LoadRates();            
+        }
+
+        protected void ddlexistingreceiver_changed(object sender, EventArgs e)
+        {
+            if (ddlReceivers.SelectedValue == "0")
+            {
+                //open new recipient
+                pnlnewreceiver.Visible = true;
+                Cleartxtreceiverfields();
+            }
+            else
+            {
+                pnlnewreceiver.Visible = false;
+                pnlexistingreceiver.Visible = true;
+
+                //populate with receiver info
+                Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
+            }
+        }
+
+        protected void Loadtxtreceiverfields(Int64 paymentkey)
+        {
+            BankAccounts ba = sitetemp.getBankAccounts(0, paymentkey);
+            txtfirstnamereceiver.Text = ba.First_name;
+            txtlastnamereceiver.Text = ba.Last_name;
+            txtIbanAccount.Text = ba.IBAN;
+            txtABArouting.Text = ba.ABArouting;
+            txtaccountnumber.Text = ba.Account_number;
+            txtBankCode.Text = ba.BIC;
+            txtdescription.Text = ba.Bank_account_description;                
+        }
+
+        protected void Cleartxtreceiverfields()
+        {
+            txtfirstnamereceiver.Text = "";
+            txtlastnamereceiver.Text = "";
+            txtIbanAccount.Text = "";
+            txtABArouting.Text = "";
+            txtaccountnumber.Text = "";
+            txtBankCode.Text = "";
+            txtdescription.Text = "";
         }
 
         protected void ddlsellcurrency_changed(object sender, EventArgs e)
@@ -101,7 +178,8 @@ namespace Peerfx
                     ddlsellcurrency.SelectedIndex = 1;
                 }
             }
-            LoadRates();            
+            LoadRates();
+            LoadRecipientList();
         }
 
         protected void LoadRates()
@@ -188,6 +266,7 @@ namespace Peerfx
 
         protected void btnContinue2_Click(object sender, EventArgs e)
         {
+
             LoadRates();
 
             //populate labels
@@ -209,12 +288,30 @@ namespace Peerfx
                 currentuserkey = Convert.ToInt32(sp_UpdateSignup1.Command.Parameters[9].ParameterValue.ToString());
             }
 
+            //figure out which bank account to receive payment
+            DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(Convert.ToInt32(ddlsellcurrency.SelectedValue), currentuser.Country_residence).GetDataSet();
+            lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]));
+
+            Int64 receiverpaymentobject = 0;
             //if new recipient, save to database
-            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, Convert.ToInt32(ddlbuycurrency.SelectedValue), null, null, currentuserkey, HttpContext.Current.Request.UserHostAddress, lblconfirmreceiverAccount.Text, lblconfirmreceiverIBAN.Text, lblconfirmreceiverBankCode.Text, lblconfirmreceiverABArouting.Text, txtfirstnamereceiver.Text, txtlastnamereceiver.Text, null, 0);
-            sp_UpdateBank_account.Execute();
-            int bank_account_key = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
-            //Save payment object
-            Peerfx_DB.SPs.UpdatePaymentObjects(0, 1, bank_account_key, 0).Execute();
+            if ((pnlexistingreceiver.Visible) && (ddlReceivers.SelectedValue != "0"))
+            {
+                receiverpaymentobject = Convert.ToInt64(ddlReceivers.SelectedValue);
+            }
+            else
+            {
+                //new recipient
+                receiverpaymentobject = sitetemp.insert_bank_account_returnpaymentobject(0, Convert.ToInt32(ddlbuycurrency.SelectedValue), 11, null, currentuserkey, lblconfirmreceiverAccount.Text, lblconfirmreceiverIBAN.Text, lblconfirmreceiverBankCode.Text, lblconfirmreceiverABArouting.Text, txtfirstnamereceiver.Text, txtlastnamereceiver.Text, null);
+                Peerfx_DB.SPs.UpdateRecipients(0, currentuser.User_key, receiverpaymentobject).Execute();
+                /*StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, Convert.ToInt32(ddlbuycurrency.SelectedValue), null, null, currentuserkey, HttpContext.Current.Request.UserHostAddress, lblconfirmreceiverAccount.Text, lblconfirmreceiverIBAN.Text, lblconfirmreceiverBankCode.Text, lblconfirmreceiverABArouting.Text, txtfirstnamereceiver.Text, txtlastnamereceiver.Text, null, 0);
+                sp_UpdateBank_account.Execute();
+                int bank_account_key = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
+                //Save payment object
+                StoredProcedure sp_UpdatePaymentObject = Peerfx_DB.SPs.UpdatePaymentObjects(0, 1, bank_account_key, 0);
+                sp_UpdatePaymentObject.Execute();
+                receiverpaymentobject = Convert.ToInt64(sp_UpdatePaymentObject.Command.Parameters[3].ParameterValue.ToString());*/
+            }
+            
 
             //Confirming quote, create in database
             //Save & get Quote            
@@ -223,7 +320,7 @@ namespace Peerfx
             int quote_key = Convert.ToInt32(sp_UpdateQuotes.Command.Parameters[9].ParameterValue.ToString());
              
             //Save & get Payment key
-            StoredProcedure sp_UpdatePayments = Peerfx_DB.SPs.UpdatePayments(0, quote_key, 0, 0, currentuserkey, txtdescription.Text);
+            StoredProcedure sp_UpdatePayments = Peerfx_DB.SPs.UpdatePayments(0, quote_key, 0, 0, currentuserkey, txtdescription.Text,null,receiverpaymentobject);
             sp_UpdatePayments.Execute();
             int payment_key = Convert.ToInt32(sp_UpdatePayments.Command.Parameters[3].ParameterValue.ToString());
             lblpaymentnum.Text = payment_key.ToString();
@@ -279,15 +376,14 @@ namespace Peerfx
             lblalreadyconfirmedABArouting2.Text = txtABArouting.Text;
             lblalreadyconfirmedAccountNumber2.Text = txtaccountnumber.Text;
             lblalreadyconfirmedBankCode2.Text = txtBankCode.Text;
-            lblalreadyconfirmeddescription.Text = txtdescription.Text;
+            lblalreadyconfirmeddescription.Text = txtdescription.Text;            
         }
 
         protected void changetab(int selectedtab)
         {
             RadTabStrip1.Tabs[0].Enabled = false;
             RadTabStrip1.Tabs[1].Enabled = false;
-            RadTabStrip1.Tabs[2].Enabled = false;
-            RadTabStrip1.Tabs[3].Enabled = false;
+            RadTabStrip1.Tabs[2].Enabled = false;            
 
             switch (selectedtab)
             {
@@ -296,9 +392,7 @@ namespace Peerfx
                 case 1: RadTabStrip1.Tabs[1].Enabled = true;
                     break;
                 case 2: RadTabStrip1.Tabs[2].Enabled = true;
-                    break;
-                case 3: RadTabStrip1.Tabs[3].Enabled = true;
-                    break;
+                    break;                
             }
             RadTabStrip1.SelectedIndex = selectedtab;
             RadMultiPage1.SelectedIndex = selectedtab;

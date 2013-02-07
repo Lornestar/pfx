@@ -1,7 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" Inherits="Peerfx.User.Settings" MasterPageFile="~/User/User.Master"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" Inherits="Peerfx.User.Settings" MasterPageFile="~/Site.Master"%>
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
-Settings
+Account Settings
+
+<br />
+Coming soon
 
 </asp:Content>

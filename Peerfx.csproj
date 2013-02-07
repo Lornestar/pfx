@@ -71,6 +71,7 @@
   <ItemGroup>
     <Content Include="Admin\Admin_Default.aspx" />
     <Content Include="Admin\Admin_Deposits.aspx" />
+    <Content Include="Admin\Admin_Payment.aspx" />
     <Content Include="Admin\Admin_Payment_Schedule.aspx" />
     <Content Include="Admin\Admin_Users.aspx" />
     <Content Include="App_Data\RadCaptcha\0.wav" />
@@ -124,7 +125,8 @@
     <Content Include="TestRadgrid.aspx" />
     <Content Include="User\Add_Funds.aspx" />
     <Content Include="User\Dashboard.aspx" />
-    <Content Include="User\Exchange.aspx" />
+    <Content Include="User\Payment.aspx" />
+    <Content Include="User\Recipients.aspx" />
     <Content Include="User\Settings.aspx" />
     <Content Include="User\Withdraw.aspx" />
     <Content Include="User_Controls\ExchangeCurrency.ascx" />
@@ -163,6 +165,13 @@
     <Compile Include="Admin\Admin_Deposits.aspx.designer.cs">
       <DependentUpon>Admin_Deposits.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Admin_Payment.aspx.cs">
+      <DependentUpon>Admin_Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin_Payment.aspx.designer.cs">
+      <DependentUpon>Admin_Payment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Admin_Payment_Schedule.aspx.cs">
       <DependentUpon>Admin_Payment_Schedule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -199,6 +208,7 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BankAccounts.cs" />
     <Compile Include="Models\Fees.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\Users.cs" />
@@ -250,12 +260,19 @@
     <Compile Include="User\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="User\Exchange.aspx.cs">
-      <DependentUpon>Exchange.aspx</DependentUpon>
+    <Compile Include="User\Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="User\Exchange.aspx.designer.cs">
-      <DependentUpon>Exchange.aspx</DependentUpon>
+    <Compile Include="User\Payment.aspx.designer.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Recipients.aspx.cs">
+      <DependentUpon>Recipients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Recipients.aspx.designer.cs">
+      <DependentUpon>Recipients.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
@@ -263,13 +280,6 @@
     </Compile>
     <Compile Include="User\Settings.aspx.designer.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\User.Master.cs">
-      <DependentUpon>User.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\User.Master.designer.cs">
-      <DependentUpon>User.Master</DependentUpon>
     </Compile>
     <Compile Include="User\Withdraw.aspx.cs">
       <DependentUpon>Withdraw.aspx</DependentUpon>
@@ -328,7 +338,6 @@
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <None Include="App_Data\RadSpell\fr-FR.tdf" />
     <Content Include="Site.Master" />
-    <Content Include="User\User.Master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -349,7 +358,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
