@@ -7,11 +7,13 @@ using System.Data;
 using System.Web.Security;
 using System.Net.Mail;
 using System.Net.Mime;
+using Peerfx.Models;
 
 namespace Peerfx.External_APIs
 {
     public class SendGrid
     {
+        Site sitetemp = new Site();
 
         public void SimpleEmail(string strTo, string strFrom, string strToEmail, string strFromEmail, string body, string strSubject)
         {
@@ -54,7 +56,8 @@ namespace Peerfx.External_APIs
         public void Send_Email_Verification(int user_key)
         {
             //create unique code & update db with it
-            string struniquecode = Membership.GeneratePassword(8, 1);
+            string struniquecode = Membership.GeneratePassword(8, 0);
+            struniquecode = struniquecode.Replace("&", "a").Replace("=", "e").Replace("?","q").Replace("#","h");
             Site sitetemp = new Site();
             Peerfx_DB.SPs.UpdateVerificationEmail(user_key, false, sitetemp.get_ipaddress(), struniquecode).Execute();
 
@@ -79,6 +82,19 @@ namespace Peerfx.External_APIs
             thebody = thebody.Replace("THE_URL", the_url);
 
             SimpleEmail(first_name + " " + last_name, "", email, "", thebody, "Tradepfx email verification");
+        }
+
+        public void Send_Email_Verification_Confirmed(int user_key)
+        {
+            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/email_verification.txt"));
+
+            Users currentuser = sitetemp.get_user_info(user_key);
+
+            thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
+            thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
+            thebody = thebody.Replace("THE_URL", ConfigurationSettings.AppSettings["Root_url"].ToString());
+
+            SimpleEmail(currentuser.First_name + " " + currentuser.Last_name, "", currentuser.Email, "", thebody, "Tradepfx email verification confirmation");
         }
 
     }

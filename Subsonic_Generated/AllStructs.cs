@@ -20,7 +20,17 @@ namespace Peerfx_DB
 		
 		public static readonly string AdminBankAccount = @"Admin_Bank_Accounts";
         
+		public static readonly string AspnetApplication = @"aspnet_Applications";
+        
+		public static readonly string AspnetSchemaVersion = @"aspnet_SchemaVersions";
+        
+		public static readonly string AspnetUser = @"aspnet_Users";
+        
+		public static readonly string AspnetWebEventEvent = @"aspnet_WebEvent_Events";
+        
 		public static readonly string BankAccount = @"Bank_Accounts";
+        
+		public static readonly string ErrorLog = @"Error_Log";
         
 		public static readonly string InfoCountryCodeList = @"Info_Country_Code_List";
         
@@ -88,9 +98,34 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Admin_Bank_Accounts", "Peerfx"); }
 		}
         
+		public static TableSchema.Table AspnetApplication
+		{
+            get { return DataService.GetSchema("aspnet_Applications", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table AspnetSchemaVersion
+		{
+            get { return DataService.GetSchema("aspnet_SchemaVersions", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table AspnetUser
+		{
+            get { return DataService.GetSchema("aspnet_Users", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table AspnetWebEventEvent
+		{
+            get { return DataService.GetSchema("aspnet_WebEvent_Events", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table BankAccount
 		{
             get { return DataService.GetSchema("Bank_Accounts", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table ErrorLog
+		{
+            get { return DataService.GetSchema("Error_Log", "Peerfx"); }
 		}
         
 		public static TableSchema.Table InfoCountryCodeList
@@ -240,6 +275,10 @@ namespace Peerfx_DB
     public partial struct Views 
     {
 		
+		public static readonly string VwAspnetApplication = @"vw_aspnet_Applications";
+        
+		public static readonly string VwAspnetUser = @"vw_aspnet_Users";
+        
 		public static readonly string VwBankAccountsSystem = @"vw_Bank_Accounts_System";
         
 		public static readonly string VwBankAccountsUser = @"vw_Bank_Accounts_Users";

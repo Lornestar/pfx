@@ -35,7 +35,7 @@ namespace Peerfx
             {
                 //User logged in
                 user = (Users)HttpContext.Current.Session["currentuser"];
-                user = view_users_info(user.User_key);
+                user = get_user_info(user.User_key);
                 HttpContext.Current.Session["currentuser"] = user;
                 if ((user.Isadmin == false) && (MustbeAdmin))
                 {
@@ -121,7 +121,7 @@ namespace Peerfx
             return dstemp.Tables[0];
         }
 
-        public Users view_users_info(int userkey)
+        public Users get_user_info(int userkey)
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewUsersInfo(userkey).GetDataSet();
             Users users = view_users_info_getdbinfo(dstemp);
@@ -162,14 +162,17 @@ namespace Peerfx
             if (dstemp.Tables[0].Rows[0]["first_name"] != DBNull.Value)
             {
                 users.First_name = dstemp.Tables[0].Rows[0]["first_name"].ToString();
+                users.Full_name = users.First_name;
             }
             if (dstemp.Tables[0].Rows[0]["middle_name"] != DBNull.Value)
             {
                 users.Middle_name = dstemp.Tables[0].Rows[0]["middle_name"].ToString();
+                users.Full_name += " " + users.Middle_name;
             }
             if (dstemp.Tables[0].Rows[0]["last_name"] != DBNull.Value)
             {
                 users.Last_name = dstemp.Tables[0].Rows[0]["last_name"].ToString();
+                users.Full_name += " " + users.Last_name;
             }
             if (dstemp.Tables[0].Rows[0]["dob"] != DBNull.Value)
             {
@@ -247,6 +250,10 @@ namespace Peerfx
             {
                 users.Identitynationality = Convert.ToInt32(dstemp.Tables[0].Rows[0]["identitynationality"].ToString());
             }
+            if (dstemp.Tables[0].Rows[0]["user_status_text"] != DBNull.Value)
+            {
+                users.User_status_text = dstemp.Tables[0].Rows[0]["user_status_text"].ToString();
+            }                        
             return users;
         }
 

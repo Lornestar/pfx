@@ -36,7 +36,8 @@ namespace Peerfx.Models
         private string phonenumber2;
         private int identitynationality;
         private string occupation;
-        private string passportnumber;        
+        private string passportnumber;
+        private string user_status_text;
 
         public int User_key
         {
@@ -395,6 +396,18 @@ namespace Peerfx.Models
                 passportnumber = value;
             }
         }
+
+        public string User_status_text
+        {
+            get
+            {
+                return user_status_text;
+            }
+            set
+            {
+                user_status_text = value;
+            }
+        }        
         
     }
 }

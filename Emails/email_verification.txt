@@ -1,0 +1,19 @@
+﻿<div>
+Hi FIRST_NAME LAST_NAME,
+</div>
+<p>
+Thank you for confirming your email.
+</p>
+<p style="background-color:#EEEEEE;">
+Your account is now active, which means you can start exchanging live money.
+<br />
+Start exchange money at <a href="THE_URL">THE_URL</a>
+</p>
+
+<p>
+Thanks again for joining up!
+<br />
+At your service
+</p>
+
+Pfx Service Team.

@@ -3,9 +3,27 @@
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
-User Dashboard
 
 <table width=100%>
+    <tr>
+        <td colspan=2>
+            <table>
+                <tr>
+                    <td colspan=2 style="font-weight:bolder;">
+                        Welcome <asp:Label ID=lblusername runat=server></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-right:1px solid black;">
+                        <asp:Label ID=lbluseremail runat=server></asp:Label>&nbsp;
+                    </td>
+                    <td>
+                        Account Status : <asp:Label ID=lblaccountstatus runat=server></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <tr valign=top>
         <td>
             <table width=500>

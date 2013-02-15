@@ -6,11 +6,11 @@
 
 <table width=100%>
     <tr valign=top>
-        <td style="text-align:center;">
+        <td style="text-align:center;" width=60%>
             Welcome to Peerfx
             
         </td>
-        <td>
+        <td style="float:right;">
             <uc1:ExchangeCurrency ID="ucExchangeCurrency" runat=server />
         </td>
     </tr>

@@ -16,6 +16,180 @@ namespace Peerfx_DB{
     public partial class SPs{
         
         /// <summary>
+        /// Creates an object wrapper for the aspnet_AnyDataInTables Procedure
+        /// </summary>
+        public static StoredProcedure AspnetAnyDataInTables(int? TablesToCheck)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_AnyDataInTables", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@TablesToCheck", TablesToCheck, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_Applications_CreateApplication Procedure
+        /// </summary>
+        public static StoredProcedure AspnetApplicationsCreateApplication(string ApplicationName, Guid? ApplicationId)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_Applications_CreateApplication", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@ApplicationName", ApplicationName, DbType.String, null, null);
+        	
+            sp.Command.AddOutputParameter("@ApplicationId", DbType.Guid, null, null);
+            
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_CheckSchemaVersion Procedure
+        /// </summary>
+        public static StoredProcedure AspnetCheckSchemaVersion(string Feature, string CompatibleSchemaVersion)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_CheckSchemaVersion", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@Feature", Feature, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@CompatibleSchemaVersion", CompatibleSchemaVersion, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_RegisterSchemaVersion Procedure
+        /// </summary>
+        public static StoredProcedure AspnetRegisterSchemaVersion(string Feature, string CompatibleSchemaVersion, bool? IsCurrentVersion, bool? RemoveIncompatibleSchema)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_RegisterSchemaVersion", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@Feature", Feature, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@CompatibleSchemaVersion", CompatibleSchemaVersion, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@IsCurrentVersion", IsCurrentVersion, DbType.Boolean, null, null);
+        	
+            sp.Command.AddParameter("@RemoveIncompatibleSchema", RemoveIncompatibleSchema, DbType.Boolean, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_Setup_RemoveAllRoleMembers Procedure
+        /// </summary>
+        public static StoredProcedure AspnetSetupRemoveAllRoleMembers(string name)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_Setup_RemoveAllRoleMembers", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@name", name, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_Setup_RestorePermissions Procedure
+        /// </summary>
+        public static StoredProcedure AspnetSetupRestorePermissions(string name)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_Setup_RestorePermissions", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@name", name, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_UnRegisterSchemaVersion Procedure
+        /// </summary>
+        public static StoredProcedure AspnetUnRegisterSchemaVersion(string Feature, string CompatibleSchemaVersion)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_UnRegisterSchemaVersion", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@Feature", Feature, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@CompatibleSchemaVersion", CompatibleSchemaVersion, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_Users_CreateUser Procedure
+        /// </summary>
+        public static StoredProcedure AspnetUsersCreateUser(Guid? ApplicationId, string UserName, bool? IsUserAnonymous, DateTime? LastActivityDate, Guid? UserId)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_Users_CreateUser", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@ApplicationId", ApplicationId, DbType.Guid, null, null);
+        	
+            sp.Command.AddParameter("@UserName", UserName, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@IsUserAnonymous", IsUserAnonymous, DbType.Boolean, null, null);
+        	
+            sp.Command.AddParameter("@LastActivityDate", LastActivityDate, DbType.DateTime, null, null);
+        	
+            sp.Command.AddOutputParameter("@UserId", DbType.Guid, null, null);
+            
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_Users_DeleteUser Procedure
+        /// </summary>
+        public static StoredProcedure AspnetUsersDeleteUser(string ApplicationName, string UserName, int? TablesToDeleteFrom, int? NumTablesDeletedFrom)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_Users_DeleteUser", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@ApplicationName", ApplicationName, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@UserName", UserName, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@TablesToDeleteFrom", TablesToDeleteFrom, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddOutputParameter("@NumTablesDeletedFrom", DbType.Int32, 0, 10);
+            
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the aspnet_WebEvent_LogEvent Procedure
+        /// </summary>
+        public static StoredProcedure AspnetWebEventLogEvent(string EventId, DateTime? EventTimeUtc, DateTime? EventTime, string EventType, decimal? EventSequence, decimal? EventOccurrence, int? EventCode, int? EventDetailCode, string Message, string ApplicationPath, string ApplicationVirtualPath, string MachineName, string RequestUrl, string ExceptionType, string Details)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("aspnet_WebEvent_LogEvent", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@EventId", EventId, DbType.AnsiStringFixedLength, null, null);
+        	
+            sp.Command.AddParameter("@EventTimeUtc", EventTimeUtc, DbType.DateTime, null, null);
+        	
+            sp.Command.AddParameter("@EventTime", EventTime, DbType.DateTime, null, null);
+        	
+            sp.Command.AddParameter("@EventType", EventType, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@EventSequence", EventSequence, DbType.Decimal, 0, 19);
+        	
+            sp.Command.AddParameter("@EventOccurrence", EventOccurrence, DbType.Decimal, 0, 19);
+        	
+            sp.Command.AddParameter("@EventCode", EventCode, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@EventDetailCode", EventDetailCode, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@Message", Message, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@ApplicationPath", ApplicationPath, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@ApplicationVirtualPath", ApplicationVirtualPath, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@MachineName", MachineName, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@RequestUrl", RequestUrl, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@ExceptionType", ExceptionType, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@Details", Details, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Delete_Users_Security_Answers Procedure
         /// </summary>
         public static StoredProcedure DeleteUsersSecurityAnswers(int? userkey)
@@ -446,6 +620,20 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Users_Status Procedure
+        /// </summary>
+        public static StoredProcedure UpdateUsersStatus(int? userkey, int? status)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Users_Status", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@status", status, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Verification_Email Procedure
         /// </summary>
         public static StoredProcedure UpdateVerificationEmail(int? userkey, bool? isverified, string ipaddress, string uniquekey)
@@ -519,6 +707,16 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewBankAccountsUsers()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Bank_Accounts_Users", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Errors_Lastone Procedure
+        /// </summary>
+        public static StoredProcedure ViewErrorsLastone()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Errors_Lastone", DataService.GetInstance("Peerfx"), "");
         	
             return sp;
         }

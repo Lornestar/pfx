@@ -179,7 +179,10 @@ namespace Peerfx
                 }
             }
             LoadRates();
-            LoadRecipientList();
+            if (sitetemp.isloggedin())
+            {
+                LoadRecipientList();
+            }            
         }
 
         protected void LoadRates()

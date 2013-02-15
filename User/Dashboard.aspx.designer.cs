@@ -13,6 +13,33 @@ namespace Peerfx.User {
     public partial class Dashboard {
         
         /// <summary>
+        /// lblusername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblusername;
+        
+        /// <summary>
+        /// lbluseremail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbluseremail;
+        
+        /// <summary>
+        /// lblaccountstatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblaccountstatus;
+        
+        /// <summary>
         /// RadListView1 control.
         /// </summary>
         /// <remarks>

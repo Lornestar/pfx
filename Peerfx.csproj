@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json.Net35, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Newtonsoft.Json.Net35.dll</HintPath>
@@ -110,10 +114,16 @@
     <Content Include="App_Data\RadCaptcha\X.wav" />
     <Content Include="App_Data\RadCaptcha\Y.wav" />
     <Content Include="App_Data\RadCaptcha\Z.wav" />
+    <Content Include="CustomError.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Emails\account_created.html" />
     <Content Include="Emails\account_created.txt" />
+    <Content Include="Emails\email_verification.htm" />
+    <Content Include="Emails\email_verification.txt" />
+    <Content Include="Emails\ErrorEmail.htm" />
+    <Content Include="Emails\ErrorEmail.txt" />
     <Content Include="ExchangeCurrency.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Images\Peerfx_logo.png" />
     <Content Include="Login.aspx" />
     <Content Include="Peerfx.css" />
@@ -121,8 +131,9 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Signup.aspx" />
-    <Content Include="TestCurrencyCloud.aspx" />
-    <Content Include="TestRadgrid.aspx" />
+    <Content Include="Testing\TestCurrencyCloud.aspx" />
+    <Content Include="Testing\TestError.aspx" />
+    <Content Include="Testing\TestRadgrid.aspx" />
     <Content Include="User\Add_Funds.aspx" />
     <Content Include="User\Dashboard.aspx" />
     <Content Include="User\Payment.aspx" />
@@ -135,7 +146,9 @@
     <Content Include="User_Controls\Login.ascx" />
     <Content Include="User_Controls\UserInfo.ascx" />
     <Content Include="Verification_Email.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -186,6 +199,13 @@
     <Compile Include="Admin\Admin_Users.aspx.designer.cs">
       <DependentUpon>Admin_Users.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CustomError.aspx.cs">
+      <DependentUpon>CustomError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomError.aspx.designer.cs">
+      <DependentUpon>CustomError.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -201,6 +221,9 @@
       <DependentUpon>ExchangeCurrency.aspx</DependentUpon>
     </Compile>
     <Compile Include="External APIs\CurrencyCloud.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -232,18 +255,25 @@
     <Compile Include="Subsonic_Generated\StoredProcedures.cs" />
     <Compile Include="Subsonic_Generated\User.cs" />
     <Compile Include="Subsonic_Generated\UserController.cs" />
-    <Compile Include="TestCurrencyCloud.aspx.cs">
+    <Compile Include="Testing\TestCurrencyCloud.aspx.cs">
       <DependentUpon>TestCurrencyCloud.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TestCurrencyCloud.aspx.designer.cs">
+    <Compile Include="Testing\TestCurrencyCloud.aspx.designer.cs">
       <DependentUpon>TestCurrencyCloud.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TestRadgrid.aspx.cs">
+    <Compile Include="Testing\TestError.aspx.cs">
+      <DependentUpon>TestError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Testing\TestError.aspx.designer.cs">
+      <DependentUpon>TestError.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Testing\TestRadgrid.aspx.cs">
       <DependentUpon>TestRadgrid.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TestRadgrid.aspx.designer.cs">
+    <Compile Include="Testing\TestRadgrid.aspx.designer.cs">
       <DependentUpon>TestRadgrid.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\Add_Funds.aspx.cs">

@@ -225,6 +225,30 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarDateProcessed);
                 
+                TableSchema.TableColumn colvarTxStatusText = new TableSchema.TableColumn(schema);
+                colvarTxStatusText.ColumnName = "tx_status_text";
+                colvarTxStatusText.DataType = DbType.String;
+                colvarTxStatusText.MaxLength = 20;
+                colvarTxStatusText.AutoIncrement = false;
+                colvarTxStatusText.IsNullable = true;
+                colvarTxStatusText.IsPrimaryKey = false;
+                colvarTxStatusText.IsForeignKey = false;
+                colvarTxStatusText.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarTxStatusText);
+                
+                TableSchema.TableColumn colvarCurrencyText = new TableSchema.TableColumn(schema);
+                colvarCurrencyText.ColumnName = "currency_text";
+                colvarCurrencyText.DataType = DbType.String;
+                colvarCurrencyText.MaxLength = 50;
+                colvarCurrencyText.AutoIncrement = false;
+                colvarCurrencyText.IsNullable = true;
+                colvarCurrencyText.IsPrimaryKey = false;
+                colvarCurrencyText.IsForeignKey = false;
+                colvarCurrencyText.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarCurrencyText);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -470,6 +494,34 @@ namespace Peerfx_DB{
 			    SetColumnValue("date_processed", value);
             }
         }
+	      
+        [XmlAttribute("TxStatusText")]
+        [Bindable(true)]
+        public string TxStatusText 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("tx_status_text");
+		    }
+            set 
+		    {
+			    SetColumnValue("tx_status_text", value);
+            }
+        }
+	      
+        [XmlAttribute("CurrencyText")]
+        [Bindable(true)]
+        public string CurrencyText 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("currency_text");
+		    }
+            set 
+		    {
+			    SetColumnValue("currency_text", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -505,6 +557,10 @@ namespace Peerfx_DB{
             public static string DateCreated = @"date_created";
             
             public static string DateProcessed = @"date_processed";
+            
+            public static string TxStatusText = @"tx_status_text";
+            
+            public static string CurrencyText = @"currency_text";
             
 	    }
 	    #endregion

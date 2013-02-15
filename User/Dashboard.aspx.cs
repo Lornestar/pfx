@@ -20,6 +20,9 @@ namespace Peerfx.User
             {
                 LoadCurrencyTable();
                 LoadPaymentTable();
+                lblusername.Text = currentuser.Full_name;
+                lbluseremail.Text = currentuser.Email;
+                lblaccountstatus.Text = currentuser.User_status_text;
             }            
         }
 
