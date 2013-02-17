@@ -213,17 +213,17 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarUserStatus);
                 
-                TableSchema.TableColumn colvarIsadmin = new TableSchema.TableColumn(schema);
-                colvarIsadmin.ColumnName = "isadmin";
-                colvarIsadmin.DataType = DbType.Boolean;
-                colvarIsadmin.MaxLength = 0;
-                colvarIsadmin.AutoIncrement = false;
-                colvarIsadmin.IsNullable = true;
-                colvarIsadmin.IsPrimaryKey = false;
-                colvarIsadmin.IsForeignKey = false;
-                colvarIsadmin.IsReadOnly = false;
+                TableSchema.TableColumn colvarUserType = new TableSchema.TableColumn(schema);
+                colvarUserType.ColumnName = "user_type";
+                colvarUserType.DataType = DbType.Int32;
+                colvarUserType.MaxLength = 0;
+                colvarUserType.AutoIncrement = false;
+                colvarUserType.IsNullable = true;
+                colvarUserType.IsPrimaryKey = false;
+                colvarUserType.IsForeignKey = false;
+                colvarUserType.IsReadOnly = false;
                 
-                schema.Columns.Add(colvarIsadmin);
+                schema.Columns.Add(colvarUserType);
                 
                 TableSchema.TableColumn colvarAddress1 = new TableSchema.TableColumn(schema);
                 colvarAddress1.ColumnName = "address1";
@@ -440,6 +440,30 @@ namespace Peerfx_DB{
                 colvarUserInfoFull.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarUserInfoFull);
+                
+                TableSchema.TableColumn colvarUserStatusText = new TableSchema.TableColumn(schema);
+                colvarUserStatusText.ColumnName = "user_status_text";
+                colvarUserStatusText.DataType = DbType.String;
+                colvarUserStatusText.MaxLength = 50;
+                colvarUserStatusText.AutoIncrement = false;
+                colvarUserStatusText.IsNullable = true;
+                colvarUserStatusText.IsPrimaryKey = false;
+                colvarUserStatusText.IsForeignKey = false;
+                colvarUserStatusText.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarUserStatusText);
+                
+                TableSchema.TableColumn colvarIsadmin = new TableSchema.TableColumn(schema);
+                colvarIsadmin.ColumnName = "isadmin";
+                colvarIsadmin.DataType = DbType.AnsiString;
+                colvarIsadmin.MaxLength = 4;
+                colvarIsadmin.AutoIncrement = false;
+                colvarIsadmin.IsNullable = true;
+                colvarIsadmin.IsPrimaryKey = false;
+                colvarIsadmin.IsForeignKey = false;
+                colvarIsadmin.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarIsadmin);
                 
                 
                 BaseSchema = schema;
@@ -673,17 +697,17 @@ namespace Peerfx_DB{
             }
         }
 	      
-        [XmlAttribute("Isadmin")]
+        [XmlAttribute("UserType")]
         [Bindable(true)]
-        public bool? Isadmin 
+        public int? UserType 
 	    {
 		    get
 		    {
-			    return GetColumnValue<bool?>("isadmin");
+			    return GetColumnValue<int?>("user_type");
 		    }
             set 
 		    {
-			    SetColumnValue("isadmin", value);
+			    SetColumnValue("user_type", value);
             }
         }
 	      
@@ -938,6 +962,34 @@ namespace Peerfx_DB{
 			    SetColumnValue("user_info_full", value);
             }
         }
+	      
+        [XmlAttribute("UserStatusText")]
+        [Bindable(true)]
+        public string UserStatusText 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("user_status_text");
+		    }
+            set 
+		    {
+			    SetColumnValue("user_status_text", value);
+            }
+        }
+	      
+        [XmlAttribute("Isadmin")]
+        [Bindable(true)]
+        public string Isadmin 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("isadmin");
+		    }
+            set 
+		    {
+			    SetColumnValue("isadmin", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -972,7 +1024,7 @@ namespace Peerfx_DB{
             
             public static string UserStatus = @"user_status";
             
-            public static string Isadmin = @"isadmin";
+            public static string UserType = @"user_type";
             
             public static string Address1 = @"address1";
             
@@ -1009,6 +1061,10 @@ namespace Peerfx_DB{
             public static string Password = @"password";
             
             public static string UserInfoFull = @"user_info_full";
+            
+            public static string UserStatusText = @"user_status_text";
+            
+            public static string Isadmin = @"isadmin";
             
 	    }
 	    #endregion

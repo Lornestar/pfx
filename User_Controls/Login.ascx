@@ -8,12 +8,25 @@
             </asp:Panel>
             <asp:Panel ID=pnlSignedIn runat=server Visible=false>
                 <div style="float:right;">
-                <asp:Label ID=lblusername runat=server>Email Address</asp:Label>
-                <br />
-                <asp:HyperLink ID=hypAdmin runat=server Text="Admin Stuff" runat=server NavigateUrl="~/Admin/Admin_Default.aspx"></asp:HyperLink>
-                <br />                
-                <telerik:RadButton ID=btnlogout runat=server Text="Logout" 
+                <table>
+                    <tr>
+                        <td>
+                        <asp:Label ID=lblusername runat=server>Email Address</asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:HyperLink ID=hypAdmin runat=server Text="Admin Stuff" runat=server Visible=false NavigateUrl="~/Admin/Admin_Default.aspx"></asp:HyperLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <telerik:RadButton ID=btnlogout runat=server Text="Logout" 
                         onclick="btnlogout_Click"></telerik:RadButton>
+                        </td>
+                    </tr>
+                </table>
+                
                 </div>
             </asp:Panel>
         </td>

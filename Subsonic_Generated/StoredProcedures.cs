@@ -1032,6 +1032,16 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_User_Currency_List_Treasury Procedure
+        /// </summary>
+        public static StoredProcedure ViewUserCurrencyListTreasury()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_User_Currency_List_Treasury", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Users_Admin Procedure
         /// </summary>
         public static StoredProcedure ViewUsersAdmin()

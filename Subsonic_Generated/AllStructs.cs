@@ -80,6 +80,8 @@ namespace Peerfx_DB
         
 		public static readonly string UserStatus = @"User_Statuses";
         
+		public static readonly string UserType = @"User_Types";
+        
 		public static readonly string User = @"Users";
         
 		public static readonly string UsersInfo = @"Users_Info";
@@ -246,6 +248,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table UserStatus
 		{
             get { return DataService.GetSchema("User_Statuses", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table UserType
+		{
+            get { return DataService.GetSchema("User_Types", "Peerfx"); }
 		}
         
 		public static TableSchema.Table User

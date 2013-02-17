@@ -295,18 +295,18 @@ namespace Peerfx_DB
 				colvarUserStatus.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarUserStatus);
 				
-				TableSchema.TableColumn colvarIsadmin = new TableSchema.TableColumn(schema);
-				colvarIsadmin.ColumnName = "isadmin";
-				colvarIsadmin.DataType = DbType.Boolean;
-				colvarIsadmin.MaxLength = 0;
-				colvarIsadmin.AutoIncrement = false;
-				colvarIsadmin.IsNullable = true;
-				colvarIsadmin.IsPrimaryKey = false;
-				colvarIsadmin.IsForeignKey = false;
-				colvarIsadmin.IsReadOnly = false;
-				colvarIsadmin.DefaultSetting = @"";
-				colvarIsadmin.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarIsadmin);
+				TableSchema.TableColumn colvarUserType = new TableSchema.TableColumn(schema);
+				colvarUserType.ColumnName = "user_type";
+				colvarUserType.DataType = DbType.Int32;
+				colvarUserType.MaxLength = 0;
+				colvarUserType.AutoIncrement = false;
+				colvarUserType.IsNullable = true;
+				colvarUserType.IsPrimaryKey = false;
+				colvarUserType.IsForeignKey = false;
+				colvarUserType.IsReadOnly = false;
+				colvarUserType.DefaultSetting = @"";
+				colvarUserType.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarUserType);
 				
 				BaseSchema = schema;
 				//add this schema to the provider
@@ -422,12 +422,12 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.UserStatus, value); }
 		}
 		  
-		[XmlAttribute("Isadmin")]
+		[XmlAttribute("UserType")]
 		[Bindable(true)]
-		public bool? Isadmin 
+		public int? UserType 
 		{
-			get { return GetColumnValue<bool?>(Columns.Isadmin); }
-			set { SetColumnValue(Columns.Isadmin, value); }
+			get { return GetColumnValue<int?>(Columns.UserType); }
+			set { SetColumnValue(Columns.UserType, value); }
 		}
 		
 		#endregion
@@ -449,7 +449,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,bool? varIsadmin)
+		public static void Insert(string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,int? varUserType)
 		{
 			User item = new User();
 			
@@ -477,7 +477,7 @@ namespace Peerfx_DB
 			
 			item.UserStatus = varUserStatus;
 			
-			item.Isadmin = varIsadmin;
+			item.UserType = varUserType;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -489,7 +489,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,bool? varIsadmin)
+		public static void Update(int varUserKey,string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,int? varUserType)
 		{
 			User item = new User();
 			
@@ -519,7 +519,7 @@ namespace Peerfx_DB
 			
 				item.UserStatus = varUserStatus;
 			
-				item.Isadmin = varIsadmin;
+				item.UserType = varUserType;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -625,7 +625,7 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn IsadminColumn
+        public static TableSchema.TableColumn UserTypeColumn
         {
             get { return Schema.Columns[13]; }
         }
@@ -649,7 +649,7 @@ namespace Peerfx_DB
 			 public static string LastChanged = @"last_changed";
 			 public static string SignedUp = @"signed_up";
 			 public static string UserStatus = @"user_status";
-			 public static string Isadmin = @"isadmin";
+			 public static string UserType = @"user_type";
 						
 		}
 		#endregion
