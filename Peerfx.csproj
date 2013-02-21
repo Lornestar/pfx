@@ -122,6 +122,8 @@
     <Content Include="Emails\email_verification.txt" />
     <Content Include="Emails\ErrorEmail.htm" />
     <Content Include="Emails\ErrorEmail.txt" />
+    <Content Include="Emails\payment_confirmed.html" />
+    <Content Include="Emails\payment_confirmed.txt" />
     <Content Include="ExchangeCurrency.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\Peerfx_logo.png" />
@@ -141,6 +143,8 @@
     <Content Include="User\Settings.aspx" />
     <Content Include="User\Withdraw.aspx" />
     <Content Include="User_Controls\ExchangeCurrency.ascx" />
+    <Content Include="User_Controls\ExchangeCurrency_FinePrint.ascx" />
+    <Content Include="User_Controls\ExchangeCurrency_NextSteps.ascx" />
     <Content Include="User_Controls\Footer.ascx" />
     <Content Include="User_Controls\Header.ascx" />
     <Content Include="User_Controls\Login.ascx" />
@@ -233,6 +237,7 @@
     </Compile>
     <Compile Include="Models\BankAccounts.cs" />
     <Compile Include="Models\Fees.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -325,6 +330,20 @@
     <Compile Include="User_Controls\ExchangeCurrency.ascx.designer.cs">
       <DependentUpon>ExchangeCurrency.ascx</DependentUpon>
     </Compile>
+    <Compile Include="User_Controls\ExchangeCurrency_FinePrint.ascx.cs">
+      <DependentUpon>ExchangeCurrency_FinePrint.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\ExchangeCurrency_FinePrint.ascx.designer.cs">
+      <DependentUpon>ExchangeCurrency_FinePrint.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\ExchangeCurrency_NextSteps.ascx.cs">
+      <DependentUpon>ExchangeCurrency_NextSteps.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\ExchangeCurrency_NextSteps.ascx.designer.cs">
+      <DependentUpon>ExchangeCurrency_NextSteps.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\Footer.ascx.cs">
       <DependentUpon>Footer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -388,7 +407,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

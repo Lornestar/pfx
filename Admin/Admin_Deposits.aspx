@@ -194,6 +194,7 @@
                                                     <td >
                                                         <telerik:RadComboBox ID=ddlconnectpayment runat=server EmptyMessage="Choose Payment" >
                                                         </telerik:RadComboBox>
+                                                        <asp:Label ID=lblerror runat=server Visible=false ForeColor=Red></asp:Label>
                                                     </td>
                                                 </tr>
                                             </table>                                                                                        

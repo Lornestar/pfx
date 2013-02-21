@@ -1,0 +1,66 @@
+﻿
+<div>
+Hi FIRST_NAME LAST_NAME,
+</div>
+<p>
+Thank you for requesting a payment.  Below are details of your payment and next steps:
+</p>
+<table>
+    <tr>
+        <td><b>Payment #PAYMENTNUM</b></td>
+    </tr>
+    <tr>        
+        <td>
+            SENDAMOUNT
+        </td>
+    </tr>
+    <tr>        
+        <td>
+            send to RECEIVERNAME
+        </td>
+    </tr>
+    <tr>
+        <td>
+            BANKACCOUNTINFO
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Description - DESCRIPTION
+        </td>
+    </tr>
+</table>
+<table style="background-color:EEEEEE;">
+    <tr valign=top>
+        <td>
+            NEXTSTEPS
+        </td>
+        <td style="border:1px solid black; width:50%">
+            <table>
+                <tr>
+                    <td>Peerfx Deposit Account</td>
+                </tr>
+                <tr>
+                    <td>Amount:
+                        <br />
+                        SENDAMOUNT
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        To:
+                        <br />
+                        Peerfx
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bank Account:
+                        <br />
+                        BANKACCOUNT
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

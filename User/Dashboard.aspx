@@ -50,7 +50,7 @@
                                         <td >
                                                 <%# Eval("info_currency_description") %>                                                
                                         </td>
-                                        <td style="float:right;">
+                                        <td style="float:right; text-align:right;">
                                             <%# Eval("user_balance")%>
                                         </td>                                        
                                     </tr>                        

@@ -11,15 +11,15 @@
 
         <telerik:RadListView ID="RadListView1" runat="server" Width=100% ItemPlaceholderID="ListViewContainer">                                
                           <LayoutTemplate>                            
-                                <table id="products" width=100% style="border:1px solid black;">
+                                <table id="products" width=100% style="border:1px solid black;text-align:center;">
                                         <tr style="background-color:#DDDDDD;">
-                                            <td style="width:40%">
+                                            <td style="width:20%">
                                                 Currency
                                             </td>
-                                            <td style="float:right;">
+                                            <td style="width:15%; text-align:center;">
                                                 Treasury Balance
                                             </td>        
-                                            <td>
+                                            <td style="width:15%;">
                                                 Overall Balance
                                             </td>                               
                                             <td>
@@ -32,16 +32,16 @@
                         </LayoutTemplate>
                             <ItemTemplate>
                                     <tr style="border-bottom:1px solid black;">
-                                        <td >
+                                        <td style="text-align:left;">
                                                 <%# Eval("info_currency_description") %>                                                
                                         </td>
-                                        <td style="float:right;">
+                                        <td style="text-align:center;">
                                             <%# Eval("user_balance")%>
                                         </td>                  
-                                        <td>
+                                        <td style="text-align:center;">
                                             <%# Eval("overall_balance")%>
                                         </td>          
-                                        <td>
+                                        <td style="text-align:center;">
                                             <%# Eval("system_account_info_text") %>
                                         </td>            
                                     </tr>                        

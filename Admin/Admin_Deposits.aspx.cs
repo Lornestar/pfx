@@ -73,9 +73,18 @@ namespace Peerfx.Admin
                 GridDataItem item = (GridDataItem)e.Item;
                 int txkey = Convert.ToInt32(item["tx_external_key"].Text);
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectuser");
-                int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
-                Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 2, userkey).Execute();
-                RadGrid1.Rebind();
+                if (ddlconnectuser.SelectedIndex > -1)
+                {
+                    int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
+                    Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 2, userkey).Execute();
+                    RadGrid1.Rebind();
+                }
+                else
+                {
+                    Label lblerror = (Label)item.FindControl("lblerror");
+                    lblerror.Text = "You must select a user";
+                    lblerror.Visible = true;
+                }
             }
             else if (e.CommandName == "btnconnectpayment")
             {
@@ -83,9 +92,18 @@ namespace Peerfx.Admin
                 GridDataItem item = (GridDataItem)e.Item;
                 int txkey = Convert.ToInt32(item["tx_external_key"].Text);
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectpayment");
-                int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
-                Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, userkey).Execute();
-                RadGrid1.Rebind();
+                if (ddlconnectuser.SelectedIndex > -1)
+                {
+                    int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
+                    Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, userkey).Execute();
+                    RadGrid1.Rebind();
+                }
+                else
+                {
+                    Label lblerror = (Label)item.FindControl("lblerror");
+                    lblerror.Text = "You must select a payment";
+                    lblerror.Visible = true;
+                }
             }
             else if (e.CommandName == "btnremovedeposit")
             {

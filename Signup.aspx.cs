@@ -191,9 +191,7 @@ namespace Peerfx
 
                 Peerfx_DB.SPs.UpdateUsersInfoSignupTab3(user_key, txtUsername.Text, txtPassword.Text).Execute();
 
-                //mixpanel
-
-                //send email            
+                //mixpanel                
 
                 //go to next screen
                 changetab(3);

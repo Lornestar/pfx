@@ -14,7 +14,9 @@
                             <telerik:GridBoundColumn DataField="last_name" HeaderText="Last Name" UniqueName="last_name">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="user_balance" HeaderText="Current Balance" UniqueName="user_balance">
-                            </telerik:GridBoundColumn>                            
+                            </telerik:GridBoundColumn>                
+                            <telerik:GridBoundColumn DataField="user_status_text" HeaderText="Status" UniqueName="user_status_text">
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="last_changed" HeaderText="Last Online" UniqueName="last_changed">
                             </telerik:GridBoundColumn>  
                         </Columns>

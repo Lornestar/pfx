@@ -62,6 +62,8 @@ namespace Peerfx
                 pnlnewsender2.Visible = false;
                 ucUserInfo1.Choose_User(currentuser.User_key);
                 ucUserInfo2.Choose_User(currentuser.User_key);
+                txtfirstnamesender.Text = currentuser.First_name;
+                txtlastnamesender.Text = currentuser.Last_name;
 
                 if (!IsPostBack)
                 {
@@ -331,6 +333,8 @@ namespace Peerfx
             Peerfx_DB.SPs.UpdatePaymentStatus(payment_key, 2).Execute();
 
             //Send email with instructions etc.
+            Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
+            sg.Send_Email_Payment_Confirmed(payment_key, currentuser);
 
             //Change tab to bank transfer info
             changetab(2);
@@ -372,7 +376,7 @@ namespace Peerfx
         {
             //update tab info
             lblalreadyconfirmedfrom.Text = lblconfirmsenderfullname.Text;
-            lblalreadyconfirmedfrom2.Text = lblconfirmsenderfullname.Text;
+            //lblalreadyconfirmedfrom2.Text = lblconfirmsenderfullname.Text;
             lblalreadyconfirmedto.Text = lblconfirmreceiverfullname.Text;
 
             lblalreadyconfirmedIBAN2.Text = txtIbanAccount.Text;

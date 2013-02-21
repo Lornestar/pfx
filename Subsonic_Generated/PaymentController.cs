@@ -80,11 +80,13 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int QuoteKey,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
+	    public void Insert(int QuoteKey,int? QuoteKeyActual,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
 	    {
 		    Payment item = new Payment();
 		    
             item.QuoteKey = QuoteKey;
+            
+            item.QuoteKeyActual = QuoteKeyActual;
             
             item.PaymentStatus = PaymentStatus;
             
@@ -106,7 +108,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int PaymentsKey,int QuoteKey,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
+	    public void Update(int PaymentsKey,int QuoteKey,int? QuoteKeyActual,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
 	    {
 		    Payment item = new Payment();
 	        item.MarkOld();
@@ -115,6 +117,8 @@ namespace Peerfx_DB
 			item.PaymentsKey = PaymentsKey;
 				
 			item.QuoteKey = QuoteKey;
+				
+			item.QuoteKeyActual = QuoteKeyActual;
 				
 			item.PaymentStatus = PaymentStatus;
 				

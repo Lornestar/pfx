@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ExchangeCurrency.aspx.cs" Inherits="Peerfx.ExchangeCurrency" MasterPageFile="~/Site.Master"%>
 
 <%@ Register Src="~/User_Controls/UserInfo.ascx" tagname="UserInfo" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/ExchangeCurrency_FinePrint.ascx" tagname="ExchangeCurrency_FinePrint" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/ExchangeCurrency_NextSteps.ascx" tagname="ExchangeCurrency_NextSteps" tagprefix="uc1" %>
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
@@ -130,6 +132,11 @@
                                                     <td><asp:Label ID="lblrate" runat=server>0.00</asp:Label></td>
                                                 </tr>
                                             </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <uc1:ExchangeCurrency_FinePrint id="ExchangeCurrency_FinePrint1" runat="server"></uc1:ExchangeCurrency_FinePrint>
                                         </td>
                                     </tr>
                                 </table>    
@@ -390,6 +397,11 @@
                                             </table>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <uc1:ExchangeCurrency_FinePrint id="ExchangeCurrency_FinePrint2" runat="server"></uc1:ExchangeCurrency_FinePrint>
+                                        </td>
+                                    </tr>
                                 </table>    
                                                        
                             </td>
@@ -622,6 +634,11 @@
                                             <asp:Label ID=lblalreadyconfirmeddescription runat=server>description</asp:Label>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <uc1:ExchangeCurrency_FinePrint id="ExchangeCurrency_FinePrint3" runat="server"></uc1:ExchangeCurrency_FinePrint>
+                                        </td>
+                                    </tr>
                                 </table>    
                                                        
                             </td>
@@ -629,18 +646,7 @@
                                 <table width=100%>
                                     <tr valign=top>
                                         <td>
-                                            <b>NEXT STEPS:</b>
-                                            <ol>
-                                                <li>
-                                                    Activate your payment by transferring the required deposit to the Peerfx deposit account.
-                                                </li>
-                                                <li>
-                                                    We will confirm the receipt of your deposit within 4 working hours after it reaches our bank account.
-                                                </li>
-                                            </ol>
-                                            <div class="FinePrint">
-                                                Note that the deposit payment will have to originate from a bank account in the name of "<asp:Label ID="lblalreadyconfirmedfrom2" runat=server></asp:Label>", otherwise the payment will not be activated.
-                                            </div>
+                                            <uc1:ExchangeCurrency_NextSteps id="ExchangeCurrency_NextSteps" runat=server></uc1:ExchangeCurrency_NextSteps>
                                         </td>
                                         <td style="border:1px solid black; width:50%">
                                             <table>

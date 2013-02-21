@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
 using SubSonic;
 
 namespace Peerfx
@@ -255,6 +256,92 @@ namespace Peerfx
                 users.User_status_text = dstemp.Tables[0].Rows[0]["user_status_text"].ToString();
             }                        
             return users;
+        }
+
+        public Payment getPayment(int paymentkey)
+        {
+            Payment paymenttemp = new Payment();
+            paymenttemp.Payments_Key = paymentkey;
+
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentSpecific(paymentkey).GetDataSet();
+
+            if (dstemp.Tables[0].Rows[0]["quote_key"] != DBNull.Value)
+            {
+                paymenttemp.Quote_Key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["quote_key"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["payment_status"] != DBNull.Value)
+            {
+                paymenttemp.Payment_status = Convert.ToInt32(dstemp.Tables[0].Rows[0]["payment_status"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["date_created"] != DBNull.Value)
+            {
+                paymenttemp.Date_created = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["date_created"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["payment_object_sender"] != DBNull.Value)
+            {
+                paymenttemp.Payment_object_sender = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_sender"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["payment_object_receiver"] != DBNull.Value)
+            {
+                paymenttemp.Payment_object_receiver = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_receiver"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["payment_description"] != DBNull.Value)
+            {
+                paymenttemp.Payment_description = dstemp.Tables[0].Rows[0]["payment_description"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["sell_amount"] != DBNull.Value)
+            {
+                paymenttemp.Sell_amount = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["sell_amount"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["sell_currency"] != DBNull.Value)
+            {
+                paymenttemp.Sell_currency = Convert.ToInt32(dstemp.Tables[0].Rows[0]["sell_currency"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["buy_amount"] != DBNull.Value)
+            {
+                paymenttemp.Buy_amount = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["buy_amount"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["buy_currency"] != DBNull.Value)
+            {
+                paymenttemp.Buy_currency = Convert.ToInt32(dstemp.Tables[0].Rows[0]["buy_currency"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["rate"] != DBNull.Value)
+            {
+                paymenttemp.Rate = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["rate"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["service_fee"] != DBNull.Value)
+            {
+                paymenttemp.Service_fee = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["service_fee"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["promised_delivery_date"] != DBNull.Value)
+            {
+                paymenttemp.Promised_delivery_date = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["promised_delivery_date"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["actual_delivery_date"] != DBNull.Value)
+            {
+                paymenttemp.Actual_delivery_date = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["actual_delivery_date"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["receiver_name"] != DBNull.Value)
+            {
+                paymenttemp.Receiver_name = dstemp.Tables[0].Rows[0]["receiver_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["sender_name"] != DBNull.Value)
+            {
+                paymenttemp.Sender_name = dstemp.Tables[0].Rows[0]["sender_name"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["sell_currency_text"] != DBNull.Value)
+            {
+                paymenttemp.Sell_currency_text = dstemp.Tables[0].Rows[0]["sell_currency_text"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["buy_currency_text"] != DBNull.Value)
+            {
+                paymenttemp.Buy_currency_text = dstemp.Tables[0].Rows[0]["buy_currency_text"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["payment_status_text"] != DBNull.Value)
+            {
+                paymenttemp.Payment_status_text = dstemp.Tables[0].Rows[0]["payment_status_text"].ToString();
+            }
+            return paymenttemp;
         }
 
         public BankAccounts getBankAccounts(int bankaccountkey, Int64 paymentkey)
@@ -707,11 +794,36 @@ namespace Peerfx
             return returnpaymentobject;
         }
 
+        public void insert_quote_actual_convert_currency(int paymentkey, Quote quotetemp, int sellcurrency, int buycurrency, Users currentuser)
+        {
+            StoredProcedure sp_UpdateQuotes = Peerfx_DB.SPs.UpdateQuotes(0, quotetemp.Sellamount, sellcurrency, quotetemp.Buyamount, buycurrency, quotetemp.Peerfx_Rate, quotetemp.Peerfx_Servicefee, null, null, 0);
+            sp_UpdateQuotes.Execute();
+            int quote_key = Convert.ToInt32(sp_UpdateQuotes.Command.Parameters[9].ParameterValue.ToString());
+
+            Peerfx_DB.SPs.UpdatePaymentsActualQuote(paymentkey, quote_key).Execute();
+
+            //convert currency
+            Peerfx_DB.SPs.UpdateConvertCurrency(paymentkey, quote_key, get_ipaddress(), currentuser.User_key).Execute();
+        }
+
         public bool IsNumeric(string strTextEntry)
         {
             Regex objNotWholePattern = new Regex("[^0-9]");
             return !objNotWholePattern.IsMatch(strTextEntry)
                  && (strTextEntry != "");
+        }
+
+        public string RenderUserControl(string path)
+        {
+            Page pageHolder = new Page();
+            Control viewControl = pageHolder.LoadControl(path);
+
+            pageHolder.Controls.Add(viewControl);
+            using (StringWriter output = new StringWriter())
+            {
+                HttpContext.Current.Server.Execute(pageHolder, output, false);
+                return output.ToString();
+            }
         }
     }
 }

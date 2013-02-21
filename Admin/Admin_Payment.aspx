@@ -3,9 +3,21 @@
 <%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
+<telerik:RadTabStrip ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" OnTabClick="RadTabStrip1_TabClick">
+                    <Tabs>
+                        <telerik:RadTab Text="Confirmed">
+                        </telerik:RadTab>
+                        <telerik:RadTab Text="Bank Transfer Received">
+                        </telerik:RadTab>
+                        <telerik:RadTab Text="Currency Converted" >
+                        </telerik:RadTab>
+                        <telerik:RadTab Text="Payment Delivered" >
+                        </telerik:RadTab>
+                    </Tabs>
+                </telerik:RadTabStrip>
 
 <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False" AllowAutomaticUpdates="False" OnNeedDataSource="RadGrid1_NeedDataSource" OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true"
-OnDetailTableDataBind="RadGrid1_DetailTableDataBind">
+OnDetailTableDataBind="RadGrid1_DetailTableDataBind" PageSize=50>
                              <MasterTableView Width="100%" DataKeyNames="payments_key" AutoGenerateColumns="False" Name="Payments" >                                                                <DetailTables>
                                     <telerik:GridTableView DataKeyNames="tx_key" Name="Transactions" Width="100%"  AutoGenerateColumns="False">
                                         <Columns>       
@@ -41,26 +53,34 @@ OnDetailTableDataBind="RadGrid1_DetailTableDataBind">
                                      </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="sell_currency_text" HeaderText="Sell Currency" UniqueName="sell_currency_text">
                                     </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="sell_currency" HeaderText="Sell Currency" UniqueName="sell_currency" Visible=false>
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="sell_amount" HeaderText="Sell Amount" UniqueName="sell_amount">
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="buy_currency_text" HeaderText="Buy Currency" UniqueName="buy_currency_text">
                                     </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="buy_currency" HeaderText="Buy Currency" UniqueName="buy_currency" Visible=false>
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="buy_amount" HeaderText="Buy Amount" UniqueName="buy_amount">
                                     </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="payment_status" HeaderText="Status" UniqueName="payment_status" Visible=false>
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="payment_status_text" HeaderText="Status" UniqueName="payment_status_text">
-                                    </telerik:GridBoundColumn>        
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="payment_object_receiver" HeaderText="Receiver payment object key" UniqueName="payment_object_receiver" Visible=false>
                                     </telerik:GridBoundColumn>        
                                                                 
 
                                      <telerik:GridTemplateColumn HeaderText="Actions">
-                                        <ItemTemplate>
+                                        <ItemTemplate>                                        
                                             <table>
                                                 <tr>
                                                     <td >
+                                                        <asp:Panel ID=pnlupdatestatus runat=server>
                                                         <telerik:RadComboBox ID=ddlupdatestatus runat=server EmptyMessage="Update Status" >
                                                         </telerik:RadComboBox>
                                                         <telerik:RadButton ID=btnupdatestatus runat=server Text="Change Status" CommandName="btnupdatestatus"></telerik:RadButton>
+                                                        </asp:Panel>
                                                     </td>                                                    
                                                 </tr>                                                
                                                 <tr>
@@ -70,7 +90,7 @@ OnDetailTableDataBind="RadGrid1_DetailTableDataBind">
                                                         <br />
                                                         <asp:Label ID=lblbankaccountsent runat=server ></asp:Label>
                                                         <br />
-                                                        <telerik:RadNumericTextBox ID=txtamount Value="0" EmptyMessage="Amount Transferred" runat=server></telerik:RadNumericTextBox>
+                                                        <asp:Label ID=lblcurrencysymbol runat=server></asp:Label><telerik:RadNumericTextBox ID=txtamount Value="0" EmptyMessage="Amount Transferred" runat=server></telerik:RadNumericTextBox>
                                                         <br />
                                                         <telerik:RadButton ID=btnconfirmmoneysent runat=server Text="Confirm" CommandName="btnconfirmmoneysent">
                                                         </telerik:RadButton>
@@ -79,7 +99,20 @@ OnDetailTableDataBind="RadGrid1_DetailTableDataBind">
                                                         </asp:Panel>
                                                     </td>
                                                 </tr>
-                                            </table>                                                                                        
+                                                <tr>
+                                                    <td>
+                                                        <asp:Panel ID=pnlconvertcurrency runat=server Visible=false>
+                                                            <asp:Button ID=btnconvertcurrency runat=server Text="Convert Currency" CommandName="btnconvertcurrency" />
+                                                        </asp:Panel>                                                         
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID=lblerror runat=server ForeColor=Red></asp:Label>
+                                                    </td>
+                                                </tr>
+                                            </table>                               
+                                                                                        
                                         </ItemTemplate>
                                      </telerik:GridTemplateColumn>                                     
                                 </Columns>

@@ -152,6 +152,19 @@ namespace Peerfx_DB
 				colvarQuoteKey.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarQuoteKey);
 				
+				TableSchema.TableColumn colvarQuoteKeyActual = new TableSchema.TableColumn(schema);
+				colvarQuoteKeyActual.ColumnName = "quote_key_actual";
+				colvarQuoteKeyActual.DataType = DbType.Int32;
+				colvarQuoteKeyActual.MaxLength = 0;
+				colvarQuoteKeyActual.AutoIncrement = false;
+				colvarQuoteKeyActual.IsNullable = true;
+				colvarQuoteKeyActual.IsPrimaryKey = false;
+				colvarQuoteKeyActual.IsForeignKey = false;
+				colvarQuoteKeyActual.IsReadOnly = false;
+				colvarQuoteKeyActual.DefaultSetting = @"";
+				colvarQuoteKeyActual.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarQuoteKeyActual);
+				
 				TableSchema.TableColumn colvarPaymentStatus = new TableSchema.TableColumn(schema);
 				colvarPaymentStatus.ColumnName = "payment_status";
 				colvarPaymentStatus.DataType = DbType.Int32;
@@ -256,6 +269,14 @@ namespace Peerfx_DB
 			set { SetColumnValue(Columns.QuoteKey, value); }
 		}
 		  
+		[XmlAttribute("QuoteKeyActual")]
+		[Bindable(true)]
+		public int? QuoteKeyActual 
+		{
+			get { return GetColumnValue<int?>(Columns.QuoteKeyActual); }
+			set { SetColumnValue(Columns.QuoteKeyActual, value); }
+		}
+		  
 		[XmlAttribute("PaymentStatus")]
 		[Bindable(true)]
 		public int PaymentStatus 
@@ -323,11 +344,13 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varQuoteKey,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription)
+		public static void Insert(int varQuoteKey,int? varQuoteKeyActual,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription)
 		{
 			Payment item = new Payment();
 			
 			item.QuoteKey = varQuoteKey;
+			
+			item.QuoteKeyActual = varQuoteKeyActual;
 			
 			item.PaymentStatus = varPaymentStatus;
 			
@@ -351,13 +374,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varPaymentsKey,int varQuoteKey,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription)
+		public static void Update(int varPaymentsKey,int varQuoteKey,int? varQuoteKeyActual,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription)
 		{
 			Payment item = new Payment();
 			
 				item.PaymentsKey = varPaymentsKey;
 			
 				item.QuoteKey = varQuoteKey;
+			
+				item.QuoteKeyActual = varQuoteKeyActual;
 			
 				item.PaymentStatus = varPaymentStatus;
 			
@@ -398,44 +423,51 @@ namespace Peerfx_DB
         
         
         
-        public static TableSchema.TableColumn PaymentStatusColumn
+        public static TableSchema.TableColumn QuoteKeyActualColumn
         {
             get { return Schema.Columns[2]; }
         }
         
         
         
-        public static TableSchema.TableColumn DateCreatedColumn
+        public static TableSchema.TableColumn PaymentStatusColumn
         {
             get { return Schema.Columns[3]; }
         }
         
         
         
-        public static TableSchema.TableColumn RequestorUserKeyColumn
+        public static TableSchema.TableColumn DateCreatedColumn
         {
             get { return Schema.Columns[4]; }
         }
         
         
         
-        public static TableSchema.TableColumn PaymentObjectSenderColumn
+        public static TableSchema.TableColumn RequestorUserKeyColumn
         {
             get { return Schema.Columns[5]; }
         }
         
         
         
-        public static TableSchema.TableColumn PaymentObjectReceiverColumn
+        public static TableSchema.TableColumn PaymentObjectSenderColumn
         {
             get { return Schema.Columns[6]; }
         }
         
         
         
-        public static TableSchema.TableColumn PaymentDescriptionColumn
+        public static TableSchema.TableColumn PaymentObjectReceiverColumn
         {
             get { return Schema.Columns[7]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn PaymentDescriptionColumn
+        {
+            get { return Schema.Columns[8]; }
         }
         
         
@@ -446,6 +478,7 @@ namespace Peerfx_DB
 		{
 			 public static string PaymentsKey = @"payments_key";
 			 public static string QuoteKey = @"quote_key";
+			 public static string QuoteKeyActual = @"quote_key_actual";
 			 public static string PaymentStatus = @"payment_status";
 			 public static string DateCreated = @"date_created";
 			 public static string RequestorUserKey = @"requestor_user_key";

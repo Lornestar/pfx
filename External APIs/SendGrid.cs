@@ -97,5 +97,27 @@ namespace Peerfx.External_APIs
             SimpleEmail(currentuser.First_name + " " + currentuser.Last_name, "", currentuser.Email, "", thebody, "Tradepfx email verification confirmation");
         }
 
+        public void Send_Email_Payment_Confirmed(int paymentkey, Users currentuser)
+        {
+            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed.txt"));
+
+            Payment paymenttemp = sitetemp.getPayment(paymentkey);
+
+            DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(Convert.ToInt32(paymenttemp.Sell_currency), currentuser.Country_residence).GetDataSet();
+            string peerfxbankaccount = sitetemp.getBankAccountDescription(Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]));
+
+            thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
+            thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
+            thebody = thebody.Replace("PAYMENTNUM", paymentkey.ToString());
+            thebody = thebody.Replace("SENDAMOUNT", sitetemp.GetCurrencySymbol(paymenttemp.Sell_currency) + " " + paymenttemp.Sell_amount.ToString("F"));
+            thebody = thebody.Replace("RECEIVERNAME", paymenttemp.Receiver_name);
+            thebody = thebody.Replace("BANKACCOUNTINFO", sitetemp.getBankAccountDescription(paymenttemp.Payment_object_receiver));
+            thebody = thebody.Replace("DESCRIPTION", paymenttemp.Payment_description);
+            thebody = thebody.Replace("BANKACCOUNT", peerfxbankaccount);
+            thebody = thebody.Replace("NEXTSTEPS", sitetemp.RenderUserControl("~/User_Controls/ExchangeCurrency_NextSteps.ascx"));
+
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Tradepfx Payment Confirmed");
+        }
+
     }
 }

@@ -5,7 +5,7 @@
 <center>
 <table>
     <tr valign=top>
-        <td>
+        <td style="width:290px;">
             <table>
                                     <tr>
                                         <td colspan=2 class="Exchange_Header">Payment #<asp:Label ID=lblpaymentnum runat=server></asp:Label></td>

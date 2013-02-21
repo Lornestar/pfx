@@ -3,8 +3,8 @@ D:\Websites\Peerfx\Peerfx\bin\Peerfx.pdb
 D:\Websites\Peerfx\Peerfx\obj\Debug\ResolveAssemblyReference.cache
 D:\Websites\Peerfx\Peerfx\obj\Debug\Peerfx.dll
 D:\Websites\Peerfx\Peerfx\obj\Debug\Peerfx.pdb
-D:\Websites\Peerfx\Peerfx\pfx\bin\Peerfx.pdb
 D:\Websites\Peerfx\Peerfx\pfx\obj\Debug\ResolveAssemblyReference.cache
+D:\Websites\Peerfx\Peerfx\pfx\bin\Peerfx.dll
+D:\Websites\Peerfx\Peerfx\pfx\bin\Peerfx.pdb
 D:\Websites\Peerfx\Peerfx\pfx\obj\Debug\Peerfx.dll
 D:\Websites\Peerfx\Peerfx\pfx\obj\Debug\Peerfx.pdb
-D:\Websites\Peerfx\Peerfx\pfx\bin\Peerfx.dll

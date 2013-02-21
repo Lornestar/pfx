@@ -193,6 +193,15 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblrate;
         
         /// <summary>
+        /// ExchangeCurrency_FinePrint1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Peerfx.User_Controls.ExchangeCurrency_FinePrint ExchangeCurrency_FinePrint1;
+        
+        /// <summary>
         /// pnlCreatePayment control.
         /// </summary>
         /// <remarks>
@@ -551,6 +560,15 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblconfirmquoteexchangerate;
+        
+        /// <summary>
+        /// ExchangeCurrency_FinePrint2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Peerfx.User_Controls.ExchangeCurrency_FinePrint ExchangeCurrency_FinePrint2;
         
         /// <summary>
         /// pnlloggedinsender2 control.
@@ -976,13 +994,13 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblalreadyconfirmeddescription;
         
         /// <summary>
-        /// lblalreadyconfirmedfrom2 control.
+        /// ExchangeCurrency_NextSteps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedfrom2;
+        protected global::Peerfx.User_Controls.ExchangeCurrency_NextSteps ExchangeCurrency_NextSteps;
         
         /// <summary>
         /// lblalreadyconfirmedquotesenderamount2 control.
