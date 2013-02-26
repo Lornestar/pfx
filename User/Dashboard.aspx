@@ -30,7 +30,7 @@
                 <tr>
                     <td>
                         
-                        <telerik:RadListView ID="RadListView1" runat="server" Width=100% ItemPlaceholderID="ListViewContainer">                                
+                        <telerik:RadListView ID="RadListView1" runat="server" Width=100% ItemPlaceholderID="ListViewContainer" >                                
                           <LayoutTemplate>                            
                                 <table id="products" width=100% style="border:1px solid black;">
                                         <tr style="background-color:#DDDDDD;">
@@ -41,12 +41,12 @@
                                                 Balance
                                             </td>                                            
                                         </tr>
-                                    <tr id="ListViewContainer" runat="server">
+                                    <tr id="ListViewContainer" runat="server" >
                                     </tr>
                                 </table>                            
-                        </LayoutTemplate>
-                            <ItemTemplate>
-                                    <tr style="border-bottom:1px solid black;">
+                        </LayoutTemplate>                            
+                            <ItemTemplate>                            
+                                    <tr>
                                         <td >
                                                 <%# Eval("info_currency_description") %>                                                
                                         </td>
@@ -60,7 +60,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <telerik:RadListView ID="RadListView2" runat="server" Width=100% ItemPlaceholderID="ListViewContainer">                                
+                        <telerik:RadListView ID="RadListView2" runat="server" Width=100% ItemPlaceholderID="ListViewContainer">                                                
+                        
                           <LayoutTemplate>                                                            
                                 <table id="products" width=100% style="border:1px solid black;">
                                     <tr>
@@ -84,6 +85,7 @@
                                 </table>                            
                         </LayoutTemplate>
                             <ItemTemplate>
+                            
                                     <tr style="border-bottom:1px solid black;">
                                         <td >
                                             <%# Eval("payments_key") %>                                                

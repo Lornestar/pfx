@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using Peerfx.Models;
 
 namespace Peerfx
 {
@@ -24,11 +25,9 @@ namespace Peerfx
                     Site sitetemp = new Site();
                     Peerfx_DB.SPs.UpdateVerificationEmail(user_key, true, sitetemp.get_ipaddress(), code).Execute();
 
-                    DataSet dsuserinfo = Peerfx_DB.SPs.ViewUsersInfo(user_key).GetDataSet();
-                    string fullname = dsuserinfo.Tables[0].Rows[0]["first_name"].ToString() + dsuserinfo.Tables[0].Rows[0]["last_name"].ToString();
-                    string email = dsuserinfo.Tables[0].Rows[0]["email"].ToString();
-
-                    lblverificationresposne.Text = "Thank you " + fullname + ", your email (" + email + ") has been verified. Your account is now Active.";
+                    Users currentuser = sitetemp.get_user_info(user_key);
+                    
+                    lblverificationresposne.Text = "Thank you " + currentuser.Full_name + ", your email (" + currentuser.Email + ") has been verified. Your account is now Active.";
 
                     //For now change user's status to Active
                     Peerfx_DB.SPs.UpdateUsersStatus(user_key, 5).Execute();

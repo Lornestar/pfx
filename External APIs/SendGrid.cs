@@ -7,6 +7,7 @@ using System.Data;
 using System.Web.Security;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Text.RegularExpressions;
 using Peerfx.Models;
 
 namespace Peerfx.External_APIs
@@ -57,7 +58,7 @@ namespace Peerfx.External_APIs
         {
             //create unique code & update db with it
             string struniquecode = Membership.GeneratePassword(8, 0);
-            struniquecode = struniquecode.Replace("&", "a").Replace("=", "e").Replace("?","q").Replace("#","h");
+            struniquecode = Regex.Replace(struniquecode, @"[^a-zA-Z0-9]", m => "9");
             Site sitetemp = new Site();
             Peerfx_DB.SPs.UpdateVerificationEmail(user_key, false, sitetemp.get_ipaddress(), struniquecode).Execute();
 

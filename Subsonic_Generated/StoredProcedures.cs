@@ -244,17 +244,21 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the Update_Convert_Currency Procedure
         /// </summary>
-        public static StoredProcedure UpdateConvertCurrency(long? paymentobjectkey, int? quoteskey, string ipaddress, int? userkeyupdated)
+        public static StoredProcedure UpdateConvertCurrency(long? senderpaymentobjectkey, long? receiverpaymentobjectkey, int? quoteskey, string ipaddress, int? userkeyupdated, int? paymentkey)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Convert_Currency", DataService.GetInstance("Peerfx"), "dbo");
         	
-            sp.Command.AddParameter("@paymentobjectkey", paymentobjectkey, DbType.Int64, 0, 19);
+            sp.Command.AddParameter("@senderpaymentobjectkey", senderpaymentobjectkey, DbType.Int64, 0, 19);
+        	
+            sp.Command.AddParameter("@receiverpaymentobjectkey", receiverpaymentobjectkey, DbType.Int64, 0, 19);
         	
             sp.Command.AddParameter("@quotes_key", quoteskey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@ip_address", ipaddress, DbType.AnsiString, null, null);
         	
             sp.Command.AddParameter("@user_key_updated", userkeyupdated, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
         	
             return sp;
         }
@@ -894,6 +898,32 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Payment_Object_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentObjectSpecific(long? paymentobjectkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Object_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@payment_object_key", paymentobjectkey, DbType.Int64, 0, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Payment_Object_type_objectkey Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentObjectTypeObjectkey(int? typekey, int? objectkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Object_type_objectkey", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@type_key", typekey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@object_key", objectkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Payment_Schedule Procedure
         /// </summary>
         public static StoredProcedure ViewPaymentSchedule()
@@ -965,6 +995,22 @@ namespace Peerfx_DB{
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_Requestedbyuser", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Possible_Funding_Sources Procedure
+        /// </summary>
+        public static StoredProcedure ViewPossibleFundingSources(int? userkey, int? currency, decimal? amount)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Possible_Funding_Sources", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@amount", amount, DbType.Decimal, 0, 18);
         	
             return sp;
         }
@@ -1064,6 +1110,20 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_User_Balance_Specific_Currency Procedure
+        /// </summary>
+        public static StoredProcedure ViewUserBalanceSpecificCurrency(int? userkey, int? currency)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_User_Balance_Specific_Currency", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_User_Currency_List Procedure
         /// </summary>
         public static StoredProcedure ViewUserCurrencyList(int? userkey)
@@ -1101,6 +1161,18 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewUsersAll()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_All", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_DropDown Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersDropDown(string textX)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_DropDown", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@text", textX, DbType.String, null, null);
         	
             return sp;
         }

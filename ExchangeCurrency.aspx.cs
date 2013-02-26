@@ -34,7 +34,7 @@ namespace Peerfx
 
                 ddlsellcurrency.SelectedIndex = 1;
 
-                LoadRates();
+                LoadRates(true);
 
                 DataTable dtcountries = sitetemp.populatecountrylist();
 
@@ -74,9 +74,16 @@ namespace Peerfx
             {
                 currentuser = sitetemp.getcurrentuser(false);
             }
+            if (!IsPostBack)
+            {
+                LoadRates(true);
+            }
         }
 
         protected void LoadRecipientList(){
+            
+            ddlReceivers.Items.Clear();
+
             //if logged in & have recipient list
             currentuser = sitetemp.getcurrentuser(false);
             DataSet dsrecipient = Peerfx_DB.SPs.ViewRecipientsByuserAndcurrency(currentuser.User_key,Convert.ToInt32(ddlbuycurrency.SelectedValue)).GetDataSet();
@@ -88,26 +95,42 @@ namespace Peerfx
                 ddlReceivers.DataSource = dsrecipient.Tables[0];
                 ddlReceivers.DataBind();
 
-                RadComboBoxItem rdtemp = new RadComboBoxItem();
-                rdtemp.Value = "0";
-                rdtemp.Text = "New Recipient";
-                ddlReceivers.Items.Add(rdtemp);
-
-                pnlnewreceiver.Visible = false;
-                pnlexistingreceiver.Visible = true;
                 Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
             }
-            else
+            //Add New Recipient
+            RadComboBoxItem rdtemp = new RadComboBoxItem();
+            rdtemp.Value = "0";
+            rdtemp.Text = "New Recipient";
+            ddlReceivers.Items.Add(rdtemp);
+
+            //Add Other Passport User
+            RadComboBoxItem rdtemp3 = new RadComboBoxItem();
+            rdtemp3.Value = "-1";
+            rdtemp3.Text = "Other Passport User";
+            ddlReceivers.Items.Add(rdtemp3);
+
+            DataTable dtuserbalance = sitetemp.getuserbalance_datatable(currentuser.User_key, Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            RadComboBoxItem rdtemp2 = new RadComboBoxItem();
+            rdtemp2.Value = dtuserbalance.Rows[0]["payment_object_key"].ToString();
+            rdtemp2.Text = dtuserbalance.Rows[0]["user_balance_text"].ToString();
+            ddlReceivers.Items.Insert(0,rdtemp2);
+
+            ddlReceivers.SelectedIndex = 0;
+            
+            pnlnewreceiver.Visible = false;
+            pnlexistingreceiver.Visible = true;
+            
+            /*else
             {
                 pnlnewreceiver.Visible = true;
                 pnlexistingreceiver.Visible = false;
                 Cleartxtreceiverfields();
-            }
+            }*/
         }
 
         protected void txtsell_TextChanged(object sender, EventArgs e)
         {
-            LoadRates();            
+            LoadRates(true);            
         }
 
         protected void ddlexistingreceiver_changed(object sender, EventArgs e)
@@ -116,16 +139,28 @@ namespace Peerfx
             {
                 //open new recipient
                 pnlnewreceiver.Visible = true;
+                pnlotherpassportuser.Visible = false;
+                Cleartxtreceiverfields();
+            }
+            else if (ddlReceivers.SelectedValue == "-1")
+            {
+                //open other passport users
+                pnlotherpassportuser.Visible = true;
+                pnlnewreceiver.Visible = false;
                 Cleartxtreceiverfields();
             }
             else
             {
                 pnlnewreceiver.Visible = false;
+                pnlotherpassportuser.Visible = false;
                 pnlexistingreceiver.Visible = true;
 
                 //populate with receiver info
-                Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
-            }
+                if (sitetemp.IsBankAccount(Convert.ToInt64(ddlReceivers.SelectedValue)))
+                {
+                    Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
+                }
+            }            
         }
 
         protected void Loadtxtreceiverfields(Int64 paymentkey)
@@ -151,6 +186,44 @@ namespace Peerfx
             txtdescription.Text = "";
         }
 
+        protected void ddlotherpassportusers_changed(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlotherpassportusers_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            if (e.Text.Length > 0)
+            {
+                //reload other user's in list
+                DataTable data = Peerfx_DB.SPs.ViewUsersDropDown(e.Text).GetDataSet().Tables[0];
+
+                int itemOffset = e.NumberOfItems;
+                int endOffset = Math.Min(itemOffset + 10, data.Rows.Count);
+                e.EndOfItems = endOffset == data.Rows.Count;
+
+                for (int i = itemOffset; i < endOffset; i++)
+                {
+                    ddlotherpassportusers.Items.Add(new RadComboBoxItem(data.Rows[i]["user_dropdown_text"].ToString(), data.Rows[i]["payment_object_key"].ToString()));
+                }
+
+                e.Message = GetStatusMessage(endOffset, data.Rows.Count);
+                ddlotherpassportusers.ShowMoreResultsBox = true;
+            }
+            else
+            {
+                ddlotherpassportusers.ShowMoreResultsBox = false;
+            }
+        }
+
+        private static string GetStatusMessage(int offset, int total)
+        {
+            if (total <= 0)
+                return "No matches";
+            
+            return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
+        }
+
         protected void ddlsellcurrency_changed(object sender, EventArgs e)
         {
             if (ddlsellcurrency.SelectedValue == ddlbuycurrency.SelectedValue)
@@ -164,7 +237,7 @@ namespace Peerfx
                     ddlbuycurrency.SelectedIndex = 1;
                 }
             }
-            LoadRates();            
+            LoadRates(true);            
         }
 
         protected void ddlbuycurrency_changed(object sender, EventArgs e)
@@ -180,17 +253,18 @@ namespace Peerfx
                     ddlsellcurrency.SelectedIndex = 1;
                 }
             }
-            LoadRates();
+            LoadRates(true);
             if (sitetemp.isloggedin())
             {
                 LoadRecipientList();
             }            
         }
 
-        protected void LoadRates()
+        protected void LoadRates(bool updaterecipientlist)
         {
-
-            Quote quotetemp = sitetemp.getQuote(Convert.ToDecimal(txtsell.Text), Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            decimal sellamount = Convert.ToDecimal(txtsell.Text);
+            int sellcurrency = Convert.ToInt32(ddlsellcurrency.SelectedValue);
+            Quote quotetemp = sitetemp.getQuote(sellamount, sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
 
             hdbuyrate.Value = quotetemp.Peerfx_Rate.ToString();
             hdsellcurrencysymbol.Value = sitetemp.GetCurrencySymbol(ddlsellcurrency.SelectedItem.Text) + " ";
@@ -257,22 +331,67 @@ namespace Peerfx
                 pnlalreadyconfirmedAccountNumber.Visible = false;
                 pnlalreadyconfirmedAccountNumber2.Visible = false;
             }
+
+            if (currentuser != null)
+            {
+                ddlpaymentmethod.Items.Clear();
+                //Check if have enough balance in account            
+                DataTable dtfundingsources = sitetemp.getpossiblefundingsources(currentuser.User_key, sellcurrency, sellamount);
+                if (dtfundingsources.Rows.Count > 0)
+                {
+                    //Has enough in balance            
+                    ddlpaymentmethod.DataTextField = "user_balance_text";
+                    ddlpaymentmethod.DataValueField = "payment_object_key";
+                    ddlpaymentmethod.DataSource = dtfundingsources;
+                    ddlpaymentmethod.DataBind();
+                }
+                RadComboBoxItem rdtemp = new RadComboBoxItem();
+                rdtemp.Value = "0";
+                rdtemp.Text = "Bank Account";
+                ddlpaymentmethod.Items.Add(rdtemp);
+
+                if (updaterecipientlist)
+                {
+                    LoadRecipientList();
+                }                
+            }            
         }
 
         protected void btnContinue1_Click(object sender, EventArgs e)
         {
             //check validation
+            bool isvalid = true;
+            string errormessage = "";
 
-            //Change tab & fill in tab2 with all the info
-            changetab(1);
-            updateconfirmationtab();
-            LoadRates();
+            if (ddlReceivers.SelectedValue == "-1")
+            {
+                //chose other passport user
+                if (ddlotherpassportusers.SelectedValue == "")
+                {
+                    isvalid = false;
+                    errormessage = "You must choose a Passport user";
+                }                
+            }
+
+            if (isvalid)
+            {
+                //Change tab & fill in tab2 with all the info
+                changetab(1);
+                updateconfirmationtab();
+                LoadRates(false);
+                lblerrormessage.Visible = false;
+            }
+            else
+            {
+                lblerrormessage.Visible = true;
+                lblerrormessage.Text = errormessage;
+            }
         }
 
         protected void btnContinue2_Click(object sender, EventArgs e)
-        {
+        {            
 
-            LoadRates();
+            LoadRates(false);
 
             //populate labels
             updatealreadyconfirmedtab();
@@ -293,15 +412,24 @@ namespace Peerfx
                 currentuserkey = Convert.ToInt32(sp_UpdateSignup1.Command.Parameters[9].ParameterValue.ToString());
             }
 
+            Int64 receiverpaymentobject = 0;
+            Int64 senderpaymentobject = 0;
+            //even if it's not a bank account, will still enter the correct payment object
             //figure out which bank account to receive payment
             DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(Convert.ToInt32(ddlsellcurrency.SelectedValue), currentuser.Country_residence).GetDataSet();
             lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]));
-
-            Int64 receiverpaymentobject = 0;
-            //if new recipient, save to database
+                        
+            //if new recipient, save to database            
             if ((pnlexistingreceiver.Visible) && (ddlReceivers.SelectedValue != "0"))
-            {
-                receiverpaymentobject = Convert.ToInt64(ddlReceivers.SelectedValue);
+            {                
+                if (ddlReceivers.SelectedValue == "-1")
+                {
+                    //passport user
+                    receiverpaymentobject = Convert.ToInt64(ddlotherpassportusers.SelectedValue);
+                }                
+                else{
+                    receiverpaymentobject = Convert.ToInt64(ddlReceivers.SelectedValue);
+                }
             }
             else
             {
@@ -316,6 +444,14 @@ namespace Peerfx
                 sp_UpdatePaymentObject.Execute();
                 receiverpaymentobject = Convert.ToInt64(sp_UpdatePaymentObject.Command.Parameters[3].ParameterValue.ToString());*/
             }
+
+            if (pnlloggedinsender.Visible)
+            {
+                if (sitetemp.IsUserBalance(Convert.ToInt64(ddlpaymentmethod.SelectedValue)))
+                {
+                    senderpaymentobject = Convert.ToInt64(ddlpaymentmethod.SelectedValue);
+                }               
+            }            
             
 
             //Confirming quote, create in database
@@ -325,23 +461,41 @@ namespace Peerfx
             int quote_key = Convert.ToInt32(sp_UpdateQuotes.Command.Parameters[9].ParameterValue.ToString());
              
             //Save & get Payment key
-            StoredProcedure sp_UpdatePayments = Peerfx_DB.SPs.UpdatePayments(0, quote_key, 0, 0, currentuserkey, txtdescription.Text,null,receiverpaymentobject);
+                        
+            StoredProcedure sp_UpdatePayments = Peerfx_DB.SPs.UpdatePayments(0, quote_key, 0, 0, currentuserkey, lblconfirmreceiverdescription.Text,senderpaymentobject,receiverpaymentobject);
             sp_UpdatePayments.Execute();
             int payment_key = Convert.ToInt32(sp_UpdatePayments.Command.Parameters[3].ParameterValue.ToString());
             lblpaymentnum.Text = payment_key.ToString();
             //update payment status to confirmed
             Peerfx_DB.SPs.UpdatePaymentStatus(payment_key, 2).Execute();
 
-            //Send email with instructions etc.
-            Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
-            sg.Send_Email_Payment_Confirmed(payment_key, currentuser);
+            bool isuserbalance = false;
+            if (pnlloggedinsender.Visible)
+            {
+                if (sitetemp.IsUserBalance(Convert.ToInt64(ddlpaymentmethod.SelectedValue)))
+                {
+                    //instantly convert the payment, because source funding is balance
 
-            //Change tab to bank transfer info
-            changetab(2);
+                    //initiate conversion
+                    sitetemp.insert_quote_actual_convert_currency(payment_key, Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue), currentuser, Convert.ToDecimal(txtsell.Value),true);
+                    Response.Redirect("Default.aspx");
+                }
+            }
+            
+            if (!isuserbalance)            
+            {
+                //Send email with instructions etc.
+                Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
+                sg.Send_Email_Payment_Confirmed(payment_key, currentuser);
+
+                //Change tab to bank transfer info
+                changetab(2);
+            }            
         }
 
         protected void btnBack2_Click(object sender, EventArgs e)
         {
+            RadTabStrip1.Tabs[2].Visible = true;
             changetab(0);
         }
 
@@ -364,13 +518,53 @@ namespace Peerfx
             lblconfirmsenderphone.Text = txtphone.Text;
 
             lblconfirmreceiverfullname.Text = txtfirstnamereceiver.Text + " " + txtlastnamereceiver.Text;
+            bool receiverbankaccount = true;
+            if (ddlReceivers.SelectedValue != "0")
+            {
+                if (ddlReceivers.SelectedValue == "-1")
+                {
+                    //selected other passport user
+                    lblreceivinguserbalance.Text = ddlotherpassportusers.Text;                    
+                    receiverbankaccount = false;
+                }
+                else if (sitetemp.IsUserBalance(Convert.ToInt64(ddlReceivers.SelectedValue)))
+                {
+                    //it's a user balance, get user balance info
+                    lblreceivinguserbalance.Text = ddlReceivers.SelectedItem.Text;                    
+                    receiverbankaccount = false;
+                }
+
+                if (!receiverbankaccount)
+                {
+                    pnlreceivinguserbalance.Visible = true;
+                    pnlreceivingbankaccount.Visible = false;                    
+                }
+            }
             lblconfirmreceiverIBAN.Text = txtIbanAccount.Text;
             lblconfirmreceiverABArouting.Text = txtABArouting.Text;
             lblconfirmreceiverAccount.Text = txtaccountnumber.Text;
             lblconfirmreceiverBankCode.Text = txtBankCode.Text;
             lblconfirmreceiverdescription.Text = txtdescription.Text;
             lblconfirmreceiveremail.Text = txtemailreceiver.Text;
-        }        
+
+            lblFundingSource.Text = ddlpaymentmethod.SelectedItem.Text;
+
+            bool isuserbalance = false;
+            if (pnlloggedinsender.Visible)
+            {
+                if (sitetemp.IsUserBalance(Convert.ToInt64(ddlpaymentmethod.SelectedValue)))
+                {
+                    //it's coming from a user balance                    
+                    RadTabStrip1.Tabs[2].Visible = false;
+                    isuserbalance = true;
+                }                
+            }
+            
+            if (!isuserbalance) 
+            {                
+                RadTabStrip1.Tabs[2].Visible = true;
+            }
+        }                
 
         protected void updatealreadyconfirmedtab()
         {

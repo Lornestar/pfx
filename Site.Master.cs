@@ -680,9 +680,8 @@ namespace Peerfx
         }
 
         public string getcurrencycode(int currency_key)
-        {
-            Site sitetemp = new Site();
-            DataTable dttemp = sitetemp.view_info_currency_specific(currency_key);
+        {            
+            DataTable dttemp = view_info_currency_specific(currency_key);
             return dttemp.Rows[0]["info_currency_code"].ToString();
         }
 
@@ -690,6 +689,19 @@ namespace Peerfx
         {
             //input bankaccountkey output paymentobjectkey
             DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectBankAccount(bankaccountkey).GetDataSet();
+
+            Int64 paymentobjectkey = 0;
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                paymentobjectkey = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]);
+            }
+            return paymentobjectkey;
+        }
+
+        public Int64 getpaymentobject(int typekey, int objectkey)
+        {
+            //input bankaccountkey output paymentobjectkey
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectTypeObjectkey(typekey, objectkey).GetDataSet();
 
             Int64 paymentobjectkey = 0;
             if (dstemp.Tables[0].Rows.Count > 0)
@@ -794,16 +806,76 @@ namespace Peerfx
             return returnpaymentobject;
         }
 
-        public void insert_quote_actual_convert_currency(int paymentkey, Quote quotetemp, int sellcurrency, int buycurrency, Users currentuser)
+        public void insert_quote_actual_convert_currency(int paymentkey, int sellcurrency, int buycurrency, Users currentuser, decimal sellamount, bool isbalancefundingsource)
         {
+            Quote quotetemp = getQuote(sellamount, sellcurrency, buycurrency);
             StoredProcedure sp_UpdateQuotes = Peerfx_DB.SPs.UpdateQuotes(0, quotetemp.Sellamount, sellcurrency, quotetemp.Buyamount, buycurrency, quotetemp.Peerfx_Rate, quotetemp.Peerfx_Servicefee, null, null, 0);
             sp_UpdateQuotes.Execute();
             int quote_key = Convert.ToInt32(sp_UpdateQuotes.Command.Parameters[9].ParameterValue.ToString());
 
             Peerfx_DB.SPs.UpdatePaymentsActualQuote(paymentkey, quote_key).Execute();
 
+            Int64 senderpaymentobjectkey = 0;
+            Int64 receiverpaymentobjectkey = 0;
+            if (isbalancefundingsource)
+            {
+                //get user's balance payment object key
+                Payment paymenttemp = getPayment(paymentkey);
+                senderpaymentobjectkey = paymenttemp.Payment_object_sender;
+                receiverpaymentobjectkey = paymenttemp.Payment_object_receiver;
+            }
+            else
+            {
+                //currency convert using users payment's balance
+                senderpaymentobjectkey = getpaymentobject(6, paymentkey);
+                receiverpaymentobjectkey = senderpaymentobjectkey;
+            }
+            
+
             //convert currency
-            Peerfx_DB.SPs.UpdateConvertCurrency(paymentkey, quote_key, get_ipaddress(), currentuser.User_key).Execute();
+            Peerfx_DB.SPs.UpdateConvertCurrency(senderpaymentobjectkey, receiverpaymentobjectkey, quote_key, get_ipaddress(), currentuser.User_key,paymentkey).Execute();
+
+            //update status to currency converted
+            Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 4).Execute();
+
+            //send email to notify user currency has been converted
+
+        }
+
+        public bool IsUserBalance(Int64 paymentobjectkey)
+        {
+            bool isuserbalance = false;
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectSpecific(paymentobjectkey).GetDataSet();
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                if (dstemp.Tables[0].Rows[0]["payment_object_type"] != DBNull.Value)
+                {
+                    int type = Convert.ToInt32(dstemp.Tables[0].Rows[0]["payment_object_type"]);
+                    if (type == 3)
+                    {
+                        isuserbalance = true;
+                    }
+                }
+            }
+            return isuserbalance;
+        }
+
+        public bool IsBankAccount(Int64 paymentobjectkey)
+        {
+            bool isbankaccount = false;
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectSpecific(paymentobjectkey).GetDataSet();
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                if (dstemp.Tables[0].Rows[0]["payment_object_type"] != DBNull.Value)
+                {
+                    int type = Convert.ToInt32(dstemp.Tables[0].Rows[0]["payment_object_type"]);
+                    if (type == 1) 
+                    {
+                        isbankaccount = true;
+                    }
+                }
+            }
+            return isbankaccount;
         }
 
         public bool IsNumeric(string strTextEntry)
@@ -824,6 +896,31 @@ namespace Peerfx
                 HttpContext.Current.Server.Execute(pageHolder, output, false);
                 return output.ToString();
             }
+        }
+
+        public decimal getuserbalance(int user_key, int currency)
+        {
+            //Get user's available balance in specific currency
+            decimal userbalance = 0;
+            DataSet dstemp = Peerfx_DB.SPs.ViewUserBalanceSpecificCurrency(user_key,currency).GetDataSet();
+            if (dstemp.Tables[0].Rows[0]["user_balance"] != DBNull.Value){
+                userbalance = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["user_balance"]);
+            }
+            return userbalance;
+        }
+
+        public DataTable getuserbalance_datatable(int user_key, int currency)
+        {
+            //Get user's available balance in specific currency
+            DataSet dstemp = Peerfx_DB.SPs.ViewUserBalanceSpecificCurrency(user_key, currency).GetDataSet();
+            return dstemp.Tables[0];
+        }
+
+        public DataTable getpossiblefundingsources(int user_key, int currency, decimal amount)
+        {
+            //Get possible funding sources, that can support the currency & amount specified
+            DataSet dstemp = Peerfx_DB.SPs.ViewPossibleFundingSources(user_key, currency, amount).GetDataSet();
+            return dstemp.Tables[0];
         }
     }
 }

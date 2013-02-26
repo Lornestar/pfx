@@ -67,6 +67,15 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.HiddenField hduserkey;
         
         /// <summary>
+        /// hdreceiverpaymentobjectkey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdreceiverpaymentobjectkey;
+        
+        /// <summary>
         /// LoadingPanelExchangeCurrency control.
         /// </summary>
         /// <remarks>
@@ -229,6 +238,15 @@ namespace Peerfx {
         protected global::Peerfx.User_Controls.UserInfo ucUserInfo1;
         
         /// <summary>
+        /// ddlpaymentmethod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox ddlpaymentmethod;
+        
+        /// <summary>
         /// pnlnewsender control.
         /// </summary>
         /// <remarks>
@@ -364,6 +382,24 @@ namespace Peerfx {
         protected global::Telerik.Web.UI.RadComboBox ddlReceivers;
         
         /// <summary>
+        /// pnlotherpassportuser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlotherpassportuser;
+        
+        /// <summary>
+        /// ddlotherpassportusers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox ddlotherpassportusers;
+        
+        /// <summary>
         /// pnlnewreceiver control.
         /// </summary>
         /// <remarks>
@@ -490,6 +526,15 @@ namespace Peerfx {
         protected global::Telerik.Web.UI.RadButton btnContinue1;
         
         /// <summary>
+        /// lblerrormessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblerrormessage;
+        
+        /// <summary>
         /// RadPageView2 control.
         /// </summary>
         /// <remarks>
@@ -589,6 +634,15 @@ namespace Peerfx {
         protected global::Peerfx.User_Controls.UserInfo ucUserInfo2;
         
         /// <summary>
+        /// lblFundingSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFundingSource;
+        
+        /// <summary>
         /// pnlnewsender2 control.
         /// </summary>
         /// <remarks>
@@ -679,31 +733,31 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblconfirmsenderemail;
         
         /// <summary>
-        /// Panel4 control.
+        /// pnlreceivinguserbalance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel4;
+        protected global::System.Web.UI.WebControls.Panel pnlreceivinguserbalance;
         
         /// <summary>
-        /// RadComboBox4 control.
+        /// lblreceivinguserbalance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox RadComboBox4;
+        protected global::System.Web.UI.WebControls.Label lblreceivinguserbalance;
         
         /// <summary>
-        /// Panel5 control.
+        /// pnlreceivingbankaccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel5;
+        protected global::System.Web.UI.WebControls.Panel pnlreceivingbankaccount;
         
         /// <summary>
         /// lblconfirmreceiverfullname control.
@@ -787,15 +841,6 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblconfirmreceiverAccount;
         
         /// <summary>
-        /// lblconfirmreceiverdescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverdescription;
-        
-        /// <summary>
         /// lblconfirmreceiveremail control.
         /// </summary>
         /// <remarks>
@@ -803,6 +848,15 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblconfirmreceiveremail;
+        
+        /// <summary>
+        /// lblconfirmreceiverdescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverdescription;
         
         /// <summary>
         /// btnBack2 control.
@@ -992,6 +1046,15 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblalreadyconfirmeddescription;
+        
+        /// <summary>
+        /// ExchangeCurrency_FinePrint3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Peerfx.User_Controls.ExchangeCurrency_FinePrint ExchangeCurrency_FinePrint3;
         
         /// <summary>
         /// ExchangeCurrency_NextSteps control.

@@ -147,12 +147,8 @@ namespace Peerfx.Admin
                 
 
                 
-                    //Add in actual quote & convert currency
-                    Quote quotetemp = sitetemp.getQuote(sellamount, sellcurrency, buycurrency);
-                    sitetemp.insert_quote_actual_convert_currency(paymentkey, quotetemp, sellcurrency, buycurrency, currentuser);
-
-                    //Change payment status to currency converted
-                    Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 4).Execute();
+                    //Add in actual quote & convert currency                    
+                    sitetemp.insert_quote_actual_convert_currency(paymentkey, sellcurrency, buycurrency, currentuser,sellamount,false);
 
                     RadGrid1.Rebind();
                 

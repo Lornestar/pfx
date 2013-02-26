@@ -38,7 +38,7 @@ function updatetable() {
                     <td>
                         You Pay
                         <br />
-                        <telerik:RadNumericTextBox ID=txtsell runat=server Value="300.00" OnTextChanged="txtsell_TextChanged" AutoPostBack=true Width=100>
+                        <telerik:RadNumericTextBox ID=txtsell runat=server Value="300.00" OnTextChanged="txtsell_TextChanged" MinValue="0.01" AutoPostBack=true Width=100>
                         </telerik:RadNumericTextBox>
                         <telerik:RadComboBox ID=ddlsellcurrency runat=server OnSelectedIndexChanged="ddlsellcurrency_changed" AutoPostBack=true Width=50></telerik:RadComboBox>
                     </td>

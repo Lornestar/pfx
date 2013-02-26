@@ -31,7 +31,7 @@
                                     <table >
                                         <tr>
                                             <td>
-                                                Home
+                                                <a href="Admin_Default.aspx">Home</a>
                                             </td>
                                             <td>
                                                 | <a href="Admin_Deposits.aspx">Deposits</a>

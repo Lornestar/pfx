@@ -12,6 +12,7 @@
 <asp:HiddenField ID="hdservicefee" runat=server Value="0" />
 <asp:HiddenField ID="hdbuyamount" runat=server Value="0" />
 <asp:HiddenField ID="hduserkey" runat=server Value="0" />
+<asp:HiddenField ID="hdreceiverpaymentobjectkey" runat=server Value="0" />
 
 <telerik:RadAjaxLoadingPanel runat="server" ID="LoadingPanelExchangeCurrency">
         </telerik:RadAjaxLoadingPanel>
@@ -21,13 +22,18 @@
             <telerik:AjaxSetting AjaxControlID="txtsell">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="ddlsellcurrency">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
-                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
-                    <telerik:AjaxUpdatedControl ControlID="ddlReceivers" />                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                        
+                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />                                     
+                    <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />
+                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />
                 </UpdatedControls>
             </telerik:AjaxSetting>            
             <telerik:AjaxSetting AjaxControlID="ddlbuycurrency">
@@ -38,20 +44,21 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlABArouting"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="pnlAccountNumber"></telerik:AjaxUpdatedControl>                    
                     <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
-                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
-                    <telerik:AjaxUpdatedControl ControlID="ddlReceivers" />                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />         
+                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />       
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue1">
                 <UpdatedControls>                    
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue2">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnBack2">
@@ -62,10 +69,17 @@
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="ddlReceivers">
                 <UpdatedControls>                    
-                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                    
+                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlotherpassportuser" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="ddlotherpassportusers">
+                <UpdatedControls>
+                <telerik:AjaxUpdatedControl ControlID="ddlotherpassportusers" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>            
         </AjaxSettings>
 </telerik:RadAjaxManager>
 
@@ -97,7 +111,7 @@
                                             <table>
                                                 <tr>
                                                     <td>You Pay</td>
-                                                    <td><telerik:RadNumericTextBox ID=txtsell runat=server Value="300.00" OnTextChanged="txtsell_TextChanged" AutoPostBack=true Width=100></telerik:RadNumericTextBox>
+                                                    <td><telerik:RadNumericTextBox ID=txtsell runat=server Value="300.00" MinValue="0.01" OnTextChanged="txtsell_TextChanged" AutoPostBack=true Width=100></telerik:RadNumericTextBox>
                                                         <telerik:RadComboBox ID=ddlsellcurrency runat=server OnSelectedIndexChanged="ddlsellcurrency_changed" AutoPostBack=true Width=50></telerik:RadComboBox></td>
                                                 </tr>
                                                 <tr>
@@ -151,7 +165,20 @@
                                     <tr>
                                         <td>
                                             <asp:Panel ID=pnlloggedinsender runat=server Visible=false>
-                                                <uc1:UserInfo ID="ucUserInfo1" runat=server />
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <uc1:UserInfo ID="ucUserInfo1" runat=server />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>                                                            
+                                                            Funding source: 
+                                                            <br />
+                                                            <telerik:RadComboBox ID=ddlpaymentmethod runat=server></telerik:RadComboBox>                                                            
+                                                        </td>
+                                                    </tr>
+                                                </table>                                                
                                             </asp:Panel>
                                             <asp:Panel ID=pnlnewsender runat=server>
                                                 <table>
@@ -243,10 +270,19 @@
                                         <td class="Exchange_Header">Receiver</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td>                                            
                                             <asp:Panel ID=pnlexistingreceiver runat=server Visible=false>
                                                 <telerik:RadComboBox ID=ddlReceivers runat=server
-                                                OnSelectedIndexChanged="ddlexistingreceiver_changed" AutoPostBack=true></telerik:RadComboBox>
+                                                OnSelectedIndexChanged="ddlexistingreceiver_changed" AutoPostBack=true Visible=true></telerik:RadComboBox>
+                                            </asp:Panel>
+                                            <asp:Panel ID=pnlotherpassportuser runat=server Visible=false>
+                                                <br />
+                                                <telerik:RadComboBox ID=ddlotherpassportusers runat=server Width=350 EmptyMessage="Type User's Name or Email"
+                                                OnSelectedIndexChanged="ddlotherpassportusers_changed" AutoPostBack=true
+                                                 EnableLoadOnDemand="True" ShowMoreResultsBox="false"
+                                                EnableVirtualScrolling="true" OnItemsRequested="ddlotherpassportusers_ItemsRequested"></telerik:RadComboBox>
+                                                <br />
+                                                &nbsp;
                                             </asp:Panel>
                                             <asp:Panel ID=pnlnewreceiver runat=server>
                                                 <table>
@@ -339,6 +375,11 @@
                                                 onclick="btnContinue1_Click"></telerik:RadButton>
                                         </td>
                                     </tr>
+                                    <tr>
+                                                    <td >
+                                                        <asp:Label id=lblerrormessage runat=server ForeColor=Red Visible=false></asp:Label>
+                                                    </td>
+                                                </tr>
                                 </table>
                                 </asp:Panel>
                             </td>
@@ -414,6 +455,8 @@
                                         <td>
                                             <asp:Panel ID=pnlloggedinsender2 runat=server Visible=false>
                                                 <uc1:UserInfo ID="ucUserInfo2" runat=server />
+                                                <br />
+                                                Funding Source: <asp:Label ID=lblFundingSource runat=server></asp:Label>
                                             </asp:Panel>
                                             <asp:Panel ID=pnlnewsender2 runat=server>
                                                 <table>
@@ -467,10 +510,10 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Panel ID=Panel4 runat=server Visible=false>
-                                                <telerik:RadComboBox ID=RadComboBox4 runat=server></telerik:RadComboBox>
+                                            <asp:Panel ID=pnlreceivinguserbalance runat=server Visible=false>
+                                                <asp:Label ID=lblreceivinguserbalance runat=server></asp:Label>
                                             </asp:Panel>
-                                            <asp:Panel ID=Panel5 runat=server>
+                                            <asp:Panel ID=pnlreceivingbankaccount runat=server>
                                                 <table>
                                                     <tr>                                                        
                                                         <td>
@@ -516,21 +559,23 @@
                                                             </table>
 
                                                         </td>
-                                                    </tr>
+                                                    </tr>                                                    
                                                     <tr>
-                                                        <td>
-                                                            Description<br />
-                                                            <asp:Label ID="lblconfirmreceiverdescription" runat=server>phone</asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
+                                                        <td>                                                            
                                                             Email<br />
                                                             <asp:Label ID="lblconfirmreceiveremail" runat=server>email</asp:Label>
                                                         </td>
                                                     </tr>
                                                 </table> 
                                             </asp:Panel>
+                                            <table>
+                                                <tr>
+                                                        <td>
+                                                            Description<br />
+                                                            <asp:Label ID="lblconfirmreceiverdescription" runat=server>description</asp:Label>
+                                                        </td>
+                                                    </tr>
+                                            </table>
                                         </td>                                        
                                     </tr>
                                     <tr>
@@ -545,7 +590,7 @@
                                                         <telerik:RadButton ID=btnContinue2 runat="server" Text="Confirm Currency Exchange" 
                                                             onclick="btnContinue2_Click"></telerik:RadButton>
                                                     </td>
-                                                </tr>
+                                                </tr>                                                
                                             </table>
                                         </td>                                        
                                     </tr>
