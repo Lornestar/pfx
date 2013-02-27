@@ -35,16 +35,19 @@ namespace Peerfx.Admin
             switch (RadTabStrip1.SelectedIndex)
             {
                 case 0:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatus(2).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(2).GetDataSet();
                     break;
                 case 1:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatus(3).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(3).GetDataSet();
                     break;
                 case 2:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatus(4).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(4).GetDataSet();
                     break;
                 case 3:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatus(5).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(5).GetDataSet();
+                    break;
+                case 4:
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsInternalOnly().GetDataSet();
                     break;
             }            
             RadGrid1.DataSource = dstemp.Tables[0];
@@ -168,28 +171,42 @@ namespace Peerfx.Admin
                     Panel pnlmoneysent = (Panel)item.FindControl("pnlmoneysent");
                     Panel pnlconvertcurrency = (Panel)item.FindControl("pnlconvertcurrency");
                     int paymentstatus = Convert.ToInt32(item["payment_status"].Text);
-                    if (paymentstatus == 3)//Bank Transfer Received
-                    {                        
-                        pnlconvertcurrency.Visible = true;
-                    }
-                    else if (paymentstatus == 4)
-                    {                        
-                        pnlmoneysent.Visible = true;
-                        Label lblbankaccountsent = (Label)item.FindControl("lblbankaccountsent");
-                        Int64 receiverpaymentobjectkey = 0;
-                        RadNumericTextBox txtamount = (RadNumericTextBox)item.FindControl("txtamount");
-                        if (sitetemp.IsNumeric(item["payment_object_receiver"].Text))
+                    if (RadTabStrip1.SelectedIndex != 4)
+                    {
+                        //it's not an internal only payment
+
+                        if (paymentstatus == 3)//Bank Transfer Received
                         {
-                            receiverpaymentobjectkey = Convert.ToInt64(item["payment_object_receiver"].Text);
-                        }                
-                        lblbankaccountsent.Text = sitetemp.getBankAccountDescription(receiverpaymentobjectkey);                        
-                        txtamount.Value = 0;
-                        Label lblcurrencysymbol = (Label)item.FindControl("lblcurrencysymbol");
-                        int buycurrency = Convert.ToInt32(item["buy_currency"].Text);
-                        lblcurrencysymbol.Text = sitetemp.GetCurrencySymbol(buycurrency);
-                        Label lblerror = (Label)item.FindControl("lblerror");
-                        lblerror.Visible = false;
+                            Int64 receiverpaymentobjectkey = 0;
+                            if (sitetemp.IsNumeric(item["payment_object_receiver"].Text))
+                            {
+                                receiverpaymentobjectkey = Convert.ToInt64(item["payment_object_receiver"].Text);
+                            }
+                            if (sitetemp.Isexternal(receiverpaymentobjectkey))
+                            {
+                                pnlconvertcurrency.Visible = true;
+                            }
+                        }
+                        else if (paymentstatus == 4)
+                        {
+                            pnlmoneysent.Visible = true;
+                            Label lblbankaccountsent = (Label)item.FindControl("lblbankaccountsent");
+                            Int64 receiverpaymentobjectkey = 0;
+                            RadNumericTextBox txtamount = (RadNumericTextBox)item.FindControl("txtamount");
+                            if (sitetemp.IsNumeric(item["payment_object_receiver"].Text))
+                            {
+                                receiverpaymentobjectkey = Convert.ToInt64(item["payment_object_receiver"].Text);
+                            }
+                            lblbankaccountsent.Text = sitetemp.getBankAccountDescription(receiverpaymentobjectkey);
+                            txtamount.Value = 0;
+                            Label lblcurrencysymbol = (Label)item.FindControl("lblcurrencysymbol");
+                            int buycurrency = Convert.ToInt32(item["buy_currency"].Text);
+                            lblcurrencysymbol.Text = sitetemp.GetCurrencySymbol(buycurrency);
+                            Label lblerror = (Label)item.FindControl("lblerror");
+                            lblerror.Visible = false;
+                        }
                     }
+                    
                     ddlconnectuser.DataTextField = "payment_status_description";
                     ddlconnectuser.DataValueField = "payment_status_key";
                     ddlconnectuser.DataSource = sitetemp.view_payment_status();

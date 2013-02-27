@@ -276,7 +276,7 @@ namespace Peerfx_DB{
                 TableSchema.TableColumn colvarSellCurrencyText = new TableSchema.TableColumn(schema);
                 colvarSellCurrencyText.ColumnName = "sell_currency_text";
                 colvarSellCurrencyText.DataType = DbType.String;
-                colvarSellCurrencyText.MaxLength = 50;
+                colvarSellCurrencyText.MaxLength = 3;
                 colvarSellCurrencyText.AutoIncrement = false;
                 colvarSellCurrencyText.IsNullable = true;
                 colvarSellCurrencyText.IsPrimaryKey = false;
@@ -288,7 +288,7 @@ namespace Peerfx_DB{
                 TableSchema.TableColumn colvarBuyCurrencyText = new TableSchema.TableColumn(schema);
                 colvarBuyCurrencyText.ColumnName = "buy_currency_text";
                 colvarBuyCurrencyText.DataType = DbType.String;
-                colvarBuyCurrencyText.MaxLength = 50;
+                colvarBuyCurrencyText.MaxLength = 3;
                 colvarBuyCurrencyText.AutoIncrement = false;
                 colvarBuyCurrencyText.IsNullable = true;
                 colvarBuyCurrencyText.IsPrimaryKey = false;
@@ -308,6 +308,18 @@ namespace Peerfx_DB{
                 colvarPaymentStatusText.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarPaymentStatusText);
+                
+                TableSchema.TableColumn colvarInternalOnly = new TableSchema.TableColumn(schema);
+                colvarInternalOnly.ColumnName = "internal_only";
+                colvarInternalOnly.DataType = DbType.Int32;
+                colvarInternalOnly.MaxLength = 0;
+                colvarInternalOnly.AutoIncrement = false;
+                colvarInternalOnly.IsNullable = false;
+                colvarInternalOnly.IsPrimaryKey = false;
+                colvarInternalOnly.IsForeignKey = false;
+                colvarInternalOnly.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarInternalOnly);
                 
                 
                 BaseSchema = schema;
@@ -652,6 +664,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("payment_status_text", value);
             }
         }
+	      
+        [XmlAttribute("InternalOnly")]
+        [Bindable(true)]
+        public int InternalOnly 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int>("internal_only");
+		    }
+            set 
+		    {
+			    SetColumnValue("internal_only", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -701,6 +727,8 @@ namespace Peerfx_DB{
             public static string BuyCurrencyText = @"buy_currency_text";
             
             public static string PaymentStatusText = @"payment_status_text";
+            
+            public static string InternalOnly = @"internal_only";
             
 	    }
 	    #endregion

@@ -20,7 +20,7 @@ namespace Peerfx.User_Controls
                 pnlLoginSignup.Visible = false;
                 pnlSignedIn.Visible = true;
                 Users users = sitetemp.getcurrentuser(false);
-                lblusername.Text = users.Email;
+                lblusername.Text = users.Full_name;
                 if (users.Isadmin)
                 {
                     hypAdmin.Visible = true;

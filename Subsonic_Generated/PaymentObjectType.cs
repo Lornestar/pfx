@@ -152,6 +152,19 @@ namespace Peerfx_DB
 				colvarPaymentObjectTypeDescription.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPaymentObjectTypeDescription);
 				
+				TableSchema.TableColumn colvarPaymentObjectTypeIsexternal = new TableSchema.TableColumn(schema);
+				colvarPaymentObjectTypeIsexternal.ColumnName = "payment_object_type_isexternal";
+				colvarPaymentObjectTypeIsexternal.DataType = DbType.Boolean;
+				colvarPaymentObjectTypeIsexternal.MaxLength = 0;
+				colvarPaymentObjectTypeIsexternal.AutoIncrement = false;
+				colvarPaymentObjectTypeIsexternal.IsNullable = true;
+				colvarPaymentObjectTypeIsexternal.IsPrimaryKey = false;
+				colvarPaymentObjectTypeIsexternal.IsForeignKey = false;
+				colvarPaymentObjectTypeIsexternal.IsReadOnly = false;
+				colvarPaymentObjectTypeIsexternal.DefaultSetting = @"";
+				colvarPaymentObjectTypeIsexternal.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPaymentObjectTypeIsexternal);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -177,6 +190,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.PaymentObjectTypeDescription); }
 			set { SetColumnValue(Columns.PaymentObjectTypeDescription, value); }
 		}
+		  
+		[XmlAttribute("PaymentObjectTypeIsexternal")]
+		[Bindable(true)]
+		public bool? PaymentObjectTypeIsexternal 
+		{
+			get { return GetColumnValue<bool?>(Columns.PaymentObjectTypeIsexternal); }
+			set { SetColumnValue(Columns.PaymentObjectTypeIsexternal, value); }
+		}
 		
 		#endregion
 		
@@ -197,13 +218,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription)
+		public static void Insert(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription,bool? varPaymentObjectTypeIsexternal)
 		{
 			PaymentObjectType item = new PaymentObjectType();
 			
 			item.PaymentObjectTypeKey = varPaymentObjectTypeKey;
 			
 			item.PaymentObjectTypeDescription = varPaymentObjectTypeDescription;
+			
+			item.PaymentObjectTypeIsexternal = varPaymentObjectTypeIsexternal;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -215,13 +238,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription)
+		public static void Update(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription,bool? varPaymentObjectTypeIsexternal)
 		{
 			PaymentObjectType item = new PaymentObjectType();
 			
 				item.PaymentObjectTypeKey = varPaymentObjectTypeKey;
 			
 				item.PaymentObjectTypeDescription = varPaymentObjectTypeDescription;
+			
+				item.PaymentObjectTypeIsexternal = varPaymentObjectTypeIsexternal;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -250,12 +275,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn PaymentObjectTypeIsexternalColumn
+        {
+            get { return Schema.Columns[2]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
 		{
 			 public static string PaymentObjectTypeKey = @"payment_object_type_key";
 			 public static string PaymentObjectTypeDescription = @"payment_object_type_description";
+			 public static string PaymentObjectTypeIsexternal = @"payment_object_type_isexternal";
 						
 		}
 		#endregion

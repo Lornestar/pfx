@@ -7,7 +7,7 @@
 <table width=100%>
     <tr valign=top>
         <td style="text-align:center;" width=60%>
-            Welcome to Peerfx
+            Welcome to Passport
             
         </td>
         <td style="float:right;">

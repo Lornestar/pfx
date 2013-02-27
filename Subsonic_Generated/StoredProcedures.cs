@@ -978,11 +978,33 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Payments_byStatus_Externalobjects Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentsByStatusExternalobjects(int? statuskey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_byStatus_Externalobjects", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@status_key", statuskey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Payments_Confirmed Procedure
         /// </summary>
         public static StoredProcedure ViewPaymentsConfirmed()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_Confirmed", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Payments_InternalOnly Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentsInternalOnly()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_InternalOnly", DataService.GetInstance("Peerfx"), "");
         	
             return sp;
         }

@@ -9,9 +9,11 @@
                         </telerik:RadTab>
                         <telerik:RadTab Text="Bank Transfer Received">
                         </telerik:RadTab>
-                        <telerik:RadTab Text="Currency Converted" >
+                        <telerik:RadTab Text="Conversion Completed" >
                         </telerik:RadTab>
                         <telerik:RadTab Text="Payment Delivered" >
+                        </telerik:RadTab>
+                        <telerik:RadTab Text="Internal Payment" >
                         </telerik:RadTab>
                     </Tabs>
                 </telerik:RadTabStrip>
@@ -54,6 +56,8 @@ OnDetailTableDataBind="RadGrid1_DetailTableDataBind" PageSize=50>
                                     <telerik:GridBoundColumn DataField="sell_currency_text" HeaderText="Sell Currency" UniqueName="sell_currency_text">
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="sell_currency" HeaderText="Sell Currency" UniqueName="sell_currency" Visible=false>
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="internal_only" HeaderText="internal_only" UniqueName="internal_only" Visible=false>
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="sell_amount" HeaderText="Sell Amount" UniqueName="sell_amount">
                                     </telerik:GridBoundColumn>

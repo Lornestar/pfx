@@ -9,6 +9,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <uc2:Header id="ucHeader" runat="Server"></uc2:Header>
+    <script src="../Scripts/Mixpanel.js" type="text/javascript"></script>
+    <link href="../Peerfx.css" rel="stylesheet" type="text/css" />    
 </head>
 <body>
     <form id="form1" runat="server">

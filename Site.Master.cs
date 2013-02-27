@@ -878,6 +878,20 @@ namespace Peerfx
             return isbankaccount;
         }
 
+        public bool Isexternal(Int64 paymentobjectkey)
+        {
+            bool isexternal = false;
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectSpecific(paymentobjectkey).GetDataSet();
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                if (dstemp.Tables[0].Rows[0]["isexternal"] != DBNull.Value)
+                {
+                    isexternal = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["isexternal"]);                    
+                }
+            }
+            return isexternal;
+        }
+
         public bool IsNumeric(string strTextEntry)
         {
             Regex objNotWholePattern = new Regex("[^0-9]");

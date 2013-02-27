@@ -10,17 +10,17 @@
                 <div style="float:right;">
                 <table>
                     <tr>
-                        <td>
+                        <td style="float:right;">
                         <asp:Label ID=lblusername runat=server>Email Address</asp:Label>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="float:right;">
                             <asp:HyperLink ID=hypAdmin runat=server Text="Admin Stuff" runat=server Visible=false NavigateUrl="~/Admin/Admin_Default.aspx"></asp:HyperLink>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="float:right;">
                         <telerik:RadButton ID=btnlogout runat=server Text="Logout" 
                         onclick="btnlogout_Click"></telerik:RadButton>
                         </td>
