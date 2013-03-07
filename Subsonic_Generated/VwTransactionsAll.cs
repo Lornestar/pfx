@@ -59,10 +59,10 @@ namespace Peerfx_DB{
                 
                 TableSchema.TableColumn colvarTxKey = new TableSchema.TableColumn(schema);
                 colvarTxKey.ColumnName = "tx_key";
-                colvarTxKey.DataType = DbType.Int64;
+                colvarTxKey.DataType = DbType.Int32;
                 colvarTxKey.MaxLength = 0;
                 colvarTxKey.AutoIncrement = false;
-                colvarTxKey.IsNullable = false;
+                colvarTxKey.IsNullable = true;
                 colvarTxKey.IsPrimaryKey = false;
                 colvarTxKey.IsForeignKey = false;
                 colvarTxKey.IsReadOnly = false;
@@ -301,11 +301,11 @@ namespace Peerfx_DB{
           
         [XmlAttribute("TxKey")]
         [Bindable(true)]
-        public long TxKey 
+        public int? TxKey 
 	    {
 		    get
 		    {
-			    return GetColumnValue<long>("tx_key");
+			    return GetColumnValue<int?>("tx_key");
 		    }
             set 
 		    {

@@ -82,7 +82,7 @@ namespace Peerfx.External_APIs
             thebody = thebody.Replace("LAST_NAME", last_name);
             thebody = thebody.Replace("THE_URL", the_url);
 
-            SimpleEmail(first_name + " " + last_name, "", email, "", thebody, "Tradepfx email verification");
+            SimpleEmail(first_name + " " + last_name, "", email, "", thebody, "Passport email verification");
         }
 
         public void Send_Email_Verification_Confirmed(int user_key)
@@ -95,7 +95,7 @@ namespace Peerfx.External_APIs
             thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
             thebody = thebody.Replace("THE_URL", ConfigurationSettings.AppSettings["Root_url"].ToString());
 
-            SimpleEmail(currentuser.First_name + " " + currentuser.Last_name, "", currentuser.Email, "", thebody, "Tradepfx email verification confirmation");
+            SimpleEmail(currentuser.First_name + " " + currentuser.Last_name, "", currentuser.Email, "", thebody, "Passport email verification confirmation");
         }
 
         public void Send_Email_Payment_Confirmed(int paymentkey, Users currentuser)
@@ -117,7 +117,26 @@ namespace Peerfx.External_APIs
             thebody = thebody.Replace("BANKACCOUNT", peerfxbankaccount);
             thebody = thebody.Replace("NEXTSTEPS", sitetemp.RenderUserControl("~/User_Controls/ExchangeCurrency_NextSteps.ascx"));
 
-            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Tradepfx Payment Confirmed");
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Payment Confirmed");
+        }
+
+
+        public void Send_Email_Payment_Completed_Embee(EmbeeObject embeetemp)
+        {
+            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_completed_embee.txt"));
+
+            Payment paymenttemp = sitetemp.getPayment(embeetemp.Payment_key);
+            Users currentuser = sitetemp.get_user_info(paymenttemp.Requestor_user_key);
+
+            thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
+            thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
+            thebody = thebody.Replace("TOPUPPRICE", embeetemp.Price.ToString("F"));
+            thebody = thebody.Replace("TOPUPDESCRIPTION", embeetemp.Productname);
+            thebody = thebody.Replace("PAYMENTDESCRIPTION", paymenttemp.Payment_description);
+            thebody = thebody.Replace("PHONENUMBER", embeetemp.Phone);
+            thebody = thebody.Replace("THEMESSAGE", embeetemp.Message);
+
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Top Up Completed");
         }
 
     }

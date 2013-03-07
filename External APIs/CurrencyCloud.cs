@@ -31,31 +31,51 @@ namespace Peerfx.External_APIs
 
         public Hashtable Exchange_Rate_ccy_pair(int currency1, int currency2)
         {
-            int playground = Convert.ToInt32(ConfigurationSettings.AppSettings["CurrencyCloud_Environment"]);
-            string url = geturl();
-            string token = view_info_currencycloud_token();
-            string strcurrencycodes = "";
+            Hashtable hstemp = new Hashtable();
             Site sitetemp = new Site();
-            strcurrencycodes = sitetemp.getcurrencycode(currency1) + sitetemp.getcurrencycode(currency2);
-            url += "/api/en/v1.0/"+ token + "/prices/market/" + strcurrencycodes;
-
-            RestClient client = new RestClient(url);
-            var request = new RestRequest(Method.GET);
-            request.AddParameter("accept_stale", "true");
-            // execute the request
-            RestResponse response = (RestResponse)client.Execute(request);
-            string responseString = response.Content; // raw content as string
-            if (responseString.ToLower().Contains("error"))
+            string strcurrencycodes = sitetemp.getcurrencycode(currency1) + sitetemp.getcurrencycode(currency2);
+            if (currency1 != currency2)
             {
-                token = update_info_currencycloud_token();
+                int playground = Convert.ToInt32(ConfigurationSettings.AppSettings["CurrencyCloud_Environment"]);
+                string url = geturl();
+                string token = view_info_currencycloud_token();                                
+                
+                url += "/api/en/v1.0/" + token + "/prices/market/" + strcurrencycodes;
 
-                client.BaseUrl = geturl() + "/api/en/v1.0/" + token + "/prices/market/" + strcurrencycodes;
-                response = (RestResponse)client.Execute(request);
-                responseString = response.Content; // raw content as string
+                RestClient client = new RestClient(url);
+                var request = new RestRequest(Method.GET);
+                request.AddParameter("accept_stale", "true");
+                // execute the request
+                RestResponse response = (RestResponse)client.Execute(request);
+                string responseString = response.Content; // raw content as string
+                if (responseString.ToLower().Contains("error"))
+                {
+                    token = update_info_currencycloud_token();
+
+                    client.BaseUrl = geturl() + "/api/en/v1.0/" + token + "/prices/market/" + strcurrencycodes;
+                    response = (RestResponse)client.Execute(request);
+                    responseString = response.Content; // raw content as string
+                }
+
+                hstemp = JsonConvert.DeserializeObject<Hashtable>(responseString);
+                hstemp = JsonConvert.DeserializeObject<Hashtable>(hstemp["data"].ToString());
             }
-
-            Hashtable hstemp = JsonConvert.DeserializeObject<Hashtable>(responseString);
-            hstemp = JsonConvert.DeserializeObject<Hashtable>(hstemp["data"].ToString());
+            else
+            {
+                //yyyyMMdd-HH:mm:ss
+                hstemp.Add("bid_price_timestamp", DateTime.Now.ToString("yyyyMMdd-HH:mm:ss"));
+                hstemp.Add("bid_price",0.9998);
+                hstemp.Add("broker_bid",0.9958);
+                hstemp.Add("offer_price_timestamp",DateTime.Now.ToString("yyyyMMdd-HH:mm:ss"));
+                hstemp.Add("offer_price",1.0002);
+                hstemp.Add("broker_offer",1.0052);
+                hstemp.Add("market_price",1);
+                hstemp.Add("value_date",DateTime.Now.ToString("yyyyMMdd"));
+                hstemp.Add("quote_condition","open");
+                hstemp.Add("real_market",strcurrencycodes);
+                hstemp.Add("ccy_pair",strcurrencycodes);
+            }
+            
             return hstemp;
         }
 

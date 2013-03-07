@@ -6,13 +6,17 @@
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
+<asp:Panel ID=pnlhiddens runat=server>
 <asp:HiddenField ID="hdbuyrate" runat=server value="0"/>
 <asp:HiddenField ID="hdsellcurrencysymbol" runat=server Value="$" />
 <asp:HiddenField ID="hdbuycurrencysymbol" runat=server Value="$" />
 <asp:HiddenField ID="hdservicefee" runat=server Value="0" />
 <asp:HiddenField ID="hdbuyamount" runat=server Value="0" />
 <asp:HiddenField ID="hduserkey" runat=server Value="0" />
+<asp:HiddenField ID="hdsenderpaymentobjectkey" runat=server Value="0" />
 <asp:HiddenField ID="hdreceiverpaymentobjectkey" runat=server Value="0" />
+</asp:Panel>
+
 
 <telerik:RadAjaxLoadingPanel runat="server" ID="LoadingPanelExchangeCurrency">
         </telerik:RadAjaxLoadingPanel>
@@ -23,8 +27,8 @@
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                    
                     <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />
-                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
-                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="ddlsellcurrency">
@@ -33,7 +37,9 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
                     <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />                                     
                     <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />
-                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlotherpassportuser" />                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlembee" />
                 </UpdatedControls>
             </telerik:AjaxSetting>            
             <telerik:AjaxSetting AjaxControlID="ddlbuycurrency">
@@ -46,25 +52,30 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlexistingreceiver" />
                     <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />                    
                     <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />         
-                    <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />       
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlotherpassportuser" />                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlembee" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue1">
                 <UpdatedControls>                    
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue2">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnBack2">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="ddlReceivers">
@@ -73,13 +84,24 @@
                     <telerik:AjaxUpdatedControl ControlID="hdreceiverpaymentobjectkey" />
                     <telerik:AjaxUpdatedControl ControlID="pnlotherpassportuser" />
                     <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlembee" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="ddlembeecatalog">
+                <UpdatedControls>                    
+                <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"/>
+                <telerik:AjaxUpdatedControl ControlID="pnlloggedinsender" />
+                <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="ddlotherpassportusers">
                 <UpdatedControls>
                 <telerik:AjaxUpdatedControl ControlID="ddlotherpassportusers" />
+                <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
-            </telerik:AjaxSetting>            
+            </telerik:AjaxSetting>                            
         </AjaxSettings>
 </telerik:RadAjaxManager>
 
@@ -124,10 +146,9 @@
                                         <td style="width:100px;"></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                        Payment received no later than:
-                                        <br />
+                                        <td>                                        
                                         <asp:Label ID=lbldelivery runat=server></asp:Label>
+                                        <asp:Label ID=lbltopupinfo runat=server Visible=false>Top Ups are paid in USD</asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -175,7 +196,7 @@
                                                         <td>                                                            
                                                             Funding source: 
                                                             <br />
-                                                            <telerik:RadComboBox ID=ddlpaymentmethod runat=server></telerik:RadComboBox>                                                            
+                                                            <telerik:RadComboBox ID=ddlpaymentmethod runat=server ></telerik:RadComboBox>
                                                         </td>
                                                     </tr>
                                                 </table>                                                
@@ -283,6 +304,47 @@
                                                 EnableVirtualScrolling="true" OnItemsRequested="ddlotherpassportusers_ItemsRequested"></telerik:RadComboBox>
                                                 <br />
                                                 &nbsp;
+                                            </asp:Panel>
+                                            <asp:Panel ID=pnlembee runat=server Visible=false>
+                                                <br />
+                                                <telerik:RadComboBox ID="ddlembeecountry" runat=server EmptyMessage="Select Country To send Top Up"
+                                                OnSelectedIndexChanged="ddlembeecountry_changed" AutoPostBack=true Width="300">
+                                                </telerik:RadComboBox>
+                                                <br />
+                                                <telerik:RadComboBox ID=ddlembeecatalog runat=server EmptyMessage="Select Top up plan" Width="300" HighlightTemplatedItems="true"
+                                                OnSelectedIndexChanged="ddlembeecatalog_changed" AutoPostBack=true>
+                                                <HeaderTemplate>
+                                                <table width=100%>
+                                                    <tr>
+                                                        <td style="width:75%; text-align:center;">
+                                                            Top Up Plan
+                                                        </td>
+                                                        <td style="width:50%; text-align:center;">
+                                                            Price in USD
+                                                        </td>
+                                                    </tr>                                                                                                               
+                                                </table>
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <table width=100%>
+                                                    <tr>
+                                                        <td style="width:75%; text-align:left;">
+                                                            <%# DataBinder.Eval(Container.DataItem, "product_name") %>
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID=lblprice runat=server><%# DataBinder.Eval(Container.DataItem, "price_in_dollars", "{0:c}") %></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    </table>
+                                                </ItemTemplate>
+                                                </telerik:RadComboBox>
+                                                <br />
+                                                <telerik:RadTextBox ID=txtembeephone runat=server EmptyMessage="Phone Number to top up" Visible=false>
+                                                </telerik:RadTextBox><span style="font-size:smaller;">(Do not enter country code & do not start # with a 0)</span>
+                                                <br />
+                                                *Please note that Top Ups are non-refundable
+                                                <br />
+                                                <br />
                                             </asp:Panel>
                                             <asp:Panel ID=pnlnewreceiver runat=server>
                                                 <table>

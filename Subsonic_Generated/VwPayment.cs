@@ -321,6 +321,30 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarInternalOnly);
                 
+                TableSchema.TableColumn colvarRequiresmanualexport = new TableSchema.TableColumn(schema);
+                colvarRequiresmanualexport.ColumnName = "requiresmanualexport";
+                colvarRequiresmanualexport.DataType = DbType.Int32;
+                colvarRequiresmanualexport.MaxLength = 0;
+                colvarRequiresmanualexport.AutoIncrement = false;
+                colvarRequiresmanualexport.IsNullable = false;
+                colvarRequiresmanualexport.IsPrimaryKey = false;
+                colvarRequiresmanualexport.IsForeignKey = false;
+                colvarRequiresmanualexport.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarRequiresmanualexport);
+                
+                TableSchema.TableColumn colvarPaymentObjectReceiverType = new TableSchema.TableColumn(schema);
+                colvarPaymentObjectReceiverType.ColumnName = "payment_object_receiver_type";
+                colvarPaymentObjectReceiverType.DataType = DbType.Int32;
+                colvarPaymentObjectReceiverType.MaxLength = 0;
+                colvarPaymentObjectReceiverType.AutoIncrement = false;
+                colvarPaymentObjectReceiverType.IsNullable = true;
+                colvarPaymentObjectReceiverType.IsPrimaryKey = false;
+                colvarPaymentObjectReceiverType.IsForeignKey = false;
+                colvarPaymentObjectReceiverType.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarPaymentObjectReceiverType);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -678,6 +702,34 @@ namespace Peerfx_DB{
 			    SetColumnValue("internal_only", value);
             }
         }
+	      
+        [XmlAttribute("Requiresmanualexport")]
+        [Bindable(true)]
+        public int Requiresmanualexport 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int>("requiresmanualexport");
+		    }
+            set 
+		    {
+			    SetColumnValue("requiresmanualexport", value);
+            }
+        }
+	      
+        [XmlAttribute("PaymentObjectReceiverType")]
+        [Bindable(true)]
+        public int? PaymentObjectReceiverType 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("payment_object_receiver_type");
+		    }
+            set 
+		    {
+			    SetColumnValue("payment_object_receiver_type", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -729,6 +781,10 @@ namespace Peerfx_DB{
             public static string PaymentStatusText = @"payment_status_text";
             
             public static string InternalOnly = @"internal_only";
+            
+            public static string Requiresmanualexport = @"requiresmanualexport";
+            
+            public static string PaymentObjectReceiverType = @"payment_object_receiver_type";
             
 	    }
 	    #endregion

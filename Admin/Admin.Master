@@ -45,6 +45,9 @@
                                                 | <a href="Admin_Payment.aspx">Payments</a>
                                             </td>
                                             <td>
+                                                | <a href="Admin_Scheduled_Tasks.aspx">Scheduled<br />Tasks</a>
+                                            </td>
+                                            <td>
                                                 | Contact us
                                             </td>
                                             <td>

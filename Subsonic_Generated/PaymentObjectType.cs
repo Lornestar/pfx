@@ -165,6 +165,19 @@ namespace Peerfx_DB
 				colvarPaymentObjectTypeIsexternal.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPaymentObjectTypeIsexternal);
 				
+				TableSchema.TableColumn colvarPaymentObjectTypeRequiresmanualexport = new TableSchema.TableColumn(schema);
+				colvarPaymentObjectTypeRequiresmanualexport.ColumnName = "payment_object_type_requiresmanualexport";
+				colvarPaymentObjectTypeRequiresmanualexport.DataType = DbType.Boolean;
+				colvarPaymentObjectTypeRequiresmanualexport.MaxLength = 0;
+				colvarPaymentObjectTypeRequiresmanualexport.AutoIncrement = false;
+				colvarPaymentObjectTypeRequiresmanualexport.IsNullable = true;
+				colvarPaymentObjectTypeRequiresmanualexport.IsPrimaryKey = false;
+				colvarPaymentObjectTypeRequiresmanualexport.IsForeignKey = false;
+				colvarPaymentObjectTypeRequiresmanualexport.IsReadOnly = false;
+				colvarPaymentObjectTypeRequiresmanualexport.DefaultSetting = @"";
+				colvarPaymentObjectTypeRequiresmanualexport.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPaymentObjectTypeRequiresmanualexport);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -198,6 +211,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<bool?>(Columns.PaymentObjectTypeIsexternal); }
 			set { SetColumnValue(Columns.PaymentObjectTypeIsexternal, value); }
 		}
+		  
+		[XmlAttribute("PaymentObjectTypeRequiresmanualexport")]
+		[Bindable(true)]
+		public bool? PaymentObjectTypeRequiresmanualexport 
+		{
+			get { return GetColumnValue<bool?>(Columns.PaymentObjectTypeRequiresmanualexport); }
+			set { SetColumnValue(Columns.PaymentObjectTypeRequiresmanualexport, value); }
+		}
 		
 		#endregion
 		
@@ -218,7 +239,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription,bool? varPaymentObjectTypeIsexternal)
+		public static void Insert(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription,bool? varPaymentObjectTypeIsexternal,bool? varPaymentObjectTypeRequiresmanualexport)
 		{
 			PaymentObjectType item = new PaymentObjectType();
 			
@@ -227,6 +248,8 @@ namespace Peerfx_DB
 			item.PaymentObjectTypeDescription = varPaymentObjectTypeDescription;
 			
 			item.PaymentObjectTypeIsexternal = varPaymentObjectTypeIsexternal;
+			
+			item.PaymentObjectTypeRequiresmanualexport = varPaymentObjectTypeRequiresmanualexport;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -238,7 +261,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription,bool? varPaymentObjectTypeIsexternal)
+		public static void Update(int varPaymentObjectTypeKey,string varPaymentObjectTypeDescription,bool? varPaymentObjectTypeIsexternal,bool? varPaymentObjectTypeRequiresmanualexport)
 		{
 			PaymentObjectType item = new PaymentObjectType();
 			
@@ -247,6 +270,8 @@ namespace Peerfx_DB
 				item.PaymentObjectTypeDescription = varPaymentObjectTypeDescription;
 			
 				item.PaymentObjectTypeIsexternal = varPaymentObjectTypeIsexternal;
+			
+				item.PaymentObjectTypeRequiresmanualexport = varPaymentObjectTypeRequiresmanualexport;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -282,6 +307,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn PaymentObjectTypeRequiresmanualexportColumn
+        {
+            get { return Schema.Columns[3]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -289,6 +321,7 @@ namespace Peerfx_DB
 			 public static string PaymentObjectTypeKey = @"payment_object_type_key";
 			 public static string PaymentObjectTypeDescription = @"payment_object_type_description";
 			 public static string PaymentObjectTypeIsexternal = @"payment_object_type_isexternal";
+			 public static string PaymentObjectTypeRequiresmanualexport = @"payment_object_type_requiresmanualexport";
 						
 		}
 		#endregion

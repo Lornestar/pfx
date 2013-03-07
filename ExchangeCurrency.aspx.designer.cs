@@ -13,6 +13,15 @@ namespace Peerfx {
     public partial class ExchangeCurrency {
         
         /// <summary>
+        /// pnlhiddens control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlhiddens;
+        
+        /// <summary>
         /// hdbuyrate control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hduserkey;
+        
+        /// <summary>
+        /// hdsenderpaymentobjectkey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdsenderpaymentobjectkey;
         
         /// <summary>
         /// hdreceiverpaymentobjectkey control.
@@ -173,6 +191,15 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbldelivery;
+        
+        /// <summary>
+        /// lbltopupinfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbltopupinfo;
         
         /// <summary>
         /// lblservicefee control.
@@ -398,6 +425,42 @@ namespace Peerfx {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox ddlotherpassportusers;
+        
+        /// <summary>
+        /// pnlembee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlembee;
+        
+        /// <summary>
+        /// ddlembeecountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox ddlembeecountry;
+        
+        /// <summary>
+        /// ddlembeecatalog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox ddlembeecatalog;
+        
+        /// <summary>
+        /// txtembeephone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txtembeephone;
         
         /// <summary>
         /// pnlnewreceiver control.

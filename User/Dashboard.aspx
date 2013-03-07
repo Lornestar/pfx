@@ -88,7 +88,9 @@
                             
                                     <tr style="border-bottom:1px solid black;">
                                         <td >
-                                            <%# Eval("payments_key") %>                                                
+                                        <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
+                                            <%# Eval("payments_key") %>                               
+                                         </a>                 
                                         </td>
                                         <td>
                                         <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
@@ -96,7 +98,9 @@
                                             </a>
                                         </td>
                                         <td style="float:right;">
+                                        <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
                                             <%# Eval("payment_status_info")%>
+                                        </a>
                                         </td>                                        
                                     </tr>                        
                             </ItemTemplate>

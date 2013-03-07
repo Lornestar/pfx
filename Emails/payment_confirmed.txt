@@ -64,3 +64,8 @@ Thank you for requesting a payment.  Below are details of your payment and next 
         </td>
     </tr>
 </table>
+<p>
+At your service
+<br />
+Passport Service Team.
+</p>

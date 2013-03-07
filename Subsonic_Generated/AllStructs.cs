@@ -30,6 +30,10 @@ namespace Peerfx_DB
         
 		public static readonly string BankAccount = @"Bank_Accounts";
         
+		public static readonly string EmbeeObject = @"Embee_Objects";
+        
+		public static readonly string EmbeeCatalog = @"EmbeeCatalog";
+        
 		public static readonly string ErrorLog = @"Error_Log";
         
 		public static readonly string InfoCountryCodeList = @"Info_Country_Code_List";
@@ -67,6 +71,10 @@ namespace Peerfx_DB
 		public static readonly string Quote = @"Quotes";
         
 		public static readonly string Recipient = @"Recipients";
+        
+		public static readonly string ScheduledTask = @"Scheduled_Task";
+        
+		public static readonly string ScheduledTaskType = @"Scheduled_Task_Types";
         
 		public static readonly string TransactionFee = @"Transaction_Fees";
         
@@ -123,6 +131,16 @@ namespace Peerfx_DB
 		public static TableSchema.Table BankAccount
 		{
             get { return DataService.GetSchema("Bank_Accounts", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table EmbeeObject
+		{
+            get { return DataService.GetSchema("Embee_Objects", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table EmbeeCatalog
+		{
+            get { return DataService.GetSchema("EmbeeCatalog", "Peerfx"); }
 		}
         
 		public static TableSchema.Table ErrorLog
@@ -218,6 +236,16 @@ namespace Peerfx_DB
 		public static TableSchema.Table Recipient
 		{
             get { return DataService.GetSchema("Recipients", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table ScheduledTask
+		{
+            get { return DataService.GetSchema("Scheduled_Task", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table ScheduledTaskType
+		{
+            get { return DataService.GetSchema("Scheduled_Task_Types", "Peerfx"); }
 		}
         
 		public static TableSchema.Table TransactionFee

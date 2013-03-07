@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int PaymentObjectTypeKey,string PaymentObjectTypeDescription,bool? PaymentObjectTypeIsexternal)
+	    public void Insert(int PaymentObjectTypeKey,string PaymentObjectTypeDescription,bool? PaymentObjectTypeIsexternal,bool? PaymentObjectTypeRequiresmanualexport)
 	    {
 		    PaymentObjectType item = new PaymentObjectType();
 		    
@@ -90,6 +90,8 @@ namespace Peerfx_DB
             
             item.PaymentObjectTypeIsexternal = PaymentObjectTypeIsexternal;
             
+            item.PaymentObjectTypeRequiresmanualexport = PaymentObjectTypeRequiresmanualexport;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -98,7 +100,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int PaymentObjectTypeKey,string PaymentObjectTypeDescription,bool? PaymentObjectTypeIsexternal)
+	    public void Update(int PaymentObjectTypeKey,string PaymentObjectTypeDescription,bool? PaymentObjectTypeIsexternal,bool? PaymentObjectTypeRequiresmanualexport)
 	    {
 		    PaymentObjectType item = new PaymentObjectType();
 	        item.MarkOld();
@@ -109,6 +111,8 @@ namespace Peerfx_DB
 			item.PaymentObjectTypeDescription = PaymentObjectTypeDescription;
 				
 			item.PaymentObjectTypeIsexternal = PaymentObjectTypeIsexternal;
+				
+			item.PaymentObjectTypeRequiresmanualexport = PaymentObjectTypeRequiresmanualexport;
 				
 	        item.Save(UserName);
 	    }

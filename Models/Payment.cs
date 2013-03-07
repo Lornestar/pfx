@@ -27,6 +27,10 @@ namespace Peerfx.Models
         private string sell_currency_text;
         private string buy_currency_text;
         private string payment_status_text;
+        private bool internal_only;
+        private bool requiresmanualexport;
+        private int payment_object_receiver_type;
+        private int requestor_user_key;
 
         public int Payments_Key
         {
@@ -266,7 +270,55 @@ namespace Peerfx.Models
             {
                 payment_description = value;
             }
-        }        
+        }
+
+        public bool Internal_only
+        {
+            get
+            {
+                return internal_only;
+            }
+            set
+            {
+                internal_only = value;
+            }
+        }
+
+        public bool Requiresmanualexport
+        {
+            get
+            {
+                return requiresmanualexport;
+            }
+            set
+            {
+                requiresmanualexport = value;
+            }
+        }
+
+        public int Payment_object_receiver_type
+        {
+            get
+            {
+                return payment_object_receiver_type;
+            }
+            set
+            {
+                payment_object_receiver_type = value;
+            }
+        }
+
+        public int Requestor_user_key
+        {
+            get
+            {
+                return requestor_user_key;
+            }
+            set
+            {
+                requestor_user_key = value;
+            }
+        }
         
     }
 }

@@ -258,6 +258,93 @@ namespace Peerfx
             return users;
         }
 
+        public EmbeeObject getEmbeeObject(int paymentkey)
+        {
+            EmbeeObject embeetemp = new EmbeeObject();
+            embeetemp.Payment_key = paymentkey;
+            DataTable dttemp = Peerfx_DB.SPs.ViewEmbeeObjectsBypaymentkey(paymentkey).GetDataSet().Tables[0];
+            if (dttemp.Rows[0]["embee_object_key"] != DBNull.Value)
+            {
+                embeetemp.Embee_object_key = Convert.ToInt32(dttemp.Rows[0]["embee_object_key"].ToString());
+            }
+            if (dttemp.Rows[0]["country"] != DBNull.Value)
+            {
+                embeetemp.Country = Convert.ToInt32(dttemp.Rows[0]["country"].ToString());
+            }
+            if (dttemp.Rows[0]["carrier"] != DBNull.Value)
+            {
+                embeetemp.Carrier = dttemp.Rows[0]["carrier"].ToString();
+            }
+            if (dttemp.Rows[0]["product_id"] != DBNull.Value)
+            {
+                embeetemp.Productid = Convert.ToInt32(dttemp.Rows[0]["product_id"].ToString());
+            }
+            if (dttemp.Rows[0]["product_name"] != DBNull.Value)
+            {
+                embeetemp.Productname = dttemp.Rows[0]["product_name"].ToString();
+            }
+            if (dttemp.Rows[0]["price_in_dollars"] != DBNull.Value)
+            {
+                embeetemp.Price = Convert.ToDecimal(dttemp.Rows[0]["price_in_dollars"].ToString());
+            }
+            if (dttemp.Rows[0]["transstatus"] != DBNull.Value)
+            {
+                embeetemp.Transstatus = Convert.ToInt32(dttemp.Rows[0]["transstatus"].ToString());
+            }
+            if (dttemp.Rows[0]["transid"] != DBNull.Value)
+            {
+                embeetemp.Transid = Convert.ToInt32(dttemp.Rows[0]["transid"].ToString());
+            }
+            if (dttemp.Rows[0]["date_created"] != DBNull.Value)
+            {
+                embeetemp.Date_created = Convert.ToDateTime(dttemp.Rows[0]["date_created"].ToString());
+            }
+            if (dttemp.Rows[0]["phonenumber"] != DBNull.Value)
+            {
+                embeetemp.Phone = dttemp.Rows[0]["phonenumber"].ToString();
+            }
+            if (dttemp.Rows[0]["message"] != DBNull.Value)
+            {
+                embeetemp.Message = dttemp.Rows[0]["message"].ToString();
+            }
+            if (dttemp.Rows[0]["date_processed"] != DBNull.Value)
+            {
+                embeetemp.Date_processed = Convert.ToDateTime(dttemp.Rows[0]["date_processed"].ToString());
+            }            
+
+            return embeetemp;
+        }
+
+        public int getPaymentKey_fromEmbeeobjectkey(int embee_object_key)
+        {
+            int payment_key = 0;
+            //get paymentkey
+            DataTable dttemppayment = Peerfx_DB.SPs.ViewPaymentSpecificByembeeobjectkey(embee_object_key).GetDataSet().Tables[0];
+            if (dttemppayment.Rows.Count > 0)
+            {
+                if (dttemppayment.Rows[0]["payments_key"] != DBNull.Value)
+                {
+                    payment_key = Convert.ToInt32(dttemppayment.Rows[0]["payments_key"]);
+                }
+            }
+            return payment_key;
+        }
+
+        public int getPaymentKey_fromEmbeetransid(int transid)
+        {
+            int payment_key = 0;
+            //get paymentkey
+            DataTable dttemppayment = Peerfx_DB.SPs.ViewPaymentSpecificByembeetransid(transid).GetDataSet().Tables[0];
+            if (dttemppayment.Rows.Count > 0)
+            {
+                if (dttemppayment.Rows[0]["payments_key"] != DBNull.Value)
+                {
+                    payment_key = Convert.ToInt32(dttemppayment.Rows[0]["payments_key"]);
+                }
+            }
+            return payment_key;
+        }
+
         public Payment getPayment(int paymentkey)
         {
             Payment paymenttemp = new Payment();
@@ -284,6 +371,10 @@ namespace Peerfx
             if (dstemp.Tables[0].Rows[0]["payment_object_receiver"] != DBNull.Value)
             {
                 paymenttemp.Payment_object_receiver = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_receiver"].ToString());
+            }
+            if (dstemp.Tables[0].Rows[0]["payment_object_receiver_type"] != DBNull.Value)
+            {
+                paymenttemp.Payment_object_receiver_type = Convert.ToInt32(dstemp.Tables[0].Rows[0]["payment_object_receiver_type"].ToString());
             }
             if (dstemp.Tables[0].Rows[0]["payment_description"] != DBNull.Value)
             {
@@ -340,6 +431,22 @@ namespace Peerfx
             if (dstemp.Tables[0].Rows[0]["payment_status_text"] != DBNull.Value)
             {
                 paymenttemp.Payment_status_text = dstemp.Tables[0].Rows[0]["payment_status_text"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["internal_only"] != DBNull.Value)
+            {
+                paymenttemp.Internal_only = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["internal_only"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["requiresmanualexport"] != DBNull.Value)
+            {
+                paymenttemp.Requiresmanualexport = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["requiresmanualexport"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["requiresmanualexport"] != DBNull.Value)
+            {
+                paymenttemp.Requiresmanualexport = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["requiresmanualexport"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["requestor_user_key"] != DBNull.Value)
+            {
+                paymenttemp.Requestor_user_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["requestor_user_key"]);
             }
             return paymenttemp;
         }
@@ -633,6 +740,82 @@ namespace Peerfx
             return quotetemp;
         }
 
+        public Quote getQuote_reverse(decimal buyamount, int sellcurrency, int buycurrency)
+        {
+            Quote quotetemp = new Quote();
+            External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
+            Hashtable hstemp = cc.Exchange_Rate_ccy_pair(sellcurrency, buycurrency);
+
+            if (!hstemp.ContainsValue("error"))
+            {
+                quotetemp.Bid_Price_Timestamp = getcurrencyclouddate(hstemp["bid_price_timestamp"].ToString());
+                quotetemp.Bid_Price = Convert.ToDecimal(hstemp["bid_price"]);
+                quotetemp.Broker_Bid = Convert.ToDecimal(hstemp["broker_bid"]);
+                quotetemp.Offer_Price_Timestamp = getcurrencyclouddate(hstemp["offer_price_timestamp"].ToString());
+                quotetemp.Offer_Price = Convert.ToDecimal(hstemp["offer_price"]);
+                quotetemp.Broker_Offer = Convert.ToDecimal(hstemp["broker_offer"]);
+                quotetemp.Market_Price = Convert.ToDecimal(hstemp["market_price"]);
+                quotetemp.Value_Date = getcurrencyclouddate(hstemp["value_date"].ToString());
+                quotetemp.Quote_Condition = hstemp["quote_condition"].ToString();
+                quotetemp.Real_Market = hstemp["real_market"].ToString();
+                quotetemp.Ccy_Pair = hstemp["ccy_pair"].ToString();
+
+                //calculate Peerfx servicefee & rate
+
+                if (buyamount > 0)
+                {
+                    quotetemp.Buyamount = buyamount;
+                    decimal peerfxservicefee = 0;
+                    decimal sellamount = 0;
+                    decimal peerfxrate = 0;
+
+                    //Calculate peerfx service fee
+                    Fees fees = getFees(sellcurrency, buycurrency);
+
+                    //peerfxrate
+                    peerfxrate = quotetemp.Broker_Offer;
+                    if (fees.Fee_Percentage != 0)
+                    {
+                        peerfxrate += fees.Fee_Percentage;
+                    }
+
+                    //peerfx service fee
+                    if (fees.Fee_Base != 0)
+                    {
+                        peerfxservicefee += fees.Fee_Base;
+                    }
+                    if (fees.Fee_Addon != 0)
+                    {
+                        peerfxservicefee += fees.Fee_Addon;
+                    }
+                    if (fees.Fee_Min != 0)
+                    {
+                        if (fees.Fee_Min > peerfxservicefee)
+                        {
+                            peerfxservicefee = fees.Fee_Min;
+                        }
+                    }
+                    if (fees.Fee_Max != 0)
+                    {
+                        if (fees.Fee_Max < peerfxservicefee)
+                        {
+                            peerfxservicefee = fees.Fee_Max;
+                        }
+                    }
+
+                    //calculate buyingamount
+                    sellamount = buyamount / peerfxrate;
+                    sellamount = sellamount - peerfxservicefee;
+
+                    //assign values
+                    quotetemp.Peerfx_Servicefee = decimal.Round(peerfxservicefee, 2);
+                    quotetemp.Peerfx_Rate = peerfxrate;
+                    quotetemp.Sellamount = decimal.Round(sellamount, 2);
+                }
+            }
+            return quotetemp;
+        }
+
         public Fees getFees(int sellcurrency, int buycurrency)
         {
             Fees fees = new Fees();
@@ -817,10 +1000,11 @@ namespace Peerfx
 
             Int64 senderpaymentobjectkey = 0;
             Int64 receiverpaymentobjectkey = 0;
+            Payment paymenttemp = new Payment();
             if (isbalancefundingsource)
             {
                 //get user's balance payment object key
-                Payment paymenttemp = getPayment(paymentkey);
+                paymenttemp = getPayment(paymentkey);
                 senderpaymentobjectkey = paymenttemp.Payment_object_sender;
                 receiverpaymentobjectkey = paymenttemp.Payment_object_receiver;
             }
@@ -838,7 +1022,27 @@ namespace Peerfx
             //update status to currency converted
             Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 4).Execute();
 
+            //Check if does not require manual export
+            if (!paymenttemp.Requiresmanualexport)
+            {
+                //if is embee top up
+                if (paymenttemp.Payment_object_receiver_type == 7)
+                {
+                    //Send Top Up
+                    EmbeeObject embeetemp = getEmbeeObject(paymenttemp.Payments_Key);
+                    External_APIs.Embee embeecalls = new External_APIs.Embee();
+                    int newtransid = embeecalls.RequestPurchase(embeetemp.Productid.ToString(), embeetemp.Phone, currentuser.Email, get_ipaddress(),currentuser.User_key, paymentkey);
+                    Peerfx_DB.SPs.UpdateEmbeeNewtransid(newtransid, embeetemp.Embee_object_key).Execute();
+                    Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 6).Execute();
+                }
+            }
+
             //send email to notify user currency has been converted
+
+        }
+
+        public void CompleteTopUp(Payment paymenttemp)
+        {
 
         }
 
@@ -890,6 +1094,20 @@ namespace Peerfx
                 }
             }
             return isexternal;
+        }
+
+        public bool Isrequiresmanualexport(Int64 paymentobjectkey)
+        {
+            bool requiresmanualexport = false;
+            DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectSpecific(paymentobjectkey).GetDataSet();
+            if (dstemp.Tables[0].Rows.Count > 0)
+            {
+                if (dstemp.Tables[0].Rows[0]["requiresmanualexport"] != DBNull.Value)
+                {
+                    requiresmanualexport = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["requiresmanualexport"]);
+                }
+            }
+            return requiresmanualexport;
         }
 
         public bool IsNumeric(string strTextEntry)

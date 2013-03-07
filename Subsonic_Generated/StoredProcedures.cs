@@ -190,6 +190,16 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Delete_EmbeeCatalog Procedure
+        /// </summary>
+        public static StoredProcedure DeleteEmbeeCatalog()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Delete_EmbeeCatalog", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Delete_Users_Security_Answers Procedure
         /// </summary>
         public static StoredProcedure DeleteUsersSecurityAnswers(int? userkey)
@@ -259,6 +269,72 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@user_key_updated", userkeyupdated, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Embee_Newtransid Procedure
+        /// </summary>
+        public static StoredProcedure UpdateEmbeeNewtransid(int? transid, int? embeeobjectkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Embee_Newtransid", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@transid", transid, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@embee_object_key", embeeobjectkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_EmbeeCatalog Procedure
+        /// </summary>
+        public static StoredProcedure UpdateEmbeeCatalog(int? country, string companyname, int? productid, string productname, decimal? priceindollars)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_EmbeeCatalog", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@country", country, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@company_name", companyname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@product_id", productid, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@product_name", productname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@price_in_dollars", priceindollars, DbType.Currency, 4, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_EmbeeCatalog_recordpaymentobject Procedure
+        /// </summary>
+        public static StoredProcedure UpdateEmbeeCatalogRecordpaymentobject(int? productid, string phone, long? embeepaymentobjectreturn)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_EmbeeCatalog_recordpaymentobject", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@product_id", productid, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@phone", phone, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddOutputParameter("@embee_payment_object_return", DbType.Int64, 0, 19);
+            
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_EmbeeObjects_IPN Procedure
+        /// </summary>
+        public static StoredProcedure UpdateEmbeeObjectsIpn(int? transid, string message, int? transstatus)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_EmbeeObjects_IPN", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@transid", transid, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@message", message, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@transstatus", transstatus, DbType.Int32, 0, 10);
         	
             return sp;
         }
@@ -425,6 +501,18 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@payment_object_key", paymentobjectkey, DbType.Int64, 0, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Scheduled_Task Procedure
+        /// </summary>
+        public static StoredProcedure UpdateScheduledTask(int? scheduledtasktype)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Scheduled_Task", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@scheduled_task_type", scheduledtasktype, DbType.Int32, 0, 10);
         	
             return sp;
         }
@@ -748,6 +836,62 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Embee_Catalog_bycountry Procedure
+        /// </summary>
+        public static StoredProcedure ViewEmbeeCatalogBycountry(int? country)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Embee_Catalog_bycountry", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@country", country, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Embee_Catalog_byproductid Procedure
+        /// </summary>
+        public static StoredProcedure ViewEmbeeCatalogByproductid(int? productid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Embee_Catalog_byproductid", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@productid", productid, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Embee_Countries Procedure
+        /// </summary>
+        public static StoredProcedure ViewEmbeeCountries()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Embee_Countries", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Embee_Objects_bypaymentkey Procedure
+        /// </summary>
+        public static StoredProcedure ViewEmbeeObjectsBypaymentkey(int? paymentkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Embee_Objects_bypaymentkey", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Embee_Objects_Currently_Processing Procedure
+        /// </summary>
+        public static StoredProcedure ViewEmbeeObjectsCurrentlyProcessing()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Embee_Objects_Currently_Processing", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Errors_Lastone Procedure
         /// </summary>
         public static StoredProcedure ViewErrorsLastone()
@@ -946,6 +1090,30 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Payment_Specific_byembeeobjectkey Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentSpecificByembeeobjectkey(int? embeeobjectkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Specific_byembeeobjectkey", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@embee_object_key", embeeobjectkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Payment_Specific_byembeetransid Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentSpecificByembeetransid(int? transid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Specific_byembeetransid", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@transid", transid, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Payment_Status Procedure
         /// </summary>
         public static StoredProcedure ViewPaymentStatus()
@@ -990,11 +1158,33 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Payments_byStatus_requiresmanualexport Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentsByStatusRequiresmanualexport(int? statuskey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_byStatus_requiresmanualexport", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@status_key", statuskey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Payments_Confirmed Procedure
         /// </summary>
         public static StoredProcedure ViewPaymentsConfirmed()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_Confirmed", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Payments_DoNot_requiremanualexport Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentsDoNotRequiremanualexport()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_DoNot_requiremanualexport", DataService.GetInstance("Peerfx"), "");
         	
             return sp;
         }
@@ -1059,6 +1249,18 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Scheduled_Task Procedure
+        /// </summary>
+        public static StoredProcedure ViewScheduledTask(int? scheduledtasktype)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Scheduled_Task", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@scheduled_task_type", scheduledtasktype, DbType.Int32, 0, 10);
         	
             return sp;
         }

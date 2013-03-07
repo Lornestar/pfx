@@ -48,8 +48,13 @@ namespace Peerfx
                     txtsell.Text = Request.QueryString["sell"].ToString();
                     ddlsellcurrency.SelectedValue = Request.QueryString["sellc"].ToString();
                     ddlbuycurrency.SelectedValue = Request.QueryString["buyc"].ToString();
-                }                                                      
-                
+                }
+
+                //load countries into ddlembeecountry
+                ddlembeecountry.DataTextField = "country_text";
+                ddlembeecountry.DataValueField = "country";
+                ddlembeecountry.DataSource = Peerfx_DB.SPs.ViewEmbeeCountries().GetDataSet().Tables[0];
+                ddlembeecountry.DataBind();                
             }
             if (sitetemp.isloggedin())
             {
@@ -109,6 +114,12 @@ namespace Peerfx
             rdtemp3.Text = "Other Passport User";
             ddlReceivers.Items.Add(rdtemp3);
 
+            //Add Embee Telco
+            RadComboBoxItem rdtemp4 = new RadComboBoxItem();
+            rdtemp4.Value = "-2";
+            rdtemp4.Text = "Top Up Phone";
+            ddlReceivers.Items.Add(rdtemp4);
+
             DataTable dtuserbalance = sitetemp.getuserbalance_datatable(currentuser.User_key, Convert.ToInt32(ddlbuycurrency.SelectedValue));
             RadComboBoxItem rdtemp2 = new RadComboBoxItem();
             rdtemp2.Value = dtuserbalance.Rows[0]["payment_object_key"].ToString();
@@ -116,7 +127,9 @@ namespace Peerfx
             ddlReceivers.Items.Insert(0,rdtemp2);
 
             ddlReceivers.SelectedIndex = 0;
-            
+
+            pnlembee.Visible = false;
+            pnlotherpassportuser.Visible = false;
             pnlnewreceiver.Visible = false;
             pnlexistingreceiver.Visible = true;
             
@@ -133,26 +146,73 @@ namespace Peerfx
             LoadRates(true);            
         }
 
+        protected void ddlembeecountry_changed(object sender, EventArgs e)
+        {
+            ddlembeecatalog.ClearSelection();
+            ddlembeecatalog.DataTextField = "product_name";
+            ddlembeecatalog.DataValueField = "product_id";
+            ddlembeecatalog.DataSource = Peerfx_DB.SPs.ViewEmbeeCatalogBycountry(Convert.ToInt32(ddlembeecountry.SelectedValue)).GetDataSet().Tables[0];
+            ddlembeecatalog.DataBind();
+            ddlembeecatalog.Visible = true;
+        }
+
+        protected void ddlembeecatalog_changed(object sender, EventArgs e)
+        {
+            //disable quote controls                
+            ddlbuycurrency.Enabled = false;
+            txtsell.Enabled = false;
+            lbltopupinfo.Visible = true;
+            ddlbuycurrency.SelectedValue = "3";
+
+            //calculate proper amounts
+            int productid = Convert.ToInt32(ddlembeecatalog.SelectedValue);
+            decimal price = 0;
+            DataTable dttemp = Peerfx_DB.SPs.ViewEmbeeCatalogByproductid(productid).GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                price = Convert.ToDecimal(dttemp.Rows[0]["price_in_dollars"]);
+            }
+            
+            Quote quotetemp = sitetemp.getQuote_reverse(price, Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            LoadRatesFillinfo(quotetemp);
+
+            txtembeephone.Visible = true;
+
+            UpdatePaymentMethod(Convert.ToInt32(ddlsellcurrency.SelectedValue),Convert.ToDecimal(txtsell.Value));
+        }
+
         protected void ddlexistingreceiver_changed(object sender, EventArgs e)
         {
+            pnlnewreceiver.Visible = false;
+            pnlotherpassportuser.Visible = false;
+            pnlembee.Visible = false;            
+            ddlbuycurrency.Enabled = true;
+            txtsell.Enabled = true;
+            lbltopupinfo.Visible = false;
+
             if (ddlReceivers.SelectedValue == "0")
             {
                 //open new recipient
-                pnlnewreceiver.Visible = true;
-                pnlotherpassportuser.Visible = false;
+                pnlnewreceiver.Visible = true;                
                 Cleartxtreceiverfields();
             }
             else if (ddlReceivers.SelectedValue == "-1")
             {
                 //open other passport users
-                pnlotherpassportuser.Visible = true;
-                pnlnewreceiver.Visible = false;
+                pnlotherpassportuser.Visible = true;                
                 Cleartxtreceiverfields();
             }
-            else
+            else if (ddlReceivers.SelectedValue == "-2")
             {
-                pnlnewreceiver.Visible = false;
-                pnlotherpassportuser.Visible = false;
+                //open embee top up
+                pnlembee.Visible = true;
+                ddlembeecatalog.Visible = false;
+                ddlembeecountry.ClearSelection();
+                txtembeephone.Text = "";
+                txtembeephone.Visible = false;
+            }
+            else
+            {                
                 pnlexistingreceiver.Visible = true;
 
                 //populate with receiver info
@@ -222,50 +282,78 @@ namespace Peerfx
                 return "No matches";
             
             return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
-        }
+        }        
 
         protected void ddlsellcurrency_changed(object sender, EventArgs e)
         {
-            if (ddlsellcurrency.SelectedValue == ddlbuycurrency.SelectedValue)
+
+            if (ddlReceivers.SelectedValue != "-2")
             {
-                if (ddlbuycurrency.SelectedIndex != 0)
+                if (ddlsellcurrency.SelectedValue == ddlbuycurrency.SelectedValue)
                 {
-                    ddlbuycurrency.SelectedIndex = 0;
+                    if (ddlbuycurrency.SelectedIndex != 0)
+                    {
+                        ddlbuycurrency.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        ddlbuycurrency.SelectedIndex = 1;
+                    }
                 }
-                else
-                {
-                    ddlbuycurrency.SelectedIndex = 1;
-                }
+                LoadRates(true);
             }
-            LoadRates(true);            
+            else
+            {
+                LoadRates(false);
+            }
         }
 
         protected void ddlbuycurrency_changed(object sender, EventArgs e)
         {
-            if (ddlsellcurrency.SelectedValue == ddlbuycurrency.SelectedValue)
+            if (ddlReceivers.SelectedValue != "-2")
             {
-                if (ddlsellcurrency.SelectedIndex != 0)
+                if (ddlsellcurrency.SelectedValue == ddlbuycurrency.SelectedValue)
                 {
-                    ddlsellcurrency.SelectedIndex = 0;
+                    if (ddlsellcurrency.SelectedIndex != 0)
+                    {
+                        ddlsellcurrency.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        ddlsellcurrency.SelectedIndex = 1;
+                    }
                 }
-                else
-                {
-                    ddlsellcurrency.SelectedIndex = 1;
-                }
+                LoadRates(true);
             }
-            LoadRates(true);
-            if (sitetemp.isloggedin())
+            else
             {
-                LoadRecipientList();
-            }            
+                LoadRates(false);
+            }
+            
+                        
         }
 
-        protected void LoadRates(bool updaterecipientlist)
+        protected void UpdatePaymentMethod(int sellcurrency, decimal sellamount)
         {
-            decimal sellamount = Convert.ToDecimal(txtsell.Text);
-            int sellcurrency = Convert.ToInt32(ddlsellcurrency.SelectedValue);
-            Quote quotetemp = sitetemp.getQuote(sellamount, sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            ddlpaymentmethod.Items.Clear();
+            //Check if have enough balance in account            
+            DataTable dtfundingsources = sitetemp.getpossiblefundingsources(currentuser.User_key, sellcurrency, sellamount);
+            if (dtfundingsources.Rows.Count > 0)
+            {
+                //Has enough in balance            
+                ddlpaymentmethod.DataTextField = "user_balance_text";
+                ddlpaymentmethod.DataValueField = "payment_object_key";
+                ddlpaymentmethod.DataSource = dtfundingsources;
+                ddlpaymentmethod.DataBind();
+            }
+            RadComboBoxItem rdtemp = new RadComboBoxItem();
+            rdtemp.Value = "0";
+            rdtemp.Text = "Bank Account";
+            ddlpaymentmethod.Items.Add(rdtemp);
+        }
 
+        protected void LoadRatesFillinfo(Quote quotetemp)
+        {
             hdbuyrate.Value = quotetemp.Peerfx_Rate.ToString();
             hdsellcurrencysymbol.Value = sitetemp.GetCurrencySymbol(ddlsellcurrency.SelectedItem.Text) + " ";
             hdbuycurrencysymbol.Value = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " ";
@@ -276,6 +364,7 @@ namespace Peerfx
             lblservicefee.Text = hdbuycurrencysymbol.Value + hdservicefee.Value;
             lblyouget.Text = hdbuycurrencysymbol.Value + hdbuyamount.Value;
             txtbuy.Value = Convert.ToDouble(quotetemp.Buyamount);
+            txtsell.Value = Convert.ToDouble(quotetemp.Sellamount);
 
             lblconfirmquotereceiveamount.Text = lblyouget.Text;
             lblconfirmquoteservicefee.Text = lblservicefee.Text;
@@ -284,6 +373,23 @@ namespace Peerfx
 
             lblalreadyconfirmedquotesenderamount2.Text = hdsellcurrencysymbol.Value + txtsell.Text;
             lblalreadyconfirmedquotesenderamount.Text = lblalreadyconfirmedquotesenderamount2.Text;
+        }
+
+        protected void LoadRates(bool updaterecipientlist)
+        {
+            decimal sellamount = Convert.ToDecimal(txtsell.Text);
+            int sellcurrency = Convert.ToInt32(ddlsellcurrency.SelectedValue);
+            Quote quotetemp;
+            if (ddlReceivers.SelectedValue != "-2")
+            {
+                quotetemp = sitetemp.getQuote(sellamount, sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            }
+            else
+            {
+                quotetemp = sitetemp.getQuote_reverse(Convert.ToDecimal(txtbuy.Text), sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            }
+
+            LoadRatesFillinfo(quotetemp);
 
             if (ddlbuycurrency.SelectedItem.Text == "USD")
             {
@@ -334,21 +440,7 @@ namespace Peerfx
 
             if (currentuser != null)
             {
-                ddlpaymentmethod.Items.Clear();
-                //Check if have enough balance in account            
-                DataTable dtfundingsources = sitetemp.getpossiblefundingsources(currentuser.User_key, sellcurrency, sellamount);
-                if (dtfundingsources.Rows.Count > 0)
-                {
-                    //Has enough in balance            
-                    ddlpaymentmethod.DataTextField = "user_balance_text";
-                    ddlpaymentmethod.DataValueField = "payment_object_key";
-                    ddlpaymentmethod.DataSource = dtfundingsources;
-                    ddlpaymentmethod.DataBind();
-                }
-                RadComboBoxItem rdtemp = new RadComboBoxItem();
-                rdtemp.Value = "0";
-                rdtemp.Text = "Bank Account";
-                ddlpaymentmethod.Items.Add(rdtemp);
+                UpdatePaymentMethod(sellcurrency, sellamount);
 
                 if (updaterecipientlist)
                 {
@@ -359,6 +451,9 @@ namespace Peerfx
 
         protected void btnContinue1_Click(object sender, EventArgs e)
         {
+            //update seller & receiver payment objects
+            hdsenderpaymentobjectkey.Value = ddlpaymentmethod.SelectedValue;
+
             //check validation
             bool isvalid = true;
             string errormessage = "";
@@ -371,6 +466,25 @@ namespace Peerfx
                     isvalid = false;
                     errormessage = "You must choose a Passport user";
                 }                
+            }
+            else if (ddlReceivers.SelectedValue == "-2")
+            {
+                if (ddlembeecatalog.SelectedValue == "") 
+                {
+                    isvalid = false;
+                    errormessage = "You must choose a Top Up Plan";
+                }
+                if (txtembeephone.Text == "")
+                {
+                    isvalid = false;
+                    errormessage = "You must enter a phone number";
+                }
+            }
+
+            if (txtdescription.Text.Length < 1)
+            {
+                isvalid = false;
+                errormessage = "You must write a description for this payment";
             }
 
             if (isvalid)
@@ -426,8 +540,24 @@ namespace Peerfx
                 {
                     //passport user
                     receiverpaymentobject = Convert.ToInt64(ddlotherpassportusers.SelectedValue);
-                }                
-                else{
+                }
+                else if (ddlReceivers.SelectedValue == "-2")
+                {
+                    //top up embee
+                    //1st step record the embee payment object
+                    string strphone = txtembeephone.Text;
+                    strphone = strphone.Replace("-", "").Replace(" ", "");
+                    while (strphone.Substring(0, 1) == "0")
+                    {
+                        strphone = strphone.Substring(1, strphone.Length - 1);
+                    }
+
+                    StoredProcedure sp_UpdateEmbeeObject = Peerfx_DB.SPs.UpdateEmbeeCatalogRecordpaymentobject(Convert.ToInt32(ddlembeecatalog.SelectedValue),strphone, 0);
+                    sp_UpdateEmbeeObject.Execute();
+                    receiverpaymentobject = Convert.ToInt64(sp_UpdateEmbeeObject.Command.Parameters[2].ParameterValue.ToString());
+                }
+                else
+                {
                     receiverpaymentobject = Convert.ToInt64(ddlReceivers.SelectedValue);
                 }
             }
@@ -472,7 +602,7 @@ namespace Peerfx
             bool isuserbalance = false;
             if (pnlloggedinsender.Visible)
             {
-                if (sitetemp.IsUserBalance(Convert.ToInt64(ddlpaymentmethod.SelectedValue)))
+                if (sitetemp.IsUserBalance(Convert.ToInt64(hdsenderpaymentobjectkey.Value)))
                 {
                     //instantly convert the payment, because source funding is balance
 
@@ -527,10 +657,16 @@ namespace Peerfx
                     lblreceivinguserbalance.Text = ddlotherpassportusers.Text;                    
                     receiverbankaccount = false;
                 }
+                else if (ddlReceivers.SelectedValue == "-2")
+                {
+                    //selected embee top up
+                    lblreceivinguserbalance.Text = ddlembeecatalog.SelectedItem.Text;
+                    receiverbankaccount = false;
+                }
                 else if (sitetemp.IsUserBalance(Convert.ToInt64(ddlReceivers.SelectedValue)))
                 {
                     //it's a user balance, get user balance info
-                    lblreceivinguserbalance.Text = ddlReceivers.SelectedItem.Text;                    
+                    lblreceivinguserbalance.Text = ddlReceivers.SelectedItem.Text;
                     receiverbankaccount = false;
                 }
 

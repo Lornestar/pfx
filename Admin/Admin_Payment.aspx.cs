@@ -35,19 +35,19 @@ namespace Peerfx.Admin
             switch (RadTabStrip1.SelectedIndex)
             {
                 case 0:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(2).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusRequiresmanualexport(2).GetDataSet();
                     break;
                 case 1:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(3).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusRequiresmanualexport(3).GetDataSet();
                     break;
                 case 2:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(4).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusRequiresmanualexport(4).GetDataSet();
                     break;
                 case 3:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusExternalobjects(5).GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsByStatusRequiresmanualexport(5).GetDataSet();
                     break;
                 case 4:
-                    dstemp = Peerfx_DB.SPs.ViewPaymentsInternalOnly().GetDataSet();
+                    dstemp = Peerfx_DB.SPs.ViewPaymentsDoNotRequiremanualexport().GetDataSet();
                     break;
             }            
             RadGrid1.DataSource = dstemp.Tables[0];
