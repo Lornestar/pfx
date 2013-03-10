@@ -28,7 +28,7 @@ function updatetable() {
 <table style="border:1px solid black;">
     <tr>
         <td>
-            Exchange Currency
+            Send Payment
         </td>
     </tr>
     <tr>
@@ -75,7 +75,7 @@ function updatetable() {
     </tr>    
     <tr>
         <td style="text-align:right;">        
-            <telerik:RadButton ID=btnExchange runat=server Text="Exchange Currency" 
+            <telerik:RadButton ID=btnExchange runat=server Text="Send Payment" 
                 onclick="btnExchange_Click"></telerik:RadButton>
         </td>
     </tr>

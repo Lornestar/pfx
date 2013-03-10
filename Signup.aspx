@@ -10,6 +10,7 @@ Sign up
         </telerik:RadAjaxLoadingPanel>
         <telerik:RadAjaxPanel runat="server" ID="RadAjaxPanel1" LoadingPanelID="LoadingPanel1"
             Height="100%">
+
             <asp:HiddenField ID=hduserkey runat=server Value="0" />
             <div style="float: left; width: 100%">
                 <telerik:RadTabStrip ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1">
@@ -248,8 +249,18 @@ Sign up
                                     *Nationality
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID=ddlIdentityNationality runat=server >
+                                    <telerik:RadComboBox ID=ddlIdentityNationality runat=server AutoPostBack=true OnSelectedIndexChanged="ddlIdentityNationality_changed">
                                     </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID=lblssnrequired runat=server Visible=false>*</asp:Label>US Social Security Number
+                                </td>
+                                <td>
+                                
+                                <telerik:RadMaskedTextBox ID=txtssn runat=server Mask="###-##-####">
+                                    </telerik:RadMaskedTextBox>(SSN allows us to transfer USD much faster for you)
                                 </td>
                             </tr>
                             <tr>

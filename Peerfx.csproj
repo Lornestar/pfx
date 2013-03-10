@@ -141,6 +141,7 @@
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\Mixpanel.js" />
     <Content Include="Signup.aspx" />
+    <Content Include="Testing\TestBancBox.aspx" />
     <Content Include="Testing\TestCurrencyCloud.aspx" />
     <Content Include="Testing\TestEmbee.aspx" />
     <Content Include="Testing\TestError.aspx" />
@@ -248,6 +249,7 @@
     <Compile Include="ExchangeCurrency.aspx.designer.cs">
       <DependentUpon>ExchangeCurrency.aspx</DependentUpon>
     </Compile>
+    <Compile Include="External APIs\BancBox.cs" />
     <Compile Include="External APIs\CurrencyCloud.cs" />
     <Compile Include="External APIs\Embee.cs" />
     <Compile Include="External APIs\Homesend.cs" />
@@ -302,6 +304,13 @@
     <Compile Include="Subsonic_Generated\StoredProcedures.cs" />
     <Compile Include="Subsonic_Generated\User.cs" />
     <Compile Include="Subsonic_Generated\UserController.cs" />
+    <Compile Include="Testing\TestBancBox.aspx.cs">
+      <DependentUpon>TestBancBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Testing\TestBancBox.aspx.designer.cs">
+      <DependentUpon>TestBancBox.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Testing\TestCurrencyCloud.aspx.cs">
       <DependentUpon>TestCurrencyCloud.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

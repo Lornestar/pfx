@@ -38,6 +38,11 @@ namespace Peerfx.Models
         private string occupation;
         private string passportnumber;
         private string user_status_text;
+        private Int64 bancbox_payment_object_key;
+        private int bancbox_client_id;        
+        private string bancbox_cipstatus;
+        private string bancbox_client_status;
+        private string ssn;
 
         public int User_key
         {
@@ -407,7 +412,67 @@ namespace Peerfx.Models
             {
                 user_status_text = value;
             }
-        }        
+        }
+
+        public int Bancbox_client_id
+        {
+            get
+            {
+                return bancbox_client_id;
+            }
+            set
+            {
+                bancbox_client_id = value;
+            }
+        }
+
+        public string Bancbox_cipstatus
+        {
+            get
+            {
+                return bancbox_cipstatus;
+            }
+            set
+            {
+                bancbox_cipstatus = value;
+            }
+        }
+
+        public string Bancbox_client_status
+        {
+            get
+            {
+                return bancbox_client_status;
+            }
+            set
+            {
+                bancbox_client_status = value;
+            }
+        }
+
+        public Int64 Bancbox_payment_object_key
+        {
+            get
+            {
+                return bancbox_payment_object_key;
+            }
+            set
+            {
+                bancbox_payment_object_key = value;
+            }
+        }
+
+        public string Ssn
+        {
+            get
+            {
+                return ssn;
+            }
+            set
+            {
+                ssn = value;
+            }
+        }
         
     }
 }

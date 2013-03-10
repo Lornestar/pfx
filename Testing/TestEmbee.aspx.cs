@@ -14,7 +14,7 @@ namespace Peerfx.Testing
         {
             Peerfx.External_APIs.Embee embee = new External_APIs.Embee();
             //Hashtable strtest = embee.getCatalog("USA");
-            //embee.UpdateCatalog();
+            embee.UpdateCatalog();
             //embee.RequestPurchase("2538", "1338863322", "1338863322@yahoo.com", "1.1.1.1");
             //string strresult = embee.GetStatus("16522740");
         }

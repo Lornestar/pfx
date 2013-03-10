@@ -373,6 +373,19 @@ namespace Peerfx_DB
 				colvarPassword.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPassword);
 				
+				TableSchema.TableColumn colvarSsn = new TableSchema.TableColumn(schema);
+				colvarSsn.ColumnName = "ssn";
+				colvarSsn.DataType = DbType.AnsiStringFixedLength;
+				colvarSsn.MaxLength = 9;
+				colvarSsn.AutoIncrement = false;
+				colvarSsn.IsNullable = true;
+				colvarSsn.IsPrimaryKey = false;
+				colvarSsn.IsForeignKey = false;
+				colvarSsn.IsReadOnly = false;
+				colvarSsn.DefaultSetting = @"";
+				colvarSsn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSsn);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -534,6 +547,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.Password); }
 			set { SetColumnValue(Columns.Password, value); }
 		}
+		  
+		[XmlAttribute("Ssn")]
+		[Bindable(true)]
+		public string Ssn 
+		{
+			get { return GetColumnValue<string>(Columns.Ssn); }
+			set { SetColumnValue(Columns.Ssn, value); }
+		}
 		
 		#endregion
 		
@@ -554,7 +575,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword)
+		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -596,6 +617,8 @@ namespace Peerfx_DB
 			
 			item.Password = varPassword;
 			
+			item.Ssn = varSsn;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -606,7 +629,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword)
+		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -647,6 +670,8 @@ namespace Peerfx_DB
 				item.Username = varUsername;
 			
 				item.Password = varPassword;
+			
+				item.Ssn = varSsn;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -794,6 +819,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn SsnColumn
+        {
+            get { return Schema.Columns[19]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -817,6 +849,7 @@ namespace Peerfx_DB
 			 public static string LastChanged = @"last_changed";
 			 public static string Username = @"username";
 			 public static string Password = @"password";
+			 public static string Ssn = @"ssn";
 						
 		}
 		#endregion

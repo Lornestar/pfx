@@ -1138,15 +1138,6 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedquotesenderamount2;
         
         /// <summary>
-        /// lblalreadyconfirmedpeerfxname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedpeerfxname;
-        
-        /// <summary>
         /// lblalreadyconfirmedpeerfxbankaccount control.
         /// </summary>
         /// <remarks>

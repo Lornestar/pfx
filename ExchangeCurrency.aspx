@@ -61,7 +61,7 @@
                 <UpdatedControls>                    
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>                                        
-                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue2">
@@ -477,8 +477,6 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                        Payment received no later than:
-                                        <br />
                                         <asp:Label ID=lblconfirmquotearrivaldate runat=server></asp:Label>
                                         </td>
                                     </tr>
@@ -770,18 +768,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        To:
-                                                        <br />
-                                                        <asp:Label ID=lblalreadyconfirmedpeerfxname runat=server>Peerfx</asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Bank Account:
+                                                        Send To:
                                                         <br />
                                                         <asp:Label ID=lblalreadyconfirmedpeerfxbankaccount runat=server></asp:Label>
                                                     </td>
-                                                </tr>
+                                                </tr>                                                
                                             </table>
                                         </td>                                        
                                     </tr>

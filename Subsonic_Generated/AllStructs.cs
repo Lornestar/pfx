@@ -92,6 +92,8 @@ namespace Peerfx_DB
         
 		public static readonly string User = @"Users";
         
+		public static readonly string UsersBancbox = @"Users_Bancbox";
+        
 		public static readonly string UsersInfo = @"Users_Info";
         
 		public static readonly string UsersSecurityAnswer = @"Users_Security_Answers";
@@ -288,6 +290,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Users", "Peerfx"); }
 		}
         
+		public static TableSchema.Table UsersBancbox
+		{
+            get { return DataService.GetSchema("Users_Bancbox", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table UsersInfo
 		{
             get { return DataService.GetSchema("Users_Info", "Peerfx"); }
@@ -313,6 +320,8 @@ namespace Peerfx_DB
 		public static readonly string VwAspnetApplication = @"vw_aspnet_Applications";
         
 		public static readonly string VwAspnetUser = @"vw_aspnet_Users";
+        
+		public static readonly string VwBankAccountsBancbox = @"vw_Bank_Accounts_Bancbox";
         
 		public static readonly string VwBankAccountsSystem = @"vw_Bank_Accounts_System";
         

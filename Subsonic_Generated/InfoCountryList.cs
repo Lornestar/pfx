@@ -165,6 +165,19 @@ namespace Peerfx_DB
 				colvarCountryText.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCountryText);
 				
+				TableSchema.TableColumn colvarCountryCode = new TableSchema.TableColumn(schema);
+				colvarCountryCode.ColumnName = "country_code";
+				colvarCountryCode.DataType = DbType.AnsiString;
+				colvarCountryCode.MaxLength = 3;
+				colvarCountryCode.AutoIncrement = false;
+				colvarCountryCode.IsNullable = true;
+				colvarCountryCode.IsPrimaryKey = false;
+				colvarCountryCode.IsForeignKey = false;
+				colvarCountryCode.IsReadOnly = false;
+				colvarCountryCode.DefaultSetting = @"";
+				colvarCountryCode.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCountryCode);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -198,6 +211,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.CountryText); }
 			set { SetColumnValue(Columns.CountryText, value); }
 		}
+		  
+		[XmlAttribute("CountryCode")]
+		[Bindable(true)]
+		public string CountryCode 
+		{
+			get { return GetColumnValue<string>(Columns.CountryCode); }
+			set { SetColumnValue(Columns.CountryCode, value); }
+		}
 		
 		#endregion
 		
@@ -218,7 +239,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varInfoCountryKey,string varCountryValue,string varCountryText)
+		public static void Insert(int varInfoCountryKey,string varCountryValue,string varCountryText,string varCountryCode)
 		{
 			InfoCountryList item = new InfoCountryList();
 			
@@ -227,6 +248,8 @@ namespace Peerfx_DB
 			item.CountryValue = varCountryValue;
 			
 			item.CountryText = varCountryText;
+			
+			item.CountryCode = varCountryCode;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -238,7 +261,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varInfoCountryKey,string varCountryValue,string varCountryText)
+		public static void Update(int varInfoCountryKey,string varCountryValue,string varCountryText,string varCountryCode)
 		{
 			InfoCountryList item = new InfoCountryList();
 			
@@ -247,6 +270,8 @@ namespace Peerfx_DB
 				item.CountryValue = varCountryValue;
 			
 				item.CountryText = varCountryText;
+			
+				item.CountryCode = varCountryCode;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -282,6 +307,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn CountryCodeColumn
+        {
+            get { return Schema.Columns[3]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -289,6 +321,7 @@ namespace Peerfx_DB
 			 public static string InfoCountryKey = @"info_country_key";
 			 public static string CountryValue = @"country_value";
 			 public static string CountryText = @"country_text";
+			 public static string CountryCode = @"country_code";
 						
 		}
 		#endregion

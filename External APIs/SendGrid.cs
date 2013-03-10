@@ -104,8 +104,7 @@ namespace Peerfx.External_APIs
 
             Payment paymenttemp = sitetemp.getPayment(paymentkey);
 
-            DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(Convert.ToInt32(paymenttemp.Sell_currency), currentuser.Country_residence).GetDataSet();
-            string peerfxbankaccount = sitetemp.getBankAccountDescription(Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]));
+            string peerfxbankaccount = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(paymentkey));
 
             thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
             thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
@@ -121,10 +120,11 @@ namespace Peerfx.External_APIs
         }
 
 
-        public void Send_Email_Payment_Completed_Embee(EmbeeObject embeetemp)
+        public void Send_Email_Payment_Completed_Embee(int paymentkey)
         {
             string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_completed_embee.txt"));
 
+            EmbeeObject embeetemp = sitetemp.getEmbeeObject(paymentkey);
             Payment paymenttemp = sitetemp.getPayment(embeetemp.Payment_key);
             Users currentuser = sitetemp.get_user_info(paymenttemp.Requestor_user_key);
 

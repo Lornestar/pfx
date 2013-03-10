@@ -32,7 +32,7 @@ namespace Peerfx.ScheduledTasks
 
                         //email to say top up was sent                    
                         Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
-                        sg.Send_Email_Payment_Completed_Embee(embeeobject);
+                        sg.Send_Email_Payment_Completed_Embee(paymentkey);
                     }
                     else if (embeeobject.Transstatus == -1)
                     {

@@ -148,6 +148,8 @@ namespace Peerfx
         {
             Users users = new Users();
             users.User_key = 0;
+            users.Bancbox_client_id = 0;
+            users.Bancbox_payment_object_key = 0;
             if (dstemp.Tables[0].Rows[0]["user_key"] != DBNull.Value)
             {
                 users.User_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["user_key"].ToString());
@@ -254,7 +256,27 @@ namespace Peerfx
             if (dstemp.Tables[0].Rows[0]["user_status_text"] != DBNull.Value)
             {
                 users.User_status_text = dstemp.Tables[0].Rows[0]["user_status_text"].ToString();
-            }                        
+            }
+            if (dstemp.Tables[0].Rows[0]["ssn"] != DBNull.Value)
+            {
+                users.Ssn = dstemp.Tables[0].Rows[0]["ssn"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["bancbox_client_id"] != DBNull.Value)
+            {
+                users.Bancbox_client_id = Convert.ToInt32(dstemp.Tables[0].Rows[0]["bancbox_client_id"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["bancbox_client_status"] != DBNull.Value)
+            {
+                users.Bancbox_client_status = dstemp.Tables[0].Rows[0]["bancbox_client_status"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["bancbox_cip_status"] != DBNull.Value)
+            {
+                users.Bancbox_cipstatus = dstemp.Tables[0].Rows[0]["bancbox_cip_status"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["bancbox_payment_object_key"] != DBNull.Value)
+            {
+                users.Bancbox_payment_object_key = Convert.ToInt64(dstemp.Tables[0].Rows[0]["bancbox_payment_object_key"]);
+            }
             return users;
         }
 
@@ -564,10 +586,32 @@ namespace Peerfx
             //output bank account in html format
             string strtemp = "";
             string strbuffer = "";
+            string strbuffer2 = "";
 
             DataSet dstemp = Peerfx_DB.SPs.ViewBankAccountsSpecificPaymentkey(paymentobjectkey).GetDataSet();
             if (dstemp.Tables[0].Rows.Count > 0)
             {
+                
+                if (dstemp.Tables[0].Rows[0]["first_name"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["first_name"].ToString();                    
+                    if (dstemp.Tables[0].Rows[0]["last_name"] != DBNull.Value)
+                    {
+                        strbuffer2 = dstemp.Tables[0].Rows[0]["last_name"].ToString();
+                    }
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "Name - " + strbuffer + " " + strbuffer2 + "<br/>";
+                    }                    
+                }
+                if (dstemp.Tables[0].Rows[0]["organization_name"] != DBNull.Value)
+                {
+                    strbuffer = dstemp.Tables[0].Rows[0]["organization_name"].ToString();
+                    if (strbuffer.Trim().Length > 0)
+                    {
+                        strtemp += "Bank Name - " + strbuffer + "<br/>";
+                    }
+                }
                 if (dstemp.Tables[0].Rows[0]["IBAN"] != DBNull.Value)
                 {
                     strbuffer = dstemp.Tables[0].Rows[0]["IBAN"].ToString();
@@ -600,15 +644,7 @@ namespace Peerfx
                         strtemp += "Account Number - " + strbuffer + "<br/>";
                     }
                 }
-
-                if (dstemp.Tables[0].Rows[0]["organization_name"] != DBNull.Value)
-                {
-                    strbuffer = dstemp.Tables[0].Rows[0]["organization_name"].ToString();
-                    if (strbuffer.Trim().Length > 0)
-                    {
-                        strtemp += "Bank Name - " + strbuffer + "<br/>";
-                    }
-                }
+                
 
                 if (dstemp.Tables[0].Rows[0]["country_text"] != DBNull.Value)
                 {
@@ -989,10 +1025,24 @@ namespace Peerfx
             return returnpaymentobject;
         }
 
+        public Int64 insert_bancbox_account_returnpaymentobject(int userkey, int currencykey, int organizationkey, string bankaccountdescription, int userkeyupdated, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname)
+        {
+            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, userkey, currencykey, organizationkey, bankaccountdescription, userkeyupdated, get_ipaddress(), accountnumber, IBAN, BIC, ABArouting, firstname, lastname, businessname, 0);
+            sp_UpdateBank_account.Execute();
+            int bankaccountkey = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
+            StoredProcedure sp_UpdatePaymentObject = Peerfx_DB.SPs.UpdatePaymentObjects(0, 8, bankaccountkey, 0);
+            sp_UpdatePaymentObject.Execute();
+            Int64 returnpaymentobject = Convert.ToInt64(sp_UpdatePaymentObject.Command.Parameters[3].ParameterValue.ToString());
+
+            return returnpaymentobject;
+        }
+
         public void insert_quote_actual_convert_currency(int paymentkey, int sellcurrency, int buycurrency, Users currentuser, decimal sellamount, bool isbalancefundingsource)
         {
             Quote quotetemp = getQuote(sellamount, sellcurrency, buycurrency);
             StoredProcedure sp_UpdateQuotes = Peerfx_DB.SPs.UpdateQuotes(0, quotetemp.Sellamount, sellcurrency, quotetemp.Buyamount, buycurrency, quotetemp.Peerfx_Rate, quotetemp.Peerfx_Servicefee, null, null, 0);
+            External_APIs.BancBox bb = new External_APIs.BancBox();
+            Users treasuryuser = get_treasury_account();
             sp_UpdateQuotes.Execute();
             int quote_key = Convert.ToInt32(sp_UpdateQuotes.Command.Parameters[9].ParameterValue.ToString());
 
@@ -1007,6 +1057,11 @@ namespace Peerfx
                 paymenttemp = getPayment(paymentkey);
                 senderpaymentobjectkey = paymenttemp.Payment_object_sender;
                 receiverpaymentobjectkey = paymenttemp.Payment_object_receiver;
+                if ((paymenttemp.Sell_currency == 3) && (currentuser.Bancbox_payment_object_key > 0))
+                {
+                    bb.SendFunds_Internal(currentuser.User_key, treasuryuser.User_key, paymenttemp.Sell_amount, "Internal Transfer",false);
+                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, 3, paymenttemp.Sell_amount, currentuser.Bancbox_payment_object_key,senderpaymentobjectkey, get_ipaddress(), currentuser.User_key, "Money from BancBox account to User Balance", 0).Execute();
+                }
             }
             else
             {
@@ -1035,6 +1090,19 @@ namespace Peerfx
                     Peerfx_DB.SPs.UpdateEmbeeNewtransid(newtransid, embeetemp.Embee_object_key).Execute();
                     Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 6).Execute();
                 }
+                else if ((paymenttemp.Buy_currency == 3) && (currentuser.Bancbox_payment_object_key > 0))
+                {                    
+                    //Send out money via Bancbox account
+                    //put money into user's bancbox account to replicate the transfer into their user balance
+                    bb.SendFunds_Internal(treasuryuser.User_key, currentuser.User_key, paymenttemp.Buy_amount, "Internal Transfer",false);
+                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, 3, paymenttemp.Buy_amount, receiverpaymentobjectkey, currentuser.Bancbox_payment_object_key, get_ipaddress(), currentuser.User_key, "Money from User Balance into BancBox account", 0).Execute();
+
+                    if (IsBankAccount(paymenttemp.Payment_object_receiver)) //if the money went into a paymentkey or user balance
+                    {   //payment
+                        //put money into user's bancbox account, then send it out                        
+                        bb.SendFunds_External(currentuser.User_key,paymenttemp.Payment_object_receiver, paymenttemp.Buy_amount, "External Transfer",true);
+                    }
+                }                
             }
 
             //send email to notify user currency has been converted
@@ -1153,6 +1221,56 @@ namespace Peerfx
             //Get possible funding sources, that can support the currency & amount specified
             DataSet dstemp = Peerfx_DB.SPs.ViewPossibleFundingSources(user_key, currency, amount).GetDataSet();
             return dstemp.Tables[0];
+        }
+
+        public int getBancBoxOrganizationkey()
+        {
+            int inttemp = 0;
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoOrganizationsByname("Four Oaks Bank").GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                if (dttemp.Rows[0]["info_organizations_key"] != DBNull.Value)
+                {
+                    inttemp = Convert.ToInt32(dttemp.Rows[0]["info_organizations_key"]);
+                }
+            }
+            return inttemp;
+        }
+
+        public Int64 get_Payment_Object_sendmoneyto_For_Payment(int paymentkey)
+        {
+            Int64 sendtopaymentobject = 0;
+            Payment paymenttemp = getPayment(paymentkey);
+            Users requestoruser = get_user_info(paymenttemp.Requestor_user_key);
+
+            //first check if it should be user's bancbox account or our admin account
+            if (paymenttemp.Sell_currency_text == "USD"){
+                //sell currency is USD, now check if user has bancbox account                
+                if (requestoruser.Bancbox_payment_object_key > 0){
+                    //they have a bancbox account
+                    sendtopaymentobject = requestoruser.Bancbox_payment_object_key;
+                }
+            }
+            else{
+                //figure out which bank account to receive payment
+                DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(paymenttemp.Sell_currency, requestoruser.Country_residence).GetDataSet();
+                sendtopaymentobject = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]);
+            }
+
+            return sendtopaymentobject;
+        }
+
+        public Users get_treasury_account()
+        {
+            Users currentuser = new Users();
+            DataTable dttemp = Peerfx_DB.SPs.ViewTreasuryAccount().GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                if (dttemp.Rows[0]["user_key"] != DBNull.Value){
+                  currentuser = get_user_info(Convert.ToInt32(dttemp.Rows[0]["user_key"]));
+                }                
+            }
+            return currentuser;
         }
     }
 }

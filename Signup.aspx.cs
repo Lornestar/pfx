@@ -17,6 +17,7 @@ namespace Peerfx
     public partial class Signup : System.Web.UI.Page
     {
         int user_key;
+        Site sitetemp = new Site();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -92,21 +93,23 @@ namespace Peerfx
                 ddlSecurityQuestion3.DataBind();
                 
             }
-            if (hduserkey.Value != "0")
-            {
-                user_key = Convert.ToInt32(hduserkey.Value);
-            }
+            user_key = Convert.ToInt32(hduserkey.Value);            
         }
 
         protected void btnContinue1_Click(object sender, EventArgs e)
         {
             //save to db
             DateTime dttemp = new DateTime(Convert.ToInt32(ddlbirthyear.SelectedValue),Convert.ToInt32(ddlbirthmonth.SelectedValue),Convert.ToInt32(ddlbirthday.SelectedValue));
-            
-            StoredProcedure sp_UpdateSignup1 = Peerfx_DB.SPs.UpdateUsers(0, ddlTitle.SelectedValue, txtfirstname.Text, txtmiddlename.Text, txtlastname.Text, dttemp, Convert.ToInt32(ddlcountryresidence.SelectedValue), txtemail.Text, HttpContext.Current.Request.UserHostAddress,0);
+
+            StoredProcedure sp_UpdateSignup1 = Peerfx_DB.SPs.UpdateUsers(user_key, ddlTitle.SelectedValue, txtfirstname.Text, txtmiddlename.Text, txtlastname.Text, dttemp, Convert.ToInt32(ddlcountryresidence.SelectedValue), txtemail.Text, HttpContext.Current.Request.UserHostAddress, 0);
             sp_UpdateSignup1.Execute();
-            int temp_user_key = Convert.ToInt32(sp_UpdateSignup1.Command.Parameters[9].ParameterValue.ToString());
-            hduserkey.Value = temp_user_key.ToString();
+            
+            if (user_key == 0)
+            {
+                //if don't have user key yet
+                int temp_user_key = Convert.ToInt32(sp_UpdateSignup1.Command.Parameters[9].ParameterValue.ToString());
+                hduserkey.Value = temp_user_key.ToString();
+            }            
 
             //mixpanel
 
@@ -160,8 +163,16 @@ namespace Peerfx
                 phonetype2 = Convert.ToInt32(ddlPhoneType2.SelectedValue);
             }
 
-            Peerfx_DB.SPs.UpdateUsersInfo(user_key, txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtState.Text, Convert.ToInt32(ddlCountrytab2.SelectedValue), txtpostalzipcode.Text, Convert.ToInt32(ddlPhoneCountryCode1.SelectedValue), Convert.ToInt32(ddlPhoneType1.SelectedValue), txtPhone1.Text, phonecountrycode2, phonetype2, txtPhone2.Text, Convert.ToInt32(ddlIdentityNationality.SelectedValue), txtOccupation.Text, strpassport).Execute();
-            
+            Peerfx_DB.SPs.UpdateUsersInfo(user_key, txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtState.Text, Convert.ToInt32(ddlCountrytab2.SelectedValue), txtpostalzipcode.Text, Convert.ToInt32(ddlPhoneCountryCode1.SelectedValue), Convert.ToInt32(ddlPhoneType1.SelectedValue), txtPhone1.Text, phonecountrycode2, phonetype2, txtPhone2.Text, Convert.ToInt32(ddlIdentityNationality.SelectedValue), txtOccupation.Text, strpassport,txtssn.Text.Replace("-","")).Execute();
+
+            if (txtssn.Text.Length > 0)
+            {
+                //if entered ssn # then open bancbox account
+                Peerfx.External_APIs.BancBox bb = new External_APIs.BancBox();
+                Models.Users user = sitetemp.get_user_info(user_key);
+                bb.OpenAccount(user);
+            }
+
             //Check Passport info
 
             //mixpanel
@@ -212,7 +223,18 @@ namespace Peerfx
             
         }
 
-        
+
+        protected void ddlIdentityNationality_changed(object sender, EventArgs e)
+        {
+            if (ddlIdentityNationality.SelectedValue == "2") //equal to US
+            {
+                lblssnrequired.Visible = true;
+            }
+            else
+            {
+                lblssnrequired.Visible = false;
+            }
+        }
 
     }
 }

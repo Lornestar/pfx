@@ -11,6 +11,7 @@ using System.IO;
 using System.Text;
 using RestSharp;
 using Peerfx.Models;
+using System.Data;
 
 namespace Peerfx.External_APIs
 {
@@ -30,31 +31,47 @@ namespace Peerfx.External_APIs
             JObject item;
             JToken jtoken;
 
-            for (int i = 0; i < items.Count; i++) //loop through rows
+            int result = (int)o["result"];
+            if (result == 1)
             {
-                JObject thecompany = (JObject)items[i];
-                JToken thecompanyname = (JToken)thecompany.First;
-                string strcompany = ((JProperty)thecompanyname).Name.ToString();
-                JArray items2 = (JArray)thecompany[strcompany];
-                for (int j = 0; j < items2.Count; j++) //loop through rows
+                for (int i = 0; i < items.Count; i++) //loop through rows
                 {
-                    item = (JObject)items2[j];
-                    EmbeeCatalog catalog = new EmbeeCatalog();
-                    catalog.Productname = (string)item["product_name"];
-                    string tempproductid = (string)item["product_id"];
-                    catalog.Productid = Convert.ToInt32(tempproductid);
-                    string tempprice = (string)item["price_in_dollars"];
-                    catalog.Price = Convert.ToDecimal(tempprice);
-                    catalog.Carrier = strcompany;                    
-                    hstemp.Add(i.ToString() + j.ToString(), catalog);
-                }                
+                    JObject thecompany = (JObject)items[i];
+                    JToken thecompanyname = (JToken)thecompany.First;
+                    string strcompany = ((JProperty)thecompanyname).Name.ToString();
+                    JArray items2 = (JArray)thecompany[strcompany];
+                    for (int j = 0; j < items2.Count; j++) //loop through rows
+                    {
+                        item = (JObject)items2[j];
+                        EmbeeCatalog catalog = new EmbeeCatalog();
+                        catalog.Productname = (string)item["product_name"];
+                        string tempproductid = (string)item["product_id"];
+                        catalog.Productid = Convert.ToInt32(tempproductid);
+                        string tempprice = (string)item["price_in_dollars"];
+                        catalog.Price = Convert.ToDecimal(tempprice);
+                        catalog.Carrier = strcompany;
+                        hstemp.Add(i.ToString() + j.ToString(), catalog);
+                    }
+                }
             }
+
+            
             return hstemp;
         }
 
         public void UpdateCatalog()
         {
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCountries().GetDataSet().Tables[0];
+
             Hashtable countriessupporting = new Hashtable();
+            foreach (DataRow dr in dttemp.Rows)
+            {
+                //add a country to hashtable
+                countriessupporting.Add(Convert.ToInt32(dr["info_country_key"]), dr["country_code"].ToString());
+            }
+
+            
+            /*
             countriessupporting.Add(2, "USA");
             countriessupporting.Add(1, "CAN");
             countriessupporting.Add(130, "PHL");
@@ -62,6 +79,8 @@ namespace Peerfx.External_APIs
             countriessupporting.Add(190, "BGD");
             countriessupporting.Add(169, "THA");
             countriessupporting.Add(99, "MYS");
+            countriessupporting.Add(7, "ATG");
+            */
 
             Peerfx_DB.SPs.DeleteEmbeeCatalog().Execute();
 
@@ -70,17 +89,20 @@ namespace Peerfx.External_APIs
                 Hashtable hstemp = new Hashtable();
                 hstemp = getCatalog(entry.Value.ToString());
 
-                foreach (DictionaryEntry entrycatalog in hstemp)
+                if (hstemp.Count > 2)
                 {
-                    try
+                    foreach (DictionaryEntry entrycatalog in hstemp)
                     {
-                        EmbeeCatalog catalogtemp = (EmbeeCatalog)entrycatalog.Value;
-                        Peerfx_DB.SPs.UpdateEmbeeCatalog(Convert.ToInt32(entry.Key), catalogtemp.Carrier, catalogtemp.Productid, catalogtemp.Productname, catalogtemp.Price).Execute();
+                        try
+                        {
+                            EmbeeCatalog catalogtemp = (EmbeeCatalog)entrycatalog.Value;
+                            Peerfx_DB.SPs.UpdateEmbeeCatalog(Convert.ToInt32(entry.Key), catalogtemp.Carrier, catalogtemp.Productid, catalogtemp.Productname, catalogtemp.Price).Execute();
+                        }
+                        catch
+                        {
+                        }
                     }
-                    catch
-                    {
-                    }                    
-                }
+                }                
             }
             Peerfx_DB.SPs.UpdateScheduledTask(1).Execute();
         }

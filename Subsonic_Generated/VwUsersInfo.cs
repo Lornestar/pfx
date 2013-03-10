@@ -465,6 +465,66 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarIsadmin);
                 
+                TableSchema.TableColumn colvarBancboxClientId = new TableSchema.TableColumn(schema);
+                colvarBancboxClientId.ColumnName = "bancbox_client_id";
+                colvarBancboxClientId.DataType = DbType.Int32;
+                colvarBancboxClientId.MaxLength = 0;
+                colvarBancboxClientId.AutoIncrement = false;
+                colvarBancboxClientId.IsNullable = true;
+                colvarBancboxClientId.IsPrimaryKey = false;
+                colvarBancboxClientId.IsForeignKey = false;
+                colvarBancboxClientId.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBancboxClientId);
+                
+                TableSchema.TableColumn colvarBancboxClientStatus = new TableSchema.TableColumn(schema);
+                colvarBancboxClientStatus.ColumnName = "bancbox_client_status";
+                colvarBancboxClientStatus.DataType = DbType.AnsiString;
+                colvarBancboxClientStatus.MaxLength = 50;
+                colvarBancboxClientStatus.AutoIncrement = false;
+                colvarBancboxClientStatus.IsNullable = true;
+                colvarBancboxClientStatus.IsPrimaryKey = false;
+                colvarBancboxClientStatus.IsForeignKey = false;
+                colvarBancboxClientStatus.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBancboxClientStatus);
+                
+                TableSchema.TableColumn colvarBancboxCipStatus = new TableSchema.TableColumn(schema);
+                colvarBancboxCipStatus.ColumnName = "bancbox_cip_status";
+                colvarBancboxCipStatus.DataType = DbType.AnsiString;
+                colvarBancboxCipStatus.MaxLength = 50;
+                colvarBancboxCipStatus.AutoIncrement = false;
+                colvarBancboxCipStatus.IsNullable = true;
+                colvarBancboxCipStatus.IsPrimaryKey = false;
+                colvarBancboxCipStatus.IsForeignKey = false;
+                colvarBancboxCipStatus.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBancboxCipStatus);
+                
+                TableSchema.TableColumn colvarBancboxPaymentObjectKey = new TableSchema.TableColumn(schema);
+                colvarBancboxPaymentObjectKey.ColumnName = "bancbox_payment_object_key";
+                colvarBancboxPaymentObjectKey.DataType = DbType.Int64;
+                colvarBancboxPaymentObjectKey.MaxLength = 0;
+                colvarBancboxPaymentObjectKey.AutoIncrement = false;
+                colvarBancboxPaymentObjectKey.IsNullable = true;
+                colvarBancboxPaymentObjectKey.IsPrimaryKey = false;
+                colvarBancboxPaymentObjectKey.IsForeignKey = false;
+                colvarBancboxPaymentObjectKey.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBancboxPaymentObjectKey);
+                
+                TableSchema.TableColumn colvarSsn = new TableSchema.TableColumn(schema);
+                colvarSsn.ColumnName = "ssn";
+                colvarSsn.DataType = DbType.AnsiStringFixedLength;
+                colvarSsn.MaxLength = 9;
+                colvarSsn.AutoIncrement = false;
+                colvarSsn.IsNullable = true;
+                colvarSsn.IsPrimaryKey = false;
+                colvarSsn.IsForeignKey = false;
+                colvarSsn.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarSsn);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -990,6 +1050,76 @@ namespace Peerfx_DB{
 			    SetColumnValue("isadmin", value);
             }
         }
+	      
+        [XmlAttribute("BancboxClientId")]
+        [Bindable(true)]
+        public int? BancboxClientId 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("bancbox_client_id");
+		    }
+            set 
+		    {
+			    SetColumnValue("bancbox_client_id", value);
+            }
+        }
+	      
+        [XmlAttribute("BancboxClientStatus")]
+        [Bindable(true)]
+        public string BancboxClientStatus 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("bancbox_client_status");
+		    }
+            set 
+		    {
+			    SetColumnValue("bancbox_client_status", value);
+            }
+        }
+	      
+        [XmlAttribute("BancboxCipStatus")]
+        [Bindable(true)]
+        public string BancboxCipStatus 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("bancbox_cip_status");
+		    }
+            set 
+		    {
+			    SetColumnValue("bancbox_cip_status", value);
+            }
+        }
+	      
+        [XmlAttribute("BancboxPaymentObjectKey")]
+        [Bindable(true)]
+        public long? BancboxPaymentObjectKey 
+	    {
+		    get
+		    {
+			    return GetColumnValue<long?>("bancbox_payment_object_key");
+		    }
+            set 
+		    {
+			    SetColumnValue("bancbox_payment_object_key", value);
+            }
+        }
+	      
+        [XmlAttribute("Ssn")]
+        [Bindable(true)]
+        public string Ssn 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("ssn");
+		    }
+            set 
+		    {
+			    SetColumnValue("ssn", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -1065,6 +1195,16 @@ namespace Peerfx_DB{
             public static string UserStatusText = @"user_status_text";
             
             public static string Isadmin = @"isadmin";
+            
+            public static string BancboxClientId = @"bancbox_client_id";
+            
+            public static string BancboxClientStatus = @"bancbox_client_status";
+            
+            public static string BancboxCipStatus = @"bancbox_cip_status";
+            
+            public static string BancboxPaymentObjectKey = @"bancbox_payment_object_key";
+            
+            public static string Ssn = @"ssn";
             
 	    }
 	    #endregion

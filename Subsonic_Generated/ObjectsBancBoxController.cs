@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Info_Country_List
+    /// Controller class for Objects_BancBox
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class InfoCountryListController
+    public partial class ObjectsBancBoxController
     {
         // Preload our schema..
-        InfoCountryList thisSchemaLoad = new InfoCountryList();
+        ObjectsBancBox thisSchemaLoad = new ObjectsBancBox();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public InfoCountryListCollection FetchAll()
+        public ObjectsBancBoxCollection FetchAll()
         {
-            InfoCountryListCollection coll = new InfoCountryListCollection();
-            Query qry = new Query(InfoCountryList.Schema);
+            ObjectsBancBoxCollection coll = new ObjectsBancBoxCollection();
+            Query qry = new Query(ObjectsBancBox.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoCountryListCollection FetchByID(object InfoCountryKey)
+        public ObjectsBancBoxCollection FetchByID(object ObjectsBancboxId)
         {
-            InfoCountryListCollection coll = new InfoCountryListCollection().Where("info_country_key", InfoCountryKey).Load();
+            ObjectsBancBoxCollection coll = new ObjectsBancBoxCollection().Where("objects_bancbox_id", ObjectsBancboxId).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public InfoCountryListCollection FetchByQuery(Query qry)
+        public ObjectsBancBoxCollection FetchByQuery(Query qry)
         {
-            InfoCountryListCollection coll = new InfoCountryListCollection();
+            ObjectsBancBoxCollection coll = new ObjectsBancBoxCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object InfoCountryKey)
+        public bool Delete(object ObjectsBancboxId)
         {
-            return (InfoCountryList.Delete(InfoCountryKey) == 1);
+            return (ObjectsBancBox.Delete(ObjectsBancboxId) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object InfoCountryKey)
+        public bool Destroy(object ObjectsBancboxId)
         {
-            return (InfoCountryList.Destroy(InfoCountryKey) == 1);
+            return (ObjectsBancBox.Destroy(ObjectsBancboxId) == 1);
         }
         
         
@@ -80,17 +80,11 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int InfoCountryKey,string CountryValue,string CountryText,string CountryCode)
+	    public void Insert(int? Bancboxid)
 	    {
-		    InfoCountryList item = new InfoCountryList();
+		    ObjectsBancBox item = new ObjectsBancBox();
 		    
-            item.InfoCountryKey = InfoCountryKey;
-            
-            item.CountryValue = CountryValue;
-            
-            item.CountryText = CountryText;
-            
-            item.CountryCode = CountryCode;
+            item.Bancboxid = Bancboxid;
             
 	    
 		    item.Save(UserName);
@@ -100,19 +94,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoCountryKey,string CountryValue,string CountryText,string CountryCode)
+	    public void Update(int ObjectsBancboxId,int? Bancboxid)
 	    {
-		    InfoCountryList item = new InfoCountryList();
+		    ObjectsBancBox item = new ObjectsBancBox();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.InfoCountryKey = InfoCountryKey;
+			item.ObjectsBancboxId = ObjectsBancboxId;
 				
-			item.CountryValue = CountryValue;
-				
-			item.CountryText = CountryText;
-				
-			item.CountryCode = CountryCode;
+			item.Bancboxid = Bancboxid;
 				
 	        item.Save(UserName);
 	    }

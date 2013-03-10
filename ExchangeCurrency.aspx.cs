@@ -366,13 +366,14 @@ namespace Peerfx
             txtbuy.Value = Convert.ToDouble(quotetemp.Buyamount);
             txtsell.Value = Convert.ToDouble(quotetemp.Sellamount);
 
-            lblconfirmquotereceiveamount.Text = lblyouget.Text;
+            /*lblconfirmquotereceiveamount.Text = lblyouget.Text;
             lblconfirmquoteservicefee.Text = lblservicefee.Text;
             lblconfirmquoteyouget.Text = lblyouget.Text;
             lblconfirmquoteexchangerate.Text = lblrate.Text;
 
             lblalreadyconfirmedquotesenderamount2.Text = hdsellcurrencysymbol.Value + txtsell.Text;
             lblalreadyconfirmedquotesenderamount.Text = lblalreadyconfirmedquotesenderamount2.Text;
+             */
         }
 
         protected void LoadRates(bool updaterecipientlist)
@@ -529,9 +530,7 @@ namespace Peerfx
             Int64 receiverpaymentobject = 0;
             Int64 senderpaymentobject = 0;
             //even if it's not a bank account, will still enter the correct payment object
-            //figure out which bank account to receive payment
-            DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(Convert.ToInt32(ddlsellcurrency.SelectedValue), currentuser.Country_residence).GetDataSet();
-            lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]));
+                        
                         
             //if new recipient, save to database            
             if ((pnlexistingreceiver.Visible) && (ddlReceivers.SelectedValue != "0"))
@@ -620,8 +619,12 @@ namespace Peerfx
 
                 //Change tab to bank transfer info
                 changetab(2);
-            }            
+            }  
+          
+            //figure out which bank account to receive payment            
+            lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(payment_key));
         }
+        
 
         protected void btnBack2_Click(object sender, EventArgs e)
         {
@@ -631,11 +634,11 @@ namespace Peerfx
 
         protected void updateconfirmationtab()
         {
-            lblconfirmquotesendamount.Text = sitetemp.GetCurrencySymbol(ddlsellcurrency.SelectedItem.Text) + " " + txtsell.Text;
-            lblconfirmquotereceiveamount.Text = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " " + txtbuy.Text;
+            lblconfirmquotesendamount.Text = sitetemp.GetCurrencySymbol(ddlsellcurrency.SelectedItem.Text) + " " + txtsell.Text + " " + ddlsellcurrency.SelectedItem.Text;
+            lblconfirmquotereceiveamount.Text = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " " + txtbuy.Text + " " + ddlbuycurrency.SelectedItem.Text;
             lblconfirmquoteyouget.Text = lblconfirmquotereceiveamount.Text;
             lblconfirmquoteexchangerate.Text = lblrate.Text;
-            lblconfirmquoteservicefee.Text = lblservicefee.Text;
+            lblconfirmquoteservicefee.Text = lblservicefee.Text + " " + ddlbuycurrency.SelectedItem.Text;
 
             lblconfirmsenderfullname.Text = txtfirstnamesender.Text + " " + txtlastnamesender.Text;
             lblconfirmsenderdob.Text = txtbirthday.Text + "/" + txtbirthmonth.Text + "/" + txtbirthyear.Text;
@@ -663,11 +666,17 @@ namespace Peerfx
                     lblreceivinguserbalance.Text = ddlembeecatalog.SelectedItem.Text;
                     receiverbankaccount = false;
                 }
-                else if (sitetemp.IsUserBalance(Convert.ToInt64(ddlReceivers.SelectedValue)))
+                else 
                 {
-                    //it's a user balance, get user balance info
-                    lblreceivinguserbalance.Text = ddlReceivers.SelectedItem.Text;
-                    receiverbankaccount = false;
+                    if (ddlReceivers.SelectedValue != "")
+                    {
+                        if (sitetemp.IsUserBalance(Convert.ToInt64(ddlReceivers.SelectedValue)))
+                        {
+                            //it's a user balance, get user balance info
+                            lblreceivinguserbalance.Text = ddlReceivers.SelectedItem.Text;
+                            receiverbankaccount = false;
+                        }                            
+                    }                        
                 }
 
                 if (!receiverbankaccount)
@@ -681,13 +690,12 @@ namespace Peerfx
             lblconfirmreceiverAccount.Text = txtaccountnumber.Text;
             lblconfirmreceiverBankCode.Text = txtBankCode.Text;
             lblconfirmreceiverdescription.Text = txtdescription.Text;
-            lblconfirmreceiveremail.Text = txtemailreceiver.Text;
-
-            lblFundingSource.Text = ddlpaymentmethod.SelectedItem.Text;
+            lblconfirmreceiveremail.Text = txtemailreceiver.Text;            
 
             bool isuserbalance = false;
             if (pnlloggedinsender.Visible)
             {
+                lblFundingSource.Text = ddlpaymentmethod.SelectedItem.Text;
                 if (sitetemp.IsUserBalance(Convert.ToInt64(ddlpaymentmethod.SelectedValue)))
                 {
                     //it's coming from a user balance                    
