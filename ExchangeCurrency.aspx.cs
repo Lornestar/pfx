@@ -603,10 +603,14 @@ namespace Peerfx
             {
                 if (sitetemp.IsUserBalance(Convert.ToInt64(hdsenderpaymentobjectkey.Value)))
                 {
-                    //instantly convert the payment, because source funding is balance
+                    //send money from user balance to payment object
+                    Int64 userbalance_payment_object_key = sitetemp.getpaymentobject_UserBalance(currentuser.User_key,Convert.ToInt32(ddlsellcurrency.SelectedValue));
+                    Int64 payment_payment_object_key = sitetemp.getpaymentobject(6,payment_key);
+                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToDecimal(txtsell.Value), userbalance_payment_object_key, payment_payment_object_key, sitetemp.get_ipaddress(), currentuser.User_key, "user balance to payment", 0, 1, payment_key).Execute();
 
+                    //instantly convert the payment, because source funding is balance
                     //initiate conversion
-                    sitetemp.insert_quote_actual_convert_currency(payment_key, Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue), currentuser, Convert.ToDecimal(txtsell.Value),true);
+                    sitetemp.payment_convert_currency(payment_key);
                     Response.Redirect("Default.aspx");
                 }
             }

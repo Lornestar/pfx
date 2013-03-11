@@ -107,7 +107,7 @@ namespace Peerfx.External_APIs
             return returnpaymentobject;
         }
 
-        public bool SendFunds_External(int userkey_sender, Int64 bank_account_receiver_receiver, decimal amount, string description, bool Recordtx)
+        public bool SendFunds_External(int userkey_sender, Int64 bank_account_receiver_receiver, decimal amount, string description, bool Recordtx, int purpose_type, int purpose_object_key)
         {
             bool txstatus = false;
             Hashtable hstemp = new Hashtable();
@@ -160,14 +160,14 @@ namespace Peerfx.External_APIs
                 //tx went through
                 //report external transaction
                 if (Recordtx)
-                {
-                    Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, 3, amount, usersender.Bancbox_payment_object_key, bank_account_receiver_receiver, sitetemp.get_ipaddress(), 0, description, "", 0).Execute();
+                {                    
+                    Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, 3, amount, usersender.Bancbox_payment_object_key, bank_account_receiver_receiver, sitetemp.get_ipaddress(), 0, description, "", 0,purpose_type,purpose_object_key).Execute();
                 }                
             }
             return txstatus;
         }
 
-        public bool SendFunds_Internal(int userkey_sender, int userkey_receiver, decimal amount, string description, bool Recordtx)
+        public bool SendFunds_Internal(int userkey_sender, int userkey_receiver, decimal amount, string description, bool Recordtx, int purpose_type, int purpose_object_key)
         {
             bool txstatus = false;
             Hashtable hstemp = new Hashtable();
@@ -214,7 +214,7 @@ namespace Peerfx.External_APIs
                 //report internal transaction
                 if (Recordtx)
                 {
-                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, 3, amount, usersender.Bancbox_payment_object_key, userreceiver.Bancbox_payment_object_key, sitetemp.get_ipaddress(), 0, description, 0).Execute();
+                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, 3, amount, usersender.Bancbox_payment_object_key, userreceiver.Bancbox_payment_object_key, sitetemp.get_ipaddress(), 0, description, 0,purpose_type,purpose_object_key).Execute();
                 }                
             }
             return txstatus;

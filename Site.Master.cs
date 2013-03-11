@@ -130,6 +130,14 @@ namespace Peerfx
             return users;
         }
 
+        public Users get_user_from_paymentobject(Int64 paymentobjectkey)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewUsersInfoUserBalancePaymentobjectkey(paymentobjectkey).GetDataSet();
+            Users users = view_users_info_getdbinfo(dstemp);
+
+            return users;
+        }
+
         public DataTable view_users_info_dt(int userkey)
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewUsersInfo(userkey).GetDataSet();            
@@ -917,8 +925,35 @@ namespace Peerfx
             return paymentobjectkey;
         }
 
+        public Int64 getpaymentobject_UserBalance(int userkey, int currency)
+        {
+            Int64 paymentobjectkey = 0;
+            Users user = get_user_info(userkey);
+            //if currency = 3 & user has bancbox
+
+            if ((currency == 3) && (user.Bancbox_payment_object_key > 0))
+            {
+                paymentobjectkey = user.Bancbox_payment_object_key;
+            }
+            else
+            {
+                paymentobjectkey = getpaymentobject(3,userkey);
+            }
+
+
+            return paymentobjectkey;
+        }
+
         public Int64 getpaymentobject(int typekey, int objectkey)
         {
+            // 1 = Bank Account Real World
+            // 2 = Admin Bank Account Real World
+            // 3 = User Balance
+            // 4 = User Balance Frozen
+            // 6 = Payment
+            // 7 = Embee
+            // 8 = BancBox            
+
             //input bankaccountkey output paymentobjectkey
             DataSet dstemp = Peerfx_DB.SPs.ViewPaymentObjectTypeObjectkey(typekey, objectkey).GetDataSet();
 
@@ -1037,75 +1072,101 @@ namespace Peerfx
             return returnpaymentobject;
         }
 
-        public void insert_quote_actual_convert_currency(int paymentkey, int sellcurrency, int buycurrency, Users currentuser, decimal sellamount, bool isbalancefundingsource)
+        public void payment_convert_currency(int paymentkey)
         {
-            Quote quotetemp = getQuote(sellamount, sellcurrency, buycurrency);
-            StoredProcedure sp_UpdateQuotes = Peerfx_DB.SPs.UpdateQuotes(0, quotetemp.Sellamount, sellcurrency, quotetemp.Buyamount, buycurrency, quotetemp.Peerfx_Rate, quotetemp.Peerfx_Servicefee, null, null, 0);
-            External_APIs.BancBox bb = new External_APIs.BancBox();
-            Users treasuryuser = get_treasury_account();
+            Payment paymenttemp = getPayment(paymentkey);
+
+            //Get & Store actual quote
+            Quote quotetemp = getQuote(paymenttemp.Sell_amount, paymenttemp.Sell_currency, paymenttemp.Buy_currency);
+            StoredProcedure sp_UpdateQuotes = Peerfx_DB.SPs.UpdateQuotes(0, quotetemp.Sellamount, paymenttemp.Sell_currency, quotetemp.Buyamount, paymenttemp.Buy_currency, quotetemp.Peerfx_Rate, quotetemp.Peerfx_Servicefee, null, null, 0);
             sp_UpdateQuotes.Execute();
             int quote_key = Convert.ToInt32(sp_UpdateQuotes.Command.Parameters[9].ParameterValue.ToString());
-
             Peerfx_DB.SPs.UpdatePaymentsActualQuote(paymentkey, quote_key).Execute();
 
-            Int64 senderpaymentobjectkey = 0;
-            Int64 receiverpaymentobjectkey = 0;
-            Payment paymenttemp = new Payment();
-            if (isbalancefundingsource)
-            {
-                //get user's balance payment object key
-                paymenttemp = getPayment(paymentkey);
-                senderpaymentobjectkey = paymenttemp.Payment_object_sender;
-                receiverpaymentobjectkey = paymenttemp.Payment_object_receiver;
-                if ((paymenttemp.Sell_currency == 3) && (currentuser.Bancbox_payment_object_key > 0))
-                {
-                    bb.SendFunds_Internal(currentuser.User_key, treasuryuser.User_key, paymenttemp.Sell_amount, "Internal Transfer",false);
-                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, 3, paymenttemp.Sell_amount, currentuser.Bancbox_payment_object_key,senderpaymentobjectkey, get_ipaddress(), currentuser.User_key, "Money from BancBox account to User Balance", 0).Execute();
-                }
-            }
-            else
-            {
-                //currency convert using users payment's balance
-                senderpaymentobjectkey = getpaymentobject(6, paymentkey);
-                receiverpaymentobjectkey = senderpaymentobjectkey;
-            }
+            Users user_requestor = get_user_info(paymenttemp.Requestor_user_key);
             
+            Int64 payment_payment_object_key = getpaymentobject(6, paymentkey);
 
-            //convert currency
-            Peerfx_DB.SPs.UpdateConvertCurrency(senderpaymentobjectkey, receiverpaymentobjectkey, quote_key, get_ipaddress(), currentuser.User_key,paymentkey).Execute();
-
-            //update status to currency converted
-            Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 4).Execute();
+            //If different currencies then Convert Currency....User balance with System treasury
+            if (paymenttemp.Sell_currency != paymenttemp.Buy_currency)
+            {
+                //convert currency
+                //**************This is also where we charge service fees*********************                
+                Peerfx_DB.SPs.UpdateConvertCurrency(payment_payment_object_key, quote_key, get_ipaddress(), paymenttemp.Requestor_user_key, paymentkey).Execute();
+                
+                //update status to currency converted
+                Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 4).Execute();
+            }
 
             //Check if does not require manual export
             if (!paymenttemp.Requiresmanualexport)
             {
-                //if is embee top up
-                if (paymenttemp.Payment_object_receiver_type == 7)
+                //Automatically complete payment
+
+                //If Applicable - Ownership of funds is changing, so need to change ownership of funds in ext bank accounts , eg. bancbox
+                AdjustExternalBanks(paymenttemp);
+                
+                if (paymenttemp.Payment_object_receiver_type == 3) //going to user balance
+                {
+                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, paymenttemp.Buy_currency, paymenttemp.Buy_amount, payment_payment_object_key, paymenttemp.Payment_object_receiver, get_ipaddress(), paymenttemp.Requestor_user_key, "From Payment to User Balance", 0, 1, paymentkey).Execute();
+                    Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 5).Execute(); //payment delivered
+
+                    //payment completed, send email
+
+                }
+                else if (paymenttemp.Payment_object_receiver_type == 7) //Embee top up
                 {
                     //Send Top Up
                     EmbeeObject embeetemp = getEmbeeObject(paymenttemp.Payments_Key);
                     External_APIs.Embee embeecalls = new External_APIs.Embee();
-                    int newtransid = embeecalls.RequestPurchase(embeetemp.Productid.ToString(), embeetemp.Phone, currentuser.Email, get_ipaddress(),currentuser.User_key, paymentkey);
+                    int newtransid = embeecalls.RequestPurchase(embeetemp.Productid.ToString(), embeetemp.Phone, user_requestor.Email, get_ipaddress(), user_requestor.User_key, paymentkey);
                     Peerfx_DB.SPs.UpdateEmbeeNewtransid(newtransid, embeetemp.Embee_object_key).Execute();
                     Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 6).Execute();
-                }
-                else if ((paymenttemp.Buy_currency == 3) && (currentuser.Bancbox_payment_object_key > 0))
-                {                    
-                    //Send out money via Bancbox account
-                    //put money into user's bancbox account to replicate the transfer into their user balance
-                    bb.SendFunds_Internal(treasuryuser.User_key, currentuser.User_key, paymenttemp.Buy_amount, "Internal Transfer",false);
-                    Peerfx_DB.SPs.UpdateTransactionsInternal(0, 2, 3, paymenttemp.Buy_amount, receiverpaymentobjectkey, currentuser.Bancbox_payment_object_key, get_ipaddress(), currentuser.User_key, "Money from User Balance into BancBox account", 0).Execute();
 
-                    if (IsBankAccount(paymenttemp.Payment_object_receiver)) //if the money went into a paymentkey or user balance
-                    {   //payment
-                        //put money into user's bancbox account, then send it out                        
-                        bb.SendFunds_External(currentuser.User_key,paymenttemp.Payment_object_receiver, paymenttemp.Buy_amount, "External Transfer",true);
-                    }
-                }                
+                    Int64 embee_paymentobjectkey = getpaymentobject(7, embeetemp.Embee_object_key);
+                    Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, paymenttemp.Buy_currency, paymenttemp.Buy_amount, payment_payment_object_key, embee_paymentobjectkey, get_ipaddress(), paymenttemp.Requestor_user_key, "From Payment to Embee Object", "", 0, 1, paymentkey).Execute();
+
+                    //payment in pending, send email
+                }
+                else if ((paymenttemp.Buy_currency == 3) && (user_requestor.Bancbox_payment_object_key > 0) && (IsBankAccount(paymenttemp.Payment_object_receiver)))
+                {
+                    //Send out money via Bancbox account                                            
+                    External_APIs.BancBox bb = new External_APIs.BancBox();
+                    bb.SendFunds_External(user_requestor.User_key, paymenttemp.Payment_object_receiver, paymenttemp.Buy_amount, "External Transfer", false, 1, paymenttemp.Payments_Key);
+                    Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, paymenttemp.Buy_currency, paymenttemp.Buy_amount, payment_payment_object_key, paymenttemp.Payment_object_receiver, get_ipaddress(), paymenttemp.Requestor_user_key, "From Payment to Ext US Bank", "", 0, 1, paymentkey).Execute();
+                    Peerfx_DB.SPs.UpdatePaymentStatus(paymentkey, 8).Execute();
+
+                    //payment in Payment Sent, send email
+                }
+            }
+            else
+            {
+                //notify admin manual export is required
+
             }
 
-            //send email to notify user currency has been converted
+        }
+
+        public void AdjustExternalBanks(Payment paymenttemp)
+        {
+            Users user_sender = get_user_info(paymenttemp.Requestor_user_key);
+            Users user_treasury = get_treasury_account();
+            External_APIs.BancBox bb = new External_APIs.BancBox();
+
+            //Adjust Sender's ext banks
+            if ((paymenttemp.Buy_currency == 3) && (user_sender.Bancbox_payment_object_key > 0) && (paymenttemp.Payment_object_receiver_type != 1)){ //USD & sender has BB
+                bb.SendFunds_Internal(user_sender.User_key, user_treasury.User_key, paymenttemp.Buy_amount, "Adjust External Banks", false, 1, paymenttemp.Payments_Key);
+            }
+
+            //Adjust Receiver's ext banks
+            if (paymenttemp.Payment_object_receiver_type == 3) //going to user's Balance
+            {
+                Users user_receiver = get_user_from_paymentobject(paymenttemp.Payment_object_receiver);
+                if ((paymenttemp.Buy_currency == 3) && (user_receiver.Bancbox_payment_object_key > 0))
+                {
+                    bb.SendFunds_Internal(user_treasury.User_key, user_receiver.User_key, paymenttemp.Buy_amount, "Adjust External Banks", false, 1, paymenttemp.Payments_Key);
+                }
+            }
 
         }
 

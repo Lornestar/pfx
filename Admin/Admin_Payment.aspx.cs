@@ -118,6 +118,9 @@ namespace Peerfx.Admin
                     ddlconnectuser.Text = "";
                     ddlconnectuser.ClearSelection();
                     RadGrid1.Rebind();
+                    
+                    Payment paymenttemp = sitetemp.getPayment(paymentkey);
+                    sitetemp.AdjustExternalBanks(paymenttemp);
                 }
                 else
                 {
@@ -151,7 +154,8 @@ namespace Peerfx.Admin
 
                 
                     //Add in actual quote & convert currency                    
-                    sitetemp.insert_quote_actual_convert_currency(paymentkey, sellcurrency, buycurrency, currentuser,sellamount,false);
+                    //sitetemp.insert_quote_actual_convert_currency(paymentkey, sellcurrency, buycurrency, currentuser,sellamount,false);
+                    //sitetemp.payment_convert_currency(payment_key);
 
                     RadGrid1.Rebind();
                 

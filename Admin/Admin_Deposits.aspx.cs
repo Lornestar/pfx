@@ -97,6 +97,9 @@ namespace Peerfx.Admin
                     int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
                     Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, userkey).Execute();
                     RadGrid1.Rebind();
+                    
+                    //Send to currency conversion
+                    sitetemp.payment_convert_currency(userkey);
                 }
                 else
                 {
@@ -135,7 +138,7 @@ namespace Peerfx.Admin
                 string Description = (insertedItem["tx_external_key"].FindControl("txtdeposit") as RadTextBox).Text;
                 string bankreference = (insertedItem["tx_external_key"].FindControl("txtbankref") as RadTextBox).Text;
 
-                Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, sitetemp.getbankaccountcurrency(receiver_bank_key), amount, sitetemp.getpaymentobject(sender_bank_key), sitetemp.getpaymentobject(receiver_bank_key), sitetemp.get_ipaddress(), currentuser.User_key, Description, bankreference, 0).Execute();
+                Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, sitetemp.getbankaccountcurrency(receiver_bank_key), amount, sitetemp.getpaymentobject(sender_bank_key), sitetemp.getpaymentobject(receiver_bank_key), sitetemp.get_ipaddress(), currentuser.User_key, Description, bankreference, 0, null, null).Execute();
 
                 RadGrid1.EditIndexes.Clear();
                 RadGrid1.MasterTableView.IsItemInserted = false;
@@ -297,7 +300,7 @@ namespace Peerfx.Admin
                 sp_Updatepaymentobject.Execute();
                 Int64 paymentobjectsender = Convert.ToInt64(sp_Updatepaymentobject.Command.Parameters[3].ParameterValue);
 
-                StoredProcedure sp_NewPendingDeposit = Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, currency, amount, paymentobjectsender, sitetemp.getpaymentobject(receiver_bank_key), sitetemp.get_ipaddress(), currentuser.User_key, Description, bankreference, 0);
+                StoredProcedure sp_NewPendingDeposit = Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, currency, amount, paymentobjectsender, sitetemp.getpaymentobject(receiver_bank_key), sitetemp.get_ipaddress(), currentuser.User_key, Description, bankreference, 0,null,null);
                 sp_NewPendingDeposit.Execute();            
             }            
         }

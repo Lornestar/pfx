@@ -296,13 +296,11 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the Update_Convert_Currency Procedure
         /// </summary>
-        public static StoredProcedure UpdateConvertCurrency(long? senderpaymentobjectkey, long? receiverpaymentobjectkey, int? quoteskey, string ipaddress, int? userkeyupdated, int? paymentkey)
+        public static StoredProcedure UpdateConvertCurrency(long? paymentobjectkey, int? quoteskey, string ipaddress, int? userkeyupdated, int? paymentkey)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Convert_Currency", DataService.GetInstance("Peerfx"), "dbo");
         	
-            sp.Command.AddParameter("@senderpaymentobjectkey", senderpaymentobjectkey, DbType.Int64, 0, 19);
-        	
-            sp.Command.AddParameter("@receiverpaymentobjectkey", receiverpaymentobjectkey, DbType.Int64, 0, 19);
+            sp.Command.AddParameter("@paymentobjectkey", paymentobjectkey, DbType.Int64, 0, 19);
         	
             sp.Command.AddParameter("@quotes_key", quoteskey, DbType.Int32, 0, 10);
         	
@@ -622,7 +620,7 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the Update_Transactions_External Procedure
         /// </summary>
-        public static StoredProcedure UpdateTransactionsExternal(int? txexternalkey, int? txexternalstatus, int? currency, decimal? amount, long? paymentobjectsender, long? paymentobjectreceiver, string ipaddress, int? userkeyupdated, string txexternaldescription, string bankreference, int? txexternalkeyreturn)
+        public static StoredProcedure UpdateTransactionsExternal(int? txexternalkey, int? txexternalstatus, int? currency, decimal? amount, long? paymentobjectsender, long? paymentobjectreceiver, string ipaddress, int? userkeyupdated, string txexternaldescription, string bankreference, int? txexternalkeyreturn, int? purposetype, int? purposeobjectkey)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Transactions_External", DataService.GetInstance("Peerfx"), "dbo");
         	
@@ -648,13 +646,17 @@ namespace Peerfx_DB{
         	
             sp.Command.AddOutputParameter("@tx_external_key_return", DbType.Int32, 0, 10);
             
+            sp.Command.AddParameter("@purpose_type", purposetype, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@purpose_object_key", purposeobjectkey, DbType.Int32, 0, 10);
+        	
             return sp;
         }
         
         /// <summary>
         /// Creates an object wrapper for the Update_Transactions_Internal Procedure
         /// </summary>
-        public static StoredProcedure UpdateTransactionsInternal(int? txinternalkey, int? txinternalstatus, int? currency, decimal? amount, long? paymentobjectsender, long? paymentobjectreceiver, string ipaddress, int? userkeyupdated, string txinternaldescription, int? txinternalkeyreturn)
+        public static StoredProcedure UpdateTransactionsInternal(int? txinternalkey, int? txinternalstatus, int? currency, decimal? amount, long? paymentobjectsender, long? paymentobjectreceiver, string ipaddress, int? userkeyupdated, string txinternaldescription, int? txinternalkeyreturn, int? purposetype, int? purposeobjectkey)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Transactions_Internal", DataService.GetInstance("Peerfx"), "dbo");
         	
@@ -678,6 +680,10 @@ namespace Peerfx_DB{
         	
             sp.Command.AddOutputParameter("@tx_internal_key_return", DbType.Int32, 0, 10);
             
+            sp.Command.AddParameter("@purpose_type", purposetype, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@purpose_object_key", purposeobjectkey, DbType.Int32, 0, 10);
+        	
             return sp;
         }
         
@@ -1507,6 +1513,18 @@ namespace Peerfx_DB{
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Info", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Info_UserBalance_Paymentobjectkey Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersInfoUserBalancePaymentobjectkey(long? paymentobjectkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Info_UserBalance_Paymentobjectkey", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@payment_object_key", paymentobjectkey, DbType.Int64, 0, 19);
         	
             return sp;
         }

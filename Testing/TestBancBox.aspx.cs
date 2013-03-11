@@ -23,7 +23,7 @@ namespace Peerfx.Testing
             //bb.SendFunds(user.Bancbox_payment_object_key, receiverbankaccount.ABArouting, receiverbankaccount.Account_number, receiverbankaccount.First_name + " " + receiverbankaccount.Last_name, paymenttemp.Buy_amount,paymenttemp.Payment_description);
             //bb.CollectFunds(user.Bancbox_payment_object_key, receiverbankaccount.ABArouting, receiverbankaccount.Account_number, receiverbankaccount.First_name + " " + receiverbankaccount.Last_name, paymenttemp.Buy_amount);
             //bb.TransferFunds(10, 21, Convert.ToDecimal(5.00));
-            bb.SendFunds_Internal(10, 21, Convert.ToDecimal(5),"testing internal", false);
+            bb.SendFunds_Internal(10, 21, Convert.ToDecimal(5),"testing internal", false,1,paymenttemp.Payments_Key);
         }
     }
 }

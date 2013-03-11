@@ -503,7 +503,7 @@ namespace Peerfx_DB{
                 
                 TableSchema.TableColumn colvarBancboxPaymentObjectKey = new TableSchema.TableColumn(schema);
                 colvarBancboxPaymentObjectKey.ColumnName = "bancbox_payment_object_key";
-                colvarBancboxPaymentObjectKey.DataType = DbType.Int64;
+                colvarBancboxPaymentObjectKey.DataType = DbType.Boolean;
                 colvarBancboxPaymentObjectKey.MaxLength = 0;
                 colvarBancboxPaymentObjectKey.AutoIncrement = false;
                 colvarBancboxPaymentObjectKey.IsNullable = true;
@@ -1095,11 +1095,11 @@ namespace Peerfx_DB{
 	      
         [XmlAttribute("BancboxPaymentObjectKey")]
         [Bindable(true)]
-        public long? BancboxPaymentObjectKey 
+        public bool? BancboxPaymentObjectKey 
 	    {
 		    get
 		    {
-			    return GetColumnValue<long?>("bancbox_payment_object_key");
+			    return GetColumnValue<bool?>("bancbox_payment_object_key");
 		    }
             set 
 		    {
