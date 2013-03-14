@@ -100,6 +100,8 @@ namespace Peerfx_DB
         
 		public static readonly string UsersVerified = @"Users_Verified";
         
+		public static readonly string VerificationMethod = @"Verification_Methods";
+        
 	}
 	#endregion
     #region Schemas
@@ -310,6 +312,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Users_Verified", "Peerfx"); }
 		}
         
+		public static TableSchema.Table VerificationMethod
+		{
+            get { return DataService.GetSchema("Verification_Methods", "Peerfx"); }
+		}
+        
 	
     }
     #endregion
@@ -336,6 +343,8 @@ namespace Peerfx_DB
 		public static readonly string VwTransactionsExternal = @"vw_Transactions_External";
         
 		public static readonly string VwUsersInfo = @"vw_Users_Info";
+        
+		public static readonly string VwVerification = @"vw_Verification";
         
     }
     #endregion

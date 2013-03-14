@@ -43,6 +43,7 @@ namespace Peerfx.Models
         private string bancbox_cipstatus;
         private string bancbox_client_status;
         private string ssn;
+        private string image_url;
 
         public int User_key
         {
@@ -471,6 +472,18 @@ namespace Peerfx.Models
             set
             {
                 ssn = value;
+            }
+        }
+
+        public string Image_url
+        {
+            get
+            {
+                return image_url;
+            }
+            set
+            {
+                image_url = value;
             }
         }
         

@@ -17,7 +17,7 @@
             <table width=100%>
                 <tr>
                     <td style="float:left;"> 
-                    Recipients
+                    <div class="Page_Header">Recipients</div>
                     </td>
                     <td style="float:right;">
 
@@ -32,22 +32,22 @@
     <tr>
         <td>
         <telerik:RadListView ID="RadListView1" runat="server" Width=100% 
-                ItemPlaceholderID="ListViewContainer" 
-                OnSelectedIndexChanged="RadListView1_SelectedIndexChanged">
+                ItemPlaceholderID="ListViewContainer"  EnableEmbeddedSkins=true
+                OnSelectedIndexChanged="RadListView1_SelectedIndexChanged" >
                           <LayoutTemplate>                            
                                 <table id="products" width=100% style="border:1px solid black;">
-                                        <tr style="background-color:#DDDDDD;">
+                                        <tr class="RadListview_Header">
                                             <td style="width:40%">
                                                 Name
                                             </td>                                            
-                                            <td style="float:right;">
+                                            <td style=" text-align:right;">
                                                 Currency
                                             </td>                                            
                                             <td>
                                             &nbsp;
                                             </td>
                                         </tr>
-                                    <tr id="ListViewContainer" runat="server">
+                                    <tr id="ListViewContainer" runat="server" class="rlvI">
                                     </tr>
                                 </table>                            
                         </LayoutTemplate>
@@ -66,7 +66,23 @@
                                         </asp:LinkButton>
                                         </td>                                     
                                     </tr>                        
-                            </ItemTemplate>
+                            </ItemTemplate>                      
+                            <AlternatingItemTemplate>
+                                <tr class="RadListview_Alternating">
+                                        <td >
+                                            <span style="display:none;"></span>
+                                            <%# Eval("first_name")%> <%# Eval("last_name")%>
+                                        </td>                                        
+                                        <td style="text-align:right;">
+                                                <%# Eval("currency_text")%>
+                                        </td>   
+                                        <td style=" text-align:right;">
+                                        <asp:LinkButton ID="LinkButton1" Text="Edit" runat="server" CommandName="Select" >
+                                            <asp:Label ID=lblcurrency runat=server Text='<%# Bind("bank_account_key")%>' Visible=false></asp:Label>
+                                        </asp:LinkButton>
+                                        </td>                                     
+                                    </tr>                        
+                            </AlternatingItemTemplate>      
                         </telerik:RadListView>
         </td>
     </tr>
@@ -107,7 +123,7 @@
                                     <td><asp:Panel ID="pnlABArouting" runat=server Visible=false>
                                         ABA routing transit number
                                         <br />
-                                        <telerik:RadTextBox ID="txtABArouting" runat=server EmptyMessage="123456789"></telerik:RadTextBox>
+                                        <telerik:RadMaskedTextBox ID="txtABArouting" runat=server EmptyMessage="123456789" Mask="#########"></telerik:RadMaskedTextBox>
                                         </asp:Panel>
                                     </td>
                                 </tr>

@@ -19,11 +19,11 @@ namespace Peerfx.Testing
             Peerfx.Models.Payment paymenttemp = sitetemp.getPayment(47);
             BankAccounts receiverbankaccount = sitetemp.getBankAccounts(0, paymenttemp.Payment_object_receiver);
 
-            
+            bb.PollBancBox();
             //bb.SendFunds(user.Bancbox_payment_object_key, receiverbankaccount.ABArouting, receiverbankaccount.Account_number, receiverbankaccount.First_name + " " + receiverbankaccount.Last_name, paymenttemp.Buy_amount,paymenttemp.Payment_description);
             //bb.CollectFunds(user.Bancbox_payment_object_key, receiverbankaccount.ABArouting, receiverbankaccount.Account_number, receiverbankaccount.First_name + " " + receiverbankaccount.Last_name, paymenttemp.Buy_amount);
             //bb.TransferFunds(10, 21, Convert.ToDecimal(5.00));
-            bb.SendFunds_Internal(10, 21, Convert.ToDecimal(5),"testing internal", false,1,paymenttemp.Payments_Key);
+            //bb.SendFunds_Internal(10, 21, Convert.ToDecimal(5),"testing internal", false,1,paymenttemp.Payments_Key);
         }
     }
 }

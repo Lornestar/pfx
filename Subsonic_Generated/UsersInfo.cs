@@ -386,6 +386,19 @@ namespace Peerfx_DB
 				colvarSsn.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarSsn);
 				
+				TableSchema.TableColumn colvarImageUrl = new TableSchema.TableColumn(schema);
+				colvarImageUrl.ColumnName = "Image_URL";
+				colvarImageUrl.DataType = DbType.String;
+				colvarImageUrl.MaxLength = 200;
+				colvarImageUrl.AutoIncrement = false;
+				colvarImageUrl.IsNullable = true;
+				colvarImageUrl.IsPrimaryKey = false;
+				colvarImageUrl.IsForeignKey = false;
+				colvarImageUrl.IsReadOnly = false;
+				colvarImageUrl.DefaultSetting = @"";
+				colvarImageUrl.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarImageUrl);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -555,6 +568,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.Ssn); }
 			set { SetColumnValue(Columns.Ssn, value); }
 		}
+		  
+		[XmlAttribute("ImageUrl")]
+		[Bindable(true)]
+		public string ImageUrl 
+		{
+			get { return GetColumnValue<string>(Columns.ImageUrl); }
+			set { SetColumnValue(Columns.ImageUrl, value); }
+		}
 		
 		#endregion
 		
@@ -575,7 +596,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn)
+		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -619,6 +640,8 @@ namespace Peerfx_DB
 			
 			item.Ssn = varSsn;
 			
+			item.ImageUrl = varImageUrl;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -629,7 +652,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn)
+		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -672,6 +695,8 @@ namespace Peerfx_DB
 				item.Password = varPassword;
 			
 				item.Ssn = varSsn;
+			
+				item.ImageUrl = varImageUrl;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -826,6 +851,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn ImageUrlColumn
+        {
+            get { return Schema.Columns[20]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -850,6 +882,7 @@ namespace Peerfx_DB
 			 public static string Username = @"username";
 			 public static string Password = @"password";
 			 public static string Ssn = @"ssn";
+			 public static string ImageUrl = @"Image_URL";
 						
 		}
 		#endregion

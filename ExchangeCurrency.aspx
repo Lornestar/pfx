@@ -388,7 +388,7 @@
                                                                                 <td><asp:Panel ID="pnlABArouting" runat=server Visible=false>
                                                                                     ABA routing transit number
                                                                                     <br />
-                                                                                    <telerik:RadTextBox ID="txtABArouting" runat=server EmptyMessage="123456789"></telerik:RadTextBox>
+                                                                                    <telerik:RadMaskedTextBox ID="txtABArouting" runat=server EmptyMessage="123456789" Mask="#########"></telerik:RadMaskedTextBox>
                                                                                     </asp:Panel>
                                                                                 </td>
                                                                             </tr>

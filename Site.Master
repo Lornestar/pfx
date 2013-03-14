@@ -34,16 +34,7 @@
                                         <tr>
                                             <td>
                                                 Home
-                                            </td>
-                                            <td>
-                                                | How it Works
-                                            </td>
-                                            <td>
-                                                | FAQs
-                                            </td>
-                                            <td>
-                                                | About us
-                                            </td>
+                                            </td>                                            
                                             <td>
                                                 | Contact us
                                             </td>
@@ -57,20 +48,17 @@
                                         <table >
                                             <tr>
                                                 <td>
-                                                    <a href="/user/Dashboard.aspx">Home</a>
+                                                    <a href="/user/Dashboard.aspx" class="Navigation_text">Home</a>
                                                 </td>                                            
                                                 <td>
-                                                    | <a href="/user/Recipients.aspx">Recipients</a>
+                                                    | <a href="/user/Recipients.aspx" class="Navigation_text">Recipients</a>
                                                 </td>
                                                 <td>
-                                                    | <a href="/user/Withdraw.aspx">Withdraw</a>
+                                                    | <a href="/user/History.aspx" class="Navigation_text">History</a>
                                                 </td>
                                                 <td>
-                                                    | <a href="/ExchangeCurrency.aspx">Send Payment</a>
-                                                </td>
-                                                <td>
-                                                    | <a href="/user/Settings.aspx">Account</a>
-                                                </td>
+                                                    | <a href="/ExchangeCurrency.aspx" class="Navigation_text">Send Payment</a>
+                                                </td>                                                
                                                 <td>
                                                     | Contact us
                                                 </td>

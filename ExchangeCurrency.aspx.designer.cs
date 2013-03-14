@@ -541,7 +541,7 @@ namespace Peerfx {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtABArouting;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtABArouting;
         
         /// <summary>
         /// pnlAccountNumber control.

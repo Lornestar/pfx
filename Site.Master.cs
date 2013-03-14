@@ -19,7 +19,7 @@ namespace Peerfx
     {        
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {            
             if (isloggedin())
             {
                 //logged in change navigation links
@@ -285,6 +285,12 @@ namespace Peerfx
             {
                 users.Bancbox_payment_object_key = Convert.ToInt64(dstemp.Tables[0].Rows[0]["bancbox_payment_object_key"]);
             }
+            //check if file exists
+            string fullurl = HttpContext.Current.Server.MapPath("/Files/UserImages/") + "\\" + users.User_key.ToString() + ".jpg";
+            if (File.Exists(fullurl))
+            {
+                users.Image_url = ConfigurationSettings.AppSettings["Root_url"].ToString()+ "Files/UserImages/" + users.User_key.ToString() + ".jpg";
+            }
             return users;
         }
 
@@ -477,6 +483,30 @@ namespace Peerfx
             if (dstemp.Tables[0].Rows[0]["requestor_user_key"] != DBNull.Value)
             {
                 paymenttemp.Requestor_user_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["requestor_user_key"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["txt_Sell_full"] != DBNull.Value)
+            {
+                paymenttemp.Txt_Sell_full = dstemp.Tables[0].Rows[0]["txt_Sell_full"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["txt_Buy_full"] != DBNull.Value)
+            {
+                paymenttemp.Txt_Buy_full = dstemp.Tables[0].Rows[0]["txt_Buy_full"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["actual_rate"] != DBNull.Value)
+            {
+                paymenttemp.Actual_rate = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["actual_rate"]);
+            }
+            if (dstemp.Tables[0].Rows[0]["actual_txt_Sell_full"] != DBNull.Value)
+            {
+                paymenttemp.Actual_txt_Sell_full = dstemp.Tables[0].Rows[0]["actual_txt_Sell_full"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["actual_txt_Buy_full"] != DBNull.Value)
+            {
+                paymenttemp.Actual_txt_Buy_full = dstemp.Tables[0].Rows[0]["actual_txt_Buy_full"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["actual_service_fee"] != DBNull.Value)
+            {
+                paymenttemp.Actual_service_fee = Convert.ToDecimal(dstemp.Tables[0].Rows[0]["actual_service_fee"]);
             }
             return paymenttemp;
         }
@@ -906,6 +936,12 @@ namespace Peerfx
             return fees;
         }
 
+        public string getcountrytext(int country_key)
+        {
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCountrySpecific(country_key).GetDataSet().Tables[0];
+            return dttemp.Rows[0]["country_text"].ToString();
+        }
+
         public string getcurrencycode(int currency_key)
         {            
             DataTable dttemp = view_info_currency_specific(currency_key);
@@ -1047,6 +1083,77 @@ namespace Peerfx
             DataSet dstemp = Peerfx_DB.SPs.ViewPaymentStatus().GetDataSet();
             return dstemp.Tables[0];
         }
+
+        public Verification view_users_verified(int userkey, int methodkey)
+        {
+            DataTable dttemp = Peerfx_DB.SPs.ViewUsersVerified(userkey, methodkey).GetDataSet().Tables[0];
+            Verification verificationtemp = new Verification();
+            verificationtemp.Users_verified_key = 0;
+            if (dttemp.Rows.Count > 0)
+            {
+                if (dttemp.Rows[0]["users_verified_key"] != DBNull.Value)
+                {
+                    verificationtemp.Users_verified_key = Convert.ToInt32(dttemp.Rows[0]["users_verified_key"]);
+                }
+                if (dttemp.Rows[0]["user_key"] != DBNull.Value)
+                {
+                    verificationtemp.User_key = Convert.ToInt32(dttemp.Rows[0]["user_key"]);
+                }
+                if (dttemp.Rows[0]["verification_methods_key"] != DBNull.Value)
+                {
+                    verificationtemp.Verification_methods_key = Convert.ToInt32(dttemp.Rows[0]["verification_methods_key"]);
+                }
+                if (dttemp.Rows[0]["isverified"] != DBNull.Value)
+                {
+                    verificationtemp.Isverified = Convert.ToBoolean(dttemp.Rows[0]["isverified"]);
+                }
+                if (dttemp.Rows[0]["last_changed"] != DBNull.Value)
+                {
+                    verificationtemp.Last_changed = Convert.ToDateTime(dttemp.Rows[0]["last_changed"]);
+                }
+                if (dttemp.Rows[0]["unique_key"] != DBNull.Value)
+                {
+                    verificationtemp.Unique_key = Convert.ToString(dttemp.Rows[0]["unique_key"]);
+                }
+                if (dttemp.Rows[0]["ip_address"] != DBNull.Value)
+                {
+                    verificationtemp.Ip_address = Convert.ToString(dttemp.Rows[0]["ip_address"]);
+                }
+                if (dttemp.Rows[0]["verification_method_name"] != DBNull.Value)
+                {
+                    verificationtemp.Verification_method_name = Convert.ToString(dttemp.Rows[0]["verification_method_name"]);
+                }
+                if (dttemp.Rows[0]["points"] != DBNull.Value)
+                {
+                    verificationtemp.Points = Convert.ToInt32(dttemp.Rows[0]["points"]);
+                }
+                if (dttemp.Rows[0]["ismandatory"] != DBNull.Value)
+                {
+                    verificationtemp.Ismandatory = Convert.ToBoolean(dttemp.Rows[0]["ismandatory"]);
+                }
+            }            
+
+            return verificationtemp;
+        }
+
+        public Hashtable getusersverified(int userkey)
+        {
+            Hashtable hstemp = new Hashtable();
+
+            DataTable dttemp = Peerfx_DB.SPs.ViewVerificationMethods().GetDataSet().Tables[0];
+            foreach (DataRow dr in dttemp.Rows)
+            {
+                int i = Convert.ToInt32(dr["verification_method_key"]);
+                Verification dtverification = view_users_verified(userkey, i);
+                if (dtverification.Users_verified_key > 0)
+                {
+                    hstemp.Add(i, dtverification);
+                }                
+            }
+
+            return hstemp;
+        }
+
 
         public Int64 insert_bank_account_returnpaymentobject(int userkey, int currencykey, int organizationkey, string bankaccountdescription, int userkeyupdated, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname)
         {

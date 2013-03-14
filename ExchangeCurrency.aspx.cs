@@ -611,7 +611,7 @@ namespace Peerfx
                     //instantly convert the payment, because source funding is balance
                     //initiate conversion
                     sitetemp.payment_convert_currency(payment_key);
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("/User/Dashboard.aspx?notification=true");
                 }
             }
             

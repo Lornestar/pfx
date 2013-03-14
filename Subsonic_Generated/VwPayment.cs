@@ -345,6 +345,78 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarPaymentObjectReceiverType);
                 
+                TableSchema.TableColumn colvarTxtSellFull = new TableSchema.TableColumn(schema);
+                colvarTxtSellFull.ColumnName = "txt_Sell_full";
+                colvarTxtSellFull.DataType = DbType.String;
+                colvarTxtSellFull.MaxLength = 18;
+                colvarTxtSellFull.AutoIncrement = false;
+                colvarTxtSellFull.IsNullable = true;
+                colvarTxtSellFull.IsPrimaryKey = false;
+                colvarTxtSellFull.IsForeignKey = false;
+                colvarTxtSellFull.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarTxtSellFull);
+                
+                TableSchema.TableColumn colvarTxtBuyFull = new TableSchema.TableColumn(schema);
+                colvarTxtBuyFull.ColumnName = "txt_Buy_full";
+                colvarTxtBuyFull.DataType = DbType.String;
+                colvarTxtBuyFull.MaxLength = 18;
+                colvarTxtBuyFull.AutoIncrement = false;
+                colvarTxtBuyFull.IsNullable = true;
+                colvarTxtBuyFull.IsPrimaryKey = false;
+                colvarTxtBuyFull.IsForeignKey = false;
+                colvarTxtBuyFull.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarTxtBuyFull);
+                
+                TableSchema.TableColumn colvarActualRate = new TableSchema.TableColumn(schema);
+                colvarActualRate.ColumnName = "actual_rate";
+                colvarActualRate.DataType = DbType.Decimal;
+                colvarActualRate.MaxLength = 0;
+                colvarActualRate.AutoIncrement = false;
+                colvarActualRate.IsNullable = true;
+                colvarActualRate.IsPrimaryKey = false;
+                colvarActualRate.IsForeignKey = false;
+                colvarActualRate.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarActualRate);
+                
+                TableSchema.TableColumn colvarActualTxtSellFull = new TableSchema.TableColumn(schema);
+                colvarActualTxtSellFull.ColumnName = "actual_txt_Sell_full";
+                colvarActualTxtSellFull.DataType = DbType.String;
+                colvarActualTxtSellFull.MaxLength = 18;
+                colvarActualTxtSellFull.AutoIncrement = false;
+                colvarActualTxtSellFull.IsNullable = true;
+                colvarActualTxtSellFull.IsPrimaryKey = false;
+                colvarActualTxtSellFull.IsForeignKey = false;
+                colvarActualTxtSellFull.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarActualTxtSellFull);
+                
+                TableSchema.TableColumn colvarActualTxtBuyFull = new TableSchema.TableColumn(schema);
+                colvarActualTxtBuyFull.ColumnName = "actual_txt_Buy_full";
+                colvarActualTxtBuyFull.DataType = DbType.String;
+                colvarActualTxtBuyFull.MaxLength = 18;
+                colvarActualTxtBuyFull.AutoIncrement = false;
+                colvarActualTxtBuyFull.IsNullable = true;
+                colvarActualTxtBuyFull.IsPrimaryKey = false;
+                colvarActualTxtBuyFull.IsForeignKey = false;
+                colvarActualTxtBuyFull.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarActualTxtBuyFull);
+                
+                TableSchema.TableColumn colvarActualServiceFee = new TableSchema.TableColumn(schema);
+                colvarActualServiceFee.ColumnName = "actual_service_fee";
+                colvarActualServiceFee.DataType = DbType.Currency;
+                colvarActualServiceFee.MaxLength = 0;
+                colvarActualServiceFee.AutoIncrement = false;
+                colvarActualServiceFee.IsNullable = true;
+                colvarActualServiceFee.IsPrimaryKey = false;
+                colvarActualServiceFee.IsForeignKey = false;
+                colvarActualServiceFee.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarActualServiceFee);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -730,6 +802,90 @@ namespace Peerfx_DB{
 			    SetColumnValue("payment_object_receiver_type", value);
             }
         }
+	      
+        [XmlAttribute("TxtSellFull")]
+        [Bindable(true)]
+        public string TxtSellFull 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("txt_Sell_full");
+		    }
+            set 
+		    {
+			    SetColumnValue("txt_Sell_full", value);
+            }
+        }
+	      
+        [XmlAttribute("TxtBuyFull")]
+        [Bindable(true)]
+        public string TxtBuyFull 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("txt_Buy_full");
+		    }
+            set 
+		    {
+			    SetColumnValue("txt_Buy_full", value);
+            }
+        }
+	      
+        [XmlAttribute("ActualRate")]
+        [Bindable(true)]
+        public decimal? ActualRate 
+	    {
+		    get
+		    {
+			    return GetColumnValue<decimal?>("actual_rate");
+		    }
+            set 
+		    {
+			    SetColumnValue("actual_rate", value);
+            }
+        }
+	      
+        [XmlAttribute("ActualTxtSellFull")]
+        [Bindable(true)]
+        public string ActualTxtSellFull 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("actual_txt_Sell_full");
+		    }
+            set 
+		    {
+			    SetColumnValue("actual_txt_Sell_full", value);
+            }
+        }
+	      
+        [XmlAttribute("ActualTxtBuyFull")]
+        [Bindable(true)]
+        public string ActualTxtBuyFull 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("actual_txt_Buy_full");
+		    }
+            set 
+		    {
+			    SetColumnValue("actual_txt_Buy_full", value);
+            }
+        }
+	      
+        [XmlAttribute("ActualServiceFee")]
+        [Bindable(true)]
+        public decimal? ActualServiceFee 
+	    {
+		    get
+		    {
+			    return GetColumnValue<decimal?>("actual_service_fee");
+		    }
+            set 
+		    {
+			    SetColumnValue("actual_service_fee", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -785,6 +941,18 @@ namespace Peerfx_DB{
             public static string Requiresmanualexport = @"requiresmanualexport";
             
             public static string PaymentObjectReceiverType = @"payment_object_receiver_type";
+            
+            public static string TxtSellFull = @"txt_Sell_full";
+            
+            public static string TxtBuyFull = @"txt_Buy_full";
+            
+            public static string ActualRate = @"actual_rate";
+            
+            public static string ActualTxtSellFull = @"actual_txt_Sell_full";
+            
+            public static string ActualTxtBuyFull = @"actual_txt_Buy_full";
+            
+            public static string ActualServiceFee = @"actual_service_fee";
             
 	    }
 	    #endregion

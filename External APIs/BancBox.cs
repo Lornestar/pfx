@@ -11,6 +11,7 @@ using System.IO;
 using System.Text;
 using RestSharp;
 using Peerfx.Models;
+using System.Data;
 
 namespace Peerfx.External_APIs
 {
@@ -220,48 +221,40 @@ namespace Peerfx.External_APIs
             return txstatus;
         }
 
-        /*public bool TransferFunds(int userkey_sender, int userkey_receiver, decimal amount)
+        public Hashtable getAccountActivity(Int64 accountid)
         {
-            bool txstatus = false;
             Hashtable hstemp = new Hashtable();
+            Hashtable hsreturn = new Hashtable();
 
-            //get source bank account id
-            Users usersender = sitetemp.get_user_info(userkey_sender);
-            Users userreceiver = sitetemp.get_user_info(userkey_receiver);
-            BankAccounts bankaccount = sitetemp.getBankAccounts(0, usersender.Bancbox_payment_object_key);
             Hashtable hssourceaccount = new Hashtable();
-            hssourceaccount.Add("bancBoxId", bankaccount.Account_number);
-            hstemp.Add("sourceAccount", hssourceaccount);
+            hssourceaccount.Add("bancBoxId", accountid);
+            hstemp.Add("accountId", hssourceaccount);
 
-            //get destination account id
-            bankaccount = sitetemp.getBankAccounts(0, userreceiver.Bancbox_payment_object_key);
-            Hashtable hssourceaccount2 = new Hashtable();
-            hssourceaccount2.Add("bancBoxId", bankaccount.Account_number);
-            hstemp.Add("destinationAccount", hssourceaccount2);
+            hstemp.Add("fromDate",DateTime.Now.AddDays(-7).Date.ToString("yyyy-MM-dd"));
+            hstemp.Add("toDate", DateTime.Now.Date.ToString("yyyy-MM-dd"));
 
-            //add in items            
-            List<Hashtable> listhsitems = new List<Hashtable>();
-            Hashtable hsitems = new Hashtable();
-            //hsitems.Add("scheduled", hsscheduled);
-            //hsitems.Add("scheduleDate", DateTime.Now.Date.ToString("yyyy-MM-dd"));//YYYY-MM-DD
-            hsitems.Add("amount", decimal.Round(amount, 2));
-            //hsitems.Add("memo", "please work");
-            listhsitems.Add(hsitems);
-            hstemp.Add("items", listhsitems);
-
-            string strresponse = Web_Request("transferFunds", hstemp);
+            string strresponse = Web_Request("getAccountActivity", hstemp);
 
             JObject o = JObject.Parse(strresponse);
 
             int status = (int)o["status"];
             if (status == 1)
             {
-                //tx went through
-                //report internal transaction
+                
             }
 
-            return txstatus;
-        }*/
+            return hsreturn;
+        }
+
+        public void PollBancBox()
+        {
+            DataTable dttemp = Peerfx_DB.SPs.ViewBancBoxAccounts().GetDataSet().Tables[0];
+            foreach (DataRow dr in dttemp.Rows)
+            {
+                getAccountActivity(Convert.ToInt64(dr["account_number"]));
+            }
+
+        }
 
         public bool CollectFunds(Int64 payment_object_receiver, string routingnumber, string accountnumber, string holdername, decimal amount)
         {

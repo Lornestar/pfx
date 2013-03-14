@@ -13,120 +13,12 @@ namespace Peerfx.User {
     public partial class Payment {
         
         /// <summary>
-        /// lblpaymentnum control.
+        /// Paymentdetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblpaymentnum;
-        
-        /// <summary>
-        /// lblsenderamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblsenderamount;
-        
-        /// <summary>
-        /// lblreceiveramount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblreceiveramount;
-        
-        /// <summary>
-        /// lblfrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblfrom;
-        
-        /// <summary>
-        /// lblto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblto;
-        
-        /// <summary>
-        /// lblreceiveraccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblreceiveraccount;
-        
-        /// <summary>
-        /// lblalreadyconfirmeddescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmeddescription;
-        
-        /// <summary>
-        /// lblstatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblstatus;
-        
-        /// <summary>
-        /// pnlinstructions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlinstructions;
-        
-        /// <summary>
-        /// lblalreadyconfirmedfrom2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedfrom2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedquotesenderamount2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedquotesenderamount2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedpeerfxname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedpeerfxname;
-        
-        /// <summary>
-        /// lblalreadyconfirmedpeerfxbankaccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedpeerfxbankaccount;
+        protected global::Peerfx.User_Controls.Payment_Details Paymentdetails;
     }
 }

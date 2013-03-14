@@ -31,6 +31,12 @@ namespace Peerfx.Models
         private bool requiresmanualexport;
         private int payment_object_receiver_type;
         private int requestor_user_key;
+        private string txt_Sell_full;
+        private string txt_Buy_full;
+        private decimal actual_rate;
+        private string actual_txt_Sell_full;
+        private string actual_txt_Buy_full;
+        private decimal actual_service_fee;
 
         public int Payments_Key
         {
@@ -319,6 +325,77 @@ namespace Peerfx.Models
                 requestor_user_key = value;
             }
         }
-        
+
+        public string Txt_Sell_full
+        {
+            get
+            {
+                return txt_Sell_full;
+            }
+            set
+            {
+                txt_Sell_full = value;
+            }
+        }
+
+        public string Txt_Buy_full
+        {
+            get
+            {
+                return txt_Buy_full;
+            }
+            set
+            {
+                txt_Buy_full = value;
+            }
+        }
+
+        public decimal Actual_rate
+        {
+            get
+            {
+                return actual_rate;
+            }
+            set
+            {
+                actual_rate = value;
+            }
+        }
+
+        public string Actual_txt_Sell_full
+        {
+            get
+            {
+                return actual_txt_Sell_full;
+            }
+            set
+            {
+                actual_txt_Sell_full = value;
+            }
+        }
+
+        public string Actual_txt_Buy_full
+        {
+            get
+            {
+                return actual_txt_Buy_full;
+            }
+            set
+            {
+                actual_txt_Buy_full = value;
+            }
+        }
+
+        public decimal Actual_service_fee
+        {
+            get
+            {
+                return actual_service_fee;
+            }
+            set
+            {
+                actual_service_fee = value;
+            }
+        }
     }
 }

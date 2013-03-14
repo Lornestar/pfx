@@ -25,7 +25,7 @@ function updatetable() {
         </telerik:RadAjaxLoadingPanel>
 <telerik:RadAjaxPanel runat="server" ID="RadAjaxPanelExchangeCurrency" LoadingPanelID="LoadingPanelExchangeCurrency"
             Height="100%">
-<table style="border:1px solid black;">
+<table style="border:1px solid gray;">
     <tr>
         <td>
             Send Payment

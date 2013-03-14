@@ -1,4 +1,18 @@
-﻿body {
+﻿body 
+{
+     font-family:Arial;
+     font-size:small;
+}
+
+a
+{
+    text-decoration:none;
+    color:#1775a9;
+}
+
+a:hover
+{
+    color:#2f0985;
 }
 
 .Signup_Header
@@ -41,3 +55,66 @@
     font-size:large;
     color:Blue;
 }
+
+.Page_Header
+{
+    font-weight:bold;
+    font-size:large;
+    color:#009211;
+}
+
+.RadListview_Alternating
+{
+    background-color:#e7ffe8;
+}
+
+.RadListview_Header
+{
+    background-image:url('/images/Header_Background.jpg');
+    background-repeat:repeat-x;
+    height:26px;
+    vertical-align:middle;
+}
+
+.RadListview_Table
+{
+    border-bottom:1px solid gray; 
+    border-left:1px solid gray; 
+    border-right:1px solid gray;
+}
+
+a.Navigation_text
+{
+   color:#006d29;
+   font-size:medium;
+   font-weight:bold;
+}
+
+a:Hover.Navigation_text
+{
+    color:Gray;
+    font-size:medium;
+   font-weight:bold;
+}
+
+.Verification_Name
+{
+    font-weight:bold;
+}
+.Verification_Description
+{
+     font-size:smaller;
+}
+
+/*
+div.RadUpload .ruFakeInput
+{
+    visibility: hidden;
+    width: 0;
+    padding: 0;
+}
+div.RadUpload .ruFileInput
+{
+    width: 1;
+}
+*/

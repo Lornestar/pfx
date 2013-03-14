@@ -503,7 +503,7 @@ namespace Peerfx_DB{
                 
                 TableSchema.TableColumn colvarBancboxPaymentObjectKey = new TableSchema.TableColumn(schema);
                 colvarBancboxPaymentObjectKey.ColumnName = "bancbox_payment_object_key";
-                colvarBancboxPaymentObjectKey.DataType = DbType.Boolean;
+                colvarBancboxPaymentObjectKey.DataType = DbType.Int64;
                 colvarBancboxPaymentObjectKey.MaxLength = 0;
                 colvarBancboxPaymentObjectKey.AutoIncrement = false;
                 colvarBancboxPaymentObjectKey.IsNullable = true;
@@ -524,6 +524,18 @@ namespace Peerfx_DB{
                 colvarSsn.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarSsn);
+                
+                TableSchema.TableColumn colvarImageUrl = new TableSchema.TableColumn(schema);
+                colvarImageUrl.ColumnName = "Image_URL";
+                colvarImageUrl.DataType = DbType.String;
+                colvarImageUrl.MaxLength = 200;
+                colvarImageUrl.AutoIncrement = false;
+                colvarImageUrl.IsNullable = true;
+                colvarImageUrl.IsPrimaryKey = false;
+                colvarImageUrl.IsForeignKey = false;
+                colvarImageUrl.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarImageUrl);
                 
                 
                 BaseSchema = schema;
@@ -1095,11 +1107,11 @@ namespace Peerfx_DB{
 	      
         [XmlAttribute("BancboxPaymentObjectKey")]
         [Bindable(true)]
-        public bool? BancboxPaymentObjectKey 
+        public long? BancboxPaymentObjectKey 
 	    {
 		    get
 		    {
-			    return GetColumnValue<bool?>("bancbox_payment_object_key");
+			    return GetColumnValue<long?>("bancbox_payment_object_key");
 		    }
             set 
 		    {
@@ -1118,6 +1130,20 @@ namespace Peerfx_DB{
             set 
 		    {
 			    SetColumnValue("ssn", value);
+            }
+        }
+	      
+        [XmlAttribute("ImageUrl")]
+        [Bindable(true)]
+        public string ImageUrl 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("Image_URL");
+		    }
+            set 
+		    {
+			    SetColumnValue("Image_URL", value);
             }
         }
 	    
@@ -1205,6 +1231,8 @@ namespace Peerfx_DB{
             public static string BancboxPaymentObjectKey = @"bancbox_payment_object_key";
             
             public static string Ssn = @"ssn";
+            
+            public static string ImageUrl = @"Image_URL";
             
 	    }
 	    #endregion

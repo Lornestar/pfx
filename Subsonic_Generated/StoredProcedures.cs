@@ -852,6 +852,16 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_BancBox_Accounts Procedure
+        /// </summary>
+        public static StoredProcedure ViewBancBoxAccounts()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_BancBox_Accounts", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Bank_Accounts_Specific Procedure
         /// </summary>
         public static StoredProcedure ViewBankAccountsSpecific(int? bankaccountkey)
@@ -987,6 +997,18 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewInfoCountryList()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Country_List", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Info_Country_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCountrySpecific(int? countrykey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Country_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@country_key", countrykey, DbType.Int32, 0, 10);
         	
             return sp;
         }
@@ -1565,6 +1587,16 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@unique_key", uniquekey, DbType.String, null, null);
         	
             sp.Command.AddParameter("@verification_methods_key", verificationmethodskey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Verification_Methods Procedure
+        /// </summary>
+        public static StoredProcedure ViewVerificationMethods()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Verification_Methods", DataService.GetInstance("Peerfx"), "");
         	
             return sp;
         }
