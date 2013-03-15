@@ -1,0 +1,21 @@
+<div>
+Hi FIRST_NAME LAST_NAME,
+</div>
+<p>
+Your Top Up request has been sent:
+<br />
+$ TOPUPPRICE USD - TOPUPDESCRIPTION
+<br />
+Payment Description - PAYMENTDESCRIPTION
+<br />
+Top Up Phone Number - PHONENUMBER
+<br />
+Message - THEMESSAGE
+<br />
+</p>      
+
+<p>
+At your service
+<br />
+Passport Service Team.
+</p>

@@ -32,15 +32,15 @@ Verifications
 </div>
 
 <asp:Panel ID=pnlverifications runat=server>
-<table style="vertical-align:top; width:700px;">
+<table style="vertical-align:top; width:700px; border:1px solid gray;">
     <tr>
-        <td colspan=3>
+        <td colspan=3 class="Verification_Sections">
             <div class="Exchange_Header">Required</div>
         </td>
     </tr>
     <tr>
-        <td colspan=3>
-            <table>
+        <td colspan=3 class="Verification_Sections">
+            <table width=100%>
                 <tr>
                     <td>
                         <telerik:RadBinaryImage ID=imgvalid1 runat=server ImageUrl="/images/x.png"/>
@@ -51,7 +51,7 @@ Verifications
                             An email was sent to you with a unique link to verify your account
                         </div>
                     </td>
-                    <td>
+                    <td style=" text-align:right;">
                         <telerik:RadButton ID=btnemail runat=server Text="Resend Email" 
                             onclick="btnemail_Click"></telerik:RadButton>
                     </td>
@@ -60,8 +60,8 @@ Verifications
         </td>        
     </tr>
     <tr>
-        <td colspan=3>
-            <table>
+        <td colspan=3 class="Verification_Sections">
+            <table width=100%>
                 <tr>
                     <td>
                         <telerik:RadBinaryImage ID=imgvalid2 runat=server ImageUrl="/images/x.png"/>
@@ -79,7 +79,7 @@ Verifications
                 <tr>
                     <td colspan=3>
                         <asp:Panel ID=pnlpassport runat=server Visible=false>
-                        <table>
+                        <table width=100%>
                             <tr>
                                 <td>
                                     Passport Code
@@ -157,7 +157,7 @@ Verifications
         </td>        
     </tr>
     <tr>
-        <td colspan=3>
+        <td colspan=3 class="Verification_Sections">
             <table>
                 <tr>
                     <td>
@@ -249,7 +249,7 @@ Verifications
         </td>        
     </tr>
     <tr>
-        <td colspan=3>
+        <td colspan=3 >
             <div class="Exchange_Header">Bonus</div>
         </td>
     </tr>

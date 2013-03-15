@@ -48,12 +48,12 @@
                     <table style="border:1px solid gray; text-align:center;">
                         <tr>
                             <td align=center>
-                                <asp:Image ID=imgNopic runat=server Width=200px ImageUrl="/Images/empty_profile.jpg"/>
-                                <telerik:RadBinaryImage ID=imguser runat=server ResizeMode=Fit Width=200px Visible=false/>
+                                <asp:Image ID=imgNopic runat=server Width=250px ImageUrl="/Images/empty_profile.jpg"/>
+                                <telerik:RadBinaryImage ID=imguser runat=server ResizeMode=Fit Width=250px Visible=false/>
                                 <br />             
                                  <telerik:RadAsyncUpload runat="server" ID="AsyncUpload1" MultipleFileSelection=Disabled OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed"
                                                                                 OnFileUploaded="AsyncUpload1_FileUploaded" AllowedFileExtensions="jpeg,jpg" 
-                                                                                 MaxFileSize="524288">
+                                                                                 MaxFileSize="524288" Width=250>
                                                                                  <Localization Select="New Image" />
                                                                                  </telerik:RadAsyncUpload>
                                                                                  <telerik:RadProgressManager runat="server" ID="RadProgressManager2" />
@@ -95,7 +95,7 @@
                                     <table style="background:#DDDDDD;" width=100%>
                                         <tr>
                                             <td>
-                                                Email:
+                                                Email Verification:
                                             </td>
                                             <td>
                                                 <telerik:RadBinaryImage runat=server ImageUrl="/images/checkmark.png" />
@@ -103,7 +103,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Passport:
+                                                Passport Verification:
                                             </td>
                                             <td>
                                                 <telerik:RadBinaryImage ID="RadBinaryImage1" runat=server ImageUrl="/images/x.png" />
@@ -111,7 +111,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Address:
+                                                Address Verification:
                                             </td>
                                             <td>
                                                 <telerik:RadBinaryImage ID="RadBinaryImage2" runat=server ImageUrl="/images/x.png" />

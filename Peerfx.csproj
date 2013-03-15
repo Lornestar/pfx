@@ -75,6 +75,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
+    <Reference Include="TwilioRest, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\TwilioRest.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\Admin_Default.aspx" />
@@ -127,6 +131,7 @@
     <Content Include="Emails\email_verification.txt" />
     <Content Include="Emails\ErrorEmail.htm" />
     <Content Include="Emails\ErrorEmail.txt" />
+    <Content Include="Emails\payment_confirmed_Embee.html" />
     <Content Include="Emails\payment_completed_Embee.htm" />
     <Content Include="Emails\payment_completed_embee.txt" />
     <Content Include="Emails\payment_confirmed.html" />
@@ -136,8 +141,10 @@
     <Content Include="External APIs\homesendtest.txt" />
     <Content Include="Global.asax" />
     <Content Include="Images\Peerfx_logo.png" />
+    <Content Include="Landing.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Peerfx.css" />
+    <Content Include="Rob.aspx" />
     <Content Include="ScheduledTasks\PollEmbeeTransStatus.aspx" />
     <Content Include="ScheduledTasks\UpdateEmbeeCatalog.aspx" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
@@ -145,6 +152,7 @@
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\Mixpanel.js" />
     <Content Include="Signup.aspx" />
+    <Content Include="SMS\payment_confirmed_Embee.txt" />
     <Content Include="Testing\Radasyncupload.aspx" />
     <Content Include="Testing\TestBancBox.aspx" />
     <Content Include="Testing\TestCurrencyCloud.aspx" />
@@ -262,8 +270,16 @@
     <Compile Include="External APIs\CurrencyCloud.cs" />
     <Compile Include="External APIs\Embee.cs" />
     <Compile Include="External APIs\Homesend.cs" />
+    <Compile Include="External APIs\Twilio.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Landing.aspx.cs">
+      <DependentUpon>Landing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Landing.aspx.designer.cs">
+      <DependentUpon>Landing.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -282,6 +298,13 @@
     <Compile Include="Models\Verification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="External APIs\SendGrid.cs" />
+    <Compile Include="Rob.aspx.cs">
+      <DependentUpon>Rob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Rob.aspx.designer.cs">
+      <DependentUpon>Rob.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ScheduledTasks\PollEmbeeTransStatus.aspx.cs">
       <DependentUpon>PollEmbeeTransStatus.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

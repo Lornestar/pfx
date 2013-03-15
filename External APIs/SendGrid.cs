@@ -139,5 +139,24 @@ namespace Peerfx.External_APIs
             SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Top Up Completed");
         }
 
+        public void Send_Email_Payment_Confirmed_Embee(int paymentkey)
+        {
+            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed_embee.txt"));
+
+            EmbeeObject embeetemp = sitetemp.getEmbeeObject(paymentkey);
+            Payment paymenttemp = sitetemp.getPayment(embeetemp.Payment_key);
+            Users currentuser = sitetemp.get_user_info(paymenttemp.Requestor_user_key);
+
+            thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
+            thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
+            thebody = thebody.Replace("TOPUPPRICE", embeetemp.Price.ToString("F"));
+            thebody = thebody.Replace("TOPUPDESCRIPTION", embeetemp.Productname);
+            thebody = thebody.Replace("PAYMENTDESCRIPTION", paymenttemp.Payment_description);
+            thebody = thebody.Replace("PHONENUMBER", embeetemp.Phone);
+            thebody = thebody.Replace("THEMESSAGE", paymenttemp.Payment_description);
+
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Top Up Confirmed");
+        }
+
     }
 }

@@ -10,6 +10,10 @@ a
     color:#1775a9;
 }
 
+a, img {
+    border:none;
+}
+
 a:hover
 {
     color:#2f0985;
@@ -104,6 +108,10 @@ a:Hover.Navigation_text
 .Verification_Description
 {
      font-size:smaller;
+}
+.Verification_Sections
+{
+    border-bottom:1px solid gray;
 }
 
 /*

@@ -70,7 +70,7 @@ namespace Peerfx.User
         protected void AsyncUpload1_FileUploaded(object sender, FileUploadedEventArgs e)
         {
             string file = Server.MapPath("/Files/UserImages/") + "\\" + currentuser.User_key.ToString() + ".jpg";
-            if (currentuser.Image_url.Length > 0)
+            if (currentuser.Image_url != null)
             {
                 File.Delete(file);
             }

@@ -1208,6 +1208,7 @@ namespace Peerfx
             //Check if does not require manual export
             if (!paymenttemp.Requiresmanualexport)
             {
+                Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
                 //Automatically complete payment
 
                 //If Applicable - Ownership of funds is changing, so need to change ownership of funds in ext bank accounts , eg. bancbox
@@ -1233,7 +1234,17 @@ namespace Peerfx
                     Int64 embee_paymentobjectkey = getpaymentobject(7, embeetemp.Embee_object_key);
                     Peerfx_DB.SPs.UpdateTransactionsExternal(0, 1, paymenttemp.Buy_currency, paymenttemp.Buy_amount, payment_payment_object_key, embee_paymentobjectkey, get_ipaddress(), paymenttemp.Requestor_user_key, "From Payment to Embee Object", "", 0, 1, paymentkey).Execute();
 
-                    //payment in pending, send email
+                    //payment confirmed, send email
+                    sg.Send_Email_Payment_Confirmed_Embee(paymentkey);
+
+                    //send receiver note
+                    string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/SMS/payment_confirmed_Embee.txt"));
+                    thebody = thebody.Replace("FIRST_NAME",user_requestor.First_name);
+                    thebody = thebody.Replace("LAST_NAME",user_requestor.Last_name);
+                    thebody = thebody.Replace("TOPUP_NAME",embeetemp.Productname);
+
+                    External_APIs.Twilio twillio = new External_APIs.Twilio();
+                    twillio.SendSMS(embeetemp.Phone, thebody, embeetemp.Country);
                 }
                 else if ((paymenttemp.Buy_currency == 3) && (user_requestor.Bancbox_payment_object_key > 0) && (IsBankAccount(paymenttemp.Payment_object_receiver)))
                 {

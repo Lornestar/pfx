@@ -173,13 +173,13 @@ namespace Peerfx.External_APIs
             string url = ConfigurationSettings.AppSettings["Embee_URL_live"]; //https://www.embeepay.com/fb/wallet/api/
             string apiuserid = ConfigurationSettings.AppSettings["Embee_userid_live"];
             string apipwd = ConfigurationSettings.AppSettings["Embee_pwd_live"];
-            /*if (ConfigurationSettings.AppSettings["Root_url"].Contains("localhost"))
+            if (ConfigurationSettings.AppSettings["Root_url"].Contains("localhost"))
             {
                 //use demo credentials
                 url = ConfigurationSettings.AppSettings["Embee_URL_demo"]; //https://www.embeepay.com/fb/embeeqa/api/
                 apiuserid = ConfigurationSettings.AppSettings["Embee_userid_demo"];
                 apipwd = ConfigurationSettings.AppSettings["Embee_pwd_demo"];
-            } */           
+            }
             
             
             url += callurl;
