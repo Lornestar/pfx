@@ -84,6 +84,8 @@ namespace Peerfx_DB
         
 		public static readonly string TransactionsInternal = @"Transactions_Internal";
         
+		public static readonly string UserFacebook = @"User_Facebook";
+        
 		public static readonly string UserRecipient = @"User_Recipients";
         
 		public static readonly string UserStatus = @"User_Statuses";
@@ -270,6 +272,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table TransactionsInternal
 		{
             get { return DataService.GetSchema("Transactions_Internal", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table UserFacebook
+		{
+            get { return DataService.GetSchema("User_Facebook", "Peerfx"); }
 		}
         
 		public static TableSchema.Table UserRecipient

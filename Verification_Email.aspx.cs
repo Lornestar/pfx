@@ -17,7 +17,7 @@ namespace Peerfx
             {
                 //a code is present
                 string code = Request.QueryString["code"].ToString();
-                DataSet dstemp = Peerfx_DB.SPs.ViewUsersVerifiedByCode(code, 1).GetDataSet();
+                DataSet dstemp = Peerfx_DB.SPs.ViewUsersVerifiedByCodeNouserkey(code, 1).GetDataSet();
                 if (dstemp.Tables[0].Rows.Count > 0)
                 {
                     //code is correct

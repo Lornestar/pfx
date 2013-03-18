@@ -17,11 +17,11 @@ Sign up
                     <Tabs>
                         <telerik:RadTab Text="Personal Details">
                         </telerik:RadTab>
-                        <telerik:RadTab Text="Contact Information" Enabled=false>
+                        <telerik:RadTab Text="Contact Information" >
                         </telerik:RadTab>
-                        <telerik:RadTab Text="Account Security" Enabled=false>
+                        <telerik:RadTab Text="Account Security" >
                         </telerik:RadTab>
-                        <telerik:RadTab Text="Confirmation" Enabled=false>
+                        <telerik:RadTab Text="Confirmation" >
                         </telerik:RadTab>
                     </Tabs>
                 </telerik:RadTabStrip>

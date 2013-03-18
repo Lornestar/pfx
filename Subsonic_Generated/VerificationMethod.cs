@@ -178,6 +178,19 @@ namespace Peerfx_DB
 				colvarIsmandatory.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarIsmandatory);
 				
+				TableSchema.TableColumn colvarRequiresmanualapproval = new TableSchema.TableColumn(schema);
+				colvarRequiresmanualapproval.ColumnName = "requiresmanualapproval";
+				colvarRequiresmanualapproval.DataType = DbType.Boolean;
+				colvarRequiresmanualapproval.MaxLength = 0;
+				colvarRequiresmanualapproval.AutoIncrement = false;
+				colvarRequiresmanualapproval.IsNullable = true;
+				colvarRequiresmanualapproval.IsPrimaryKey = false;
+				colvarRequiresmanualapproval.IsForeignKey = false;
+				colvarRequiresmanualapproval.IsReadOnly = false;
+				colvarRequiresmanualapproval.DefaultSetting = @"";
+				colvarRequiresmanualapproval.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRequiresmanualapproval);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -219,6 +232,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<bool?>(Columns.Ismandatory); }
 			set { SetColumnValue(Columns.Ismandatory, value); }
 		}
+		  
+		[XmlAttribute("Requiresmanualapproval")]
+		[Bindable(true)]
+		public bool? Requiresmanualapproval 
+		{
+			get { return GetColumnValue<bool?>(Columns.Requiresmanualapproval); }
+			set { SetColumnValue(Columns.Requiresmanualapproval, value); }
+		}
 		
 		#endregion
 		
@@ -239,7 +260,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varVerificationMethodKey,string varVerificationMethodName,int varPoints,bool? varIsmandatory)
+		public static void Insert(int varVerificationMethodKey,string varVerificationMethodName,int varPoints,bool? varIsmandatory,bool? varRequiresmanualapproval)
 		{
 			VerificationMethod item = new VerificationMethod();
 			
@@ -251,6 +272,8 @@ namespace Peerfx_DB
 			
 			item.Ismandatory = varIsmandatory;
 			
+			item.Requiresmanualapproval = varRequiresmanualapproval;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -261,7 +284,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varVerificationMethodKey,string varVerificationMethodName,int varPoints,bool? varIsmandatory)
+		public static void Update(int varVerificationMethodKey,string varVerificationMethodName,int varPoints,bool? varIsmandatory,bool? varRequiresmanualapproval)
 		{
 			VerificationMethod item = new VerificationMethod();
 			
@@ -272,6 +295,8 @@ namespace Peerfx_DB
 				item.Points = varPoints;
 			
 				item.Ismandatory = varIsmandatory;
+			
+				item.Requiresmanualapproval = varRequiresmanualapproval;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -314,6 +339,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn RequiresmanualapprovalColumn
+        {
+            get { return Schema.Columns[4]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -322,6 +354,7 @@ namespace Peerfx_DB
 			 public static string VerificationMethodName = @"verification_method_name";
 			 public static string Points = @"points";
 			 public static string Ismandatory = @"ismandatory";
+			 public static string Requiresmanualapproval = @"requiresmanualapproval";
 						
 		}
 		#endregion

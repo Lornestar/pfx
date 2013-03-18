@@ -9,6 +9,8 @@ using Peerfx.Models;
 using System.Configuration;
 using System.Collections;
 using System.Text;
+using System.Web.Security;
+using System.Net.Mime;
 using System.Text.RegularExpressions;
 using System.IO;
 using SubSonic;
@@ -291,7 +293,67 @@ namespace Peerfx
             {
                 users.Image_url = ConfigurationSettings.AppSettings["Root_url"].ToString()+ "Files/UserImages/" + users.User_key.ToString() + ".jpg";
             }
+            if (dstemp.Tables[0].Rows[0]["verification_points"] != DBNull.Value)
+            {
+                users.Verification_points = Convert.ToInt32(dstemp.Tables[0].Rows[0]["verification_points"]);
+            }
             return users;
+        }
+
+        public Users_Facebook get_user_Facebook(int userkey)
+        {
+            Users_Facebook currentuser = new Users_Facebook();
+            currentuser.User_key = userkey;
+            currentuser.fb_uid = 0;
+            DataTable dttemp = Peerfx_DB.SPs.ViewUserFacebook(userkey).GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                if (dttemp.Rows[0]["fb_uid"] != DBNull.Value)
+                {
+                    currentuser.fb_uid = Convert.ToInt64(dttemp.Rows[0]["fb_uid"]);
+                }
+                if (dttemp.Rows[0]["fb_location"] != DBNull.Value)
+                {
+                    currentuser.fb_location = dttemp.Rows[0]["fb_location"].ToString();
+                }
+                if (dttemp.Rows[0]["fb_email"] != DBNull.Value)
+                {
+                    currentuser.fb_email = dttemp.Rows[0]["fb_email"].ToString();
+                }
+                if (dttemp.Rows[0]["fb_friends_count"] != DBNull.Value)
+                {
+                    currentuser.fb_friends_count = Convert.ToInt32(dttemp.Rows[0]["fb_friends_count"]);
+                }
+                if (dttemp.Rows[0]["fb_access_token"] != DBNull.Value)
+                {
+                    currentuser.fb_access_token = dttemp.Rows[0]["fb_access_token"].ToString();
+                }
+                if (dttemp.Rows[0]["date_created"] != DBNull.Value)
+                {
+                    currentuser.Date_created = Convert.ToDateTime(dttemp.Rows[0]["date_created"]);
+                }
+                if (dttemp.Rows[0]["last_changed"] != DBNull.Value)
+                {
+                    currentuser.Last_changed = Convert.ToDateTime(dttemp.Rows[0]["last_changed"]);
+                }
+                if (dttemp.Rows[0]["fb_ismale"] != DBNull.Value)
+                {
+                    currentuser.fb_ismale = Convert.ToBoolean(dttemp.Rows[0]["fb_ismale"]);
+                }
+                if (dttemp.Rows[0]["fb_first_name"] != DBNull.Value)
+                {
+                    currentuser.fb_first_name = dttemp.Rows[0]["fb_first_name"].ToString();
+                }
+                if (dttemp.Rows[0]["fb_last_name"] != DBNull.Value)
+                {
+                    currentuser.fb_last_name = dttemp.Rows[0]["fb_last_name"].ToString();
+                }
+                if (dttemp.Rows[0]["fb_isverified"] != DBNull.Value)
+                {
+                    currentuser.fb_isverified = Convert.ToBoolean(dttemp.Rows[0]["fb_isverified"]);
+                }                
+            }
+            return currentuser;
         }
 
         public EmbeeObject getEmbeeObject(int paymentkey)
@@ -1238,13 +1300,19 @@ namespace Peerfx
                     sg.Send_Email_Payment_Confirmed_Embee(paymentkey);
 
                     //send receiver note
-                    string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/SMS/payment_confirmed_Embee.txt"));
-                    thebody = thebody.Replace("FIRST_NAME",user_requestor.First_name);
-                    thebody = thebody.Replace("LAST_NAME",user_requestor.Last_name);
-                    thebody = thebody.Replace("TOPUP_NAME",embeetemp.Productname);
+                    try
+                    {
+                        string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/SMS/payment_confirmed_Embee.txt"));
+                        thebody = thebody.Replace("FIRST_NAME", user_requestor.First_name);
+                        thebody = thebody.Replace("LAST_NAME", user_requestor.Last_name);
+                        thebody = thebody.Replace("TOPUP_NAME", embeetemp.Productname);
 
-                    External_APIs.Twilio twillio = new External_APIs.Twilio();
-                    twillio.SendSMS(embeetemp.Phone, thebody, embeetemp.Country);
+                        External_APIs.Twilio twillio = new External_APIs.Twilio();
+                        twillio.SendSMS(embeetemp.Phone, thebody, embeetemp.Country);
+                    }
+                    catch
+                    {
+                    }                    
                 }
                 else if ((paymenttemp.Buy_currency == 3) && (user_requestor.Bancbox_payment_object_key > 0) && (IsBankAccount(paymenttemp.Payment_object_receiver)))
                 {
@@ -1450,6 +1518,53 @@ namespace Peerfx
                 }                
             }
             return currentuser;
+        }
+
+        public string GenerateCode()
+        {
+            string struniquecode = Membership.GeneratePassword(8, 0);
+            struniquecode = Regex.Replace(struniquecode, @"[^a-zA-Z0-9]", m => "9");
+            return struniquecode;
+        }
+
+        public string GenerateCode_Numbersonly()
+        {
+            string struniquecode = "";
+            Random random = new Random();
+            struniquecode += random.Next(1, 9);
+            for (int i = 1; i<8; i++){
+                struniquecode += random.Next(0, 9);
+            }            
+            return struniquecode;        
+        }
+
+        public DataTable GetImagesinDirectory(String folderName, string urlfolder)
+        {
+            DataTable dttemp = new DataTable();
+
+            if (Directory.Exists(folderName))
+            {
+                DirectoryInfo Folder;
+                FileInfo[] Images;
+
+                Folder = new DirectoryInfo(folderName);
+                Images = Folder.GetFiles();
+
+
+                dttemp.Columns.Add("imgurl");
+
+                for (int i = 0; i < Images.Length; i++)
+                {
+                    DataRow dr = dttemp.NewRow();
+                    dr["imgurl"] = urlfolder + "/" + Images[i].Name;
+                    dttemp.Rows.Add(dr);
+                    //imagesList.Add(i, Images[i].Name);
+                    // Console.WriteLine(String.Format(@"{0}/{1}", folderName, Images[i].Name));
+                }
+            }            
+
+
+            return dttemp;
         }
     }
 }

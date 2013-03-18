@@ -11,6 +11,7 @@ using System.Data;
 using System.Xml.Linq;
 using System.Net;
 using System.IO;
+using Peerfx.External_APIs;
 
 namespace Peerfx.User_Controls
 {
@@ -41,8 +42,31 @@ namespace Peerfx.User_Controls
                         }
                         break;
                     case 2: break;
+                    case 4: if (verificationtemp.Isverified)                        
+                        {
+                            //Phone verified
+                            imgvalid4.ImageUrl = checkmarkurl;
+                            btnphone.Enabled = false;
+                            btnphone.Text = "Verification Complete";
+                           
+                        }
+                        break;
+                    case 5: if (verificationtemp.Isverified)
+                        {
+                            imgfbbutton.Visible = false;
+                            btnFacebook.Visible = true;
+                            btnFacebook.Enabled = false;
+                            btnFacebook.Text = "Verification Complete";
+                        }
+                        break;
                 }
             }
+            
+            //ddlcountry
+            ddlcountryphone.DataTextField = "Country_Text";
+            ddlcountryphone.DataValueField = "info_country_key";
+            ddlcountryphone.DataSource = Peerfx_DB.SPs.ViewInfoCountries().GetDataSet();
+            ddlcountryphone.DataBind();
         }
 
         protected void btnemail_Click(object sender, EventArgs e)
@@ -133,10 +157,55 @@ namespace Peerfx.User_Controls
 
         protected void btnphone_Click(object sender, EventArgs e)
         {
+            pnlphonesendverification.Visible = true;
+            pnlphoneverification.Visible = false;            
+        }
+
+        protected void btnphonesendverification_Click(object sender, EventArgs e)
+        {
+            if ((ddlcountryphone.SelectedValue != "") && (txtphonesendverfication.Text.Length > 5))
+            {
+                string strcode = sitetemp.GenerateCode_Numbersonly();
+                Twilio twillio = new Twilio();
+                string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/SMS/verification_sms.txt"));
+                thebody = thebody.Replace("THECODE", strcode);
+                twillio.SendSMS(txtphonesendverfication.Text, thebody, Convert.ToInt32(ddlcountryphone.SelectedValue));
+
+                Peerfx_DB.SPs.UpdateUsersPhoneNumber(Convert.ToInt32(hduserkey.Value), txtphonesendverfication.Text).Execute();
+
+                pnlphoneverification.Visible = true;
+                Peerfx_DB.SPs.UpdateVerification(Convert.ToInt32(hduserkey.Value), 4, false, sitetemp.get_ipaddress(), strcode).Execute();
+
+                RadNotification1.Text = "After you receive an sms in the next 30 seconds, enter the Passport account code, to complete Phone Verification.";
+                RadNotification1.Show();                
+            }
+            else
+            {
+                lblphoneerror.Text = "Select a country and a valid phone number";
+            }            
+            
         }
 
         protected void btnPassport_Click(object sender, EventArgs e)
         {
+
+        }
+
+        protected void btnphonecode_Click(object sender, EventArgs e)
+        {
+            //Check if phone code was right
+            DataTable dttemp = Peerfx_DB.SPs.ViewUsersVerifiedByCode(txtphonecode.Text, 4, Convert.ToInt32(hduserkey.Value)).GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                //it exists, so correct code
+                lblphoneerror2.Text = "Correct code.  Your phone has been connected";
+                lblphoneerror2.ForeColor = System.Drawing.Color.Blue;
+                Peerfx_DB.SPs.UpdateVerification(Convert.ToInt32(hduserkey.Value), 4, true, sitetemp.get_ipaddress(),txtphonecode.Text).Execute();
+            }
+            else
+            {
+                lblphoneerror2.Text = "Incorrect code";
+            }
 
         }
 

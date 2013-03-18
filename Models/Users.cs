@@ -44,6 +44,7 @@ namespace Peerfx.Models
         private string bancbox_client_status;
         private string ssn;
         private string image_url;
+        private int verification_points;
 
         public int User_key
         {
@@ -486,6 +487,17 @@ namespace Peerfx.Models
                 image_url = value;
             }
         }
-        
+
+        public int Verification_points
+        {
+            get
+            {
+                return verification_points;
+            }
+            set
+            {
+                verification_points = value;
+            }
+        }
     }
 }

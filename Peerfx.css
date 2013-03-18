@@ -69,7 +69,8 @@ a:hover
 
 .RadListview_Alternating
 {
-    background-color:#e7ffe8;
+    /*background-color:#e7ffe8;*/
+    background-color:#eeeeee;
 }
 
 .RadListview_Header
@@ -112,6 +113,12 @@ a:Hover.Navigation_text
 .Verification_Sections
 {
     border-bottom:1px solid gray;
+}
+
+.User_Name
+{
+    font-weight:bolder; 
+    font-size:medium;
 }
 
 /*

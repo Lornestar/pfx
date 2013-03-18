@@ -51,21 +51,14 @@ namespace Peerfx.User
 
         protected void LoadCurrencyTable()
         {
-            RadListView1.DataSource = Peerfx_DB.SPs.ViewUserCurrencyList(currentuser.User_key).GetDataSet().Tables[0];
-            RadListView1.DataBind();
+            userbalances1.LoadBalances(currentuser.User_key);
         }
 
         protected void LoadPaymentTable()
         {
-            RadListView2.DataSource = Peerfx_DB.SPs.ViewPaymentsRequestedbyuser(currentuser.User_key).GetDataSet().Tables[0];
-            RadListView2.DataBind();
+            ucUserRecentPayment1.LoadPayments(currentuser.User_key);
         }
 
-        protected void RadListView1_PageIndexChanged(object sender, RadListViewPageChangedEventArgs e)
-        {
-            RadListView2.DataSource = Peerfx_DB.SPs.ViewPaymentsRequestedbyuser(currentuser.User_key).GetDataSet().Tables[0];
-            RadListView2.DataBind();
-        }
 
         protected void AsyncUpload1_FileUploaded(object sender, FileUploadedEventArgs e)
         {

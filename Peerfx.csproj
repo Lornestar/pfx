@@ -139,6 +139,7 @@
     <Content Include="Embee\EmbeeIPN.aspx" />
     <Content Include="ExchangeCurrency.aspx" />
     <Content Include="External APIs\homesendtest.txt" />
+    <Content Include="Facebook\fblogin.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\Peerfx_logo.png" />
     <Content Include="Landing.aspx" />
@@ -153,6 +154,7 @@
     <Content Include="Scripts\Mixpanel.js" />
     <Content Include="Signup.aspx" />
     <Content Include="SMS\payment_confirmed_Embee.txt" />
+    <Content Include="SMS\verification_sms.txt" />
     <Content Include="Testing\Radasyncupload.aspx" />
     <Content Include="Testing\TestBancBox.aspx" />
     <Content Include="Testing\TestCurrencyCloud.aspx" />
@@ -175,8 +177,11 @@
     <Content Include="User_Controls\Header.ascx" />
     <Content Include="User_Controls\Login.ascx" />
     <Content Include="User_Controls\Payment_Details.ascx" />
+    <Content Include="User_Controls\UserBalances.ascx" />
     <Content Include="User_Controls\UserInfo.ascx" />
+    <Content Include="User_Controls\UserRecentPayments.ascx" />
     <Content Include="User_Controls\Verification.ascx" />
+    <Content Include="User_Controls\ViewUploadedPics.ascx" />
     <Content Include="Verification_Email.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -269,8 +274,16 @@
     <Compile Include="External APIs\BancBox.cs" />
     <Compile Include="External APIs\CurrencyCloud.cs" />
     <Compile Include="External APIs\Embee.cs" />
+    <Compile Include="External APIs\Facebook.cs" />
     <Compile Include="External APIs\Homesend.cs" />
     <Compile Include="External APIs\Twilio.cs" />
+    <Compile Include="Facebook\fblogin.aspx.cs">
+      <DependentUpon>fblogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facebook\fblogin.aspx.designer.cs">
+      <DependentUpon>fblogin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -295,6 +308,7 @@
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\Users_Facebook.cs" />
     <Compile Include="Models\Verification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="External APIs\SendGrid.cs" />
@@ -491,6 +505,13 @@
     <Compile Include="User_Controls\Payment_Details.ascx.designer.cs">
       <DependentUpon>Payment_Details.ascx</DependentUpon>
     </Compile>
+    <Compile Include="User_Controls\UserBalances.ascx.cs">
+      <DependentUpon>UserBalances.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\UserBalances.ascx.designer.cs">
+      <DependentUpon>UserBalances.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\UserInfo.ascx.cs">
       <DependentUpon>UserInfo.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -498,12 +519,26 @@
     <Compile Include="User_Controls\UserInfo.ascx.designer.cs">
       <DependentUpon>UserInfo.ascx</DependentUpon>
     </Compile>
+    <Compile Include="User_Controls\UserRecentPayments.ascx.cs">
+      <DependentUpon>UserRecentPayments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\UserRecentPayments.ascx.designer.cs">
+      <DependentUpon>UserRecentPayments.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\Verification.ascx.cs">
       <DependentUpon>Verification.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User_Controls\Verification.ascx.designer.cs">
       <DependentUpon>Verification.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\ViewUploadedPics.ascx.cs">
+      <DependentUpon>ViewUploadedPics.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\ViewUploadedPics.ascx.designer.cs">
+      <DependentUpon>ViewUploadedPics.ascx</DependentUpon>
     </Compile>
     <Compile Include="Verification_Email.aspx.cs">
       <DependentUpon>Verification_Email.aspx</DependentUpon>
@@ -540,7 +575,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

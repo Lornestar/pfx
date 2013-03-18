@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Peerfx.User.Dashboard" MasterPageFile="~/Site.Master" %>
+
 <%@ Register Src="~/User_Controls/ExchangeCurrency.ascx" tagname="ExchangeCurrency" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/UserBalances.ascx" tagname="UserBalances" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/UserRecentPayments.ascx" tagname="UserRecentPayments" tagprefix="uc1" %>
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
@@ -29,7 +32,7 @@
 
         function validationFailed(sender, args) {
             $telerik.$(".invalid")
-                .html("Invalid extension, please choose an image file");
+                .html("Invalid extension, please choose a jpg image file");
             sender.deleteFileInputAt(0);
         }
 
@@ -64,7 +67,7 @@
                             </td>
                         </tr>                
                         <tr>
-                            <td> <span style="font-weight:bolder; font-size:medium;">
+                            <td> <span class="User_Name">
                                 <asp:Label ID=lblusername runat=server></asp:Label>
                                 </span>
                                  (<asp:Label ID=lbluseremail runat=server></asp:Label>)
@@ -138,126 +141,13 @@
                 <tr>
                     <td align=right>
                         <div class="Exchange_Header">Your Balances</div>
-                        <telerik:RadListView ID="RadListView1" runat="server" Width=100% ItemPlaceholderID="ListViewContainer" >                                
-                          <LayoutTemplate>                            
-                                <table id="products" width=100%  class="RadListview_Table">
-                                        <tr class="RadListview_Header">
-                                            <td style="width:40%">
-                                                Currency
-                                            </td>
-                                            <td style="text-align:right;">
-                                                Balance
-                                            </td>                                            
-                                        </tr>
-                                    <tr id="ListViewContainer" runat="server" >
-                                    </tr>
-                                </table>                            
-                        </LayoutTemplate>                            
-                            <ItemTemplate>                            
-                                    <tr>
-                                        <td >
-                                                <%# Eval("info_currency_description") %>                                                
-                                        </td>
-                                        <td style="float:right; text-align:right;">
-                                            <%# Eval("user_balance")%>
-                                        </td>                                        
-                                    </tr>                        
-                            </ItemTemplate>
-                            <AlternatingItemTemplate>
-                                <tr class=RadListview_Alternating>
-                                        <td >
-                                                <%# Eval("info_currency_description") %>                                                
-                                        </td>
-                                        <td style="float:right; text-align:right;">
-                                            <%# Eval("user_balance")%>
-                                        </td>                                        
-                                    </tr>
-                            </AlternatingItemTemplate>
-                        </telerik:RadListView>
+                        <uc1:UserBalances id=userbalances1 runat=server></uc1:UserBalances>
                     </td>
                 </tr>
                 <tr>
                     <td align=right>
-                        
-                        <telerik:RadListView ID="RadListView2" runat="server" Width=100% ItemPlaceholderID="ListViewContainer" AllowPaging=true PageSize=5
-                          Skin="Vista">
-                          <LayoutTemplate>                             
-                                 <div class="Exchange_Header">Recent Payments</div>
-                                <table id="products" width=100% class="RadListview_Table">
-                                    </tr>
-                                        <tr class="RadListview_Header">
-                                            <td >
-                                                Date
-                                            </td>
-                                            <td>
-                                                Description
-                                            </td>
-                                            <td style="text-align:right;">
-                                                Status
-                                            </td>     
-                                            <td>
-                                                
-                                            </td>                                       
-                                        </tr>
-                                    <tr id="ListViewContainer" runat="server">
-                                    </tr>                                    
-                                    <tr>
-                                        <td colspan=4 style="text-align:right;">
-                                            <a href="History.aspx">See All Payments</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                        </LayoutTemplate>
-                            <ItemTemplate>
-                            
-                                    <tr >
-                                        <td >
-                                        
-                                            <%# Eval("date_created") %>                               
-                                        
-                                        </td>
-                                        <td>
-                                        
-                                            <%# Eval("payment_description") %>
-                                            
-                                        </td>
-                                        <td style="float:right;">
-                                        
-                                            <%# Eval("payment_status_info")%>
-                                        
-                                        </td>                                        
-                                        <td align=right>
-                                            <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
-                                            Details
-                                            </a>
-                                        </td>
-                                    </tr>                        
-                            </ItemTemplate>
-                            <AlternatingItemTemplate>
-                                <tr class=RadListview_Alternating>
-                                        <td >
-                                        
-                                            <%# Eval("date_created")%>                               
-                                        
-                                        </td>
-                                        <td>
-                                        
-                                            <%# Eval("payment_description") %>
-                                        
-                                        </td>
-                                        <td style="float:right;">
-                                        
-                                            <%# Eval("payment_status_info")%>
-                                        
-                                        </td>                                        
-                                        <td align=right>
-                                            <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
-                                            Details
-                                            </a>
-                                        </td>
-                                    </tr>
-                            </AlternatingItemTemplate>
-                        </telerik:RadListView>
+                        <div class="Exchange_Header">Recent Payments</div>
+                        <uc1:UserRecentPayments ID=ucUserRecentPayment1 runat=server />
                     </td>
                 </tr>
                 <tr>

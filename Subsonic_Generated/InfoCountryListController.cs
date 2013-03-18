@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int InfoCountryKey,string CountryValue,string CountryText,string CountryCode)
+	    public void Insert(int InfoCountryKey,string CountryValue,string CountryText,string CountryCode,string PhoneCode)
 	    {
 		    InfoCountryList item = new InfoCountryList();
 		    
@@ -92,6 +92,8 @@ namespace Peerfx_DB
             
             item.CountryCode = CountryCode;
             
+            item.PhoneCode = PhoneCode;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -100,7 +102,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoCountryKey,string CountryValue,string CountryText,string CountryCode)
+	    public void Update(int InfoCountryKey,string CountryValue,string CountryText,string CountryCode,string PhoneCode)
 	    {
 		    InfoCountryList item = new InfoCountryList();
 	        item.MarkOld();
@@ -113,6 +115,8 @@ namespace Peerfx_DB
 			item.CountryText = CountryText;
 				
 			item.CountryCode = CountryCode;
+				
+			item.PhoneCode = PhoneCode;
 				
 	        item.Save(UserName);
 	    }

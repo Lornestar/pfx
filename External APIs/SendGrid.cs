@@ -56,10 +56,9 @@ namespace Peerfx.External_APIs
 
         public void Send_Email_Verification(int user_key)
         {
-            //create unique code & update db with it
-            string struniquecode = Membership.GeneratePassword(8, 0);
-            struniquecode = Regex.Replace(struniquecode, @"[^a-zA-Z0-9]", m => "9");
             Site sitetemp = new Site();
+            //create unique code & update db with it            
+            string struniquecode = sitetemp.GenerateCode();            
             Peerfx_DB.SPs.UpdateVerificationEmail(user_key, false, sitetemp.get_ipaddress(), struniquecode).Execute();
 
             string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/account_created.txt"));

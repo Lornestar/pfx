@@ -139,22 +139,22 @@ namespace Peerfx.User {
         protected global::Telerik.Web.UI.RadBinaryImage RadBinaryImage2;
         
         /// <summary>
-        /// RadListView1 control.
+        /// userbalances1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListView RadListView1;
+        protected global::Peerfx.User_Controls.UserBalances userbalances1;
         
         /// <summary>
-        /// RadListView2 control.
+        /// ucUserRecentPayment1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListView RadListView2;
+        protected global::Peerfx.User_Controls.UserRecentPayments ucUserRecentPayment1;
         
         /// <summary>
         /// ucExchangeCurrency control.

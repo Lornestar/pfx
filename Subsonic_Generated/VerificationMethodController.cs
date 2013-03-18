@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int VerificationMethodKey,string VerificationMethodName,int Points,bool? Ismandatory)
+	    public void Insert(int VerificationMethodKey,string VerificationMethodName,int Points,bool? Ismandatory,bool? Requiresmanualapproval)
 	    {
 		    VerificationMethod item = new VerificationMethod();
 		    
@@ -92,6 +92,8 @@ namespace Peerfx_DB
             
             item.Ismandatory = Ismandatory;
             
+            item.Requiresmanualapproval = Requiresmanualapproval;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -100,7 +102,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int VerificationMethodKey,string VerificationMethodName,int Points,bool? Ismandatory)
+	    public void Update(int VerificationMethodKey,string VerificationMethodName,int Points,bool? Ismandatory,bool? Requiresmanualapproval)
 	    {
 		    VerificationMethod item = new VerificationMethod();
 	        item.MarkOld();
@@ -113,6 +115,8 @@ namespace Peerfx_DB
 			item.Points = Points;
 				
 			item.Ismandatory = Ismandatory;
+				
+			item.Requiresmanualapproval = Requiresmanualapproval;
 				
 	        item.Save(UserName);
 	    }

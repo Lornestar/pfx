@@ -7,6 +7,16 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnphonesendverification">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnphone">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <script type="text/javascript">
@@ -20,18 +30,29 @@
 
         function validationFailed(sender, args) {
             $telerik.$(".invalid")
-                .html("Invalid extension, please choose an image file");
+                .html("Invalid extension, please choose a jpg file");
             sender.deleteFileInputAt(0);
         }
 
     </script>
-<asp:HiddenField ID=hduserkey runat=server Value="0"/>
+
 
 <div class="Page_Header">
 Verifications
 </div>
 
+
+
 <asp:Panel ID=pnlverifications runat=server>
+
+<telerik:RadNotification ID="RadNotification1" runat="server" VisibleOnPageLoad="false" AnimationDuration=750 AutoCloseDelay=3000 Position=Center
+            Width="330" Height="130" Animation="Fade" EnableRoundedCorners="true" EnableShadow="true"
+            Title="Passport Notification" Text=""
+            Style="z-index: 35000">
+        </telerik:RadNotification>
+
+<asp:HiddenField ID=hduserkey runat=server Value="0"/>
+
 <table style="vertical-align:top; width:700px; border:1px solid gray;">
     <tr>
         <td colspan=3 class="Verification_Sections">
@@ -254,19 +275,48 @@ Verifications
         </td>
     </tr>
     <tr>
-        <td>
-            <telerik:RadBinaryImage ID=imgvalid4 runat=server ImageUrl="/images/x.png"/>
-        </td>
-        <td>
-            <div class="Verification_Name">Phone Verification</div>            
-            <div class="Verification_Description">
-                An sms with a unique code is sent to your phone and receive a $5 credit
-            </div>
-        </td>
-        <td>
-            <telerik:RadButton ID=btnphone runat=server Text="Resend Email" 
-                onclick="btnphone_Click"></telerik:RadButton>
-        </td>
+        <td colspan=3>
+            <table width=100%>
+                <tr>
+                    <td>
+                        <telerik:RadBinaryImage ID=imgvalid4 runat=server ImageUrl="/images/x.png"/>
+                    </td>
+                    <td>
+                        <div class="Verification_Name">Phone Verification</div>            
+                        <div class="Verification_Description">
+                            An sms with a unique code is sent to your phone and receive a $5 credit
+                        </div>
+                    </td>
+                    <td>
+                        <telerik:RadButton ID=btnphone runat=server Text="Verify Phone" 
+                            onclick="btnphone_Click"></telerik:RadButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=3>
+                        <asp:Panel ID=pnlphonesendverification runat=server Visible=false>                        
+                            <telerik:RadComboBox ID=ddlcountryphone runat=server EmptyMessage="Country">
+                            </telerik:RadComboBox>
+                            <telerik:RadTextBox ID=txtphonesendverfication runat=server EmptyMessage="Phone Number"></telerik:RadTextBox>
+                            <span style="font-size:smaller;">(do not start # with a 0)</span>
+                            <telerik:RadButton ID=btnphonesendverification runat=server OnClick=btnphonesendverification_Click Text="Send Phone Code"></telerik:RadButton>
+                            <br />
+                            <asp:Label ID=lblphoneerror runat=server ForeColor=Red></asp:Label>
+                        </asp:Panel>                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=3>
+                        <asp:Panel ID=pnlphoneverification runat=server Visible=false>
+                            <telerik:RadTextBox ID=txtphonecode runat=server EmptyMessage="Enter the code sent to your phone" Width=280px></telerik:RadTextBox>
+                            <telerik:RadButton ID=btnphonecode runat=server OnClick=btnphonecode_Click Text="Enter Phone Code"></telerik:RadButton>
+                            <br />
+                            <asp:Label ID=lblphoneerror2 runat=server ForeColor=Red></asp:Label>
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+        </td>        
     </tr>
     <tr>
         <td>
@@ -279,8 +329,12 @@ Verifications
             </div>
         </td>
         <td>
-            <telerik:RadButton ID=btnFacebook runat=server Text="Resend Email" 
-                onclick="btnFacebook_Click"></telerik:RadButton>
+
+            <a href="http://www.facebook.com/dialog/oauth/?client_id=223254254482336&redirect_uri=http://localhost:59705/Facebook/fblogin.aspx&scope=email&user_birthday&user_location">
+            <asp:Image ImageUrl="/images/btnfbconnect.png" ID=imgfbbutton runat=server />
+            </a>
+
+            <telerik:RadButton ID=btnFacebook runat=server Visible=false></telerik:RadButton>
         </td>
     </tr>
 </table>

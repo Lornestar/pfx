@@ -15,7 +15,10 @@ namespace Peerfx.User
         protected void Page_Load(object sender, EventArgs e)
         {
             currentuser = sitetemp.getcurrentuser(false);
-            ucVerification.LoadPage(currentuser);
+            if (!IsPostBack)
+            {
+                ucVerification.LoadPage(currentuser);
+            }            
         }
     }
 }

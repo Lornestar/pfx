@@ -380,6 +380,48 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Facebook_Access_Token Procedure
+        /// </summary>
+        public static StoredProcedure UpdateFacebookAccessToken(int? userkey, string accesstoken)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Facebook_Access_Token", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@userkey", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@accesstoken", accesstoken, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Facebook_User_Info Procedure
+        /// </summary>
+        public static StoredProcedure UpdateFacebookUserInfo(int? userkey, long? uid, string location, string email, int? friendscount, bool? ismale, string firstname, string lastname, bool? isverified)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Facebook_User_Info", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@userkey", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@uid", uid, DbType.Int64, 0, 19);
+        	
+            sp.Command.AddParameter("@location", location, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@email", email, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@friendscount", friendscount, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@ismale", ismale, DbType.Boolean, null, null);
+        	
+            sp.Command.AddParameter("@firstname", firstname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@lastname", lastname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@isverified", isverified, DbType.Boolean, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Info_CurrencyCloud_Tokens Procedure
         /// </summary>
         public static StoredProcedure UpdateInfoCurrencyCloudTokens(int? cctokenkey, string cctoken)
@@ -778,6 +820,20 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Users_PhoneNumber Procedure
+        /// </summary>
+        public static StoredProcedure UpdateUsersPhoneNumber(int? userkey, string phonenumber)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Users_PhoneNumber", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@phonenumber", phonenumber, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Users_Security_Answers Procedure
         /// </summary>
         public static StoredProcedure UpdateUsersSecurityAnswers(int? userkey, int? question, string answer)
@@ -803,6 +859,26 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@status", status, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Verification Procedure
+        /// </summary>
+        public static StoredProcedure UpdateVerification(int? userkey, int? verificationmethod, bool? isverified, string ipaddress, string uniquekey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Verification", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@verification_method", verificationmethod, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@isverified", isverified, DbType.Boolean, null, null);
+        	
+            sp.Command.AddParameter("@ip_address", ipaddress, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@unique_key", uniquekey, DbType.String, null, null);
         	
             return sp;
         }
@@ -1484,6 +1560,18 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_User_Facebook Procedure
+        /// </summary>
+        public static StoredProcedure ViewUserFacebook(int? userkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_User_Facebook", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@userkey", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Users_Admin Procedure
         /// </summary>
         public static StoredProcedure ViewUsersAdmin()
@@ -1580,9 +1668,25 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the View_Users_Verified_byCode Procedure
         /// </summary>
-        public static StoredProcedure ViewUsersVerifiedByCode(string uniquekey, int? verificationmethodskey)
+        public static StoredProcedure ViewUsersVerifiedByCode(string uniquekey, int? verificationmethodskey, int? userkey)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Verified_byCode", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@unique_key", uniquekey, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@verification_methods_key", verificationmethodskey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Verified_byCode_nouserkey Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersVerifiedByCodeNouserkey(string uniquekey, int? verificationmethodskey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Verified_byCode_nouserkey", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@unique_key", uniquekey, DbType.String, null, null);
         	

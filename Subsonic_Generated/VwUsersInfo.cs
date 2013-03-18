@@ -537,6 +537,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarImageUrl);
                 
+                TableSchema.TableColumn colvarVerificationPoints = new TableSchema.TableColumn(schema);
+                colvarVerificationPoints.ColumnName = "verification_points";
+                colvarVerificationPoints.DataType = DbType.Int32;
+                colvarVerificationPoints.MaxLength = 0;
+                colvarVerificationPoints.AutoIncrement = false;
+                colvarVerificationPoints.IsNullable = true;
+                colvarVerificationPoints.IsPrimaryKey = false;
+                colvarVerificationPoints.IsForeignKey = false;
+                colvarVerificationPoints.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarVerificationPoints);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -1146,6 +1158,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("Image_URL", value);
             }
         }
+	      
+        [XmlAttribute("VerificationPoints")]
+        [Bindable(true)]
+        public int? VerificationPoints 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("verification_points");
+		    }
+            set 
+		    {
+			    SetColumnValue("verification_points", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -1233,6 +1259,8 @@ namespace Peerfx_DB{
             public static string Ssn = @"ssn";
             
             public static string ImageUrl = @"Image_URL";
+            
+            public static string VerificationPoints = @"verification_points";
             
 	    }
 	    #endregion
