@@ -146,7 +146,7 @@
                                             <td>
                                                 <table style="vertical-align:top;">
                                                     <tr>
-                                                        <td colspan=2>
+                                                        <td colspan=2 class="Exchange_Header">
                                                             ID Verification
                                                         </td>
                                                     </tr>
@@ -160,6 +160,34 @@
                                                             <uc1:ViewUploadedPics id="ViewUploadedPics1" runat=server></uc1:ViewUploadedPics>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td colspan=2><hr /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan=2 class="Exchange_Header">
+                                                            Address Verification
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Address:</td>
+                                                        <td><asp:Label ID=lbladdress1 runat=server></asp:Label> <asp:Label  ID=lbladdress2 runat=server></asp:Label> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>City:</td>
+                                                        <td><asp:Label ID=lblcity runat=server></asp:Label> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Country:</td>
+                                                        <td><asp:Label ID=lblcountry runat=server></asp:Label> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>State/Province:</td>
+                                                        <td><asp:Label ID=lblstate runat=server></asp:Label> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Zip/Postal Code:</td>
+                                                        <td><asp:Label ID=lblpostalcode runat=server></asp:Label> </td>
+                                                    </tr>
                                                     <tr valign=top>
                                                         <td >Address Images</td>
                                                         <td>
@@ -170,11 +198,11 @@
                                                         <td colspan=2><hr /></td>
                                                     </tr>
                                                     <tr>                                                        
-                                                        <td colspan=2>Facebook Validation:</td>
+                                                        <td colspan=2 class="Exchange_Header">Facebook Validation:</td>
                                                     </tr>                               
                                                     <tr>
                                                         <td colspan=2>
-                                                            <asp:HyperLink ID=hypfb runat=server NavigateUrl="http://www.facebook.com/profile.php?id=" Text="User's Facebook Account"></asp:HyperLink>
+                                                            <asp:HyperLink ID=hypfb runat=server Target=_blank NavigateUrl="http://www.facebook.com/profile.php?id=" Text="User's Facebook Account"></asp:HyperLink>
                                                         </td>
                                                     </tr>
                                                     <tr>

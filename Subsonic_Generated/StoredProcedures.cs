@@ -760,6 +760,30 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Users_Address Procedure
+        /// </summary>
+        public static StoredProcedure UpdateUsersAddress(int? userkey, string address1, string address2, string city, string state, int? country, string postalcode)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Users_Address", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@address1", address1, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@address2", address2, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@city", city, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@state", state, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@country", country, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@postalcode", postalcode, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Users_Info Procedure
         /// </summary>
         public static StoredProcedure UpdateUsersInfo(int? userkey, string address1, string address2, string city, string state, int? country, string postalcode, int? phonecountrycode1, int? phonetype1, string phonenumber1, int? phonecountrycode2, int? phonetype2, string phonenumber2, int? identitynationality, string occupation, string passportnumber, string ssn)
@@ -815,6 +839,20 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@username", username, DbType.String, null, null);
         	
             sp.Command.AddParameter("@password", password, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Users_Passport Procedure
+        /// </summary>
+        public static StoredProcedure UpdateUsersPassport(int? userkey, string passportnumber)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Users_Passport", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@passportnumber", passportnumber, DbType.String, null, null);
         	
             return sp;
         }

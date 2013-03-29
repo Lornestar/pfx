@@ -15,6 +15,7 @@ namespace Peerfx.Admin
     {
         Site sitetemp = new Site();
         Users currentuser;
+        string notavailable = "Not Available";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -57,6 +58,23 @@ namespace Peerfx.Admin
             RadListView1.DataBind();
 
             lblpoints.Text = currentuser.Verification_points.ToString();
+            if (currentuser.Passportnumber != null)
+            {
+                lblpassportnumber.Text = currentuser.Passportnumber;
+            }
+            else
+            {
+                lblpassportnumber.Text = notavailable;
+            }
+
+            lbladdress1.Text = currentuser.Address1;
+            lbladdress2.Text = currentuser.Address2;
+            lblcity.Text = currentuser.City;
+            lblstate.Text = currentuser.State;
+            lblpostalcode.Text = currentuser.Postalcode;
+            if (currentuser.Country != 0){
+                lblcountry.Text = sitetemp.getcountrytext(currentuser.Country);
+            }            
 
             hduserkey.Value = userkey.ToString();
             RadListView1.Rebind();

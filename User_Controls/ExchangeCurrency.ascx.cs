@@ -83,19 +83,31 @@ namespace Peerfx.User_Controls
         }
 
         protected void LoadRates()
-        {            
+        {
+            try
+            {
+                Quote quotetemp = sitetemp.getQuote(Convert.ToDecimal(txtsell.Text), Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue));
 
-            Quote quotetemp = sitetemp.getQuote(Convert.ToDecimal(txtsell.Text), Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue));
+                hdbuyrate.Value = quotetemp.Peerfx_Rate.ToString();
+                hdbuycurrencysymbol.Value = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " ";
+                hdservicefee.Value = quotetemp.Peerfx_Servicefee.ToString("F");
+                hdbuyamount.Value = quotetemp.Buyamount.ToString("F");
 
-            hdbuyrate.Value = quotetemp.Peerfx_Rate.ToString();
-            hdbuycurrencysymbol.Value = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " ";
-            hdservicefee.Value = quotetemp.Peerfx_Servicefee.ToString("F");
-            hdbuyamount.Value = quotetemp.Buyamount.ToString("F");
-
-            lblrate.Text = hdbuyrate.Value;
-            lblservicefee.Text = hdbuycurrencysymbol.Value + hdservicefee.Value;
-            lblyouget.Text = hdbuycurrencysymbol.Value + hdbuyamount.Value;
-            txtbuy.Value = Convert.ToDouble(quotetemp.Buyamount);
+                lblrate.Text = hdbuyrate.Value;
+                lblservicefee.Text = hdbuycurrencysymbol.Value + hdservicefee.Value;
+                lblyouget.Text = hdbuycurrencysymbol.Value + hdbuyamount.Value;
+                txtbuy.Value = Convert.ToDouble(quotetemp.Buyamount);
+            }
+            catch
+            {
+                pnlworking.Visible = false;
+                lblerror.Visible = true;
+                ddlbuycurrency.Enabled = false;
+                ddlsellcurrency.Enabled = false;
+                txtbuy.Enabled = false;
+                txtsell.Enabled = false;
+                btnExchange.Enabled = false;
+            }
         }
 
     }

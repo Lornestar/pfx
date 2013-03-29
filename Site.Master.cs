@@ -271,6 +271,10 @@ namespace Peerfx
             {
                 users.Ssn = dstemp.Tables[0].Rows[0]["ssn"].ToString();
             }
+            if (dstemp.Tables[0].Rows[0]["passportnumber"] != DBNull.Value)
+            {
+                users.Passportnumber = dstemp.Tables[0].Rows[0]["passportnumber"].ToString();
+            }
             if (dstemp.Tables[0].Rows[0]["bancbox_client_id"] != DBNull.Value)
             {
                 users.Bancbox_client_id = Convert.ToInt32(dstemp.Tables[0].Rows[0]["bancbox_client_id"]);

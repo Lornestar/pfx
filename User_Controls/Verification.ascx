@@ -21,7 +21,9 @@
     </telerik:RadAjaxManager>
     <script type="text/javascript">
         function fileUploaded(sender, args) {
+            alert('here');
             $find('ctl00_Main_ucVerification_RadAjaxManager1').ajaxRequest();
+            alert('here');
             $telerik.$(".invalid").html("");
             setTimeout(function () {
                 sender.deleteFileInputAt(0);
@@ -109,32 +111,32 @@ Verifications
                                     <table>
                                         <tr>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport1 runat=server Width=70 MaxLength="9"></telerik:RadTextBox>
+                                                <telerik:RadMaskedTextBox ID=txtPassport1 runat=server Width=70 MaxLength="9" HideOnBlur=true Mask="#########"/>
                                                 <br />
                                                 123456789
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport2 runat=server Width=18 MaxLength="1"></telerik:RadTextBox>
+                                                <telerik:RadMaskedTextBox ID=txtPassport2 runat=server Width=18 MaxLength="1" HideOnBlur=true Mask="#"/>
                                                 <br />
                                                 1
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport3 runat=server Width=50 MaxLength="3"></telerik:RadTextBox>
+                                                <telerik:RadTextBox ID=txtPassport3 runat=server Width=50 MaxLength="3" />
                                                 <br />
                                                 GBR
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport4 runat=server Width=70 MaxLength="7"></telerik:RadTextBox>
+                                                <telerik:RadMaskedTextBox ID=txtPassport4 runat=server Width=70 MaxLength="7" HideOnBlur=true Mask="#######"/>
                                                 <br />
                                                 1234567
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport5 runat=server Width=18 MaxLength="1"></telerik:RadTextBox>
+                                                <telerik:RadTextBox ID=txtPassport5 runat=server Width=25 MaxLength="1"></telerik:RadTextBox>
                                                 <br />
                                                 F
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport6 runat=server Width=70 MaxLength="7"></telerik:RadTextBox>
+                                                <telerik:RadMaskedTextBox ID=txtPassport6 runat=server Width=70 MaxLength="7" HideOnBlur=true Mask="#######"/>
                                                 <br />
                                                 1234567
                                             </td>
@@ -144,12 +146,12 @@ Verifications
                                                 <<<<<<<<<<<<<<
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport8 runat=server Width=18 MaxLength="1"></telerik:RadTextBox>
+                                                <telerik:RadMaskedTextBox ID=txtPassport8 runat=server Width=18 MaxLength="1" HideOnBlur=true Mask="#"/>
                                                 <br />
                                                 1
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID=txtPassport9 runat=server Width=18 MaxLength="1"></telerik:RadTextBox>
+                                                <telerik:RadMaskedTextBox ID=txtPassport9 runat=server Width=18 MaxLength="1" HideOnBlur=true Mask="#"/>
                                                 <br />
                                                 1
                                             </td>
@@ -159,7 +161,9 @@ Verifications
                             </tr>
                         </table>
                         <br />
-                        <div style="float:right;"><telerik:RadButton ID=btnPassportNext runat=server Text="Upload Image" OnClick="btnpassportnext_Click"></telerik:RadButton> </div>
+                        <div style="float:right;">
+                        <asp:Label ID=lblpassporterror runat=server ForeColor=Red></asp:Label>
+                        <telerik:RadButton ID=btnPassportNext runat=server Text="Upload Image" OnClick="btnpassportnext_Click"></telerik:RadButton> </div>
                         </asp:Panel>
                     </td>
                 </tr>
@@ -171,6 +175,8 @@ Verifications
                                        OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="524288">
                                        <Localization Select="Upload" />
                                                                                              </telerik:RadAsyncUpload>            
+                                                                                             <telerik:RadProgressManager runat="server" ID="RadProgressManager1" />
+                            <telerik:RadProgressArea runat="server" ID="RadProgressArea1" />
                         </asp:Panel>
                     </td>
                 </tr>
@@ -234,7 +240,7 @@ Verifications
                                     *Country
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID=ddlCountrytab runat=server>
+                                    <telerik:RadComboBox ID=ddlCountryAddress runat=server EmptyMessage="Select Country">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>                            
@@ -248,7 +254,10 @@ Verifications
                             </tr>
                         </table>    
                          <br />
-                         <telerik:RadButton ID=btnaddresssnext runat=server Text="Upload Image" OnClick="btnaddressnext2_Click"></telerik:RadButton>                                        
+                         <div style="float:right;">
+                         <asp:Label ID=lbladdresserror runat=server ForeColor=Red></asp:Label>
+                         <telerik:RadButton ID=btnaddresssnext runat=server Text="Upload Image" OnClick="btnaddressnext2_Click"></telerik:RadButton>                                 
+                         </div>                                
                         </asp:Panel>
                         <br />
                         <table>
@@ -257,8 +266,11 @@ Verifications
                                 <asp:Panel ID=pnladdressimage runat=server Visible=false>
                                 <telerik:RadAsyncUpload runat="server" ID="RadAsyncUpload1" OnFileUploaded="AsyncUpload2_FileUploaded" AllowedFileExtensions="jpeg,jpg,gif,png" 
                                                    OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="524288">
+                                                   
                                                                                                          <Localization Select="Upload" />
                                                                                                          </telerik:RadAsyncUpload>        
+                                                                                                         <telerik:RadProgressManager runat="server" ID="RadProgressManager2" />
+                            <telerik:RadProgressArea runat="server" ID="RadProgressArea2" />
                                                                                                         </asp:Panel>
                                 </td>
                             </tr>

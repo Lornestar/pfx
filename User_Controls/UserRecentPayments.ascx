@@ -24,7 +24,7 @@
                                     </tr>                                    
                                     <tr>
                                         <td colspan=4 style="text-align:right;">
-                                            <a href="History.aspx">See All Payments</a>
+                                            <a href="/User/History.aspx">See All Payments</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -48,7 +48,7 @@
                                         
                                         </td>                                        
                                         <td align=right>
-                                            <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
+                                            <a href="/User/Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
                                             Details
                                             </a>
                                         </td>
@@ -72,7 +72,7 @@
                                         
                                         </td>                                        
                                         <td align=right>
-                                            <a href="Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
+                                            <a href="/User/Payment.aspx?paymentkey=<%# Eval("payments_key") %>">
                                             Details
                                             </a>
                                         </td>

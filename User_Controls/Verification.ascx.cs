@@ -63,10 +63,40 @@ namespace Peerfx.User_Controls
             }
             
             //ddlcountry
+            DataTable dtcountries = Peerfx_DB.SPs.ViewInfoCountries().GetDataSet().Tables[0];
+
             ddlcountryphone.DataTextField = "Country_Text";
             ddlcountryphone.DataValueField = "info_country_key";
-            ddlcountryphone.DataSource = Peerfx_DB.SPs.ViewInfoCountries().GetDataSet();
+            ddlcountryphone.DataSource = dtcountries;
             ddlcountryphone.DataBind();
+
+            ddlCountryAddress.DataTextField = "Country_Text";
+            ddlCountryAddress.DataValueField = "info_country_key";
+            ddlCountryAddress.DataSource = dtcountries;
+            ddlCountryAddress.DataBind();
+
+            //insert existing passport # if previously entered
+            if (currentuser.Passportnumber != null)
+            {
+                txtPassport1.Text = currentuser.Passportnumber.Substring(0, 9);
+                txtPassport2.Text = currentuser.Passportnumber.Substring(9, 1);
+                txtPassport3.Text = currentuser.Passportnumber.Substring(10, 3);
+                txtPassport4.Text = currentuser.Passportnumber.Substring(13, 7);
+                txtPassport5.Text = currentuser.Passportnumber.Substring(20, 1);
+                txtPassport6.Text = currentuser.Passportnumber.Substring(21, 7);
+                txtPassport7.Text = currentuser.Passportnumber.Substring(28, 14);
+                txtPassport8.Text = currentuser.Passportnumber.Substring(42, 1);
+                txtPassport9.Text = currentuser.Passportnumber.Substring(43, 1);
+            }
+            txtAddress1.Text = currentuser.Address1;
+            txtAddress2.Text = currentuser.Address2;
+            txtCity.Text = currentuser.City;
+            txtState.Text = currentuser.State;
+            txtpostalzipcode.Text = currentuser.Postalcode;
+            if (currentuser.Country != 0)
+            {
+                ddlCountryAddress.SelectedValue = currentuser.Country.ToString();
+            }
         }
 
         protected void btnemail_Click(object sender, EventArgs e)
@@ -137,7 +167,24 @@ namespace Peerfx.User_Controls
 
         protected void btnpassportnext_Click(object sender, EventArgs e)
         {
-            pnlPassportPhoto.Visible = true;
+            if ((txtPassport1.Text.Length == txtPassport1.MaxLength) && (txtPassport2.Text.Length == txtPassport2.MaxLength) && (txtPassport3.Text.Length == txtPassport3.MaxLength) && (txtPassport4.Text.Length == txtPassport4.MaxLength) && (txtPassport5.Text.Length == txtPassport5.MaxLength) && (txtPassport6.Text.Length == txtPassport6.MaxLength) && (txtPassport8.Text.Length == txtPassport8.MaxLength))
+            {
+                //is valid
+                lblpassporterror.Text = "";
+                pnlPassportPhoto.Visible = true;
+
+                string passportnumber = txtPassport1.Text + txtPassport2.Text + txtPassport3.Text + txtPassport4.Text + txtPassport5.Text + txtPassport6.Text + txtPassport7.Text + txtPassport8.Text + txtPassport9.Text;
+                Peerfx_DB.SPs.UpdateUsersPassport(Convert.ToInt32(hduserkey.Value), passportnumber).Execute();
+                //cross reference world check
+
+                //Upload pics or Webcam
+
+            }
+            else
+            {
+                lblpassporterror.Text = "Please complete the entire Passport info";
+            }
+            
         }
 
         protected void btnaddressnext_Click(object sender, EventArgs e)
@@ -147,7 +194,18 @@ namespace Peerfx.User_Controls
 
         protected void btnaddressnext2_Click(object sender, EventArgs e)
         {
-            pnladdressimage.Visible = true;
+            bool isvalid = false;
+            if ((txtAddress1.Text.Length > 0) && (txtCity.Text.Length > 0) && (txtState.Text.Length > 0) && (txtpostalzipcode.Text.Length > 0) && (ddlCountryAddress.SelectedValue.Length > 0))
+            {
+                isvalid = true;
+                Peerfx_DB.SPs.UpdateUsersAddress(Convert.ToInt32(hduserkey.Value), txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtState.Text, Convert.ToInt32(ddlCountryAddress.SelectedValue), txtpostalzipcode.Text).Execute();
+                lbladdresserror.Text = "";
+                pnladdressimage.Visible = true;
+            }
+            else
+            {
+                lbladdresserror.Text = "Please fill in your address";
+            }            
         }
 
         protected void btnFacebook_Click(object sender, EventArgs e)

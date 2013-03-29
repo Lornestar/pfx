@@ -100,7 +100,7 @@ namespace Peerfx.User_Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtPassport1;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtPassport1;
         
         /// <summary>
         /// txtPassport2 control.
@@ -109,7 +109,7 @@ namespace Peerfx.User_Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtPassport2;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtPassport2;
         
         /// <summary>
         /// txtPassport3 control.
@@ -127,7 +127,7 @@ namespace Peerfx.User_Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtPassport4;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtPassport4;
         
         /// <summary>
         /// txtPassport5 control.
@@ -145,7 +145,7 @@ namespace Peerfx.User_Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtPassport6;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtPassport6;
         
         /// <summary>
         /// txtPassport7 control.
@@ -163,7 +163,7 @@ namespace Peerfx.User_Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtPassport8;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtPassport8;
         
         /// <summary>
         /// txtPassport9 control.
@@ -172,7 +172,16 @@ namespace Peerfx.User_Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtPassport9;
+        protected global::Telerik.Web.UI.RadMaskedTextBox txtPassport9;
+        
+        /// <summary>
+        /// lblpassporterror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblpassporterror;
         
         /// <summary>
         /// btnPassportNext control.
@@ -200,6 +209,24 @@ namespace Peerfx.User_Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadAsyncUpload AsyncUpload1;
+        
+        /// <summary>
+        /// RadProgressManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadProgressManager RadProgressManager1;
+        
+        /// <summary>
+        /// RadProgressArea1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadProgressArea RadProgressArea1;
         
         /// <summary>
         /// imgvalid3 control.
@@ -265,13 +292,13 @@ namespace Peerfx.User_Controls {
         protected global::Telerik.Web.UI.RadTextBox txtState;
         
         /// <summary>
-        /// ddlCountrytab control.
+        /// ddlCountryAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox ddlCountrytab;
+        protected global::Telerik.Web.UI.RadComboBox ddlCountryAddress;
         
         /// <summary>
         /// txtpostalzipcode control.
@@ -281,6 +308,15 @@ namespace Peerfx.User_Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txtpostalzipcode;
+        
+        /// <summary>
+        /// lbladdresserror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbladdresserror;
         
         /// <summary>
         /// btnaddresssnext control.
@@ -308,6 +344,24 @@ namespace Peerfx.User_Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadAsyncUpload RadAsyncUpload1;
+        
+        /// <summary>
+        /// RadProgressManager2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadProgressManager RadProgressManager2;
+        
+        /// <summary>
+        /// RadProgressArea2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadProgressArea RadProgressArea2;
         
         /// <summary>
         /// imgvalid4 control.

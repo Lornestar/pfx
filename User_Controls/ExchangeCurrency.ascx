@@ -57,6 +57,7 @@ function updatetable() {
     </tr>    
     <tr>
         <td>
+            <asp:Panel ID=pnlworking runat=server>
             <table>
                 <tr>
                     <td>Service Fee</td>
@@ -71,6 +72,10 @@ function updatetable() {
                     <td><asp:Label ID="lblrate" runat=server>0.00</asp:Label></td>
                 </tr>
             </table>
+            </asp:Panel>
+            <span style="text-align:center;">
+            <asp:Label ID=lblerror runat=server Visible=false>Payment Request Service currency unavailable</asp:Label>
+            </span>
         </td>
     </tr>    
     <tr>

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peerfx", "Peerfx.csproj", "{985D2408-2F88-4943-AE31-531AA522D42C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassportAPI", "..\PassportAPI\PassportAPI.csproj", "{87341870-954C-4224-8D2D-001D5E9FFCF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{985D2408-2F88-4943-AE31-531AA522D42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{985D2408-2F88-4943-AE31-531AA522D42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{985D2408-2F88-4943-AE31-531AA522D42C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87341870-954C-4224-8D2D-001D5E9FFCF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87341870-954C-4224-8D2D-001D5E9FFCF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87341870-954C-4224-8D2D-001D5E9FFCF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87341870-954C-4224-8D2D-001D5E9FFCF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -112,6 +112,15 @@ namespace Peerfx.User_Controls {
         protected global::Telerik.Web.UI.RadComboBox ddlbuycurrency;
         
         /// <summary>
+        /// pnlworking control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlworking;
+        
+        /// <summary>
         /// lblservicefee control.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,15 @@ namespace Peerfx.User_Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblrate;
+        
+        /// <summary>
+        /// lblerror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblerror;
         
         /// <summary>
         /// btnExchange control.
