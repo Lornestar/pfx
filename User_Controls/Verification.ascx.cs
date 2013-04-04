@@ -19,9 +19,11 @@ namespace Peerfx.User_Controls
     {
         Site sitetemp = new Site();
         string checkmarkurl = "/images/checkmark.png";
+        Site currentsite;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            currentsite = (Peerfx.Site) Page.Master;
         }
 
         public void LoadPage(Users currentuser){
@@ -41,7 +43,22 @@ namespace Peerfx.User_Controls
                             btnemail.Text = "Verification Complete";
                         }
                         break;
-                    case 2: break;
+                    case 2: if (verificationtemp.Isverified)
+                        {
+                            //Passport verified
+                            imgvalid2.ImageUrl = checkmarkurl;
+                            btnpassportopen.Enabled = false;
+                            btnpassportopen.Text = "Verification Complete";
+                        }                        
+                        break;
+                    case 3: if (verificationtemp.Isverified)
+                        {
+                            //Address verified
+                            imgvalid3.ImageUrl = checkmarkurl;
+                            btnopenaddress.Enabled = false;
+                            btnopenaddress.Text = "Verification Complete";
+                        }
+                        break;
                     case 4: if (verificationtemp.Isverified)                        
                         {
                             //Phone verified
@@ -53,6 +70,7 @@ namespace Peerfx.User_Controls
                         break;
                     case 5: if (verificationtemp.Isverified)
                         {
+                            imgvalid5.ImageUrl = checkmarkurl;
                             imgfbbutton.Visible = false;
                             btnFacebook.Visible = true;
                             btnFacebook.Enabled = false;
@@ -84,7 +102,7 @@ namespace Peerfx.User_Controls
                 txtPassport4.Text = currentuser.Passportnumber.Substring(13, 7);
                 txtPassport5.Text = currentuser.Passportnumber.Substring(20, 1);
                 txtPassport6.Text = currentuser.Passportnumber.Substring(21, 7);
-                txtPassport7.Text = currentuser.Passportnumber.Substring(28, 14);
+                //txtPassport7.Text = currentuser.Passportnumber.Substring(28, 14);
                 txtPassport8.Text = currentuser.Passportnumber.Substring(42, 1);
                 txtPassport9.Text = currentuser.Passportnumber.Substring(43, 1);
             }
@@ -105,6 +123,9 @@ namespace Peerfx.User_Controls
             //send verification email
             External_APIs.SendGrid sg = new External_APIs.SendGrid();
             sg.Send_Email_Verification(user_key);
+
+            RadNotification1.Text = "A verification email has just been sent to your email address.";
+            RadNotification1.Show();
         }
 
         protected void btnaddress_Click(object sender, EventArgs e)
@@ -115,11 +136,13 @@ namespace Peerfx.User_Controls
         protected void AsyncUpload1_FileUploaded(object sender, FileUploadedEventArgs e)
         {
             UploadFiles("Verification/ID",e);
+            ViewUploadedPics1.LoadPics("/Files/Verification/ID/" + hduserkey.Value);
         }
 
         protected void AsyncUpload2_FileUploaded(object sender, FileUploadedEventArgs e)
         {
             UploadFiles("Verification/Address", e);
+            ViewUploadedPics2.LoadPics("/Files/Verification/Address/" + hduserkey.Value);
         }
 
         protected void UploadFiles(string thisfolder, FileUploadedEventArgs e)
@@ -158,6 +181,10 @@ namespace Peerfx.User_Controls
                 fs.Close();
                 w.Close();
             }
+
+            RadNotification1.Text = "Your files have been uploaded.<br/><br/> We will review your verification and notify you shortly on the status of it.";
+            RadNotification1.Show();
+            
         }
 
         protected void btnpassportopen_Click(object sender, EventArgs e)
@@ -179,6 +206,8 @@ namespace Peerfx.User_Controls
 
                 //Upload pics or Webcam
 
+                //Show existing pics
+                ViewUploadedPics1.LoadPics("/Files/Verification/ID/" + hduserkey.Value);
             }
             else
             {
@@ -201,6 +230,8 @@ namespace Peerfx.User_Controls
                 Peerfx_DB.SPs.UpdateUsersAddress(Convert.ToInt32(hduserkey.Value), txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtState.Text, Convert.ToInt32(ddlCountryAddress.SelectedValue), txtpostalzipcode.Text).Execute();
                 lbladdresserror.Text = "";
                 pnladdressimage.Visible = true;
+
+                ViewUploadedPics2.LoadPics("/Files/Verification/Address/" + hduserkey.Value);
             }
             else
             {

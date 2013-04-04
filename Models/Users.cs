@@ -45,6 +45,8 @@ namespace Peerfx.Models
         private string ssn;
         private string image_url;
         private int verification_points;
+        private DateTime last_online;
+        private bool isverified;
 
         public int User_key
         {
@@ -221,6 +223,18 @@ namespace Peerfx.Models
             set
             {
                 isadmin = value;
+            }
+        }
+
+        public bool Isverified
+        {
+            get
+            {
+                return isverified;
+            }
+            set
+            {
+                isverified = value;
             }
         }
 
@@ -497,6 +511,18 @@ namespace Peerfx.Models
             set
             {
                 verification_points = value;
+            }
+        }
+
+        public DateTime Last_online
+        {
+            get
+            {
+                return last_online;
+            }
+            set
+            {
+                last_online = value;
             }
         }
     }

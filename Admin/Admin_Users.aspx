@@ -21,7 +21,7 @@
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
 
                 <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False"  OnNeedDataSource="RadGrid1_NeedDataSource" AllowSorting="true"
-                OnItemCommand="RadGrid1_ItemCommand">
+                OnItemCommand="RadGrid1_ItemCommand" PageSize=25>
                      <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="account_number" AutoGenerateColumns="False">
                         <Columns>
                             <telerik:GridBoundColumn DataField="account_number" HeaderText="Account Number" UniqueName="account_number">
@@ -36,7 +36,7 @@
                             </telerik:GridBoundColumn>                
                             <telerik:GridBoundColumn DataField="user_status_text" HeaderText="Status" UniqueName="user_status_text">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="last_changed" HeaderText="Last Online" UniqueName="last_changed">
+                            <telerik:GridBoundColumn DataField="last_online" HeaderText="Last Online" UniqueName="last_online">
                             </telerik:GridBoundColumn>  
                             <telerik:GridButtonColumn DataTextFormatString="Details" DataTextField="user_key" Text="Details" CommandName="Details"></telerik:GridButtonColumn>                            
                         </Columns>
@@ -69,6 +69,16 @@
                                         <tr>                    
                                             <td>
                                                 Account Status : <asp:Label ID=lblaccountstatus runat=server></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Date Created : <asp:Label ID=lblaccountcreated runat=server></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Last Login : <asp:Label ID=lblaccountlastlogin runat=server></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -199,60 +209,77 @@
                                                     </tr>
                                                     <tr>                                                        
                                                         <td colspan=2 class="Exchange_Header">Facebook Validation:</td>
-                                                    </tr>                               
+                                                    </tr>                
                                                     <tr>
                                                         <td colspan=2>
-                                                            <asp:HyperLink ID=hypfb runat=server Target=_blank NavigateUrl="http://www.facebook.com/profile.php?id=" Text="User's Facebook Account"></asp:HyperLink>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            fb location:
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID=lblfblocation runat=server></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            fb email:
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID=lblfbemail runat=server></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            fb friends count:
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID=lblfbfriendscount runat=server></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            fb gender:
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID=lblfbgender runat=server></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            fb full name:
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID=lblfbfullname runat=server></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            fb is verified:
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID=lblfbverified runat=server></asp:Label>
-                                                        </td>
-                                                    </tr>
+                                                            <table width=100%>
+                                                                <tr valign=top>
+                                                                    <td>
+                                                                    <table>
+                                                                <tr>
+                                                                    <td colspan=2>
+                                                                        <asp:HyperLink ID=hypfb runat=server Target=_blank NavigateUrl="http://www.facebook.com/profile.php?id=" Text="Link to user's Facebook Account"></asp:HyperLink>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        fb location:
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID=lblfblocation runat=server></asp:Label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        fb email:
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID=lblfbemail runat=server></asp:Label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        fb friends count:
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID=lblfbfriendscount runat=server></asp:Label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        fb gender:
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID=lblfbgender runat=server></asp:Label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        fb full name:
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID=lblfbfullname runat=server></asp:Label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        fb is verified:
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Label ID=lblfbverified runat=server></asp:Label>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                                    </td>
+                                                                    <td>
+                                                                    <asp:HyperLink ID=hypfb2 runat=server>
+                                                            <telerik:RadBinaryImage ID=imgfb runat=server Width=200 /></asp:HyperLink>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            
+                                                        </td>            
+                                                    </tr>               
                                                 </table>
                                             </td>
                                         </tr>

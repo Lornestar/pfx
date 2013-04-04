@@ -26,6 +26,11 @@ namespace Peerfx.Admin
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewUsersAll().GetDataSet();
             RadGrid1.DataSource = dstemp.Tables[0];
+            GridSortExpression expression = new GridSortExpression();
+            expression.FieldName = "last_online";
+            expression.SortOrder = GridSortOrder.Descending;
+            RadGrid1.MasterTableView.SortExpressions.AddSortExpression(expression);
+            //RadGrid1.MasterTableView.Rebind();
         }
 
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
@@ -48,6 +53,14 @@ namespace Peerfx.Admin
             lblname.Text = currentuser.Full_name;
             lblemail.Text = currentuser.Email;
             lblaccountstatus.Text = currentuser.User_status_text;
+            if (currentuser.Signed_up != null)
+            {
+                lblaccountcreated.Text = currentuser.Signed_up.ToString();
+            }
+            if (currentuser.Last_online != null)
+            {
+                lblaccountlastlogin.Text = currentuser.Last_online.ToString();
+            }            
             imguser.ImageUrl = currentuser.Image_url;
 
             //Load Passport files
@@ -96,6 +109,9 @@ namespace Peerfx.Admin
                 }
                 lblfblocation.Text = fbuser.fb_location;
                 lblfbverified.Text = fbuser.fb_isverified.ToString();
+                hypfb.NavigateUrl += fbuser.fb_uid.ToString();
+                hypfb2.NavigateUrl = hypfb.NavigateUrl;
+                imgfb.ImageUrl = "https://graph.facebook.com/" + fbuser.fb_uid.ToString() +"/picture?type=normal";
             }
         }
 

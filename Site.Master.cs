@@ -18,15 +18,17 @@ using SubSonic;
 namespace Peerfx
 {
     public partial class Site : System.Web.UI.MasterPage
-    {        
+    {
 
         protected void Page_Load(object sender, EventArgs e)
         {            
+
             if (isloggedin())
             {
                 //logged in change navigation links
                 pnlloggedin.Visible = true;
                 pnlloggedout.Visible = false;
+                hdbodyclass.Value = "2";
             }
         }
 
@@ -45,6 +47,7 @@ namespace Peerfx
                     //Redirect to login page
                     HttpContext.Current.Response.Redirect(ConfigurationSettings.AppSettings["Root_url"] + "Login.aspx");
                 }
+                Peerfx_DB.SPs.UpdateUsersLastOnline(user.User_key).Execute();
             }
             else
             {
@@ -206,6 +209,10 @@ namespace Peerfx
             {
                 users.Last_changed = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["last_changed"].ToString());
             }
+            if (dstemp.Tables[0].Rows[0]["last_online"] != DBNull.Value)
+            {
+                users.Last_online = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["last_online"]);
+            }
             if (dstemp.Tables[0].Rows[0]["signed_up"] != DBNull.Value)
             {
                 users.Signed_up = Convert.ToDateTime(dstemp.Tables[0].Rows[0]["signed_up"].ToString());
@@ -297,9 +304,14 @@ namespace Peerfx
             {
                 users.Image_url = ConfigurationSettings.AppSettings["Root_url"].ToString()+ "Files/UserImages/" + users.User_key.ToString() + ".jpg";
             }
+            users.Isverified = false;
             if (dstemp.Tables[0].Rows[0]["verification_points"] != DBNull.Value)
             {
                 users.Verification_points = Convert.ToInt32(dstemp.Tables[0].Rows[0]["verification_points"]);
+                if (users.Verification_points > 100)
+                {
+                    users.Isverified = true;
+                }
             }
             return users;
         }
@@ -1569,6 +1581,13 @@ namespace Peerfx
 
 
             return dttemp;
+     }
+
+        public void NotificationShow(string Text)
+        {
+            RadNotification1.Text = Text;
+            RadNotification1.Show();
         }
-    }
+
+    }    
 }

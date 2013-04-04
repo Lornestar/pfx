@@ -308,6 +308,19 @@ namespace Peerfx_DB
 				colvarUserType.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarUserType);
 				
+				TableSchema.TableColumn colvarLastOnline = new TableSchema.TableColumn(schema);
+				colvarLastOnline.ColumnName = "last_online";
+				colvarLastOnline.DataType = DbType.DateTime;
+				colvarLastOnline.MaxLength = 0;
+				colvarLastOnline.AutoIncrement = false;
+				colvarLastOnline.IsNullable = true;
+				colvarLastOnline.IsPrimaryKey = false;
+				colvarLastOnline.IsForeignKey = false;
+				colvarLastOnline.IsReadOnly = false;
+				colvarLastOnline.DefaultSetting = @"";
+				colvarLastOnline.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLastOnline);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -429,6 +442,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<int?>(Columns.UserType); }
 			set { SetColumnValue(Columns.UserType, value); }
 		}
+		  
+		[XmlAttribute("LastOnline")]
+		[Bindable(true)]
+		public DateTime? LastOnline 
+		{
+			get { return GetColumnValue<DateTime?>(Columns.LastOnline); }
+			set { SetColumnValue(Columns.LastOnline, value); }
+		}
 		
 		#endregion
 		
@@ -449,7 +470,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,int? varUserType)
+		public static void Insert(string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,int? varUserType,DateTime? varLastOnline)
 		{
 			User item = new User();
 			
@@ -479,6 +500,8 @@ namespace Peerfx_DB
 			
 			item.UserType = varUserType;
 			
+			item.LastOnline = varLastOnline;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -489,7 +512,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,int? varUserType)
+		public static void Update(int varUserKey,string varAccountNumber,string varTitle,string varFirstName,string varMiddleName,string varLastName,string varDob,int? varCountryResidence,string varEmail,string varIpAddress,DateTime varLastChanged,DateTime varSignedUp,int? varUserStatus,int? varUserType,DateTime? varLastOnline)
 		{
 			User item = new User();
 			
@@ -520,6 +543,8 @@ namespace Peerfx_DB
 				item.UserStatus = varUserStatus;
 			
 				item.UserType = varUserType;
+			
+				item.LastOnline = varLastOnline;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -632,6 +657,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn LastOnlineColumn
+        {
+            get { return Schema.Columns[14]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -650,6 +682,7 @@ namespace Peerfx_DB
 			 public static string SignedUp = @"signed_up";
 			 public static string UserStatus = @"user_status";
 			 public static string UserType = @"user_type";
+			 public static string LastOnline = @"last_online";
 						
 		}
 		#endregion

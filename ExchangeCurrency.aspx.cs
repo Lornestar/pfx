@@ -55,6 +55,7 @@ namespace Peerfx
                 ddlembeecountry.DataValueField = "country";
                 ddlembeecountry.DataSource = Peerfx_DB.SPs.ViewEmbeeCountries().GetDataSet().Tables[0];
                 ddlembeecountry.DataBind();                
+                
             }
             if (sitetemp.isloggedin())
             {
@@ -73,6 +74,13 @@ namespace Peerfx
                 if (!IsPostBack)
                 {
                     LoadRecipientList();
+
+                    //check if verified or not
+                    if (currentuser.Verification_points < 100)
+                    {
+                        btnContinue1.Visible = false;
+                        btnNotVerified.Visible = true;
+                    }
                 }
             }
             else if (hduserkey.Value != "0")
@@ -451,7 +459,7 @@ namespace Peerfx
         }
 
         protected void btnContinue1_Click(object sender, EventArgs e)
-        {
+        {            
             //update seller & receiver payment objects
             hdsenderpaymentobjectkey.Value = ddlpaymentmethod.SelectedValue;
 

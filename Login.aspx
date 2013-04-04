@@ -3,12 +3,14 @@
 <%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1">
+
 
 <center>
-    <table style="border:1px solid black; padding:20px 20px 20px 20px; background-color:#EEEEEE; padding:5 5 5 5;">
+<div class="Login_Page">
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1">
+    <table cellpadding=3 >
         <tr>
-            <td class="Login_Header">
+            <td class="Login_Header" colspan=2>
                 <center>
                 Login
                 </center>
@@ -16,31 +18,41 @@
         </tr>
         <tr>
             <td>
-                <telerik:RadTextBox ID=txtemail runat=server EmptyMessage="Email Address" Width=300></telerik:RadTextBox>
+            Email:
+            </td>
+            <td>
+                 <telerik:RadTextBox ID=txtemail runat=server Width=250></telerik:RadTextBox>
             </td>
         </tr>
         <tr>
             <td>
-                <telerik:RadTextBox ID=txtpassword runat=server EmptyMessage="Password" TextMode=Password Width=300></telerik:RadTextBox>
+            Password:
+            </td>
+            <td>
+                <telerik:RadTextBox ID=txtpassword runat=server TextMode=Password Width=250></telerik:RadTextBox>
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan=2>
                 <center>
-                <telerik:RadButton ID=btnLogin runat=server Text="Login" 
-                    onclick="btnLogin_Click"></telerik:RadButton>                
+                <telerik:RadButton ID=btnLogin runat=server Text="Login"
+                    onclick="btnLogin_Click" CssClass="Buttons">
+                    <Image IsBackgroundImage=true ImageUrl="/images/buttons/button_background.png" />                    
+                    </telerik:RadButton>                
                 </center>
             </td>
         </tr>
         <tr>
-            <td >
+            <td colspan=2>
                 <center>
-                <asp:Label runat=server ID=lblerror ForeColor=Blue Visible=false>Incorrect email/password combination.</asp:Label>
+                <asp:Label runat=server ID=lblerror CssClass="lblerror" Visible=false>Incorrect email/password combination.</asp:Label>
                 </center>
             </td>
         </tr>
     </table>
+</telerik:RadAjaxPanel>    
+    </div>
 </center>
 
-</telerik:RadAjaxPanel>
+
 </asp:Content>

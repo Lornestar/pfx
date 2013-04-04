@@ -33,6 +33,12 @@ namespace Peerfx.User_Controls
                 ddlsellcurrency.SelectedIndex = 1;
 
                 LoadRates();
+
+                if (!sitetemp.isloggedin())
+                {
+                    btnExchange.Visible = false;
+                    btnNotLoggedIn.Visible = true;
+                }
             }
         }
 

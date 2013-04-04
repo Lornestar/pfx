@@ -549,6 +549,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarVerificationPoints);
                 
+                TableSchema.TableColumn colvarLastOnline = new TableSchema.TableColumn(schema);
+                colvarLastOnline.ColumnName = "last_online";
+                colvarLastOnline.DataType = DbType.DateTime;
+                colvarLastOnline.MaxLength = 0;
+                colvarLastOnline.AutoIncrement = false;
+                colvarLastOnline.IsNullable = true;
+                colvarLastOnline.IsPrimaryKey = false;
+                colvarLastOnline.IsForeignKey = false;
+                colvarLastOnline.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarLastOnline);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -1172,6 +1184,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("verification_points", value);
             }
         }
+	      
+        [XmlAttribute("LastOnline")]
+        [Bindable(true)]
+        public DateTime? LastOnline 
+	    {
+		    get
+		    {
+			    return GetColumnValue<DateTime?>("last_online");
+		    }
+            set 
+		    {
+			    SetColumnValue("last_online", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -1261,6 +1287,8 @@ namespace Peerfx_DB{
             public static string ImageUrl = @"Image_URL";
             
             public static string VerificationPoints = @"verification_points";
+            
+            public static string LastOnline = @"last_online";
             
 	    }
 	    #endregion

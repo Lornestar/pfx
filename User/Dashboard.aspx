@@ -3,14 +3,9 @@
 <%@ Register Src="~/User_Controls/ExchangeCurrency.ascx" tagname="ExchangeCurrency" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/UserBalances.ascx" tagname="UserBalances" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/UserRecentPayments.ascx" tagname="UserRecentPayments" tagprefix="uc1" %>
-
+<%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
-<telerik:RadNotification ID="RadNotification1" runat="server" VisibleOnPageLoad="false" AnimationDuration=750 AutoCloseDelay=5000 Position=Center
-            Width="330" Height="130" Animation="Fade" EnableRoundedCorners="true" EnableShadow="true"
-            Title="Notification Title" Text="Your Payment went through.<br/><br/>You should receive an email with information about your Request."
-            Style="z-index: 35000">
-        </telerik:RadNotification>
 
         <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
@@ -46,89 +41,132 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>
-                    <asp:Panel ID=pnluserpic runat=server>
-                    <table style="border:1px solid gray; text-align:center;">
+                    <td >
+                    <!--Passport Book-->
+                    <table class="Dashboard_Book">
                         <tr>
-                            <td align=center>
-                                <asp:Image ID=imgNopic runat=server Width=250px ImageUrl="/Images/empty_profile.jpg"/>
-                                <telerik:RadBinaryImage ID=imguser runat=server ResizeMode=Fit Width=250px Visible=false/>
-                                <br />             
-                                 <telerik:RadAsyncUpload runat="server" ID="AsyncUpload1" MultipleFileSelection=Disabled OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed"
-                                                                                OnFileUploaded="AsyncUpload1_FileUploaded" AllowedFileExtensions="jpeg,jpg" 
-                                                                                 MaxFileSize="524288" Width=250>
-                                                                                 <Localization Select="New Image" />
-                                                                                 </telerik:RadAsyncUpload>
-                                                                                 <telerik:RadProgressManager runat="server" ID="RadProgressManager2" />
-                            <telerik:RadProgressManager runat="server" ID="RadProgressManager1" />
-                            <telerik:RadProgressArea runat="server" ID="RadProgressArea1" />
+                            <td style="border-right:1px dashed Gray; width:50%;">
+                                <asp:Panel ID=pnluserpic runat=server>
+                                    <table style="text-align:center;">
+                                        <tr>
+                                            <td class="Exchange_Header">
+                                                :: Welcome ::
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="User_Name">
+                                                <asp:Label ID=lblusername runat=server></asp:Label>
+                                                <asp:Label ID=lbluseremail Visible=false runat=server></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <asp:Image ID=imgNopic runat=server Width=250px ImageUrl="/Images/empty_profile.jpg"/>
+                                                <telerik:RadBinaryImage ID=imguser runat=server ResizeMode=Fit Width=250px Visible=false/>
+                                                <br />             
+                                                <br />
+                                                <center>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                        Change Image
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadAsyncUpload runat="server" ID="AsyncUpload1" MultipleFileSelection=Disabled OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" 
+                                                                                                OnFileUploaded="AsyncUpload1_FileUploaded" AllowedFileExtensions="jpeg,jpg" 
+                                                                                                 MaxFileSize="524288"><Localization Select="" />                                                                                                 </telerik:RadAsyncUpload>                                
+                                                        </td>
+                                                    </tr>
+                                                </table>                                                                                                         </center>                                        
+                                            <telerik:RadProgressManager runat="server" ID="RadProgressManager1" />
+                                            <telerik:RadProgressArea runat="server" ID="RadProgressArea1" />
+
+                       
+                                            <br />
                             <br />
-                            
+                                            </td>
+                                        </tr>                                                                                      
+                                    </table>
+                                    </asp:Panel>
                             </td>
-                        </tr>                
-                        <tr>
-                            <td> <span class="User_Name">
-                                <asp:Label ID=lblusername runat=server></asp:Label>
-                                </span>
-                                 (<asp:Label ID=lbluseremail runat=server></asp:Label>)
+                            <td>
+                                <table>                                    
+                                    <tr>
+                                        <td>
+                                            <table class="Dashboard_Buttons">
+                                                <tr>
+                                                    <td>
+                                                        <a href="/User/Verification.aspx">
+                                                            <div><img src="/images/icons/verification.png"> Verifications</div>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/Exchange_Currency.aspx">
+                                                            <div>
+                                                              <img src="/images/icons/sendmoney.png" />   Send Payment
+                                                            </div>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
-                        <tr>                    
-                            <td>
-                                Account Status : <asp:Label ID=lblaccountstatus runat=server></asp:Label>
-                            </td>
-                        </tr>            
                     </table>
-                    </asp:Panel>
+                    <img src="/images/PassportBook_Footer.png" />
+                    
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <table width=100% style="border:1px solid gray;">
+                        <table width=100% >
                             <tr >
                                 <td >
-                                    Verifications
+                                    <a href="Verification.aspx"><telerik:RadBinaryImage ID=imgverificationheader runat=server ImageUrl="/images/buttons/Verified_no.png" />
+                                    </a>
                                 </td>
-                                <td style="text-align:right;">
-                                    <a href="Verification.aspx">See all</a>
+                                <td style="text-align:right; font-size:smaller;">
+                                    Email, Passport and Address Verification are required in order to send a payment.
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan=2>
-                                    <table style="background:#DDDDDD;" width=100%>
+                                <td colspan=2 class="Dashboard_VerificationTable">
+                                    <br />                                    
+                                    <table>
                                         <tr>
-                                            <td>
-                                                Email Verification:
-                                            </td>
-                                            <td>
-                                                <telerik:RadBinaryImage runat=server ImageUrl="/images/checkmark.png" />
-                                            </td>
+                                            <td>Email Verification</td>
+                                            <td>Passport Verification</td>
+                                            <td>Address Verification</td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                Passport Verification:
-                                            </td>
-                                            <td>
-                                                <telerik:RadBinaryImage ID="RadBinaryImage1" runat=server ImageUrl="/images/x.png" />
-                                            </td>
+                                            <td><img src="/images/icons/pointer_down.png" /> </td>
+                                            <td><img src="/images/icons/pointer_down.png" /> </td>
+                                            <td><img src="/images/icons/pointer_down.png" /> </td>
                                         </tr>
+                                    </table>
+                                    <br />
+                                    <div style="background-image:url('/images/buttons/VerificationLinear_Background.png'); width:500px; height:14px;">
+                                    
+                                    <table>
                                         <tr>
+                                            <td width=166>
+                                            <telerik:RadBinaryImage ID=imgVerificationEmail runat=server  ImageUrl="/images/buttons/VerificationLinear_Yes.png" Visible=false/>
+                                            </td>                                        
                                             <td>
-                                                Address Verification:
-                                            </td>
+                                                <telerik:RadBinaryImage ID=imgVerificationPassport runat=server  ImageUrl="/images/buttons/VerificationLinear_Yes.png" Visible=false/>
+                                            </td>                                        
                                             <td>
-                                                <telerik:RadBinaryImage ID="RadBinaryImage2" runat=server ImageUrl="/images/x.png" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size:smaller; text-align:right;" colspan=2>
-                                                *Required to Send Payments
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            
-                                        </tr>
-                                    </table>                                                                        
+                                            <telerik:RadBinaryImage ID=imgVerificationAddress runat=server  ImageUrl="/images/buttons/VerificationLinear_Yes.png" Visible=false/>
+                                            </td> 
+                                         </tr>                                       
+                                    </table>
+
+                                    </div>
+                                               
                                 </td>
                             </tr>
                         </table>

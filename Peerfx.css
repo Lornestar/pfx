@@ -1,7 +1,40 @@
-﻿body 
+﻿@font-face {
+	font-family: Roboto;
+	src: url('/fonts/Roboto-Regular.ttf');
+}
+
+body 
 {
      font-family:Arial;
-     font-size:small;
+     font-size:small;     
+}
+
+.Loggedin div
+{
+    overflow:hidden; 
+    white-space:nowrap;
+    display:inline-block;    
+    height:31px;
+    color:White;
+    vertical-align:bottom;  
+    font-family:Roboto;
+    font-weight:bold;
+    line-height:25px;
+    margin-left:-4px;
+}
+
+.mainbody
+{
+    background-image:url('/images/homepage/background.jpg');
+     background-repeat:no-repeat;
+     background-position:center top;     
+}
+
+.mainbody2
+{
+    background-image:url('/images/homepage/background2.jpg');
+     background-repeat:no-repeat;
+     background-position:center top;     
 }
 
 a
@@ -50,14 +83,24 @@ a:hover
 {
     font-weight:bold;
     font-size:large;
-    color:Blue;
+    color:#5b5b5b;
+}
+
+.Login_Page
+{
+    width:350px;
+    height:100%;
+    position:relative;
+    top:140px;
+    background: rgb(255, 255, 255) transparent; /* default fallback */
+    background: rgba(255, 255, 255, 0.4); /* nice browsers */
 }
 
 .Exchange_Header
 {
     font-weight:bold;
     font-size:large;
-    color:Blue;
+    color:#5b5b5b;
 }
 
 .Page_Header
@@ -88,18 +131,29 @@ a:hover
     border-right:1px solid gray;
 }
 
+.Navigation_text
+{
+   color:#5b5b5b;
+   font-family:Roboto;
+   text-align:center;   
+}
+
 a.Navigation_text
 {
-   color:#006d29;
+   color:#5b5b5b;
+   font-family:Roboto;
    font-size:medium;
    font-weight:bold;
+   text-align:center;
 }
 
 a:Hover.Navigation_text
 {
     color:Gray;
-    font-size:medium;
+    font-family:Roboto;
+   font-size:medium;
    font-weight:bold;
+   text-align:center;
 }
 
 .Verification_Name
@@ -117,9 +171,170 @@ a:Hover.Navigation_text
 
 .User_Name
 {
+    color:#005d00;
     font-weight:bolder; 
-    font-size:medium;
+    font-size:large;
 }
+
+.SendPayment_Box_Header
+{
+    background-color:#383838;
+    color:White;
+    height:25px;        
+    font-weight:bold;
+    font-size:medium;            
+    width:320px;
+    text-align:left;       
+}
+
+.SendPayment_Box_Main
+{
+    position:relative;
+    top:5px;
+    left:5px;
+    color:Black;
+    font-family:Roboto;    
+     font-weight:bold;  
+     padding-bottom:20px;           
+}
+
+.SendPayment_Box
+{    
+    background: rgb(255, 255, 255) transparent; /* default fallback */
+    background: rgba(255, 255, 255, 0.4); /* nice browsers */
+    width:320px;
+}
+
+.SendPayment_Box_Button
+{
+    background-image:url('/images/buttons/ExchangeCurrency_SendNow.png');
+    background-position: 0 0;
+    width:122px;
+    height:33px;
+}
+
+.SendPayment_Box_Inputs 
+{
+    font-family:Roboto !important;
+     font-weight:bold  !important;
+     font-size:medium !important;     
+}
+
+.SendPayment_Footer
+{
+    background-image:url('/images/shadows/SendPayment.png');
+    background-position: 0 0;
+    background-repeat:no-repeat;
+    width:350px;
+    height:24px;    
+    position:relative;
+    left:10px;
+}
+
+.footer
+{
+    position:relative;
+    top:10px;
+    background-color:Black;
+    width:1400px;
+    height:80px;
+    color:Gray;
+    vertical-align:middle;
+}
+
+.Buttons, .Buttons:hover
+{  
+    width:120px;
+    height:23px;  
+    color:White;
+    padding-top:10px;    
+    font-weight:bold;        
+}
+
+.lblerror
+{
+    color:Blue;
+    font-weight:bold;
+}
+
+.Dashboard_Buttons div
+{
+    background-image:url('/images/buttons/button2_background.png');
+    width:201px;
+    height:37px;
+    line-height:37px;
+    text-indent:30px;
+    color:Gray;
+    font-size:medium;
+    font-family:Roboto;
+    font-weight:bold;
+    vertical-align:bottom;
+    display:table-cell;
+}
+
+.Dashboard_Buttons img
+{
+    position:relative;
+    top:3px;
+    left:-15px;
+}
+
+.Dashboard_Buttons div:hover
+{
+    background-image:url('/images/buttons/button2_background_hover.png');
+    width:201px;
+    height:37px;
+    line-height:37px;
+    text-indent:30px;
+    color:Gray;
+    font-size:medium;
+    font-family:Roboto;
+    font-weight:bold;
+    
+}
+
+.Dashboard_Book
+{
+    border:1px solid Gray; 
+    width:500px;
+    background-image:url('/images/PassportBook_Background.png');
+}
+
+.Dashboard_VerificationTable td
+{
+    padding:0px;    
+    width:166px;
+    text-align:center;        
+    color:Gray;
+}
+
+.Dashboard_VerificationTable table
+{
+    width:500px;
+    border-collapse: collapse;    
+}
+
+div.RadUpload
+{
+    width:98px;    
+}
+
+div.RadUpload .ruBrowse
+{
+     background-image:url('/images/buttons/ChangePic.png') !important;     
+     width:98px !important;          
+}
+
+div.RadUpload .ruFakeInput
+    {
+        visibility: hidden;
+        width: 0;
+        padding: 0;
+    }
+    div.RadUpload .ruFileInput
+    {
+        width: 1;
+    }
 
 /*
 div.RadUpload .ruFakeInput

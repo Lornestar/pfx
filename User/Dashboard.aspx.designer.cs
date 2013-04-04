@@ -13,15 +13,6 @@ namespace Peerfx.User {
     public partial class Dashboard {
         
         /// <summary>
-        /// RadNotification1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification RadNotification1;
-        
-        /// <summary>
         /// RadAjaxManager1 control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,24 @@ namespace Peerfx.User {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnluserpic;
+        
+        /// <summary>
+        /// lblusername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblusername;
+        
+        /// <summary>
+        /// lbluseremail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbluseremail;
         
         /// <summary>
         /// imgNopic control.
@@ -67,15 +76,6 @@ namespace Peerfx.User {
         protected global::Telerik.Web.UI.RadAsyncUpload AsyncUpload1;
         
         /// <summary>
-        /// RadProgressManager2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadProgressManager RadProgressManager2;
-        
-        /// <summary>
         /// RadProgressManager1 control.
         /// </summary>
         /// <remarks>
@@ -94,49 +94,40 @@ namespace Peerfx.User {
         protected global::Telerik.Web.UI.RadProgressArea RadProgressArea1;
         
         /// <summary>
-        /// lblusername control.
+        /// imgverificationheader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblusername;
+        protected global::Telerik.Web.UI.RadBinaryImage imgverificationheader;
         
         /// <summary>
-        /// lbluseremail control.
+        /// imgVerificationEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbluseremail;
+        protected global::Telerik.Web.UI.RadBinaryImage imgVerificationEmail;
         
         /// <summary>
-        /// lblaccountstatus control.
+        /// imgVerificationPassport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblaccountstatus;
+        protected global::Telerik.Web.UI.RadBinaryImage imgVerificationPassport;
         
         /// <summary>
-        /// RadBinaryImage1 control.
+        /// imgVerificationAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadBinaryImage RadBinaryImage1;
-        
-        /// <summary>
-        /// RadBinaryImage2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadBinaryImage RadBinaryImage2;
+        protected global::Telerik.Web.UI.RadBinaryImage imgVerificationAddress;
         
         /// <summary>
         /// userbalances1 control.
@@ -164,5 +155,17 @@ namespace Peerfx.User {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Peerfx.User_Controls.ExchangeCurrency ucExchangeCurrency;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new Peerfx.Site Master {
+            get {
+                return ((Peerfx.Site)(base.Master));
+            }
+        }
     }
 }

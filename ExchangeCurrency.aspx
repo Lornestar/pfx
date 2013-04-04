@@ -435,6 +435,12 @@
                                         <td style="text-align:right;">
                                             <telerik:RadButton ID="btnContinue1" runat="server" Text="Exchange Currency" 
                                                 onclick="btnContinue1_Click"></telerik:RadButton>
+                                                <script language=javascript>
+                                                    function runNotVerified() {
+                                                        openExchangeNotVerified();
+                                                    }
+                                                </script>
+                                                <telerik:RadButton ID=btnNotVerified runat=server Text="Exchange Currency"  OnClientClicked="runNotVerified" Visible=false></telerik:RadButton>
                                         </td>
                                     </tr>
                                     <tr>

@@ -112,6 +112,24 @@ namespace Peerfx.Admin {
         protected global::System.Web.UI.WebControls.Label lblaccountstatus;
         
         /// <summary>
+        /// lblaccountcreated control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblaccountcreated;
+        
+        /// <summary>
+        /// lblaccountlastlogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblaccountlastlogin;
+        
+        /// <summary>
         /// lblpoints control.
         /// </summary>
         /// <remarks>
@@ -272,6 +290,24 @@ namespace Peerfx.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblfbverified;
+        
+        /// <summary>
+        /// hypfb2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hypfb2;
+        
+        /// <summary>
+        /// imgfb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadBinaryImage imgfb;
         
         /// <summary>
         /// userbalances1 control.

@@ -229,6 +229,15 @@ namespace Peerfx.User_Controls {
         protected global::Telerik.Web.UI.RadProgressArea RadProgressArea1;
         
         /// <summary>
+        /// ViewUploadedPics1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Peerfx.User_Controls.ViewUploadedPics ViewUploadedPics1;
+        
+        /// <summary>
         /// imgvalid3 control.
         /// </summary>
         /// <remarks>
@@ -337,13 +346,13 @@ namespace Peerfx.User_Controls {
         protected global::System.Web.UI.WebControls.Panel pnladdressimage;
         
         /// <summary>
-        /// RadAsyncUpload1 control.
+        /// RadAsyncUpload2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAsyncUpload RadAsyncUpload1;
+        protected global::Telerik.Web.UI.RadAsyncUpload RadAsyncUpload2;
         
         /// <summary>
         /// RadProgressManager2 control.
@@ -362,6 +371,15 @@ namespace Peerfx.User_Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadProgressArea RadProgressArea2;
+        
+        /// <summary>
+        /// ViewUploadedPics2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Peerfx.User_Controls.ViewUploadedPics ViewUploadedPics2;
         
         /// <summary>
         /// imgvalid4 control.

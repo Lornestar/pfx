@@ -1,29 +1,54 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Verification.ascx.cs" Inherits="Peerfx.User_Controls.Verification" %>
 
+<%@ Register Src="~/User_Controls/ViewUploadedPics.ascx" tagname="ViewUploadedPics" tagprefix="uc1" %>
+
 <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnphonesendverification">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>            
+            <telerik:AjaxSetting AjaxControlID="btnemail">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnphone">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnpassportopen">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnopenaddress">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnPassportNext">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnaddresssnext">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlverifications" LoadingPanelID="RadAjaxLoadingPanel1"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>                        
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <script type="text/javascript">
-        function fileUploaded(sender, args) {
-            alert('here');
-            $find('ctl00_Main_ucVerification_RadAjaxManager1').ajaxRequest();
-            alert('here');
+        function fileUploaded(sender, args) {            
+            $find('ctl00_Main_ucVerification_RadAjaxManager1').ajaxRequest();            
             $telerik.$(".invalid").html("");
             setTimeout(function () {
                 sender.deleteFileInputAt(0);
@@ -44,7 +69,7 @@ Verifications
 </div>
 
 
-
+<center>
 <asp:Panel ID=pnlverifications runat=server>
 
 <telerik:RadNotification ID="RadNotification1" runat="server" VisibleOnPageLoad="false" AnimationDuration=750 AutoCloseDelay=3000 Position=Center
@@ -58,7 +83,7 @@ Verifications
 <table style="vertical-align:top; width:700px; border:1px solid gray;">
     <tr>
         <td colspan=3 class="Verification_Sections">
-            <div class="Exchange_Header">Required</div>
+            <span class="Exchange_Header">Required to complete payments</span>
         </td>
     </tr>
     <tr>
@@ -95,7 +120,7 @@ Verifications
                             Verification of your passport number and an uploaded image of your Passport photo page.
                         </div>
                     </td>
-                    <td>           
+                    <td style="text-align:right;">           
                         <telerik:RadButton ID=btnpassportopen runat=server onclick="btnpassportopen_Click" Text="Verify Passport"></telerik:RadButton>
                     </td>
                 </tr>
@@ -170,13 +195,15 @@ Verifications
                 <tr>
                     <td colspan=3>
                         <asp:Panel ID=pnlPassportPhoto runat=server Visible=false>
-                        Upload an image of your Passport Photo
+                        Upload an image of your Passport Photo (jpeg,jpg,gif,png)
                         <telerik:RadAsyncUpload runat="server" ID="AsyncUpload1" OnFileUploaded="AsyncUpload1_FileUploaded" AllowedFileExtensions="jpeg,jpg,gif,png" 
                                        OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="524288">
                                        <Localization Select="Upload" />
                                                                                              </telerik:RadAsyncUpload>            
                                                                                              <telerik:RadProgressManager runat="server" ID="RadProgressManager1" />
                             <telerik:RadProgressArea runat="server" ID="RadProgressArea1" />
+                            <br />
+                            <uc1:ViewUploadedPics id="ViewUploadedPics1" runat=server></uc1:ViewUploadedPics>
                         </asp:Panel>
                     </td>
                 </tr>
@@ -196,7 +223,7 @@ Verifications
                             A scanned image of a recent bank statement or utility bill (no more than 3 months old) showing name and residential address (PO Box address will not be accepted)
                         </div>
                     </td>
-                    <td>
+                    <td style="text-align:right;">
                         <telerik:RadButton ID=btnopenaddress runat=server Text="Verify Address" OnClick="btnaddressnext_Click"></telerik:RadButton>
                     </td>                    
                 </tr>
@@ -260,18 +287,20 @@ Verifications
                          </div>                                
                         </asp:Panel>
                         <br />
-                        <table>
+                        <table width=100%>
                             <tr>
-                                <td style="float:right;">
+                                <td>
                                 <asp:Panel ID=pnladdressimage runat=server Visible=false>
-                                <telerik:RadAsyncUpload runat="server" ID="RadAsyncUpload1" OnFileUploaded="AsyncUpload2_FileUploaded" AllowedFileExtensions="jpeg,jpg,gif,png" 
+                               Upload images of a Utility bill with your address (jpeg,jpg,gif,png)
+                                <telerik:RadAsyncUpload runat="server" ID="RadAsyncUpload2" OnFileUploaded="AsyncUpload2_FileUploaded" AllowedFileExtensions="jpeg,jpg,gif,png" 
                                                    OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="524288">
                                                    
                                                                                                          <Localization Select="Upload" />
                                                                                                          </telerik:RadAsyncUpload>        
                                                                                                          <telerik:RadProgressManager runat="server" ID="RadProgressManager2" />
                             <telerik:RadProgressArea runat="server" ID="RadProgressArea2" />
-                                                                                                        </asp:Panel>
+<br />
+<uc1:ViewUploadedPics id="ViewUploadedPics2" runat=server></uc1:ViewUploadedPics>                                                                                                        </asp:Panel>
                                 </td>
                             </tr>
                         </table>
@@ -283,7 +312,7 @@ Verifications
     </tr>
     <tr>
         <td colspan=3 >
-            <div class="Exchange_Header">Bonus</div>
+            <div class="Exchange_Header">Additional Security</div>
         </td>
     </tr>
     <tr>
@@ -296,10 +325,10 @@ Verifications
                     <td>
                         <div class="Verification_Name">Phone Verification</div>            
                         <div class="Verification_Description">
-                            An sms with a unique code is sent to your phone and receive a $5 credit
+                            An sms with a unique code is sent to your phone
                         </div>
                     </td>
-                    <td>
+                    <td style="text-align:right;">
                         <telerik:RadButton ID=btnphone runat=server Text="Verify Phone" 
                             onclick="btnphone_Click"></telerik:RadButton>
                     </td>
@@ -340,9 +369,8 @@ Verifications
                 Sign in with Facebook and receive a $5 credit
             </div>
         </td>
-        <td>
-
-            <a href="http://www.facebook.com/dialog/oauth/?client_id=223254254482336&redirect_uri=http://localhost:59705/Facebook/fblogin.aspx&scope=email&user_birthday&user_location">
+        <td style="text-align:right;">        
+            <a href="http://www.facebook.com/dialog/oauth/?client_id=223254254482336&redirect_uri=http://www.tradepfx.com/Facebook/fblogin.aspx&scope=email&user_birthday&user_location">
             <asp:Image ImageUrl="/images/btnfbconnect.png" ID=imgfbbutton runat=server />
             </a>
 
@@ -351,3 +379,5 @@ Verifications
     </tr>
 </table>
 </asp:Panel>
+
+</center>

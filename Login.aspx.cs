@@ -21,15 +21,20 @@ namespace Peerfx
         {
             bool isvalidlogin = false;
             //Try to login
-            Users user = sitetemp.view_users_info_email(txtemail.Text);
-            if (user.User_key > 0)
+            DataTable dttemp = Peerfx_DB.SPs.ViewUsersLogin(txtemail.Text, txtpassword.Text).GetDataSet().Tables[0];
+            int userkey = 0;
+            if (dttemp.Rows.Count > 0)
             {
-                    isvalidlogin = true;
-            }
+                if (dttemp.Rows[0]["user_key"] != DBNull.Value){
+                    userkey = Convert.ToInt32(dttemp.Rows[0]["user_key"]);
+                    isvalidlogin = true;                    
+                }                
+            }            
 
             if (isvalidlogin)
             {
-                //log them in                           
+                //log them in           
+                Users user = sitetemp.get_user_info(userkey);
                 HttpContext.Current.Session["currentuser"] = user;
                 Response.Redirect("/User/Dashboard.aspx");
             }

@@ -10,7 +10,7 @@ using System.Data;
 using System.Xml.Linq;
 using System.Net;
 using System.IO;
-
+using System.Collections;
 
 namespace Peerfx.User
 {
@@ -22,23 +22,63 @@ namespace Peerfx.User
         protected void Page_Load(object sender, EventArgs e)
         {
             currentuser = sitetemp.getcurrentuser(false);
+            //currentuser = sitetemp.get_user_info(10);
+            //HttpContext.Current.Session["currentuser"] = currentuser;
             if (!IsPostBack)
             {
                 LoadCurrencyTable();
                 LoadPaymentTable();
                 lblusername.Text = currentuser.Full_name;
-                lbluseremail.Text = currentuser.Email;
-                lblaccountstatus.Text = currentuser.User_status_text;
+                lbluseremail.Text = currentuser.Email;                
                 if (Request.QueryString["notification"] == "true")
                 {
-                    RadNotification1.Show();
+                    Master.NotificationShow("Your Payment went through.<br/><br/>You should receive an email with information about your Request.");
                 }
-                
+                CheckVerifications();
             }
             //insert profile img
             if (currentuser.Image_url != null)
             {
                 Insertimgurl();
+            }
+            if (currentuser.Isverified)
+            {
+                imgverificationheader.ImageUrl = "/images/buttons/Verified_yes.png";
+            }
+            else if (currentuser.Verification_points > 0)
+            {
+                imgverificationheader.ImageUrl = "/images/buttons/Verified_middle.png";
+            }
+        }
+
+        protected void CheckVerifications()
+        {
+            Hashtable hsverifications = sitetemp.getusersverified(currentuser.User_key);
+            foreach (DictionaryEntry entry in hsverifications)
+            {
+                Peerfx.Models.Verification verificationtemp = (Peerfx.Models.Verification)entry.Value;
+                int methodkey = Convert.ToInt32(entry.Key);
+                switch (methodkey)
+                {
+                    case 1: if (verificationtemp.Isverified)
+                        {
+                            //Email verified
+                            imgVerificationEmail.Visible = true;
+                        }
+                        break;
+                    case 2: if (verificationtemp.Isverified)
+                        {
+                            //passport verified
+                            imgVerificationPassport.Visible = true;
+                        }                            
+                        break;
+                    case 3: if (verificationtemp.Isverified)
+                        {
+                            //address verified
+                            imgVerificationAddress.Visible = true;
+                        }
+                        break;
+                }
             }
         }
 
@@ -98,7 +138,9 @@ namespace Peerfx.User
             }
 
             currentuser = sitetemp.getcurrentuser(false);
-            Insertimgurl();            
+            Insertimgurl();
+
+            imguser.ImageUrl += "?r=" + DateTime.Now.TimeOfDay.ToString();
         }
                
     }

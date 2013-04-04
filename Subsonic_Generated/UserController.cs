@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string AccountNumber,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus,int? UserType)
+	    public void Insert(string AccountNumber,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus,int? UserType,DateTime? LastOnline)
 	    {
 		    User item = new User();
 		    
@@ -110,6 +110,8 @@ namespace Peerfx_DB
             
             item.UserType = UserType;
             
+            item.LastOnline = LastOnline;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -118,7 +120,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int UserKey,string AccountNumber,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus,int? UserType)
+	    public void Update(int UserKey,string AccountNumber,string Title,string FirstName,string MiddleName,string LastName,string Dob,int? CountryResidence,string Email,string IpAddress,DateTime LastChanged,DateTime SignedUp,int? UserStatus,int? UserType,DateTime? LastOnline)
 	    {
 		    User item = new User();
 	        item.MarkOld();
@@ -151,6 +153,8 @@ namespace Peerfx_DB
 			item.UserStatus = UserStatus;
 				
 			item.UserType = UserType;
+				
+			item.LastOnline = LastOnline;
 				
 	        item.Save(UserName);
 	    }

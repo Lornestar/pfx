@@ -9,35 +9,50 @@
 <head runat="server">    
     <uc2:Header id="ucHeader" runat="Server"></uc2:Header>
     <link href="Peerfx.css" rel="stylesheet" type="text/css" />
-    <script src="http://www.tradepfx.com/Scripts/Mixpanel.js" type="text/javascript"></script>    
+    <script src="http://www.tradepfx.com/Scripts/Mixpanel.js" type="text/javascript"></script>  
+    <script src="/Scripts/Scripts.js" type="text/javascript"></script>      
+    <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.blockUI.js" type="text/javascript"></script>
 </head>
-<body>
+<body onload="loadbodyclass()">
     <form id="form1" runat="server">
     <div>
+        <asp:HiddenField ID=hdbodyclass runat=server Value="" />
         <telerik:RadScriptManager ID="ScriptManager" runat="server" />       
         <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
         </telerik:RadAjaxLoadingPanel>             
+
+        <telerik:RadNotification ID="RadNotification1" runat="server" VisibleOnPageLoad="false" AnimationDuration=750 AutoCloseDelay=5000 Position=Center
+            Width="330" Height="130" Animation="Fade" EnableRoundedCorners="true" EnableShadow="true"
+            Title="Notification Title" Text=""
+            Style="z-index: 35000">
+        </telerik:RadNotification>
+
+        <telerik:RadWindowManager ID="RadWindowManager1" ShowContentDuringLoad="false" VisibleStatusbar="false" ReloadOnShow="true" runat="server" EnableShadow="true">
+        <Windows>            
+            <telerik:RadWindow ID="Signup" runat="server" OnClientClose="OnClientCloseSignup"
+                NavigateUrl="Signup2.aspx" Title="Sign Up" Behaviors="Close" Width=370 Height=262 >
+            </telerik:RadWindow>
+            <telerik:RadWindow ID="wndExchangeCurrencyNotVerified" runat="server" OnClientClose="OnClientCloseExchangeNotVerified" NavigateUrl="/Windows/ExchangeCurrency_NotVerified.aspx" Behaviors="Close" Width=370 Height=262>
+            </telerik:RadWindow>
+        </Windows>
+        </telerik:RadWindowManager>
+
         <center>
-            <table width="950px">
+            <table style=" width:1000px; margin-top:22px; ">
                 <tr>
                     <td>
                         <table width=100%>
                             <tr>
                                 <td>
                                 <a href="/default.aspx">
-                                    <img src="../Images/Peerfx_logo.png" />
+                                    <img src="../Images/Passport_logo.png" />
                                     </a>
-                                </td>
-                                <td style=" float:right;">
+                                </td>                                
+                                <td >
                                     <asp:Panel ID=pnlloggedout runat=server>
-                                    <table >
-                                        <tr>
-                                            <td>
-                                                Home
-                                            </td>                                            
-                                            <td>
-                                                | Contact us
-                                            </td>
+                                    <table style="float:right;">
+                                        <tr>                                            
                                             <td>
                                                 <uc1:Login id="ucLogin" runat="Server"></uc1:Login>
                                             </td>
@@ -45,7 +60,7 @@
                                     </table>
                                     </asp:Panel>
                                     <asp:Panel ID=pnlloggedin runat=server Visible=false>
-                                        <table >
+                                        <table style="float:right;">
                                             <tr>
                                                 <td>
                                                     <a href="/user/Dashboard.aspx" class="Navigation_text">Home</a>
@@ -74,26 +89,29 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <asp:ContentPlaceHolder ID="Main" runat="server">
+                    <td >
+                    <div style="min-height:640px;">
+                        <asp:ContentPlaceHolder ID="Main" runat="server" >
         
                         </asp:ContentPlaceHolder>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <uc3:Footer id="Footer" runat="Server"></uc3:Footer>
+                    </div>
                     </td>
                 </tr>
             </table>
         </center>
         
     </div>
-    
+    <center>
+    <uc3:Footer id="Footer" runat="Server"></uc3:Footer>
+    </center>
     </form>
 
 <script language=javascript>
     mixpanel.track('page viewed', { 'page name': document.title, 'url': window.location.pathname });
+
+    function loadbodyclass() {
+        document.body.className = "mainbody" + document.getElementById("ctl00_hdbodyclass").value;
+    }    
 </script>
 
 </body>

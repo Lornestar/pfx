@@ -9,9 +9,13 @@ namespace Peerfx.User_Controls
 {
     public partial class Footer : System.Web.UI.UserControl
     {
+        Site sitetemp = new Site();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (sitetemp.isloggedin())
+            {
+                ucLogin.Visible = false;
+            }
         }
     }
 }

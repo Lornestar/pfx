@@ -844,6 +844,18 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the Update_Users_LastOnline Procedure
+        /// </summary>
+        public static StoredProcedure UpdateUsersLastOnline(int? userkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Users_LastOnline", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_Users_Passport Procedure
         /// </summary>
         public static StoredProcedure UpdateUsersPassport(int? userkey, string passportnumber)
@@ -1673,6 +1685,20 @@ namespace Peerfx_DB{
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Info_UserBalance_Paymentobjectkey", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@payment_object_key", paymentobjectkey, DbType.Int64, 0, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Login Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersLogin(string Email, string password)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Login", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@Email", Email, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@password", password, DbType.String, null, null);
         	
             return sp;
         }
