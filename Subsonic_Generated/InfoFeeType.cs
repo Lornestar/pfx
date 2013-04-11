@@ -256,6 +256,32 @@ namespace Peerfx_DB
 				colvarCurrency2.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCurrency2);
 				
+				TableSchema.TableColumn colvarExchangeRate = new TableSchema.TableColumn(schema);
+				colvarExchangeRate.ColumnName = "Exchange_Rate";
+				colvarExchangeRate.DataType = DbType.Decimal;
+				colvarExchangeRate.MaxLength = 0;
+				colvarExchangeRate.AutoIncrement = false;
+				colvarExchangeRate.IsNullable = true;
+				colvarExchangeRate.IsPrimaryKey = false;
+				colvarExchangeRate.IsForeignKey = false;
+				colvarExchangeRate.IsReadOnly = false;
+				colvarExchangeRate.DefaultSetting = @"";
+				colvarExchangeRate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarExchangeRate);
+				
+				TableSchema.TableColumn colvarExchangeRateUpdated = new TableSchema.TableColumn(schema);
+				colvarExchangeRateUpdated.ColumnName = "Exchange_Rate_Updated";
+				colvarExchangeRateUpdated.DataType = DbType.DateTime;
+				colvarExchangeRateUpdated.MaxLength = 0;
+				colvarExchangeRateUpdated.AutoIncrement = false;
+				colvarExchangeRateUpdated.IsNullable = true;
+				colvarExchangeRateUpdated.IsPrimaryKey = false;
+				colvarExchangeRateUpdated.IsForeignKey = false;
+				colvarExchangeRateUpdated.IsReadOnly = false;
+				colvarExchangeRateUpdated.DefaultSetting = @"";
+				colvarExchangeRateUpdated.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarExchangeRateUpdated);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -345,6 +371,22 @@ namespace Peerfx_DB
 			get { return GetColumnValue<int?>(Columns.Currency2); }
 			set { SetColumnValue(Columns.Currency2, value); }
 		}
+		  
+		[XmlAttribute("ExchangeRate")]
+		[Bindable(true)]
+		public decimal? ExchangeRate 
+		{
+			get { return GetColumnValue<decimal?>(Columns.ExchangeRate); }
+			set { SetColumnValue(Columns.ExchangeRate, value); }
+		}
+		  
+		[XmlAttribute("ExchangeRateUpdated")]
+		[Bindable(true)]
+		public DateTime? ExchangeRateUpdated 
+		{
+			get { return GetColumnValue<DateTime?>(Columns.ExchangeRateUpdated); }
+			set { SetColumnValue(Columns.ExchangeRateUpdated, value); }
+		}
 		
 		#endregion
 		
@@ -365,7 +407,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2)
+		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
@@ -387,6 +429,10 @@ namespace Peerfx_DB
 			
 			item.Currency2 = varCurrency2;
 			
+			item.ExchangeRate = varExchangeRate;
+			
+			item.ExchangeRateUpdated = varExchangeRateUpdated;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -397,7 +443,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2)
+		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
@@ -420,6 +466,10 @@ namespace Peerfx_DB
 				item.Currency1 = varCurrency1;
 			
 				item.Currency2 = varCurrency2;
+			
+				item.ExchangeRate = varExchangeRate;
+			
+				item.ExchangeRateUpdated = varExchangeRateUpdated;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -504,6 +554,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn ExchangeRateColumn
+        {
+            get { return Schema.Columns[10]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn ExchangeRateUpdatedColumn
+        {
+            get { return Schema.Columns[11]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -518,6 +582,8 @@ namespace Peerfx_DB
 			 public static string FeeMax = @"fee_max";
 			 public static string Currency1 = @"currency1";
 			 public static string Currency2 = @"currency2";
+			 public static string ExchangeRate = @"Exchange_Rate";
+			 public static string ExchangeRateUpdated = @"Exchange_Rate_Updated";
 						
 		}
 		#endregion

@@ -2,6 +2,7 @@
 <%@ Register Src="~/User_Controls/Login.ascx" tagname="Login" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/Header.ascx" tagname="Header" tagprefix="uc2" %>
 <%@ Register Src="~/User_Controls/Footer.ascx" tagname="Footer" tagprefix="uc3" %>
+<%@ Register Src="~/User_Controls/NavigationLinks.ascx" tagname="NavigationLinks" tagprefix="uc4" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -41,8 +42,8 @@
         <center>
             <table style=" width:1000px; margin-top:22px; ">
                 <tr>
-                    <td>
-                        <table width=100%>
+                    <td><center>
+                        <table width=1000px>
                             <tr>
                                 <td>
                                 <a href="/default.aspx">
@@ -60,37 +61,18 @@
                                     </table>
                                     </asp:Panel>
                                     <asp:Panel ID=pnlloggedin runat=server Visible=false>
-                                        <table style="float:right;">
-                                            <tr>
-                                                <td>
-                                                    <a href="/user/Dashboard.aspx" class="Navigation_text">Home</a>
-                                                </td>                                            
-                                                <td>
-                                                    | <a href="/user/Recipients.aspx" class="Navigation_text">Recipients</a>
-                                                </td>
-                                                <td>
-                                                    | <a href="/user/History.aspx" class="Navigation_text">History</a>
-                                                </td>
-                                                <td>
-                                                    | <a href="/ExchangeCurrency.aspx" class="Navigation_text">Send Payment</a>
-                                                </td>                                                
-                                                <td>
-                                                    | Contact us
-                                                </td>
-                                                <td>
-                                                    <uc1:Login id="Login1" runat="Server"></uc1:Login>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <uc4:NavigationLinks id="NavigationLinks" runat=server></uc4:NavigationLinks>
+                                        <uc1:Login id="Login1" runat="Server"></uc1:Login>
                                     </asp:Panel>
                                 </td>                                
                             </tr>
                         </table>
+                        </center>
                     </td>
                 </tr>
                 <tr>
                     <td >
-                    <div style="min-height:640px;">
+                    <div style="min-height:640px; margin-top:30px;">
                         <asp:ContentPlaceHolder ID="Main" runat="server" >
         
                         </asp:ContentPlaceHolder>
@@ -114,5 +96,46 @@
     }    
 </script>
 
+<!-- begin olark code -->
+<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+f[z]=function(){
+(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+0:+new Date};a.P=function(u){
+a.p[u]=new Date-a.p[0]};function s(){
+a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+b.contentWindow[g].open()}catch(w){
+c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('7271-784-10-6135');/*]]>*/</script><noscript><a href="https://www.olark.com/site/7271-784-10-6135/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+<!-- end olark code -->
+
+<!--Gosquared code-->
+
+<script type="text/javascript">
+    var GoSquared = {};
+    GoSquared.acct = "GSN-168925-A";
+    (function (w) {
+        function gs() {
+            w._gstc_lt = +new Date;
+            var d = document, g = d.createElement("script");
+            g.type = "text/javascript";
+            g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+            var s = d.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(g, s);
+        }
+        w.addEventListener ?
+      w.addEventListener("load", gs, false) :
+      w.attachEvent("onload", gs);
+    })(window);
+</script>
+<!--End of Gosquared code-->
 </body>
 </html>

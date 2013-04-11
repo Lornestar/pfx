@@ -19,7 +19,7 @@
         <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
         </telerik:RadAjaxLoadingPanel>
         <center>
-            <table width="1000px">
+            <table style=" width:1000px; margin-top:22px; ">
                 <tr>
                     <td>
                         <table width=100%>

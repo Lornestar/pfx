@@ -212,6 +212,22 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the testusernetbalance Procedure
+        /// </summary>
+        public static StoredProcedure Testusernetbalance(int? userkey, int? returncurrency, int? paymentobjecttype)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("testusernetbalance", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@returncurrency", returncurrency, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@paymentobjecttype", paymentobjecttype, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the Update_BancBox_Cipstatus Procedure
         /// </summary>
         public static StoredProcedure UpdateBancBoxCipstatus(int? clientid, string cipstatus)
@@ -431,6 +447,22 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@cctokenkey", cctokenkey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@cctoken", cctoken, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Info_Fee_Types_ExchangeRate Procedure
+        /// </summary>
+        public static StoredProcedure UpdateInfoFeeTypesExchangeRate(int? currency1, int? currency2, decimal? rate)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Info_Fee_Types_ExchangeRate", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currency1", currency1, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency2", currency2, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@rate", rate, DbType.Decimal, 4, 10);
         	
             return sp;
         }
@@ -779,6 +811,20 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@country", country, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@postalcode", postalcode, DbType.String, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Users_DefaultCurrency Procedure
+        /// </summary>
+        public static StoredProcedure UpdateUsersDefaultCurrency(int? userkey, int? defaultcurrency)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Users_DefaultCurrency", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@defaultcurrency", defaultcurrency, DbType.Int32, 0, 10);
         	
             return sp;
         }
@@ -1218,6 +1264,16 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Info_Fee_Types_All Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoFeeTypesAll()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Fee_Types_All", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Info_Organizations Procedure
         /// </summary>
         public static StoredProcedure ViewInfoOrganizations()
@@ -1617,6 +1673,20 @@ namespace Peerfx_DB{
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_User_Facebook", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@userkey", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_User_NetBalance Procedure
+        /// </summary>
+        public static StoredProcedure ViewUserNetBalance(int? userkey, int? currency)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_User_NetBalance", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@userkey", userkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
         	
             return sp;
         }

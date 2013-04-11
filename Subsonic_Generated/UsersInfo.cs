@@ -399,6 +399,19 @@ namespace Peerfx_DB
 				colvarImageUrl.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarImageUrl);
 				
+				TableSchema.TableColumn colvarDefaultCurrency = new TableSchema.TableColumn(schema);
+				colvarDefaultCurrency.ColumnName = "default_currency";
+				colvarDefaultCurrency.DataType = DbType.Int32;
+				colvarDefaultCurrency.MaxLength = 0;
+				colvarDefaultCurrency.AutoIncrement = false;
+				colvarDefaultCurrency.IsNullable = true;
+				colvarDefaultCurrency.IsPrimaryKey = false;
+				colvarDefaultCurrency.IsForeignKey = false;
+				colvarDefaultCurrency.IsReadOnly = false;
+				colvarDefaultCurrency.DefaultSetting = @"";
+				colvarDefaultCurrency.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDefaultCurrency);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -576,6 +589,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.ImageUrl); }
 			set { SetColumnValue(Columns.ImageUrl, value); }
 		}
+		  
+		[XmlAttribute("DefaultCurrency")]
+		[Bindable(true)]
+		public int? DefaultCurrency 
+		{
+			get { return GetColumnValue<int?>(Columns.DefaultCurrency); }
+			set { SetColumnValue(Columns.DefaultCurrency, value); }
+		}
 		
 		#endregion
 		
@@ -596,7 +617,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl)
+		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl,int? varDefaultCurrency)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -642,6 +663,8 @@ namespace Peerfx_DB
 			
 			item.ImageUrl = varImageUrl;
 			
+			item.DefaultCurrency = varDefaultCurrency;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -652,7 +675,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl)
+		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl,int? varDefaultCurrency)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -697,6 +720,8 @@ namespace Peerfx_DB
 				item.Ssn = varSsn;
 			
 				item.ImageUrl = varImageUrl;
+			
+				item.DefaultCurrency = varDefaultCurrency;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -858,6 +883,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn DefaultCurrencyColumn
+        {
+            get { return Schema.Columns[21]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -883,6 +915,7 @@ namespace Peerfx_DB
 			 public static string Password = @"password";
 			 public static string Ssn = @"ssn";
 			 public static string ImageUrl = @"Image_URL";
+			 public static string DefaultCurrency = @"default_currency";
 						
 		}
 		#endregion

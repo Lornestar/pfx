@@ -35,6 +35,18 @@ namespace Peerfx.User
                     Master.NotificationShow("Your Payment went through.<br/><br/>You should receive an email with information about your Request.");
                 }
                 CheckVerifications();
+
+                ddlcurrencyview.DataTextField = "info_currency_code";
+                ddlcurrencyview.DataValueField = "info_currencies_key";
+                ddlcurrencyview.DataSource = sitetemp.view_info_currencies_cansell();
+                ddlcurrencyview.DataBind();
+
+                if (currentuser.Default_currency > 0)
+                {
+                    ddlcurrencyview.SelectedValue = currentuser.Default_currency.ToString();
+                }
+
+                LoadNetBalance();
             }
             //insert profile img
             if (currentuser.Image_url != null)
@@ -49,6 +61,43 @@ namespace Peerfx.User
             {
                 imgverificationheader.ImageUrl = "/images/buttons/Verified_middle.png";
             }
+        }
+
+        protected void LoadNetBalance()
+        {
+            int currency = Convert.ToInt32(ddlcurrencyview.SelectedValue);
+            DataTable dttemp = Peerfx_DB.SPs.ViewUserNetBalance(currentuser.User_key, currency).GetDataSet().Tables[0];
+            string strcurrency = sitetemp.GetCurrencySymbol(currency);
+            string strcurrencycode = sitetemp.getcurrencycode(currency);
+            decimal userbalance = 0;
+            decimal userbalancefrozen = 0;
+            decimal userpaymentpending = 0;
+            if (dttemp.Rows[0]["userbalance"] != DBNull.Value){
+                userbalance = Convert.ToDecimal(dttemp.Rows[0]["userbalance"]);
+            }
+            if (dttemp.Rows[0]["userbalancefrozen"] != DBNull.Value)
+            {
+                userbalancefrozen = Convert.ToDecimal(dttemp.Rows[0]["userbalancefrozen"]);
+            }
+            if (dttemp.Rows[0]["userpaymentpending"] != DBNull.Value)
+            {
+                userpaymentpending = Convert.ToDecimal(dttemp.Rows[0]["userpaymentpending"]);
+            }
+
+            lblnetbalance.Text = strcurrency + userbalance.ToString("F") + " " + strcurrencycode ;
+            lblnetfrozenbalance.Text = "Net Frozen Balance = " + strcurrency + userbalancefrozen.ToString("F") + " " + strcurrencycode;
+            lblnetpendingpayment.Text = "Net Pending Transfers = " + strcurrency + userpaymentpending.ToString("F") + " " + strcurrencycode;
+
+            if (userbalancefrozen == 0)
+            {
+                lblnetfrozenbalance.Visible = false;
+            }
+            if (userpaymentpending == 0)
+            {
+                lblnetpendingpayment.Visible = false;
+            }
+
+            Peerfx_DB.SPs.UpdateUsersDefaultCurrency(currentuser.User_key, currency).Execute();
         }
 
         protected void CheckVerifications()
@@ -141,6 +190,11 @@ namespace Peerfx.User
             Insertimgurl();
 
             imguser.ImageUrl += "?r=" + DateTime.Now.TimeOfDay.ToString();
+        }
+
+        protected void ddlcurrencyview_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            LoadNetBalance();            
         }
                
     }

@@ -47,6 +47,7 @@ namespace Peerfx.Models
         private int verification_points;
         private DateTime last_online;
         private bool isverified;
+        private int default_currency;
 
         public int User_key
         {
@@ -525,5 +526,18 @@ namespace Peerfx.Models
                 last_online = value;
             }
         }
+
+        public int Default_currency
+        {
+            get
+            {
+                return default_currency;
+            }
+            set
+            {
+                default_currency = value;
+            }
+        }
+
     }
 }

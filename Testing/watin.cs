@@ -15,12 +15,33 @@ namespace Peerfx.Testing
         public void TryScrape()
         {
 
-            using (var browser = new FireFox("http://www.tradepfx.com/login.aspx"))
+            using (var browser = new IE("https://www.world-check.com/portal/mod_perl/Login/"))
             {
-                browser.TextField(Find.ByName("ctl00$Main$txtemail")).TypeText("lorne@lornestar.com");
-                browser.Button(Find.ByName("ctl00$Main$btnLogin")).Click();
+                if (Find.ByName("username"))
+                {
+                    browser.TextField(Find.ByName("username")).TypeText("nzrbrt0002");
+                    browser.TextField(Find.ByName("password")).TypeText("Go8ahE5s");
+                    browser.Image(Find.ByName("submitted")).Click();
+                }
+                                
+                browser.GoTo("https://www.world-check.com/portal/mod_perl/PassportCheck");
 
-                string strtemp = browser.ToString();
+                browser.TextField(Find.ByName("givenName")).TypeText("Jim");
+                browser.TextField(Find.ByName("lastName")).TypeText("Smith");
+                browser.RadioButton(Find.ByName("sexg") && Find.ByValue("M")).Click();
+                browser.Span(Find.ById("issuingState-CAN")).Click();
+                browser.TextField(Find.ByName("dateOfBirthDay")).TypeText("29");
+                browser.TextField(Find.ByName("dateOfBirthMonth")).TypeText("05");
+                browser.TextField(Find.ByName("dateOfBirthYear")).TypeText("1978");
+                browser.TextField(Find.ByName("passportNumber")).TypeText("WL745488");
+                browser.TextField(Find.ByName("expireDateDay")).TypeText("10");
+                browser.TextField(Find.ByName("expireDateMonth")).TypeText("07");
+                browser.TextField(Find.ByName("expireDateYear")).TypeText("2014");
+                browser.Button(Find.ByValue("VERIFY")).Click();
+
+                var element = browser.Element(Find.ByClass("tablelinespacer"));                
+                var firsttd = element.NextSibling.NextSibling;
+                string strtemp = firsttd.Text;
                 //Assert.IsTrue(browser.ContainsText("WatiN"));
             }
         }

@@ -14,6 +14,11 @@
                     <telerik:AjaxUpdatedControl ControlID="pnluserpic" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="ddlcurrencyview">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlnetbalance" LoadingPanelID="LoadingPanelExchangeCurrency"/>                    
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <script type="text/javascript">
@@ -68,7 +73,7 @@
                                                 <center>
                                                 <table>
                                                     <tr>
-                                                        <td>
+                                                        <td class="Dashboard_Netbalance_words">
                                                         Change Image
                                                         </td>
                                                         <td>
@@ -89,8 +94,50 @@
                                     </table>
                                     </asp:Panel>
                             </td>
-                            <td>
-                                <table>                                    
+                            <td style="vertical-align:top;">
+                                <asp:Panel ID=pnlnetbalance runat=server>
+                                <table width=100% style="text-align:center;">
+                                    <tr>
+                                        <td>
+                                            <div class="Dashboard_Netbalance_words">
+                                                Net Available Balances
+                                            </div>                                   
+                                            <div class="Dashboard_Netbalance">                                            
+                                            <asp:Label ID=lblnetbalance runat=server></asp:Label>
+                                            </div>
+                                            
+                                            <div class="hr_dotted">
+                                            &nbsp;
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="Dashboard_Netbalance_additiontext">
+                                            <asp:Label ID=lblnetfrozenbalance runat=server></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="Dashboard_Netbalance_additiontext">
+                                            <asp:Label ID=lblnetpendingpayment runat=server></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="Dashboard_Netbalance_additiontext">
+                                            <span class="Dashboard_Netbalance_words">Default Currency</span>
+                                            <telerik:RadComboBox ID=ddlcurrencyview runat=server Width=50 
+                                                onselectedindexchanged="ddlcurrencyview_SelectedIndexChanged" AutoPostBack=true ></telerik:RadComboBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </asp:Panel>
+                                <table style="padding-top:20px; width:100%; position:relative; left:5px;">
+                                    <tr>
+                                        <td>
+                                            <div class="Dashboard_Netbalance_words">
+                                                Common Actions
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <table class="Dashboard_Buttons">
@@ -103,9 +150,27 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
+                                                        <a href="/ExchangeCurrency.aspx">
+                                                            <div>
+                                                              <img src="/images/icons/sendmoney.png" /> Send Money
+                                                            </div>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
                                                         <a href="/Exchange_Currency.aspx">
                                                             <div>
-                                                              <img src="/images/icons/sendmoney.png" />   Send Payment
+                                                              <img src="/images/icons/sendmoney.png" /> Deposit Money
+                                                            </div>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/Exchange_Currency.aspx">
+                                                            <div>
+                                                              <img src="/images/icons/sendmoney.png" /> Withdraw Money
                                                             </div>
                                                         </a>
                                                     </td>

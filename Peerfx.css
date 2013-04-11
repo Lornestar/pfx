@@ -52,6 +52,16 @@ a:hover
     color:#2f0985;
 }
 
+.Default_Page
+{
+    text-align:center;
+    font-family:Roboto;
+    font-weight:bolder;
+    font-size:xx-large;
+    color:#885f17;
+    text-shadow: 2px 2px #EEEEEE;
+}
+
 .Signup_Header
 {
     font-weight:bold;
@@ -94,6 +104,7 @@ a:hover
     top:140px;
     background: rgb(255, 255, 255) transparent; /* default fallback */
     background: rgba(255, 255, 255, 0.4); /* nice browsers */
+    margin-top:-30px;
 }
 
 .Exchange_Header
@@ -242,6 +253,14 @@ a:Hover.Navigation_text
     vertical-align:middle;
 }
 
+.footer2
+{
+    background-color:#faedd7;
+    width:1400px;
+    padding-bottom:10px;
+    padding-top:10px;    
+}
+
 .Buttons, .Buttons:hover
 {  
     width:120px;
@@ -335,7 +354,37 @@ div.RadUpload .ruFakeInput
     {
         width: 1;
     }
+.hr_dotted
+{
+    border-bottom:2px dotted gray; 
+    height:2px;
+}
 
+.Dashboard_Netbalance
+{
+    font-family:Roboto;    
+    font-size:xx-large;
+    color:#333333;
+    font-weight:bold;
+    position:relative;    
+    padding-bottom:5px;
+}
+
+.Dashboard_Netbalance_words
+{
+    font-family:Roboto;    
+    font-size:small;    
+    color:#a0a0a0;
+    text-align:left;
+}
+
+.Dashboard_Netbalance_additiontext
+{
+    text-align:right;
+    padding-top:7px;
+    font-size:smaller;
+    color:Gray;
+}
 /*
 div.RadUpload .ruFakeInput
 {

@@ -561,6 +561,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarLastOnline);
                 
+                TableSchema.TableColumn colvarDefaultCurrency = new TableSchema.TableColumn(schema);
+                colvarDefaultCurrency.ColumnName = "default_currency";
+                colvarDefaultCurrency.DataType = DbType.Int32;
+                colvarDefaultCurrency.MaxLength = 0;
+                colvarDefaultCurrency.AutoIncrement = false;
+                colvarDefaultCurrency.IsNullable = true;
+                colvarDefaultCurrency.IsPrimaryKey = false;
+                colvarDefaultCurrency.IsForeignKey = false;
+                colvarDefaultCurrency.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarDefaultCurrency);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -1198,6 +1210,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("last_online", value);
             }
         }
+	      
+        [XmlAttribute("DefaultCurrency")]
+        [Bindable(true)]
+        public int? DefaultCurrency 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("default_currency");
+		    }
+            set 
+		    {
+			    SetColumnValue("default_currency", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -1289,6 +1315,8 @@ namespace Peerfx_DB{
             public static string VerificationPoints = @"verification_points";
             
             public static string LastOnline = @"last_online";
+            
+            public static string DefaultCurrency = @"default_currency";
             
 	    }
 	    #endregion

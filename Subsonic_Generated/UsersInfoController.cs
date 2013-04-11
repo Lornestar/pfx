@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int UserKey,string Address1,string Address2,string City,string State,int? Country,string Postalcode,int? Phonecountrycode1,int? Phonetype1,string Phonenumber1,int? Phonecountrycode2,int? Phonetype2,string Phonenumber2,int? Identitynationality,string Occupation,string Passportnumber,DateTime? LastChanged,string Username,string Password,string Ssn,string ImageUrl)
+	    public void Insert(int UserKey,string Address1,string Address2,string City,string State,int? Country,string Postalcode,int? Phonecountrycode1,int? Phonetype1,string Phonenumber1,int? Phonecountrycode2,int? Phonetype2,string Phonenumber2,int? Identitynationality,string Occupation,string Passportnumber,DateTime? LastChanged,string Username,string Password,string Ssn,string ImageUrl,int? DefaultCurrency)
 	    {
 		    UsersInfo item = new UsersInfo();
 		    
@@ -126,6 +126,8 @@ namespace Peerfx_DB
             
             item.ImageUrl = ImageUrl;
             
+            item.DefaultCurrency = DefaultCurrency;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -134,7 +136,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int UserKey,string Address1,string Address2,string City,string State,int? Country,string Postalcode,int? Phonecountrycode1,int? Phonetype1,string Phonenumber1,int? Phonecountrycode2,int? Phonetype2,string Phonenumber2,int? Identitynationality,string Occupation,string Passportnumber,DateTime? LastChanged,string Username,string Password,string Ssn,string ImageUrl)
+	    public void Update(int UserKey,string Address1,string Address2,string City,string State,int? Country,string Postalcode,int? Phonecountrycode1,int? Phonetype1,string Phonenumber1,int? Phonecountrycode2,int? Phonetype2,string Phonenumber2,int? Identitynationality,string Occupation,string Passportnumber,DateTime? LastChanged,string Username,string Password,string Ssn,string ImageUrl,int? DefaultCurrency)
 	    {
 		    UsersInfo item = new UsersInfo();
 	        item.MarkOld();
@@ -181,6 +183,8 @@ namespace Peerfx_DB
 			item.Ssn = Ssn;
 				
 			item.ImageUrl = ImageUrl;
+				
+			item.DefaultCurrency = DefaultCurrency;
 				
 	        item.Save(UserName);
 	    }

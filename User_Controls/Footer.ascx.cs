@@ -16,6 +16,10 @@ namespace Peerfx.User_Controls
             {
                 ucLogin.Visible = false;
             }
+            else
+            {
+                NavigationLinks.Visible = false;
+            }
         }
     }
 }

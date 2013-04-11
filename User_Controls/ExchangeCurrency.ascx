@@ -26,7 +26,7 @@ function updatetable() {
 <telerik:RadAjaxPanel runat="server" ID="RadAjaxPanelExchangeCurrency" LoadingPanelID="LoadingPanelExchangeCurrency"
             Height="100%">
 <div class="SendPayment_Box_Header">
- <span style="position:relative;top:4px; left:10px;"> Send Payment</span>
+ <span style="position:relative;top:4px; left:10px;"> Send Money</span>
 </div>
 <div class="SendPayment_Box">
 <div class="SendPayment_Box_Main">
@@ -51,7 +51,7 @@ function updatetable() {
                             </tr>
                             <tr>
                                 <td>
-                                    You Get
+                                    They Get
                                 </td>
                                 <td>
                                     <telerik:RadNumericTextBox ID=txtbuy runat=server Enabled=false Width=100 CssClass="SendPayment_Box_Inputs"></telerik:RadNumericTextBox>

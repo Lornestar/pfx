@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2)
+	    public void Insert(string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2,decimal? ExchangeRate,DateTime? ExchangeRateUpdated)
 	    {
 		    InfoFeeType item = new InfoFeeType();
 		    
@@ -102,6 +102,10 @@ namespace Peerfx_DB
             
             item.Currency2 = Currency2;
             
+            item.ExchangeRate = ExchangeRate;
+            
+            item.ExchangeRateUpdated = ExchangeRateUpdated;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -110,7 +114,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoFeeTypes,string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2)
+	    public void Update(int InfoFeeTypes,string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2,decimal? ExchangeRate,DateTime? ExchangeRateUpdated)
 	    {
 		    InfoFeeType item = new InfoFeeType();
 	        item.MarkOld();
@@ -135,6 +139,10 @@ namespace Peerfx_DB
 			item.Currency1 = Currency1;
 				
 			item.Currency2 = Currency2;
+				
+			item.ExchangeRate = ExchangeRate;
+				
+			item.ExchangeRateUpdated = ExchangeRateUpdated;
 				
 	        item.Save(UserName);
 	    }

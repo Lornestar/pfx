@@ -163,6 +163,7 @@
     <Content Include="Peerfx.css" />
     <Content Include="Rob.aspx" />
     <Content Include="ScheduledTasks\PollEmbeeTransStatus.aspx" />
+    <Content Include="ScheduledTasks\UpdateCurrencyCloudRates.aspx" />
     <Content Include="ScheduledTasks\UpdateEmbeeCatalog.aspx" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
@@ -196,6 +197,7 @@
     <Content Include="User_Controls\Footer.ascx" />
     <Content Include="User_Controls\Header.ascx" />
     <Content Include="User_Controls\Login.ascx" />
+    <Content Include="User_Controls\NavigationLinks.ascx" />
     <Content Include="User_Controls\Payment_Details.ascx" />
     <Content Include="User_Controls\UserBalances.ascx" />
     <Content Include="User_Controls\UserInfo.ascx" />
@@ -347,6 +349,13 @@
     <Compile Include="ScheduledTasks\PollEmbeeTransStatus.aspx.designer.cs">
       <DependentUpon>PollEmbeeTransStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ScheduledTasks\UpdateCurrencyCloudRates.aspx.cs">
+      <DependentUpon>UpdateCurrencyCloudRates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScheduledTasks\UpdateCurrencyCloudRates.aspx.designer.cs">
+      <DependentUpon>UpdateCurrencyCloudRates.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ScheduledTasks\UpdateEmbeeCatalog.aspx.cs">
       <DependentUpon>UpdateEmbeeCatalog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,6 +363,7 @@
     <Compile Include="ScheduledTasks\UpdateEmbeeCatalog.aspx.designer.cs">
       <DependentUpon>UpdateEmbeeCatalog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ScrapingScripts\WorldCheck.cs" />
     <Compile Include="Signup.aspx.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -533,6 +543,13 @@
     </Compile>
     <Compile Include="User_Controls\Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\NavigationLinks.ascx.cs">
+      <DependentUpon>NavigationLinks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\NavigationLinks.ascx.designer.cs">
+      <DependentUpon>NavigationLinks.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\Payment_Details.ascx.cs">
       <DependentUpon>Payment_Details.ascx</DependentUpon>

@@ -298,6 +298,10 @@ namespace Peerfx
             {
                 users.Bancbox_payment_object_key = Convert.ToInt64(dstemp.Tables[0].Rows[0]["bancbox_payment_object_key"]);
             }
+            if (dstemp.Tables[0].Rows[0]["default_currency"] != DBNull.Value)
+            {
+                users.Default_currency = Convert.ToInt32(dstemp.Tables[0].Rows[0]["default_currency"]);
+            }
             //check if file exists
             string fullurl = HttpContext.Current.Server.MapPath("/Files/UserImages/") + "\\" + users.User_key.ToString() + ".jpg";
             if (File.Exists(fullurl))
