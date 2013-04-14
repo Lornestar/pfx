@@ -51,7 +51,7 @@ function updatetable() {
                             </tr>
                             <tr>
                                 <td>
-                                    They Get
+                                    You Get
                                 </td>
                                 <td>
                                     <telerik:RadNumericTextBox ID=txtbuy runat=server Enabled=false Width=100 CssClass="SendPayment_Box_Inputs"></telerik:RadNumericTextBox>

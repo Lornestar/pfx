@@ -693,6 +693,18 @@ namespace Peerfx
             {
                 tempbankaccount.ABArouting = dstemp.Tables[0].Rows[0]["ABArouting"].ToString();                
             }
+            if (dstemp.Tables[0].Rows[0]["BSB"] != DBNull.Value)
+            {
+                tempbankaccount.BSB = dstemp.Tables[0].Rows[0]["BSB"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["SortCode"] != DBNull.Value)
+            {
+                tempbankaccount.Sortcode = dstemp.Tables[0].Rows[0]["SortCode"].ToString();
+            }
+            if (dstemp.Tables[0].Rows[0]["email"] != DBNull.Value)
+            {
+                tempbankaccount.Email = dstemp.Tables[0].Rows[0]["email"].ToString();
+            }
             if (dstemp.Tables[0].Rows[0]["currency_key"] != DBNull.Value)
             {
                 tempbankaccount.Currency_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["currency_key"].ToString());
@@ -856,9 +868,9 @@ namespace Peerfx
                     Fees fees = getFees(sellcurrency,buycurrency);                    
 
                     //peerfxrate
-                    peerfxrate = quotetemp.Broker_Offer;
+                    peerfxrate = quotetemp.Broker_Bid;
                     if (fees.Fee_Percentage != 0){
-                        peerfxrate += fees.Fee_Percentage;
+                        peerfxservicefee += (fees.Fee_Percentage * (sellamount * peerfxrate));
                     }
                     
                     //peerfx service fee
@@ -929,10 +941,10 @@ namespace Peerfx
                     Fees fees = getFees(sellcurrency, buycurrency);
 
                     //peerfxrate
-                    peerfxrate = quotetemp.Broker_Offer;
+                    peerfxrate = quotetemp.Broker_Bid;
                     if (fees.Fee_Percentage != 0)
                     {
-                        peerfxrate += fees.Fee_Percentage;
+                        peerfxservicefee += (buyamount * fees.Fee_Percentage);
                     }
 
                     //peerfx service fee
@@ -961,7 +973,7 @@ namespace Peerfx
 
                     //calculate buyingamount
                     sellamount = buyamount / peerfxrate;
-                    sellamount = sellamount - peerfxservicefee;
+                    sellamount = sellamount + peerfxservicefee;
 
                     //assign values
                     quotetemp.Peerfx_Servicefee = decimal.Round(peerfxservicefee, 2);
@@ -1237,9 +1249,9 @@ namespace Peerfx
         }
 
 
-        public Int64 insert_bank_account_returnpaymentobject(int userkey, int currencykey, int organizationkey, string bankaccountdescription, int userkeyupdated, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname)
+        public Int64 insert_bank_account_returnpaymentobject(int userkey, int currencykey, int organizationkey, string bankaccountdescription, int userkeyupdated, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname,string sortcode, string bsb, string email)
         {
-            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, userkey, currencykey, organizationkey, bankaccountdescription, userkeyupdated, get_ipaddress(), accountnumber, IBAN, BIC, ABArouting, firstname, lastname, businessname, 0);
+            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, userkey, currencykey, organizationkey, bankaccountdescription, userkeyupdated, get_ipaddress(), accountnumber, IBAN, BIC, ABArouting, firstname, lastname, businessname, 0,sortcode,bsb,email);
             sp_UpdateBank_account.Execute();
             int bankaccountkey = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
             StoredProcedure sp_UpdatePaymentObject = Peerfx_DB.SPs.UpdatePaymentObjects(0, 1, bankaccountkey, 0);
@@ -1251,7 +1263,7 @@ namespace Peerfx
 
         public Int64 insert_bancbox_account_returnpaymentobject(int userkey, int currencykey, int organizationkey, string bankaccountdescription, int userkeyupdated, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname)
         {
-            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, userkey, currencykey, organizationkey, bankaccountdescription, userkeyupdated, get_ipaddress(), accountnumber, IBAN, BIC, ABArouting, firstname, lastname, businessname, 0);
+            StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, userkey, currencykey, organizationkey, bankaccountdescription, userkeyupdated, get_ipaddress(), accountnumber, IBAN, BIC, ABArouting, firstname, lastname, businessname, 0,"","","");
             sp_UpdateBank_account.Execute();
             int bankaccountkey = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
             StoredProcedure sp_UpdatePaymentObject = Peerfx_DB.SPs.UpdatePaymentObjects(0, 8, bankaccountkey, 0);
@@ -1591,6 +1603,102 @@ namespace Peerfx
         {
             RadNotification1.Text = Text;
             RadNotification1.Show();
+        }
+
+        public DataTable getBankAccount_RequiredFields(int currency)
+        {
+            /*External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
+            Hashtable hstemp = cc.RequiredFields_BankAccounts(currency);*/
+            DataTable dttemp = Peerfx_DB.SPs.ViewBankAccountsRequiredFields(currency).GetDataSet().Tables[0];
+
+            return dttemp;
+        }
+
+        public string getCountryValueFromCurrency(int currencykey)
+        {
+            string strreturn = "GB";
+
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currencykey).GetDataSet().Tables[0];
+            if (dttemp.Rows[0]["country_value"] != DBNull.Value)
+            {
+                strreturn = dttemp.Rows[0]["country_value"].ToString();
+            }
+
+            return strreturn;
+        }
+
+        public string getCountryValue(int countrykey)
+        {
+            string strreturn = "GB";
+
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCountrySpecific(countrykey).GetDataSet().Tables[0];
+            if (dttemp.Rows[0]["country_value"] != DBNull.Value)
+            {
+                strreturn = dttemp.Rows[0]["country_value"].ToString();
+            }
+
+            return strreturn;
+        }
+
+        public int getCountryKeyFromCurrency(int currencykey)
+        {
+            int intreturn = 0;
+
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currencykey).GetDataSet().Tables[0];
+            if (dttemp.Rows[0]["info_country_key"] != DBNull.Value)
+            {
+                intreturn = Convert.ToInt32(dttemp.Rows[0]["info_country_key"].ToString());
+            }
+
+            return intreturn;
+        }
+
+        public Boolean getCurrency_Allowlocalbankaccount(int currency)
+        {
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currency).GetDataSet().Tables[0];
+            Boolean allowlocalbankaccount = false;
+
+            if (dttemp.Rows[0]["allow_local_bankaccount"] != DBNull.Value)
+            {
+                allowlocalbankaccount = Convert.ToBoolean(dttemp.Rows[0]["allow_local_bankaccount"]);
+            }            
+
+            return allowlocalbankaccount;
+        }
+
+        public Boolean isValidateBankAccount(int currency)
+        {
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currency).GetDataSet().Tables[0];
+            Boolean validatebankaccount = false;
+
+            if (dttemp.Rows[0]["verify_bank_account"] != DBNull.Value)
+            {
+                validatebankaccount = Convert.ToBoolean(dttemp.Rows[0]["verify_bank_account"]);
+            }
+
+            return validatebankaccount;
+        }
+
+        public string ConvertHashtabletoString(Hashtable hstemp)
+        {            
+            StringBuilder requestString = new StringBuilder();
+
+            if (hstemp != null)
+            {
+                foreach (DictionaryEntry Item in hstemp)
+                {
+                    if (requestString.Length == 0)
+                    {
+                        requestString.Append(Item.Key + "=" + Item.Value);
+                    }
+                    else
+                    {
+                        requestString.Append("&" + Item.Key + "=" + Item.Value);
+                    }
+                }
+            }
+
+            return requestString.ToString();
         }
 
     }    

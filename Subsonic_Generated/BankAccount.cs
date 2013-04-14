@@ -347,6 +347,45 @@ namespace Peerfx_DB
 				colvarDateCreated.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarDateCreated);
 				
+				TableSchema.TableColumn colvarSortCode = new TableSchema.TableColumn(schema);
+				colvarSortCode.ColumnName = "SortCode";
+				colvarSortCode.DataType = DbType.AnsiString;
+				colvarSortCode.MaxLength = 50;
+				colvarSortCode.AutoIncrement = false;
+				colvarSortCode.IsNullable = true;
+				colvarSortCode.IsPrimaryKey = false;
+				colvarSortCode.IsForeignKey = false;
+				colvarSortCode.IsReadOnly = false;
+				colvarSortCode.DefaultSetting = @"";
+				colvarSortCode.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSortCode);
+				
+				TableSchema.TableColumn colvarBsb = new TableSchema.TableColumn(schema);
+				colvarBsb.ColumnName = "BSB";
+				colvarBsb.DataType = DbType.AnsiString;
+				colvarBsb.MaxLength = 50;
+				colvarBsb.AutoIncrement = false;
+				colvarBsb.IsNullable = true;
+				colvarBsb.IsPrimaryKey = false;
+				colvarBsb.IsForeignKey = false;
+				colvarBsb.IsReadOnly = false;
+				colvarBsb.DefaultSetting = @"";
+				colvarBsb.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBsb);
+				
+				TableSchema.TableColumn colvarEmail = new TableSchema.TableColumn(schema);
+				colvarEmail.ColumnName = "email";
+				colvarEmail.DataType = DbType.String;
+				colvarEmail.MaxLength = 100;
+				colvarEmail.AutoIncrement = false;
+				colvarEmail.IsNullable = true;
+				colvarEmail.IsPrimaryKey = false;
+				colvarEmail.IsForeignKey = false;
+				colvarEmail.IsReadOnly = false;
+				colvarEmail.DefaultSetting = @"";
+				colvarEmail.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarEmail);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -492,6 +531,30 @@ namespace Peerfx_DB
 			get { return GetColumnValue<DateTime?>(Columns.DateCreated); }
 			set { SetColumnValue(Columns.DateCreated, value); }
 		}
+		  
+		[XmlAttribute("SortCode")]
+		[Bindable(true)]
+		public string SortCode 
+		{
+			get { return GetColumnValue<string>(Columns.SortCode); }
+			set { SetColumnValue(Columns.SortCode, value); }
+		}
+		  
+		[XmlAttribute("Bsb")]
+		[Bindable(true)]
+		public string Bsb 
+		{
+			get { return GetColumnValue<string>(Columns.Bsb); }
+			set { SetColumnValue(Columns.Bsb, value); }
+		}
+		  
+		[XmlAttribute("Email")]
+		[Bindable(true)]
+		public string Email 
+		{
+			get { return GetColumnValue<string>(Columns.Email); }
+			set { SetColumnValue(Columns.Email, value); }
+		}
 		
 		#endregion
 		
@@ -512,7 +575,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
+		public static void Insert(int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated,string varSortCode,string varBsb,string varEmail)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -548,6 +611,12 @@ namespace Peerfx_DB
 			
 			item.DateCreated = varDateCreated;
 			
+			item.SortCode = varSortCode;
+			
+			item.Bsb = varBsb;
+			
+			item.Email = varEmail;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -558,7 +627,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated)
+		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated,string varSortCode,string varBsb,string varEmail)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -595,6 +664,12 @@ namespace Peerfx_DB
 				item.LastChanged = varLastChanged;
 			
 				item.DateCreated = varDateCreated;
+			
+				item.SortCode = varSortCode;
+			
+				item.Bsb = varBsb;
+			
+				item.Email = varEmail;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -728,6 +803,27 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn SortCodeColumn
+        {
+            get { return Schema.Columns[17]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn BsbColumn
+        {
+            get { return Schema.Columns[18]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn EmailColumn
+        {
+            get { return Schema.Columns[19]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -749,6 +845,9 @@ namespace Peerfx_DB
 			 public static string BusinessName = @"business_name";
 			 public static string LastChanged = @"last_changed";
 			 public static string DateCreated = @"date_created";
+			 public static string SortCode = @"SortCode";
+			 public static string Bsb = @"BSB";
+			 public static string Email = @"email";
 						
 		}
 		#endregion

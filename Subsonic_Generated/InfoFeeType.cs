@@ -282,6 +282,19 @@ namespace Peerfx_DB
 				colvarExchangeRateUpdated.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarExchangeRateUpdated);
 				
+				TableSchema.TableColumn colvarTreasuryType = new TableSchema.TableColumn(schema);
+				colvarTreasuryType.ColumnName = "Treasury_Type";
+				colvarTreasuryType.DataType = DbType.Int32;
+				colvarTreasuryType.MaxLength = 0;
+				colvarTreasuryType.AutoIncrement = false;
+				colvarTreasuryType.IsNullable = true;
+				colvarTreasuryType.IsPrimaryKey = false;
+				colvarTreasuryType.IsForeignKey = false;
+				colvarTreasuryType.IsReadOnly = false;
+				colvarTreasuryType.DefaultSetting = @"";
+				colvarTreasuryType.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTreasuryType);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -387,6 +400,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<DateTime?>(Columns.ExchangeRateUpdated); }
 			set { SetColumnValue(Columns.ExchangeRateUpdated, value); }
 		}
+		  
+		[XmlAttribute("TreasuryType")]
+		[Bindable(true)]
+		public int? TreasuryType 
+		{
+			get { return GetColumnValue<int?>(Columns.TreasuryType); }
+			set { SetColumnValue(Columns.TreasuryType, value); }
+		}
 		
 		#endregion
 		
@@ -407,7 +428,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated)
+		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated,int? varTreasuryType)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
@@ -433,6 +454,8 @@ namespace Peerfx_DB
 			
 			item.ExchangeRateUpdated = varExchangeRateUpdated;
 			
+			item.TreasuryType = varTreasuryType;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -443,7 +466,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated)
+		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated,int? varTreasuryType)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
@@ -470,6 +493,8 @@ namespace Peerfx_DB
 				item.ExchangeRate = varExchangeRate;
 			
 				item.ExchangeRateUpdated = varExchangeRateUpdated;
+			
+				item.TreasuryType = varTreasuryType;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -568,6 +593,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn TreasuryTypeColumn
+        {
+            get { return Schema.Columns[12]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -584,6 +616,7 @@ namespace Peerfx_DB
 			 public static string Currency2 = @"currency2";
 			 public static string ExchangeRate = @"Exchange_Rate";
 			 public static string ExchangeRateUpdated = @"Exchange_Rate_Updated";
+			 public static string TreasuryType = @"Treasury_Type";
 						
 		}
 		#endregion

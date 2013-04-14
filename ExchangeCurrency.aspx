@@ -3,6 +3,7 @@
 <%@ Register Src="~/User_Controls/UserInfo.ascx" tagname="UserInfo" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/ExchangeCurrency_FinePrint.ascx" tagname="ExchangeCurrency_FinePrint" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/ExchangeCurrency_NextSteps.ascx" tagname="ExchangeCurrency_NextSteps" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/BankAccountEntry.ascx" tagname="BankAccountEntry" tagprefix="uc1" %>
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
@@ -189,14 +190,13 @@
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <uc1:UserInfo ID="ucUserInfo1" runat=server />
+                                                            <uc1:UserInfo ID="ucUserInfo1" runat=server />'s Funding source:
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>                                                            
-                                                            Funding source: 
-                                                            <br />
-                                                            <telerik:RadComboBox ID=ddlpaymentmethod runat=server ></telerik:RadComboBox>
+                                                        <td>                                                                                                                                                                                    
+                                                            <telerik:RadListBox ID=ddlpaymentmethod runat=server ></telerik:RadListBox>
+                                                            
                                                         </td>
                                                     </tr>
                                                 </table>                                                
@@ -293,8 +293,9 @@
                                     <tr>
                                         <td>                                            
                                             <asp:Panel ID=pnlexistingreceiver runat=server Visible=false>
-                                                <telerik:RadComboBox ID=ddlReceivers runat=server
-                                                OnSelectedIndexChanged="ddlexistingreceiver_changed" AutoPostBack=true Visible=true></telerik:RadComboBox>
+                                            
+                                                <telerik:RadListBox ID=ddlReceivers runat=server
+                                                OnSelectedIndexChanged="ddlexistingreceiver_changed" AutoPostBack=true Visible=true></telerik:RadListBox>
                                             </asp:Panel>
                                             <asp:Panel ID=pnlotherpassportuser runat=server Visible=false>
                                                 <br />
@@ -347,75 +348,10 @@
                                                 <br />
                                             </asp:Panel>
                                             <asp:Panel ID=pnlnewreceiver runat=server>
-                                                <table>
+                                                <table>                 
                                                     <tr>
                                                         <td>
-                                                            <table>
-                                                                <tr>
-                                                                    <td>
-                                                                        <telerik:RadTextBox ID=txtfirstnamereceiver runat=server EmptyMessage="First Name" Width=200></telerik:RadTextBox>
-                                                                    </td>                                            
-                                                                    <td>
-                                                                        <telerik:RadTextBox ID=txtlastnamereceiver runat=server EmptyMessage="Last Name" Width=200></telerik:RadTextBox>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <table>
-                                                                <tr valign=top>
-                                                                    <td>
-                                                                        <table>
-                                                                            <tr>
-                                                                                <td><asp:Panel runat=server ID="pnlIBAN">
-                                                                                    IBAN account number
-                                                                                    <br />
-                                                                                    <telerik:RadTextBox ID="txtIbanAccount" runat=server></telerik:RadTextBox>
-                                                                                    </asp:Panel>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><asp:Panel ID=pnlBankCode runat=server>
-                                                                                    Bank Code (BIC)
-                                                                                    <br />
-                                                                                    <telerik:RadTextBox ID="txtBankCode" runat=server></telerik:RadTextBox>
-                                                                                    </asp:Panel>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><asp:Panel ID="pnlABArouting" runat=server Visible=false>
-                                                                                    ABA routing transit number
-                                                                                    <br />
-                                                                                    <telerik:RadMaskedTextBox ID="txtABArouting" runat=server EmptyMessage="123456789" Mask="#########"></telerik:RadMaskedTextBox>
-                                                                                    </asp:Panel>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <asp:Panel ID="pnlAccountNumber" runat=server Visible=false>
-                                                                                    Account Number
-                                                                                    <br />
-                                                                                    <telerik:RadTextBox ID="txtaccountnumber" runat=server EmptyMessage="12345678"></telerik:RadTextBox>
-                                                                                    </asp:Panel>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td>
-                                                                        <table>                                                                            
-                                                                            <tr>
-                                                                                <td>
-                                                                                    Email
-                                                                                    <br />
-                                                                                    <telerik:RadTextBox ID="txtemailreceiver" runat=server></telerik:RadTextBox>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                            <uc1:BankAccountEntry id=BankAccountEntry1 runat=server></uc1:BankAccountEntry>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -580,59 +516,7 @@
                                                 <asp:Label ID=lblreceivinguserbalance runat=server></asp:Label>
                                             </asp:Panel>
                                             <asp:Panel ID=pnlreceivingbankaccount runat=server>
-                                                <table>
-                                                    <tr>                                                        
-                                                        <td>
-                                                            <asp:Label ID=lblconfirmreceiverfullname runat=server>Full Name</asp:Label>
-                                                        </td>                                                        
-                                                    </tr>                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <table>
-                                                                <tr>
-                                                                    <td><asp:Panel runat=server ID="pnlconfirmreceiverIBAN">
-                                                                        IBAN account number
-                                                                        <br />
-                                                                        <asp:Label ID="lblconfirmreceiverIBAN" runat=server></asp:Label>
-                                                                        </asp:Panel>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><asp:Panel ID=pnlconfirmreceiverBankCode runat=server>
-                                                                        Bank Code (BIC)
-                                                                        <br />
-                                                                        <asp:Label ID=lblconfirmreceiverBankCode runat=server></asp:Label>
-                                                                        </asp:Panel>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><asp:Panel ID="pnlconfirmreceiverABArouting" runat=server Visible=false>
-                                                                        ABA routing transit number
-                                                                        <br />
-                                                                        <asp:Label ID="lblconfirmreceiverABArouting" runat=server></asp:Label>
-                                                                        </asp:Panel>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <asp:Panel ID="pnlconfirmreceiverAccount" runat=server Visible=false>
-                                                                        Account Number
-                                                                        <br />
-                                                                        <asp:Label ID=lblconfirmreceiverAccount runat=server></asp:Label>
-                                                                        </asp:Panel>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-
-                                                        </td>
-                                                    </tr>                                                    
-                                                    <tr>
-                                                        <td>                                                            
-                                                            Email<br />
-                                                            <asp:Label ID="lblconfirmreceiveremail" runat=server>email</asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                </table> 
+                                                <uc1:BankAccountEntry id=BankAccountEntry2 runat=server></uc1:BankAccountEntry>
                                             </asp:Panel>
                                             <table>
                                                 <tr>
@@ -694,47 +578,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            To:
-                                        </td>
-                                        <td>
-                                            <asp:Label ID="lblalreadyconfirmedto" runat=server>to</asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:Panel runat=server ID="pnlalreadyconfirmedIBAN">
-                                            IBAN account number
-                                            </asp:Panel>
-                                            <asp:Panel runat=server ID="pnlalreadyconfirmedABArouting">
-                                            ABA routing transit number
-                                            </asp:Panel>
-                                        </td>
-                                        <td>
-                                            <asp:Panel ID="pnlalreadyconfirmedIBAN2" runat=server>
-                                                <asp:Label ID="lblalreadyconfirmedIBAN2" runat=server></asp:Label>
-                                            </asp:Panel>
-                                            <asp:Panel ID="pnlalreadyconfirmedABArouting2" runat=server>
-                                                <asp:Label ID="lblalreadyconfirmedABArouting2" runat=server></asp:Label>
-                                            </asp:Panel>                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:Panel ID="pnlalreadyconfirmedBankCode" runat=server>
-                                            Bank Code (BIC)
-                                            </asp:Panel>
-                                            <asp:Panel ID="pnlalreadyconfirmedAccountNumber" runat=server>
-                                            Account Number
-                                            </asp:Panel>
-                                        </td>
-                                        <td>
-                                            <asp:Panel ID="pnlalreadyconfirmedBankCode2" runat=server>
-                                                <asp:Label ID="lblalreadyconfirmedBankCode2" runat=server></asp:Label>
-                                            </asp:Panel>
-                                            <asp:Panel ID="pnlalreadyconfirmedAccountNumber2" runat=server>
-                                                <asp:Label ID="lblalreadyconfirmedAccountNumber2" runat=server></asp:Label>
-                                            </asp:Panel>
+                                        <td colspan=2>
+                                        To:<br />
+                                            <uc1:BankAccountEntry id=BankAccountEntry3 runat=server></uc1:BankAccountEntry>
                                         </td>
                                     </tr>
                                     <tr>

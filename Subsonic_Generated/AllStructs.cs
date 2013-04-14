@@ -28,6 +28,10 @@ namespace Peerfx_DB
         
 		public static readonly string AspnetWebEventEvent = @"aspnet_WebEvent_Events";
         
+		public static readonly string BankAccountFieldType = @"Bank_Account_Field_Type";
+        
+		public static readonly string BankAccountLocalRequiredField = @"Bank_Account_Local_Required_Fields";
+        
 		public static readonly string BankAccount = @"Bank_Accounts";
         
 		public static readonly string EmbeeObject = @"Embee_Objects";
@@ -84,6 +88,8 @@ namespace Peerfx_DB
         
 		public static readonly string TransactionsInternal = @"Transactions_Internal";
         
+		public static readonly string TreasuryType = @"Treasury_Type";
+        
 		public static readonly string UserFacebook = @"User_Facebook";
         
 		public static readonly string UserRecipient = @"User_Recipients";
@@ -132,6 +138,16 @@ namespace Peerfx_DB
 		public static TableSchema.Table AspnetWebEventEvent
 		{
             get { return DataService.GetSchema("aspnet_WebEvent_Events", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table BankAccountFieldType
+		{
+            get { return DataService.GetSchema("Bank_Account_Field_Type", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table BankAccountLocalRequiredField
+		{
+            get { return DataService.GetSchema("Bank_Account_Local_Required_Fields", "Peerfx"); }
 		}
         
 		public static TableSchema.Table BankAccount
@@ -274,6 +290,11 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Transactions_Internal", "Peerfx"); }
 		}
         
+		public static TableSchema.Table TreasuryType
+		{
+            get { return DataService.GetSchema("Treasury_Type", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table UserFacebook
 		{
             get { return DataService.GetSchema("User_Facebook", "Peerfx"); }
@@ -340,6 +361,8 @@ namespace Peerfx_DB
 		public static readonly string VwBankAccountsSystem = @"vw_Bank_Accounts_System";
         
 		public static readonly string VwBankAccountsUser = @"vw_Bank_Accounts_Users";
+        
+		public static readonly string VwCurrency = @"vw_currencies";
         
 		public static readonly string VwInfoBank = @"vw_info_banks";
         

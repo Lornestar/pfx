@@ -19,6 +19,8 @@ namespace Peerfx
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            currentuser = sitetemp.getcurrentuser(false);
+
             if (!IsPostBack)
             {
                 //Load Currency dropdowns
@@ -108,28 +110,28 @@ namespace Peerfx
                 ddlReceivers.DataSource = dsrecipient.Tables[0];
                 ddlReceivers.DataBind();
 
-                Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
+                Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.Items[0].Value));
             }
             //Add New Recipient
-            RadComboBoxItem rdtemp = new RadComboBoxItem();
+            RadListBoxItem rdtemp = new RadListBoxItem();
             rdtemp.Value = "0";
-            rdtemp.Text = "New Recipient";
+            rdtemp.Text = "Bank Account";
             ddlReceivers.Items.Add(rdtemp);
 
             //Add Other Passport User
-            RadComboBoxItem rdtemp3 = new RadComboBoxItem();
+            RadListBoxItem rdtemp3 = new RadListBoxItem();
             rdtemp3.Value = "-1";
-            rdtemp3.Text = "Other Passport User";
+            rdtemp3.Text = "Another Passport User";
             ddlReceivers.Items.Add(rdtemp3);
 
             //Add Embee Telco
-            RadComboBoxItem rdtemp4 = new RadComboBoxItem();
+            RadListBoxItem rdtemp4 = new RadListBoxItem();
             rdtemp4.Value = "-2";
             rdtemp4.Text = "Top Up Phone";
             ddlReceivers.Items.Add(rdtemp4);
 
             DataTable dtuserbalance = sitetemp.getuserbalance_datatable(currentuser.User_key, Convert.ToInt32(ddlbuycurrency.SelectedValue));
-            RadComboBoxItem rdtemp2 = new RadComboBoxItem();
+            RadListBoxItem rdtemp2 = new RadListBoxItem();
             rdtemp2.Value = dtuserbalance.Rows[0]["payment_object_key"].ToString();
             rdtemp2.Text = dtuserbalance.Rows[0]["user_balance_text"].ToString();
             ddlReceivers.Items.Insert(0,rdtemp2);
@@ -203,6 +205,8 @@ namespace Peerfx
                 //open new recipient
                 pnlnewreceiver.Visible = true;                
                 Cleartxtreceiverfields();
+                BankAccountEntry1.hidecurrency();
+                BankAccountEntry1.updatecurrency(Convert.ToInt32(ddlbuycurrency.SelectedValue));
             }
             else if (ddlReceivers.SelectedValue == "-1")
             {
@@ -234,23 +238,19 @@ namespace Peerfx
         protected void Loadtxtreceiverfields(Int64 paymentkey)
         {
             BankAccounts ba = sitetemp.getBankAccounts(0, paymentkey);
-            txtfirstnamereceiver.Text = ba.First_name;
+            /*txtfirstnamereceiver.Text = ba.First_name;
             txtlastnamereceiver.Text = ba.Last_name;
             txtIbanAccount.Text = ba.IBAN;
             txtABArouting.Text = ba.ABArouting;
             txtaccountnumber.Text = ba.Account_number;
-            txtBankCode.Text = ba.BIC;
+            txtBankCode.Text = ba.BIC;*/
+            BankAccountEntry1.LoadFields(ba);
             txtdescription.Text = ba.Bank_account_description;                
         }
 
         protected void Cleartxtreceiverfields()
         {
-            txtfirstnamereceiver.Text = "";
-            txtlastnamereceiver.Text = "";
-            txtIbanAccount.Text = "";
-            txtABArouting.Text = "";
-            txtaccountnumber.Text = "";
-            txtBankCode.Text = "";
+            BankAccountEntry1.resetaddnew();
             txtdescription.Text = "";
         }
 
@@ -354,10 +354,12 @@ namespace Peerfx
                 ddlpaymentmethod.DataSource = dtfundingsources;
                 ddlpaymentmethod.DataBind();
             }
-            RadComboBoxItem rdtemp = new RadComboBoxItem();
+            RadListBoxItem rdtemp = new RadListBoxItem();
             rdtemp.Value = "0";
             rdtemp.Text = "Bank Account";
             ddlpaymentmethod.Items.Add(rdtemp);
+
+            ddlpaymentmethod.SelectedIndex = 0;
         }
 
         protected void LoadRatesFillinfo(Quote quotetemp)
@@ -398,54 +400,7 @@ namespace Peerfx
                 quotetemp = sitetemp.getQuote_reverse(Convert.ToDecimal(txtbuy.Text), sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
             }
 
-            LoadRatesFillinfo(quotetemp);
-
-            if (ddlbuycurrency.SelectedItem.Text == "USD")
-            {
-                pnlIBAN.Visible = false;
-                pnlBankCode.Visible = false;
-                pnlABArouting.Visible = true;
-                pnlAccountNumber.Visible = true;
-
-                pnlalreadyconfirmedIBAN.Visible = false;
-                pnlalreadyconfirmedIBAN2.Visible = false;
-                pnlconfirmreceiverIBAN.Visible = false;
-
-                pnlconfirmreceiverBankCode.Visible = false;
-                pnlalreadyconfirmedBankCode.Visible = false;
-                pnlalreadyconfirmedBankCode2.Visible = false;
-
-                pnlconfirmreceiverABArouting.Visible = true;
-                pnlalreadyconfirmedABArouting.Visible = true;
-                pnlalreadyconfirmedABArouting2.Visible = true;
-
-                pnlconfirmreceiverAccount.Visible = true;
-                pnlalreadyconfirmedAccountNumber.Visible = true;
-                pnlalreadyconfirmedAccountNumber2.Visible = true;
-            }
-            else
-            {
-                pnlIBAN.Visible = true;
-                pnlBankCode.Visible = true;
-                pnlABArouting.Visible = false;
-                pnlAccountNumber.Visible = false;
-
-                pnlalreadyconfirmedIBAN.Visible = true;
-                pnlalreadyconfirmedIBAN2.Visible = true;
-                pnlconfirmreceiverIBAN.Visible = true;
-
-                pnlconfirmreceiverBankCode.Visible = true;
-                pnlalreadyconfirmedBankCode.Visible = true;
-                pnlalreadyconfirmedBankCode2.Visible = true;
-
-                pnlconfirmreceiverABArouting.Visible = false;
-                pnlalreadyconfirmedABArouting.Visible = false;
-                pnlalreadyconfirmedABArouting2.Visible = false;
-
-                pnlconfirmreceiverAccount.Visible = false;
-                pnlalreadyconfirmedAccountNumber.Visible = false;
-                pnlalreadyconfirmedAccountNumber2.Visible = false;
-            }
+            LoadRatesFillinfo(quotetemp);            
 
             if (currentuser != null)
             {
@@ -466,6 +421,7 @@ namespace Peerfx
             //check validation
             bool isvalid = true;
             string errormessage = "";
+
 
             if (ddlReceivers.SelectedValue == "-1")
             {
@@ -494,6 +450,11 @@ namespace Peerfx
             {
                 isvalid = false;
                 errormessage = "You must write a description for this payment";
+            }
+
+            if (isvalid)
+            {
+                isvalid = BankAccountEntry1.ValidateBankAccount();
             }
 
             if (isvalid)
@@ -570,8 +531,9 @@ namespace Peerfx
             }
             else
             {
+                BankAccounts ba = BankAccountEntry1.gettxtfields();
                 //new recipient
-                receiverpaymentobject = sitetemp.insert_bank_account_returnpaymentobject(0, Convert.ToInt32(ddlbuycurrency.SelectedValue), 11, null, currentuserkey, lblconfirmreceiverAccount.Text, lblconfirmreceiverIBAN.Text, lblconfirmreceiverBankCode.Text, lblconfirmreceiverABArouting.Text, txtfirstnamereceiver.Text, txtlastnamereceiver.Text, null);
+                receiverpaymentobject = BankAccountEntry1.InsertBankAccount(currentuser.User_key);
                 Peerfx_DB.SPs.UpdateRecipients(0, currentuser.User_key, receiverpaymentobject).Execute();
                 /*StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, Convert.ToInt32(ddlbuycurrency.SelectedValue), null, null, currentuserkey, HttpContext.Current.Request.UserHostAddress, lblconfirmreceiverAccount.Text, lblconfirmreceiverIBAN.Text, lblconfirmreceiverBankCode.Text, lblconfirmreceiverABArouting.Text, txtfirstnamereceiver.Text, txtlastnamereceiver.Text, null, 0);
                 sp_UpdateBank_account.Execute();
@@ -645,7 +607,8 @@ namespace Peerfx
         }
 
         protected void updateconfirmationtab()
-        {
+        {            
+
             lblconfirmquotesendamount.Text = sitetemp.GetCurrencySymbol(ddlsellcurrency.SelectedItem.Text) + " " + txtsell.Text + " " + ddlsellcurrency.SelectedItem.Text;
             lblconfirmquotereceiveamount.Text = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " " + txtbuy.Text + " " + ddlbuycurrency.SelectedItem.Text;
             lblconfirmquoteyouget.Text = lblconfirmquotereceiveamount.Text;
@@ -661,8 +624,7 @@ namespace Peerfx
             lblconfirmsendercountry.Text = ddlcountryresidence.SelectedItem.Text;
             lblconfirmsenderemail.Text = txtemailsender.Text;
             lblconfirmsenderphone.Text = txtphone.Text;
-
-            lblconfirmreceiverfullname.Text = txtfirstnamereceiver.Text + " " + txtlastnamereceiver.Text;
+            
             bool receiverbankaccount = true;
             if (ddlReceivers.SelectedValue != "0")
             {
@@ -696,13 +658,11 @@ namespace Peerfx
                     pnlreceivinguserbalance.Visible = true;
                     pnlreceivingbankaccount.Visible = false;                    
                 }
-            }
-            lblconfirmreceiverIBAN.Text = txtIbanAccount.Text;
-            lblconfirmreceiverABArouting.Text = txtABArouting.Text;
-            lblconfirmreceiverAccount.Text = txtaccountnumber.Text;
-            lblconfirmreceiverBankCode.Text = txtBankCode.Text;
+            }            
+            BankAccounts ba = BankAccountEntry1.gettxtfields();
+            BankAccountEntry2.ViewasLabels();
+            BankAccountEntry2.LoadFields(ba);
             lblconfirmreceiverdescription.Text = txtdescription.Text;
-            lblconfirmreceiveremail.Text = txtemailreceiver.Text;            
 
             bool isuserbalance = false;
             if (pnlloggedinsender.Visible)
@@ -727,12 +687,10 @@ namespace Peerfx
             //update tab info
             lblalreadyconfirmedfrom.Text = lblconfirmsenderfullname.Text;
             //lblalreadyconfirmedfrom2.Text = lblconfirmsenderfullname.Text;
-            lblalreadyconfirmedto.Text = lblconfirmreceiverfullname.Text;
-
-            lblalreadyconfirmedIBAN2.Text = txtIbanAccount.Text;
-            lblalreadyconfirmedABArouting2.Text = txtABArouting.Text;
-            lblalreadyconfirmedAccountNumber2.Text = txtaccountnumber.Text;
-            lblalreadyconfirmedBankCode2.Text = txtBankCode.Text;
+            BankAccounts ba = BankAccountEntry1.gettxtfields();
+            BankAccountEntry3.ViewasLabels();
+            BankAccountEntry3.LoadFields(ba);
+            
             lblalreadyconfirmeddescription.Text = txtdescription.Text;            
         }
 

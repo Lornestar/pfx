@@ -292,7 +292,7 @@ namespace Peerfx.Admin
                 decimal amount = Convert.ToDecimal((insertedItem["amount"].FindControl("txtamount") as RadNumericTextBox).Text);
                 string bankreference = (insertedItem["bank_reference"].Controls[0] as TextBox).Text;
 
-                StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, currency, Convert.ToInt32(sender_bank_key), null, currentuser.User_key, sitetemp.get_ipaddress(), sender_bankaccount, null, null, null, null, null, null, 0);
+                StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, currency, Convert.ToInt32(sender_bank_key), null, currentuser.User_key, sitetemp.get_ipaddress(), sender_bankaccount, null, null, null, null, null, null, 0,"","","");
                 sp_UpdateBank_account.Execute();
                 int bank_account_key = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
                 //Save payment object

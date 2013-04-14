@@ -1,7 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Recipients.aspx.cs" Inherits="Peerfx.User.Recipients" MasterPageFile="~/Site.Master"%>
 
-<asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
+<%@ Register Src="~/User_Controls/BankAccountEntry.ascx" tagname="BankAccountEntry" tagprefix="uc1" %>
 
+<asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
 
 <telerik:RadAjaxLoadingPanel runat="server" ID="LoadingPanelExchangeCurrency">
@@ -91,58 +92,22 @@
             <asp:Panel ID=pnladdnew runat=server Visible=false>
                 <table>
                     <tr>
-                        <td>
-                            Recipient Name:<br />                        
-                            <telerik:RadTextBox ID=txtfirstname EmptyMessage="First Name" runat=server></telerik:RadTextBox>
-                            <telerik:RadTextBox ID=txtlastname EmptyMessage="Last Name" runat=server></telerik:RadTextBox>
+                        <td class="Exchange_Header">
+                            Recipient's Bank Account Details
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Currency:<br />
-                            <telerik:RadComboBox ID=ddlcurrency runat=server OnSelectedIndexChanged="ddlcurrency_changed" AutoPostBack=true></telerik:RadComboBox>
+                            <uc1:BankAccountEntry id=BankAccountEntry1 runat=server></uc1:BankAccountEntry>
                         </td>
                     </tr>
-                                <tr>
-                                    <td><asp:Panel runat=server ID="pnlIBAN">
-                                        IBAN account number
-                                        <br />
-                                        <telerik:RadTextBox ID="txtIbanAccount" runat=server></telerik:RadTextBox>
-                                        </asp:Panel>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><asp:Panel ID=pnlBankCode runat=server>
-                                        Bank Code (BIC)
-                                        <br />
-                                        <telerik:RadTextBox ID="txtBankCode" runat=server></telerik:RadTextBox>
-                                        </asp:Panel>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><asp:Panel ID="pnlABArouting" runat=server Visible=false>
-                                        ABA routing transit number
-                                        <br />
-                                        <telerik:RadMaskedTextBox ID="txtABArouting" runat=server EmptyMessage="123456789" HideOnBlur=true Mask="#########"></telerik:RadMaskedTextBox>
-                                        </asp:Panel>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Panel ID="pnlAccountNumber" runat=server Visible=false>
-                                        Account Number
-                                        <br />
-                                        <telerik:RadTextBox ID="txtaccountnumber" runat=server EmptyMessage="12345678"></telerik:RadTextBox>
-                                        </asp:Panel>
-                                    </td>
-                                </tr>
-                                <tr>
+                    <tr>
                                     <td>
                                         <telerik:RadButton ID=btnsavechange runat=server Text="Save Changes" 
                                             onclick="btnsavechange_Click"></telerik:RadButton>
+                                            
                                     </td>
-                                </tr>
-                         
+                                </tr>     
                 </table>
             </asp:Panel>
         </td>

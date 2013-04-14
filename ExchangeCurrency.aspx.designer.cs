@@ -271,7 +271,7 @@ namespace Peerfx {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox ddlpaymentmethod;
+        protected global::Telerik.Web.UI.RadListBox ddlpaymentmethod;
         
         /// <summary>
         /// pnlnewsender control.
@@ -406,7 +406,7 @@ namespace Peerfx {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox ddlReceivers;
+        protected global::Telerik.Web.UI.RadListBox ddlReceivers;
         
         /// <summary>
         /// pnlotherpassportuser control.
@@ -472,103 +472,13 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Panel pnlnewreceiver;
         
         /// <summary>
-        /// txtfirstnamereceiver control.
+        /// BankAccountEntry1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtfirstnamereceiver;
-        
-        /// <summary>
-        /// txtlastnamereceiver control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtlastnamereceiver;
-        
-        /// <summary>
-        /// pnlIBAN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlIBAN;
-        
-        /// <summary>
-        /// txtIbanAccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtIbanAccount;
-        
-        /// <summary>
-        /// pnlBankCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlBankCode;
-        
-        /// <summary>
-        /// txtBankCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtBankCode;
-        
-        /// <summary>
-        /// pnlABArouting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlABArouting;
-        
-        /// <summary>
-        /// txtABArouting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMaskedTextBox txtABArouting;
-        
-        /// <summary>
-        /// pnlAccountNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAccountNumber;
-        
-        /// <summary>
-        /// txtaccountnumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtaccountnumber;
-        
-        /// <summary>
-        /// txtemailreceiver control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txtemailreceiver;
+        protected global::Peerfx.User_Controls.BankAccountEntry BankAccountEntry1;
         
         /// <summary>
         /// txtdescription control.
@@ -832,94 +742,13 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Panel pnlreceivingbankaccount;
         
         /// <summary>
-        /// lblconfirmreceiverfullname control.
+        /// BankAccountEntry2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverfullname;
-        
-        /// <summary>
-        /// pnlconfirmreceiverIBAN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlconfirmreceiverIBAN;
-        
-        /// <summary>
-        /// lblconfirmreceiverIBAN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverIBAN;
-        
-        /// <summary>
-        /// pnlconfirmreceiverBankCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlconfirmreceiverBankCode;
-        
-        /// <summary>
-        /// lblconfirmreceiverBankCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverBankCode;
-        
-        /// <summary>
-        /// pnlconfirmreceiverABArouting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlconfirmreceiverABArouting;
-        
-        /// <summary>
-        /// lblconfirmreceiverABArouting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverABArouting;
-        
-        /// <summary>
-        /// pnlconfirmreceiverAccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlconfirmreceiverAccount;
-        
-        /// <summary>
-        /// lblconfirmreceiverAccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiverAccount;
-        
-        /// <summary>
-        /// lblconfirmreceiveremail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconfirmreceiveremail;
+        protected global::Peerfx.User_Controls.BankAccountEntry BankAccountEntry2;
         
         /// <summary>
         /// lblconfirmreceiverdescription control.
@@ -994,121 +823,13 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedfrom;
         
         /// <summary>
-        /// lblalreadyconfirmedto control.
+        /// BankAccountEntry3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedto;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedIBAN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedIBAN;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedABArouting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedABArouting;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedIBAN2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedIBAN2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedIBAN2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedIBAN2;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedABArouting2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedABArouting2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedABArouting2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedABArouting2;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedBankCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedBankCode;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedAccountNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedAccountNumber;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedBankCode2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedBankCode2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedBankCode2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedBankCode2;
-        
-        /// <summary>
-        /// pnlalreadyconfirmedAccountNumber2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlalreadyconfirmedAccountNumber2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedAccountNumber2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedAccountNumber2;
+        protected global::Peerfx.User_Controls.BankAccountEntry BankAccountEntry3;
         
         /// <summary>
         /// lblalreadyconfirmeddescription control.

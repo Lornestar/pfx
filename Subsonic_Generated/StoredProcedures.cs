@@ -272,7 +272,7 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the Update_Bank_Accounts Procedure
         /// </summary>
-        public static StoredProcedure UpdateBankAccounts(int? bankaccountkey, int? userkey, int? currencykey, int? organizationkey, string bankaccountdescription, int? userkeyupdated, string ipaddress, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname, int? bankaccountkeyreturn)
+        public static StoredProcedure UpdateBankAccounts(int? bankaccountkey, int? userkey, int? currencykey, int? organizationkey, string bankaccountdescription, int? userkeyupdated, string ipaddress, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname, int? bankaccountkeyreturn, string sortcode, string bsb, string email)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Bank_Accounts", DataService.GetInstance("Peerfx"), "dbo");
         	
@@ -306,6 +306,12 @@ namespace Peerfx_DB{
         	
             sp.Command.AddOutputParameter("@bank_account_key_return", DbType.Int32, 0, 10);
             
+            sp.Command.AddParameter("@sortcode", sortcode, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@bsb", bsb, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@email", email, DbType.String, null, null);
+        	
             return sp;
         }
         
@@ -1029,6 +1035,18 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewBancBoxAccounts()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_BancBox_Accounts", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Bank_Accounts_RequiredFields Procedure
+        /// </summary>
+        public static StoredProcedure ViewBankAccountsRequiredFields(int? currency)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Bank_Accounts_RequiredFields", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
         	
             return sp;
         }

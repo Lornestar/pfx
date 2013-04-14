@@ -16,12 +16,14 @@ namespace Peerfx.External_APIs
 {
     public class CurrencyCloud
     {
+        Site sitetemp = new Site();
+
         public string Authentication_New(){
             string strstatus = "error";
             Hashtable hstemp = new Hashtable();
             hstemp.Add("login_id", "Lorne@Lornestar.com");
             hstemp.Add("api_key", getapikey());
-            strstatus = Web_Request("/api/en/v1.0/authentication/token/new", hstemp);
+            strstatus = Web_Request("/authentication/token/new", hstemp);
             
             JObject o = JObject.Parse(strstatus); 
             string newtoken = (string)o["data"];
@@ -35,13 +37,10 @@ namespace Peerfx.External_APIs
             Site sitetemp = new Site();
             string strcurrencycodes = sitetemp.getcurrencycode(currency1) + sitetemp.getcurrencycode(currency2);
             if (currency1 != currency2)
-            {
-                int playground = Convert.ToInt32(ConfigurationSettings.AppSettings["CurrencyCloud_Environment"]);
-                string url = geturl();
-                string token = view_info_currencycloud_token();                                
-                
-                url += "/api/en/v1.0/" + token + "/prices/market/" + strcurrencycodes;
+            {                
+                string url = "/prices/market/" + strcurrencycodes+ "?accept_stale=true";
 
+                /*
                 RestClient client = new RestClient(url);
                 var request = new RestRequest(Method.GET);
                 request.AddParameter("accept_stale", "true");
@@ -55,7 +54,8 @@ namespace Peerfx.External_APIs
                     client.BaseUrl = geturl() + "/api/en/v1.0/" + token + "/prices/market/" + strcurrencycodes;
                     response = (RestResponse)client.Execute(request);
                     responseString = response.Content; // raw content as string
-                }
+                }*/                
+                string responseString = CallWeb_Request(url, hstemp);
 
                 hstemp = JsonConvert.DeserializeObject<Hashtable>(responseString);
                 hstemp = JsonConvert.DeserializeObject<Hashtable>(hstemp["data"].ToString());
@@ -77,6 +77,127 @@ namespace Peerfx.External_APIs
             }
             
             return hstemp;
+        }
+
+        public string Validate_BankAccount(int currency, string FullName, string aba, string accountnumber, string SingaporeBankCode, string CanadaInstitutionNumber, string BIC, string BranchCode, string Australiabsbcode, string IBAN, string BritishSortCode)
+        {
+            string currencycode = sitetemp.getcurrencycode(currency);
+            string countrycode = sitetemp.getCountryValueFromCurrency(currency);
+            Boolean isvalid = false;
+            string strreturn = "";
+
+            string strstatus = "error";
+            Hashtable hstemp = new Hashtable();
+            hstemp.Add("nickname", currencycode + " Account");
+            hstemp.Add("acct_ccy", currencycode);
+            hstemp.Add("beneficiary_name", FullName);
+            hstemp.Add("destination_country_code", countrycode);
+            hstemp.Add("is_beneficiary", "true");
+            hstemp.Add("is_source", "false");
+
+            if (aba.Length > 0)
+            {
+                hstemp.Add("aba", aba);
+            }
+            if (accountnumber.Length > 0)
+            {
+                hstemp.Add("acct_number", accountnumber);
+            }
+            if (SingaporeBankCode.Length > 0)
+            {
+                hstemp.Add("bank_code", SingaporeBankCode);
+            }
+            if (CanadaInstitutionNumber.Length > 0)
+            {
+                hstemp.Add("institution_no", CanadaInstitutionNumber);
+            }
+            if (BIC.Length > 0)
+            {
+                hstemp.Add("bic_swift", BIC);
+            }
+            if (BranchCode.Length > 0)
+            {
+                hstemp.Add("branch_code", BranchCode);
+            }
+            if (Australiabsbcode.Length > 0)
+            {
+                hstemp.Add("bsb_code", Australiabsbcode);
+            }
+            if (IBAN.Length > 0)
+            {
+                hstemp.Add("iban", IBAN);
+            }
+            if (BritishSortCode.Length > 0)
+            {
+                hstemp.Add("sort_code", BritishSortCode);
+            }
+            ///api/en/v1.0/:token/beneficiary/validate_details
+
+            string strquery = sitetemp.ConvertHashtabletoString(hstemp);
+            hstemp.Clear();
+
+            strstatus = CallWeb_Request("/beneficiary/validate_details?"+strquery, hstemp);
+
+            JObject o = JObject.Parse(strstatus);
+            string status = (string)o["status"];
+            if (status == "success")
+            {
+                isvalid = true;
+                strreturn = "true";
+            }
+            else
+            {
+                strreturn = (string)o["message"];
+            }
+
+            return strreturn;
+        }
+
+        public Hashtable RequiredFields_BankAccounts(int currency)
+        {
+            string currencycode = sitetemp.getcurrencycode(currency);
+            string country = sitetemp.getCountryValueFromCurrency(currency);
+            Hashtable hstemp = new Hashtable();            
+            string responseString = CallWeb_Request("/beneficiaries/required_fields?ccy=" + currencycode + "&destination_country_code=" + country, hstemp);
+
+            Hashtable hsreturn = new Hashtable();
+            JObject o = JObject.Parse(responseString);
+            JArray o2 = (JArray)o["data"];
+            JObject data;
+            if (currencycode == "GBP")
+            {
+                data = (JObject)o2[1];
+            }
+            else
+            {
+                data = (JObject)o2[0];
+            }
+
+            JArray required = (JArray)data["required"];
+            for (int i = 0; i < required.Count; i++)
+            {
+                hsreturn.Add(i, (string)required[i]);
+            }
+            
+            //example for USD
+            //"{\"status\":\"success\",\"data\":[{\"required\":[\"acct_number\",\"aba\"]},{\"required\":[\"acct_number\",\"bic_swift\"]}]}"
+            
+            return hsreturn;
+        }
+
+        public string RequiredFields_BankAccounts_rawresponse(int currency, int country)
+        {
+            string currencycode = sitetemp.getcurrencycode(currency);
+            string countryvalue = sitetemp.getCountryValue(country);
+            Hashtable hstemp = new Hashtable();
+            string responseString = CallWeb_Request("/beneficiaries/required_fields?ccy=" + currencycode + "&destination_country_code=" + countryvalue, hstemp);
+
+            
+
+            //example for USD
+            //"{\"status\":\"success\",\"data\":[{\"required\":[\"acct_number\",\"aba\"]},{\"required\":[\"acct_number\",\"bic_swift\"]}]}"
+
+            return responseString;
         }
 
 
@@ -110,77 +231,69 @@ namespace Peerfx.External_APIs
                     break;
             }
             return key;
-        }
+        }        
 
 
         private string Web_Request(string callurl, Hashtable hstemp)
         {
-            string url = "";
-            string apikey = "";
-            int playground = Convert.ToInt32(ConfigurationSettings.AppSettings["CurrencyCloud_Environment"]);
+            string url = geturl();            
 
-            switch (playground)
+            string token = view_info_currencycloud_token();
+            if (callurl.Contains("authentication/token/new"))
             {
-                case 0: url = ConfigurationSettings.AppSettings["CurrencyCloud_api_url_reference"];
-                    apikey = ConfigurationSettings.AppSettings["CurrencyCloud_api_key_reference"];
-                    break;
-                case 1: url = ConfigurationSettings.AppSettings["CurrencyCloud_api_url_demo"];
-                    apikey = ConfigurationSettings.AppSettings["CurrencyCloud_api_key_demo"];
-                    break;
-                case 2: url = ConfigurationSettings.AppSettings["CurrencyCloud_api_url_live"];
-                    apikey = ConfigurationSettings.AppSettings["CurrencyCloud_api_key_live"];
-                    break;
+                url += "/api/en/v1.0";
             }
+            else
+            {
+                url += "/api/en/v1.0/" + token;
+            }            
             url += callurl;
 
-            HttpWebResponse webResponse;            
-            StringBuilder requestString = new StringBuilder();
+            HttpWebResponse webResponse;
 
-            if (hstemp != null)
-            {
-                foreach (DictionaryEntry Item in hstemp)
-                {
-                    if (requestString.Length == 0)
-                    {
-                        requestString.Append(Item.Key + "=" + Item.Value);
-                    }
-                    else
-                    {
-                        requestString.Append("&" + Item.Key + "=" + Item.Value);
-                    }                    
-                }
-            }
-            
-            
-            string request = requestString.ToString();
+            string request = sitetemp.ConvertHashtabletoString(hstemp);
             
             // Create request object
             HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
-            webRequest.Method = "POST";
             webRequest.ContentType = "application/x-www-form-urlencoded";
             webRequest.MediaType = "application/x-www-form-urlencoded";
-
-
-            // Write the request string to the request object
-            StreamWriter writer = new StreamWriter(webRequest.GetRequestStream());
-            writer.Write(request);
-            writer.Close();
-
-            // Get the response from the request object and verify the status
-            webResponse = webRequest.GetResponse() as HttpWebResponse;
-            if (!webRequest.HaveResponse)
+            if (url.Contains("?"))
             {
-                throw new Exception();
+                webRequest.Method = "GET";
             }
-            if (webResponse.StatusCode != HttpStatusCode.OK && webResponse.StatusCode != HttpStatusCode.Accepted)
+            else
             {
-                throw new Exception();
+                webRequest.Method = "POST";
+                // Write the request string to the request object
+                StreamWriter writer = new StreamWriter(webRequest.GetRequestStream());
+                writer.Write(request);
+                writer.Close();
             }
+                       
 
-            // Read the response string
-            StreamReader reader = new StreamReader(webResponse.GetResponseStream());
-            string responseString = reader.ReadToEnd();
-            reader.Close();
+            string responseString = "";
+            try
+            {                
+
+                // Get the response from the request object and verify the status
+                webResponse = webRequest.GetResponse() as HttpWebResponse;
+                if (!webRequest.HaveResponse)
+                {
+                    throw new Exception();
+                }
+                if (webResponse.StatusCode != HttpStatusCode.OK && webResponse.StatusCode != HttpStatusCode.Accepted)
+                {
+                    throw new Exception();
+                }
+
+                // Read the response string
+                StreamReader reader = new StreamReader(webResponse.GetResponseStream());
+                responseString = reader.ReadToEnd();
+                reader.Close();
+            }
+            catch
+            {
+            }            
                         
             return responseString;
         }
@@ -201,6 +314,17 @@ namespace Peerfx.External_APIs
             return newtoken;
         }
 
+        private string CallWeb_Request(string callurl, Hashtable hstemp)
+        {
+            string strreturn;
+            strreturn = Web_Request(callurl, hstemp);
+            if (strreturn.Contains("error"))
+            {
+                string token = update_info_currencycloud_token();
+                strreturn = Web_Request(callurl, hstemp);
+            }
+            return strreturn;
+        }
         
     }    
 }

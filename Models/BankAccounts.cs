@@ -29,6 +29,9 @@ namespace Peerfx.Models
         private string organization_name;
         private string country_text;
         private string currency_text;
+        private string sortcode;
+        private string bsb;
+        private string email;
 
         public Int64 Payment_object_key
         {
@@ -291,6 +294,42 @@ namespace Peerfx.Models
             set
             {
                 currency_text = value;
+            }
+        }
+
+        public string Sortcode
+        {
+            get
+            {
+                return sortcode;
+            }
+            set
+            {
+                sortcode = value;
+            }
+        }
+
+        public string BSB
+        {
+            get
+            {
+                return bsb;
+            }
+            set
+            {
+                bsb = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
             }
         }
     }

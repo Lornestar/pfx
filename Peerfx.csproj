@@ -178,6 +178,7 @@
     <Content Include="Testing\Radasyncupload.aspx" />
     <Content Include="Testing\TestBancBox.aspx" />
     <Content Include="Testing\TestCurrencyCloud.aspx" />
+    <Content Include="Testing\TestCurrencyCloud_RequiredFields.aspx" />
     <Content Include="Testing\TestEmbee.aspx" />
     <Content Include="Testing\TestError.aspx" />
     <Content Include="Testing\Testhomesend.aspx" />
@@ -191,6 +192,7 @@
     <Content Include="User\Settings.aspx" />
     <Content Include="User\Verification.aspx" />
     <Content Include="User\Withdraw.aspx" />
+    <Content Include="User_Controls\BankAccountEntry.ascx" />
     <Content Include="User_Controls\ExchangeCurrency.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_FinePrint.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_NextSteps.ascx" />
@@ -410,6 +412,13 @@
     <Compile Include="Testing\TestCurrencyCloud.aspx.designer.cs">
       <DependentUpon>TestCurrencyCloud.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Testing\TestCurrencyCloud_RequiredFields.aspx.cs">
+      <DependentUpon>TestCurrencyCloud_RequiredFields.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Testing\TestCurrencyCloud_RequiredFields.aspx.designer.cs">
+      <DependentUpon>TestCurrencyCloud_RequiredFields.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Testing\TestEmbee.aspx.cs">
       <DependentUpon>TestEmbee.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -501,6 +510,13 @@
     </Compile>
     <Compile Include="User\Withdraw.aspx.designer.cs">
       <DependentUpon>Withdraw.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\BankAccountEntry.ascx.cs">
+      <DependentUpon>BankAccountEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\BankAccountEntry.ascx.designer.cs">
+      <DependentUpon>BankAccountEntry.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\ExchangeCurrency.ascx.cs">
       <DependentUpon>ExchangeCurrency.ascx</DependentUpon>
@@ -646,7 +662,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -345,6 +345,42 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarCurrencyText);
                 
+                TableSchema.TableColumn colvarBsb = new TableSchema.TableColumn(schema);
+                colvarBsb.ColumnName = "BSB";
+                colvarBsb.DataType = DbType.AnsiString;
+                colvarBsb.MaxLength = 50;
+                colvarBsb.AutoIncrement = false;
+                colvarBsb.IsNullable = true;
+                colvarBsb.IsPrimaryKey = false;
+                colvarBsb.IsForeignKey = false;
+                colvarBsb.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBsb);
+                
+                TableSchema.TableColumn colvarSortCode = new TableSchema.TableColumn(schema);
+                colvarSortCode.ColumnName = "SortCode";
+                colvarSortCode.DataType = DbType.AnsiString;
+                colvarSortCode.MaxLength = 50;
+                colvarSortCode.AutoIncrement = false;
+                colvarSortCode.IsNullable = true;
+                colvarSortCode.IsPrimaryKey = false;
+                colvarSortCode.IsForeignKey = false;
+                colvarSortCode.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarSortCode);
+                
+                TableSchema.TableColumn colvarEmail = new TableSchema.TableColumn(schema);
+                colvarEmail.ColumnName = "email";
+                colvarEmail.DataType = DbType.String;
+                colvarEmail.MaxLength = 100;
+                colvarEmail.AutoIncrement = false;
+                colvarEmail.IsNullable = true;
+                colvarEmail.IsPrimaryKey = false;
+                colvarEmail.IsForeignKey = false;
+                colvarEmail.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarEmail);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -730,6 +766,48 @@ namespace Peerfx_DB{
 			    SetColumnValue("currency_text", value);
             }
         }
+	      
+        [XmlAttribute("Bsb")]
+        [Bindable(true)]
+        public string Bsb 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("BSB");
+		    }
+            set 
+		    {
+			    SetColumnValue("BSB", value);
+            }
+        }
+	      
+        [XmlAttribute("SortCode")]
+        [Bindable(true)]
+        public string SortCode 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("SortCode");
+		    }
+            set 
+		    {
+			    SetColumnValue("SortCode", value);
+            }
+        }
+	      
+        [XmlAttribute("Email")]
+        [Bindable(true)]
+        public string Email 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("email");
+		    }
+            set 
+		    {
+			    SetColumnValue("email", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -785,6 +863,12 @@ namespace Peerfx_DB{
             public static string CountryText = @"country_text";
             
             public static string CurrencyText = @"currency_text";
+            
+            public static string Bsb = @"BSB";
+            
+            public static string SortCode = @"SortCode";
+            
+            public static string Email = @"email";
             
 	    }
 	    #endregion

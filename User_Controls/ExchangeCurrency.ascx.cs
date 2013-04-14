@@ -13,9 +13,11 @@ namespace Peerfx.User_Controls
     public partial class ExchangeCurrency : System.Web.UI.UserControl
     {
         Site sitetemp = new Site();
+        Users currentuser;
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {           
+
             if (!IsPostBack)
             {
                 //Load Currency dropdowns

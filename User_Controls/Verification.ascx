@@ -136,7 +136,7 @@ Verifications
                                     <table>
                                         <tr>
                                             <td>
-                                                <telerik:RadMaskedTextBox ID=txtPassport1 runat=server Width=70 MaxLength="9" HideOnBlur=true Mask="#########"/>
+                                                <telerik:RadMaskedTextBox ID=txtPassport1 runat=server Width=80 MaxLength="9" HideOnBlur=true Mask="#########"/>
                                                 <br />
                                                 123456789
                                             </td>
