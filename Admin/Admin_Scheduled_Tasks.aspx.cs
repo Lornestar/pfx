@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using Telerik.Web.UI;
 
 namespace Peerfx.Admin
 {
@@ -14,28 +15,20 @@ namespace Peerfx.Admin
         {
             if (!IsPostBack)
             {
-                LastUpdated();
+                
             }
         }
 
-        protected void btnEmbeeCatalog_Click(object sender, EventArgs e)
+        protected void RadTabStrip1_TabClick(object sender, RadTabStripEventArgs e)
         {
-            Peerfx.External_APIs.Embee embee = new External_APIs.Embee();
-            embee.UpdateCatalog();
-
-            LastUpdated();
-        }
-
-        protected void LastUpdated()
-        {
-            DataTable dttemp = Peerfx_DB.SPs.ViewScheduledTask(1).GetDataSet().Tables[0];
-            if (dttemp.Rows.Count > 0)
+            switch (RadTabStrip1.SelectedIndex)
             {
-                if (dttemp.Rows[0]["date_changed"] != DBNull.Value)
-                {
-                    lblEmbeeCatalogUpdated.Text = dttemp.Rows[0]["date_changed"].ToString();
-                }
-            }            
+                case 0:
+                    break;
+                case 1:
+                    break;
+            }
         }
+        
     }
 }

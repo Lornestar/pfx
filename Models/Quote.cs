@@ -23,6 +23,10 @@ namespace Peerfx.Models
         private decimal peerfx_servicefee;
         private decimal buyamount;
         private decimal sellamount;
+        private int timing_key;
+        private string timing_description;
+        private int sellcurrency;
+        private int buycurrency;
         
         public DateTime Bid_Price_Timestamp
         {
@@ -201,6 +205,54 @@ namespace Peerfx.Models
             set
             {
                 sellamount = value;
+            }
+        }
+
+        public int Timing_key
+        {
+            get
+            {
+                return timing_key;
+            }
+            set
+            {
+                timing_key = value;
+            }
+        }
+
+        public string Timing_description
+        {
+            get
+            {
+                return timing_description;
+            }
+            set
+            {
+                timing_description = value;
+            }
+        }
+
+        public int Sellcurrency
+        {
+            get
+            {
+                return sellcurrency;
+            }
+            set
+            {
+                sellcurrency = value;
+            }
+        }
+
+        public int Buycurrency
+        {
+            get
+            {
+                return buycurrency;
+            }
+            set
+            {
+                buycurrency = value;
             }
         }
         

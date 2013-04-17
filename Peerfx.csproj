@@ -162,6 +162,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Peerfx.css" />
     <Content Include="Rob.aspx" />
+    <Content Include="ScheduledTasks\CurrencyCloud_Settlements.aspx" />
     <Content Include="ScheduledTasks\PollEmbeeTransStatus.aspx" />
     <Content Include="ScheduledTasks\UpdateCurrencyCloudRates.aspx" />
     <Content Include="ScheduledTasks\UpdateEmbeeCatalog.aspx" />
@@ -192,6 +193,8 @@
     <Content Include="User\Settings.aspx" />
     <Content Include="User\Verification.aspx" />
     <Content Include="User\Withdraw.aspx" />
+    <Content Include="User_Controls\Admin_ScheduledTask_CurrencyCloud.ascx" />
+    <Content Include="User_Controls\Admin_ScheduledTask_Embee.ascx" />
     <Content Include="User_Controls\BankAccountEntry.ascx" />
     <Content Include="User_Controls\ExchangeCurrency.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_FinePrint.ascx" />
@@ -327,6 +330,7 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\BankAccounts.cs" />
+    <Compile Include="Models\CurrencyCloudTrade.cs" />
     <Compile Include="Models\EmbeeCatalog.cs" />
     <Compile Include="Models\EmbeeObject.cs" />
     <Compile Include="Models\Fees.cs" />
@@ -343,6 +347,13 @@
     </Compile>
     <Compile Include="Rob.aspx.designer.cs">
       <DependentUpon>Rob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduledTasks\CurrencyCloud_Settlements.aspx.cs">
+      <DependentUpon>CurrencyCloud_Settlements.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScheduledTasks\CurrencyCloud_Settlements.aspx.designer.cs">
+      <DependentUpon>CurrencyCloud_Settlements.aspx</DependentUpon>
     </Compile>
     <Compile Include="ScheduledTasks\PollEmbeeTransStatus.aspx.cs">
       <DependentUpon>PollEmbeeTransStatus.aspx</DependentUpon>
@@ -510,6 +521,20 @@
     </Compile>
     <Compile Include="User\Withdraw.aspx.designer.cs">
       <DependentUpon>Withdraw.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\Admin_ScheduledTask_CurrencyCloud.ascx.cs">
+      <DependentUpon>Admin_ScheduledTask_CurrencyCloud.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\Admin_ScheduledTask_CurrencyCloud.ascx.designer.cs">
+      <DependentUpon>Admin_ScheduledTask_CurrencyCloud.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\Admin_ScheduledTask_Embee.ascx.cs">
+      <DependentUpon>Admin_ScheduledTask_Embee.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\Admin_ScheduledTask_Embee.ascx.designer.cs">
+      <DependentUpon>Admin_ScheduledTask_Embee.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\BankAccountEntry.ascx.cs">
       <DependentUpon>BankAccountEntry.ascx</DependentUpon>

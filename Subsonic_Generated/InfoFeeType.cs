@@ -295,6 +295,84 @@ namespace Peerfx_DB
 				colvarTreasuryType.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarTreasuryType);
 				
+				TableSchema.TableColumn colvarStandardTiming = new TableSchema.TableColumn(schema);
+				colvarStandardTiming.ColumnName = "standard_timing";
+				colvarStandardTiming.DataType = DbType.Int32;
+				colvarStandardTiming.MaxLength = 0;
+				colvarStandardTiming.AutoIncrement = false;
+				colvarStandardTiming.IsNullable = true;
+				colvarStandardTiming.IsPrimaryKey = false;
+				colvarStandardTiming.IsForeignKey = false;
+				colvarStandardTiming.IsReadOnly = false;
+				colvarStandardTiming.DefaultSetting = @"";
+				colvarStandardTiming.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarStandardTiming);
+				
+				TableSchema.TableColumn colvarPremiumTiming = new TableSchema.TableColumn(schema);
+				colvarPremiumTiming.ColumnName = "premium_timing";
+				colvarPremiumTiming.DataType = DbType.Int32;
+				colvarPremiumTiming.MaxLength = 0;
+				colvarPremiumTiming.AutoIncrement = false;
+				colvarPremiumTiming.IsNullable = true;
+				colvarPremiumTiming.IsPrimaryKey = false;
+				colvarPremiumTiming.IsForeignKey = false;
+				colvarPremiumTiming.IsReadOnly = false;
+				colvarPremiumTiming.DefaultSetting = @"";
+				colvarPremiumTiming.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPremiumTiming);
+				
+				TableSchema.TableColumn colvarPremiumFeePercentage = new TableSchema.TableColumn(schema);
+				colvarPremiumFeePercentage.ColumnName = "premium_fee_percentage";
+				colvarPremiumFeePercentage.DataType = DbType.Currency;
+				colvarPremiumFeePercentage.MaxLength = 0;
+				colvarPremiumFeePercentage.AutoIncrement = false;
+				colvarPremiumFeePercentage.IsNullable = true;
+				colvarPremiumFeePercentage.IsPrimaryKey = false;
+				colvarPremiumFeePercentage.IsForeignKey = false;
+				colvarPremiumFeePercentage.IsReadOnly = false;
+				colvarPremiumFeePercentage.DefaultSetting = @"";
+				colvarPremiumFeePercentage.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPremiumFeePercentage);
+				
+				TableSchema.TableColumn colvarPremiumFeeAddon = new TableSchema.TableColumn(schema);
+				colvarPremiumFeeAddon.ColumnName = "premium_fee_addon";
+				colvarPremiumFeeAddon.DataType = DbType.Currency;
+				colvarPremiumFeeAddon.MaxLength = 0;
+				colvarPremiumFeeAddon.AutoIncrement = false;
+				colvarPremiumFeeAddon.IsNullable = true;
+				colvarPremiumFeeAddon.IsPrimaryKey = false;
+				colvarPremiumFeeAddon.IsForeignKey = false;
+				colvarPremiumFeeAddon.IsReadOnly = false;
+				colvarPremiumFeeAddon.DefaultSetting = @"";
+				colvarPremiumFeeAddon.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPremiumFeeAddon);
+				
+				TableSchema.TableColumn colvarPremiumFeeMin = new TableSchema.TableColumn(schema);
+				colvarPremiumFeeMin.ColumnName = "premium_fee_min";
+				colvarPremiumFeeMin.DataType = DbType.Currency;
+				colvarPremiumFeeMin.MaxLength = 0;
+				colvarPremiumFeeMin.AutoIncrement = false;
+				colvarPremiumFeeMin.IsNullable = true;
+				colvarPremiumFeeMin.IsPrimaryKey = false;
+				colvarPremiumFeeMin.IsForeignKey = false;
+				colvarPremiumFeeMin.IsReadOnly = false;
+				colvarPremiumFeeMin.DefaultSetting = @"";
+				colvarPremiumFeeMin.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPremiumFeeMin);
+				
+				TableSchema.TableColumn colvarPremiumFeeMax = new TableSchema.TableColumn(schema);
+				colvarPremiumFeeMax.ColumnName = "premium_fee_max";
+				colvarPremiumFeeMax.DataType = DbType.Currency;
+				colvarPremiumFeeMax.MaxLength = 0;
+				colvarPremiumFeeMax.AutoIncrement = false;
+				colvarPremiumFeeMax.IsNullable = true;
+				colvarPremiumFeeMax.IsPrimaryKey = false;
+				colvarPremiumFeeMax.IsForeignKey = false;
+				colvarPremiumFeeMax.IsReadOnly = false;
+				colvarPremiumFeeMax.DefaultSetting = @"";
+				colvarPremiumFeeMax.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPremiumFeeMax);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -408,6 +486,54 @@ namespace Peerfx_DB
 			get { return GetColumnValue<int?>(Columns.TreasuryType); }
 			set { SetColumnValue(Columns.TreasuryType, value); }
 		}
+		  
+		[XmlAttribute("StandardTiming")]
+		[Bindable(true)]
+		public int? StandardTiming 
+		{
+			get { return GetColumnValue<int?>(Columns.StandardTiming); }
+			set { SetColumnValue(Columns.StandardTiming, value); }
+		}
+		  
+		[XmlAttribute("PremiumTiming")]
+		[Bindable(true)]
+		public int? PremiumTiming 
+		{
+			get { return GetColumnValue<int?>(Columns.PremiumTiming); }
+			set { SetColumnValue(Columns.PremiumTiming, value); }
+		}
+		  
+		[XmlAttribute("PremiumFeePercentage")]
+		[Bindable(true)]
+		public decimal? PremiumFeePercentage 
+		{
+			get { return GetColumnValue<decimal?>(Columns.PremiumFeePercentage); }
+			set { SetColumnValue(Columns.PremiumFeePercentage, value); }
+		}
+		  
+		[XmlAttribute("PremiumFeeAddon")]
+		[Bindable(true)]
+		public decimal? PremiumFeeAddon 
+		{
+			get { return GetColumnValue<decimal?>(Columns.PremiumFeeAddon); }
+			set { SetColumnValue(Columns.PremiumFeeAddon, value); }
+		}
+		  
+		[XmlAttribute("PremiumFeeMin")]
+		[Bindable(true)]
+		public decimal? PremiumFeeMin 
+		{
+			get { return GetColumnValue<decimal?>(Columns.PremiumFeeMin); }
+			set { SetColumnValue(Columns.PremiumFeeMin, value); }
+		}
+		  
+		[XmlAttribute("PremiumFeeMax")]
+		[Bindable(true)]
+		public decimal? PremiumFeeMax 
+		{
+			get { return GetColumnValue<decimal?>(Columns.PremiumFeeMax); }
+			set { SetColumnValue(Columns.PremiumFeeMax, value); }
+		}
 		
 		#endregion
 		
@@ -428,7 +554,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated,int? varTreasuryType)
+		public static void Insert(string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated,int? varTreasuryType,int? varStandardTiming,int? varPremiumTiming,decimal? varPremiumFeePercentage,decimal? varPremiumFeeAddon,decimal? varPremiumFeeMin,decimal? varPremiumFeeMax)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
@@ -456,6 +582,18 @@ namespace Peerfx_DB
 			
 			item.TreasuryType = varTreasuryType;
 			
+			item.StandardTiming = varStandardTiming;
+			
+			item.PremiumTiming = varPremiumTiming;
+			
+			item.PremiumFeePercentage = varPremiumFeePercentage;
+			
+			item.PremiumFeeAddon = varPremiumFeeAddon;
+			
+			item.PremiumFeeMin = varPremiumFeeMin;
+			
+			item.PremiumFeeMax = varPremiumFeeMax;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -466,7 +604,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated,int? varTreasuryType)
+		public static void Update(int varInfoFeeTypes,string varOrganizationName,string varDescription,decimal? varFeeBase,decimal? varFeePercentage,decimal? varFeeAddon,decimal? varFeeMin,decimal? varFeeMax,int? varCurrency1,int? varCurrency2,decimal? varExchangeRate,DateTime? varExchangeRateUpdated,int? varTreasuryType,int? varStandardTiming,int? varPremiumTiming,decimal? varPremiumFeePercentage,decimal? varPremiumFeeAddon,decimal? varPremiumFeeMin,decimal? varPremiumFeeMax)
 		{
 			InfoFeeType item = new InfoFeeType();
 			
@@ -495,6 +633,18 @@ namespace Peerfx_DB
 				item.ExchangeRateUpdated = varExchangeRateUpdated;
 			
 				item.TreasuryType = varTreasuryType;
+			
+				item.StandardTiming = varStandardTiming;
+			
+				item.PremiumTiming = varPremiumTiming;
+			
+				item.PremiumFeePercentage = varPremiumFeePercentage;
+			
+				item.PremiumFeeAddon = varPremiumFeeAddon;
+			
+				item.PremiumFeeMin = varPremiumFeeMin;
+			
+				item.PremiumFeeMax = varPremiumFeeMax;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -600,6 +750,48 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn StandardTimingColumn
+        {
+            get { return Schema.Columns[13]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn PremiumTimingColumn
+        {
+            get { return Schema.Columns[14]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn PremiumFeePercentageColumn
+        {
+            get { return Schema.Columns[15]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn PremiumFeeAddonColumn
+        {
+            get { return Schema.Columns[16]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn PremiumFeeMinColumn
+        {
+            get { return Schema.Columns[17]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn PremiumFeeMaxColumn
+        {
+            get { return Schema.Columns[18]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -617,6 +809,12 @@ namespace Peerfx_DB
 			 public static string ExchangeRate = @"Exchange_Rate";
 			 public static string ExchangeRateUpdated = @"Exchange_Rate_Updated";
 			 public static string TreasuryType = @"Treasury_Type";
+			 public static string StandardTiming = @"standard_timing";
+			 public static string PremiumTiming = @"premium_timing";
+			 public static string PremiumFeePercentage = @"premium_fee_percentage";
+			 public static string PremiumFeeAddon = @"premium_fee_addon";
+			 public static string PremiumFeeMin = @"premium_fee_min";
+			 public static string PremiumFeeMax = @"premium_fee_max";
 						
 		}
 		#endregion

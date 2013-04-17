@@ -58,6 +58,11 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlembee" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="chkpremium">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnContinue1">
                 <UpdatedControls>                    
                     <telerik:AjaxUpdatedControl ControlID="RadTabStrip1"></telerik:AjaxUpdatedControl>
@@ -86,7 +91,7 @@
                     <telerik:AjaxUpdatedControl ControlID="pnlotherpassportuser" />
                     <telerik:AjaxUpdatedControl ControlID="pnlnewreceiver" />
                     <telerik:AjaxUpdatedControl ControlID="pnlembee" />
-                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlQuote" LoadingPanelID="LoadingPanelExchangeCurrency"/>
                     <telerik:AjaxUpdatedControl ControlID="pnlhiddens" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
@@ -151,10 +156,28 @@
                                         <asp:Label ID=lbldelivery runat=server></asp:Label>
                                         <asp:Label ID=lbltopupinfo runat=server Visible=false>Top Ups are paid in USD</asp:Label>
                                         </td>
-                                    </tr>
+                                    </tr>                                    
                                     <tr>
-                                        <td>
-                                            <table>
+                                        <td style=" position:relative; left:20px;">
+                                            <table width=170px>
+                                                <tr>
+                                                    <td>Money Arrives</td>
+                                                    <td><asp:Label ID=lblmoneyarrives runat=server></asp:Label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan=2 style="text-align:right;">
+                                                    <asp:Panel ID=pnlpremium runat=server>
+                                                        <telerik:RadButton ID="chkpremium" runat="server" ToggleType="CheckBox" 
+                                                            ButtonType="ToggleButton" Checked=false
+                                                               AutoPostBack="true" onclick="chkpremium_Click">
+                                                               <ToggleStates>
+                                                                    <telerik:RadButtonToggleState Text="&nbsp;Priority Transfer"></telerik:RadButtonToggleState>
+                                                                    <telerik:RadButtonToggleState Text="&nbsp;Priority Transfer"></telerik:RadButtonToggleState>
+                                                               </ToggleStates>
+                                                          </telerik:RadButton>
+                                                          </asp:Panel>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td>Service Fee</td>
                                                     <td><asp:Label ID=lblservicefee runat=server>0.00</asp:Label> </td>
@@ -195,7 +218,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>                                                                                                                                                                                    
-                                                            <telerik:RadListBox ID=ddlpaymentmethod runat=server ></telerik:RadListBox>
+                                                            <telerik:RadListBox ID=ddlpaymentmethod runat=server Width=300></telerik:RadListBox>
                                                             
                                                         </td>
                                                     </tr>
@@ -294,7 +317,7 @@
                                         <td>                                            
                                             <asp:Panel ID=pnlexistingreceiver runat=server Visible=false>
                                             
-                                                <telerik:RadListBox ID=ddlReceivers runat=server
+                                                <telerik:RadListBox ID=ddlReceivers runat=server Width=300
                                                 OnSelectedIndexChanged="ddlexistingreceiver_changed" AutoPostBack=true Visible=true></telerik:RadListBox>
                                             </asp:Panel>
                                             <asp:Panel ID=pnlotherpassportuser runat=server Visible=false>

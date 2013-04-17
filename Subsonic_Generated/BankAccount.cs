@@ -386,6 +386,45 @@ namespace Peerfx_DB
 				colvarEmail.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarEmail);
 				
+				TableSchema.TableColumn colvarBankName = new TableSchema.TableColumn(schema);
+				colvarBankName.ColumnName = "bank_name";
+				colvarBankName.DataType = DbType.String;
+				colvarBankName.MaxLength = 100;
+				colvarBankName.AutoIncrement = false;
+				colvarBankName.IsNullable = true;
+				colvarBankName.IsPrimaryKey = false;
+				colvarBankName.IsForeignKey = false;
+				colvarBankName.IsReadOnly = false;
+				colvarBankName.DefaultSetting = @"";
+				colvarBankName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBankName);
+				
+				TableSchema.TableColumn colvarBranchCode = new TableSchema.TableColumn(schema);
+				colvarBranchCode.ColumnName = "branch_code";
+				colvarBranchCode.DataType = DbType.AnsiString;
+				colvarBranchCode.MaxLength = 50;
+				colvarBranchCode.AutoIncrement = false;
+				colvarBranchCode.IsNullable = true;
+				colvarBranchCode.IsPrimaryKey = false;
+				colvarBranchCode.IsForeignKey = false;
+				colvarBranchCode.IsReadOnly = false;
+				colvarBranchCode.DefaultSetting = @"";
+				colvarBranchCode.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBranchCode);
+				
+				TableSchema.TableColumn colvarInstitutionNumber = new TableSchema.TableColumn(schema);
+				colvarInstitutionNumber.ColumnName = "institution_number";
+				colvarInstitutionNumber.DataType = DbType.AnsiString;
+				colvarInstitutionNumber.MaxLength = 4;
+				colvarInstitutionNumber.AutoIncrement = false;
+				colvarInstitutionNumber.IsNullable = true;
+				colvarInstitutionNumber.IsPrimaryKey = false;
+				colvarInstitutionNumber.IsForeignKey = false;
+				colvarInstitutionNumber.IsReadOnly = false;
+				colvarInstitutionNumber.DefaultSetting = @"";
+				colvarInstitutionNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInstitutionNumber);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -555,6 +594,30 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.Email); }
 			set { SetColumnValue(Columns.Email, value); }
 		}
+		  
+		[XmlAttribute("BankName")]
+		[Bindable(true)]
+		public string BankName 
+		{
+			get { return GetColumnValue<string>(Columns.BankName); }
+			set { SetColumnValue(Columns.BankName, value); }
+		}
+		  
+		[XmlAttribute("BranchCode")]
+		[Bindable(true)]
+		public string BranchCode 
+		{
+			get { return GetColumnValue<string>(Columns.BranchCode); }
+			set { SetColumnValue(Columns.BranchCode, value); }
+		}
+		  
+		[XmlAttribute("InstitutionNumber")]
+		[Bindable(true)]
+		public string InstitutionNumber 
+		{
+			get { return GetColumnValue<string>(Columns.InstitutionNumber); }
+			set { SetColumnValue(Columns.InstitutionNumber, value); }
+		}
 		
 		#endregion
 		
@@ -575,7 +638,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated,string varSortCode,string varBsb,string varEmail)
+		public static void Insert(int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated,string varSortCode,string varBsb,string varEmail,string varBankName,string varBranchCode,string varInstitutionNumber)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -617,6 +680,12 @@ namespace Peerfx_DB
 			
 			item.Email = varEmail;
 			
+			item.BankName = varBankName;
+			
+			item.BranchCode = varBranchCode;
+			
+			item.InstitutionNumber = varInstitutionNumber;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -627,7 +696,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated,string varSortCode,string varBsb,string varEmail)
+		public static void Update(int varBankAccountKey,int? varUserKey,int varCurrencyKey,int? varCountryKey,int? varOrganizationKey,string varBankAccountDescription,int varUserKeyUpdated,string varIpAddress,string varAccountNumber,string varIban,string varBic,string varABArouting,string varFirstName,string varLastName,string varBusinessName,DateTime varLastChanged,DateTime? varDateCreated,string varSortCode,string varBsb,string varEmail,string varBankName,string varBranchCode,string varInstitutionNumber)
 		{
 			BankAccount item = new BankAccount();
 			
@@ -670,6 +739,12 @@ namespace Peerfx_DB
 				item.Bsb = varBsb;
 			
 				item.Email = varEmail;
+			
+				item.BankName = varBankName;
+			
+				item.BranchCode = varBranchCode;
+			
+				item.InstitutionNumber = varInstitutionNumber;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -824,6 +899,27 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn BankNameColumn
+        {
+            get { return Schema.Columns[20]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn BranchCodeColumn
+        {
+            get { return Schema.Columns[21]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn InstitutionNumberColumn
+        {
+            get { return Schema.Columns[22]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -848,6 +944,9 @@ namespace Peerfx_DB
 			 public static string SortCode = @"SortCode";
 			 public static string Bsb = @"BSB";
 			 public static string Email = @"email";
+			 public static string BankName = @"bank_name";
+			 public static string BranchCode = @"branch_code";
+			 public static string InstitutionNumber = @"institution_number";
 						
 		}
 		#endregion

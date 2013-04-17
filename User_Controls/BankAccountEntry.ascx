@@ -87,17 +87,47 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <asp:Panel ID=pnlbankname runat=server Visible=false>
+                                            Bank Name
+                                            <br />
+                                            <telerik:RadTextBox ID=txtbankname runat=server></telerik:RadTextBox>
+                                            <asp:Label ID=lblbankname runat=server Visible=false></asp:Label>
+                                        </asp:Panel>
+                                    </td>
+                                </tr>                       
+                                <tr>
+                                    <td>
+                                        <asp:Panel ID=pnlinstitution runat=server Visible=false>
+                                            Institution Number (4 digits)
+                                            <br />
+                                            <telerik:RadTextBox ID=txtinstitution runat=server></telerik:RadTextBox>
+                                            <asp:Label ID=lblinstitution runat=server Visible=false></asp:Label>
+                                        </asp:Panel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Panel ID=pnlbranchcode runat=server Visible=false>
+                                            Transit Number / Branch Code
+                                            <br />
+                                            <telerik:RadTextBox ID=txtbranchcode runat=server></telerik:RadTextBox>
+                                            <asp:Label ID=lblbranchcode runat=server Visible=false></asp:Label>
+                                        </asp:Panel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <asp:Panel ID=pnlnzdaccount runat=server Visible=false>
                                         Account Number
                                         <br />
                                         <telerik:RadMaskedTextBox ID=txtnzdaccount1 runat=server Mask=## HideOnBlur=true EmptyMessage="12" Width="30"></telerik:RadMaskedTextBox>
                                         <telerik:RadMaskedTextBox ID=txtnzdaccount2 runat=server Mask="####" HideOnBlur=true EmptyMessage="1234" Width="60"></telerik:RadMaskedTextBox>
-                                        <telerik:RadMaskedTextBox ID=txtnzdaccount3 runat=server Mask="0######" HideOnBlur=true EmptyMessage="0123456" Width="80"></telerik:RadMaskedTextBox>
-                                        <telerik:RadMaskedTextBox ID=txtnzdaccount4 runat=server Mask="0##" HideOnBlur=true EmptyMessage="012" Width="45"></telerik:RadMaskedTextBox>
+                                        <telerik:RadMaskedTextBox ID=txtnzdaccount3 runat=server Mask="#######" HideOnBlur=true EmptyMessage="0123456" Width="80"></telerik:RadMaskedTextBox>
+                                        <telerik:RadMaskedTextBox ID=txtnzdaccount4 runat=server Mask="###" HideOnBlur=true EmptyMessage="012" Width="45"></telerik:RadMaskedTextBox>
                                         </asp:Panel>
                                         <asp:Label ID=lblnzdaccount runat=server Visible=false></asp:Label>
                                     </td>
-                                </tr>                                
+                                </tr>                                         
                                 <tr>
                                     <td>
                                         Email

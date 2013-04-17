@@ -152,6 +152,19 @@ namespace Peerfx_DB
 				colvarBankAccountFieldName.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarBankAccountFieldName);
 				
+				TableSchema.TableColumn colvarCurrencycloudField = new TableSchema.TableColumn(schema);
+				colvarCurrencycloudField.ColumnName = "currencycloud_field";
+				colvarCurrencycloudField.DataType = DbType.AnsiString;
+				colvarCurrencycloudField.MaxLength = 50;
+				colvarCurrencycloudField.AutoIncrement = false;
+				colvarCurrencycloudField.IsNullable = true;
+				colvarCurrencycloudField.IsPrimaryKey = false;
+				colvarCurrencycloudField.IsForeignKey = false;
+				colvarCurrencycloudField.IsReadOnly = false;
+				colvarCurrencycloudField.DefaultSetting = @"";
+				colvarCurrencycloudField.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCurrencycloudField);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -177,6 +190,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.BankAccountFieldName); }
 			set { SetColumnValue(Columns.BankAccountFieldName, value); }
 		}
+		  
+		[XmlAttribute("CurrencycloudField")]
+		[Bindable(true)]
+		public string CurrencycloudField 
+		{
+			get { return GetColumnValue<string>(Columns.CurrencycloudField); }
+			set { SetColumnValue(Columns.CurrencycloudField, value); }
+		}
 		
 		#endregion
 		
@@ -197,13 +218,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varBankAccountFieldTypeX,string varBankAccountFieldName)
+		public static void Insert(int varBankAccountFieldTypeX,string varBankAccountFieldName,string varCurrencycloudField)
 		{
 			BankAccountFieldType item = new BankAccountFieldType();
 			
 			item.BankAccountFieldTypeX = varBankAccountFieldTypeX;
 			
 			item.BankAccountFieldName = varBankAccountFieldName;
+			
+			item.CurrencycloudField = varCurrencycloudField;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -215,13 +238,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varBankAccountFieldTypeX,string varBankAccountFieldName)
+		public static void Update(int varBankAccountFieldTypeX,string varBankAccountFieldName,string varCurrencycloudField)
 		{
 			BankAccountFieldType item = new BankAccountFieldType();
 			
 				item.BankAccountFieldTypeX = varBankAccountFieldTypeX;
 			
 				item.BankAccountFieldName = varBankAccountFieldName;
+			
+				item.CurrencycloudField = varCurrencycloudField;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -250,12 +275,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn CurrencycloudFieldColumn
+        {
+            get { return Schema.Columns[2]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
 		{
 			 public static string BankAccountFieldTypeX = @"bank_account_field_type";
 			 public static string BankAccountFieldName = @"bank_account_field_name";
+			 public static string CurrencycloudField = @"currencycloud_field";
 						
 		}
 		#endregion

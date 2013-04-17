@@ -249,6 +249,30 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarVerifyBankAccount);
                 
+                TableSchema.TableColumn colvarInfoCurrencyCanhold = new TableSchema.TableColumn(schema);
+                colvarInfoCurrencyCanhold.ColumnName = "info_currency_canhold";
+                colvarInfoCurrencyCanhold.DataType = DbType.Boolean;
+                colvarInfoCurrencyCanhold.MaxLength = 0;
+                colvarInfoCurrencyCanhold.AutoIncrement = false;
+                colvarInfoCurrencyCanhold.IsNullable = true;
+                colvarInfoCurrencyCanhold.IsPrimaryKey = false;
+                colvarInfoCurrencyCanhold.IsForeignKey = false;
+                colvarInfoCurrencyCanhold.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarInfoCurrencyCanhold);
+                
+                TableSchema.TableColumn colvarCurrencycloudCutoff = new TableSchema.TableColumn(schema);
+                colvarCurrencycloudCutoff.ColumnName = "currencycloud_cutoff";
+                colvarCurrencycloudCutoff.DataType = DbType.Int32;
+                colvarCurrencycloudCutoff.MaxLength = 0;
+                colvarCurrencycloudCutoff.AutoIncrement = false;
+                colvarCurrencycloudCutoff.IsNullable = true;
+                colvarCurrencycloudCutoff.IsPrimaryKey = false;
+                colvarCurrencycloudCutoff.IsForeignKey = false;
+                colvarCurrencycloudCutoff.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarCurrencycloudCutoff);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -522,6 +546,34 @@ namespace Peerfx_DB{
 			    SetColumnValue("verify_bank_account", value);
             }
         }
+	      
+        [XmlAttribute("InfoCurrencyCanhold")]
+        [Bindable(true)]
+        public bool? InfoCurrencyCanhold 
+	    {
+		    get
+		    {
+			    return GetColumnValue<bool?>("info_currency_canhold");
+		    }
+            set 
+		    {
+			    SetColumnValue("info_currency_canhold", value);
+            }
+        }
+	      
+        [XmlAttribute("CurrencycloudCutoff")]
+        [Bindable(true)]
+        public int? CurrencycloudCutoff 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("currencycloud_cutoff");
+		    }
+            set 
+		    {
+			    SetColumnValue("currencycloud_cutoff", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -561,6 +613,10 @@ namespace Peerfx_DB{
             public static string InfoCurrencyCountrykey = @"info_currency_countrykey";
             
             public static string VerifyBankAccount = @"verify_bank_account";
+            
+            public static string InfoCurrencyCanhold = @"info_currency_canhold";
+            
+            public static string CurrencycloudCutoff = @"currencycloud_cutoff";
             
 	    }
 	    #endregion

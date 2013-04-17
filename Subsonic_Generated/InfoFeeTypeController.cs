@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2,decimal? ExchangeRate,DateTime? ExchangeRateUpdated,int? TreasuryType)
+	    public void Insert(string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2,decimal? ExchangeRate,DateTime? ExchangeRateUpdated,int? TreasuryType,int? StandardTiming,int? PremiumTiming,decimal? PremiumFeePercentage,decimal? PremiumFeeAddon,decimal? PremiumFeeMin,decimal? PremiumFeeMax)
 	    {
 		    InfoFeeType item = new InfoFeeType();
 		    
@@ -108,6 +108,18 @@ namespace Peerfx_DB
             
             item.TreasuryType = TreasuryType;
             
+            item.StandardTiming = StandardTiming;
+            
+            item.PremiumTiming = PremiumTiming;
+            
+            item.PremiumFeePercentage = PremiumFeePercentage;
+            
+            item.PremiumFeeAddon = PremiumFeeAddon;
+            
+            item.PremiumFeeMin = PremiumFeeMin;
+            
+            item.PremiumFeeMax = PremiumFeeMax;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -116,7 +128,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int InfoFeeTypes,string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2,decimal? ExchangeRate,DateTime? ExchangeRateUpdated,int? TreasuryType)
+	    public void Update(int InfoFeeTypes,string OrganizationName,string Description,decimal? FeeBase,decimal? FeePercentage,decimal? FeeAddon,decimal? FeeMin,decimal? FeeMax,int? Currency1,int? Currency2,decimal? ExchangeRate,DateTime? ExchangeRateUpdated,int? TreasuryType,int? StandardTiming,int? PremiumTiming,decimal? PremiumFeePercentage,decimal? PremiumFeeAddon,decimal? PremiumFeeMin,decimal? PremiumFeeMax)
 	    {
 		    InfoFeeType item = new InfoFeeType();
 	        item.MarkOld();
@@ -147,6 +159,18 @@ namespace Peerfx_DB
 			item.ExchangeRateUpdated = ExchangeRateUpdated;
 				
 			item.TreasuryType = TreasuryType;
+				
+			item.StandardTiming = StandardTiming;
+				
+			item.PremiumTiming = PremiumTiming;
+				
+			item.PremiumFeePercentage = PremiumFeePercentage;
+				
+			item.PremiumFeeAddon = PremiumFeeAddon;
+				
+			item.PremiumFeeMin = PremiumFeeMin;
+				
+			item.PremiumFeeMax = PremiumFeeMax;
 				
 	        item.Save(UserName);
 	    }

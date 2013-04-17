@@ -37,6 +37,9 @@ namespace Peerfx.Models
         private string actual_txt_Sell_full;
         private string actual_txt_Buy_full;
         private decimal actual_service_fee;
+        private int quote_key_actual;
+        private int treasury_type;
+        private int directlyfromcurrencycloud;
 
         public int Payments_Key
         {
@@ -59,6 +62,18 @@ namespace Peerfx.Models
             set
             {
                 quote_key = value;
+            }
+        }
+
+        public int Quote_Key_Actual
+        {
+            get
+            {
+                return quote_key_actual;
+            }
+            set
+            {
+                quote_key_actual = value;
             }
         }
 
@@ -397,5 +412,30 @@ namespace Peerfx.Models
                 actual_service_fee = value;
             }
         }
+
+        public int Treasury_type
+        {
+            get
+            {
+                return treasury_type;
+            }
+            set
+            {
+                treasury_type = value;
+            }
+        }
+
+        public int Directlyfromcurrencycloud
+        {
+            get
+            {
+                return directlyfromcurrencycloud;
+            }
+            set
+            {
+                directlyfromcurrencycloud = value;
+            }
+        }        
+
     }
 }

@@ -256,6 +256,19 @@ namespace Peerfx_DB
 				colvarDateCreated.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarDateCreated);
 				
+				TableSchema.TableColumn colvarTiming = new TableSchema.TableColumn(schema);
+				colvarTiming.ColumnName = "timing";
+				colvarTiming.DataType = DbType.Int32;
+				colvarTiming.MaxLength = 0;
+				colvarTiming.AutoIncrement = false;
+				colvarTiming.IsNullable = true;
+				colvarTiming.IsPrimaryKey = false;
+				colvarTiming.IsForeignKey = false;
+				colvarTiming.IsReadOnly = false;
+				colvarTiming.DefaultSetting = @"";
+				colvarTiming.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTiming);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -345,6 +358,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<DateTime>(Columns.DateCreated); }
 			set { SetColumnValue(Columns.DateCreated, value); }
 		}
+		  
+		[XmlAttribute("Timing")]
+		[Bindable(true)]
+		public int? Timing 
+		{
+			get { return GetColumnValue<int?>(Columns.Timing); }
+			set { SetColumnValue(Columns.Timing, value); }
+		}
 		
 		#endregion
 		
@@ -365,7 +386,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(decimal? varSellAmount,int? varSellCurrency,decimal? varBuyAmount,int? varBuyCurrency,decimal? varRate,decimal? varServiceFee,DateTime? varPromisedDeliveryDate,DateTime? varActualDeliveryDate,DateTime varDateCreated)
+		public static void Insert(decimal? varSellAmount,int? varSellCurrency,decimal? varBuyAmount,int? varBuyCurrency,decimal? varRate,decimal? varServiceFee,DateTime? varPromisedDeliveryDate,DateTime? varActualDeliveryDate,DateTime varDateCreated,int? varTiming)
 		{
 			Quote item = new Quote();
 			
@@ -387,6 +408,8 @@ namespace Peerfx_DB
 			
 			item.DateCreated = varDateCreated;
 			
+			item.Timing = varTiming;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -397,7 +420,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varQuotesKey,decimal? varSellAmount,int? varSellCurrency,decimal? varBuyAmount,int? varBuyCurrency,decimal? varRate,decimal? varServiceFee,DateTime? varPromisedDeliveryDate,DateTime? varActualDeliveryDate,DateTime varDateCreated)
+		public static void Update(int varQuotesKey,decimal? varSellAmount,int? varSellCurrency,decimal? varBuyAmount,int? varBuyCurrency,decimal? varRate,decimal? varServiceFee,DateTime? varPromisedDeliveryDate,DateTime? varActualDeliveryDate,DateTime varDateCreated,int? varTiming)
 		{
 			Quote item = new Quote();
 			
@@ -420,6 +443,8 @@ namespace Peerfx_DB
 				item.ActualDeliveryDate = varActualDeliveryDate;
 			
 				item.DateCreated = varDateCreated;
+			
+				item.Timing = varTiming;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -504,6 +529,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn TimingColumn
+        {
+            get { return Schema.Columns[10]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -518,6 +550,7 @@ namespace Peerfx_DB
 			 public static string PromisedDeliveryDate = @"promised_delivery_date";
 			 public static string ActualDeliveryDate = @"actual_delivery_date";
 			 public static string DateCreated = @"date_created";
+			 public static string Timing = @"timing";
 						
 		}
 		#endregion

@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Bank_Account_Field_Type
+    /// Controller class for CurrencyCloud_Settlements
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class BankAccountFieldTypeController
+    public partial class CurrencyCloudSettlementController
     {
         // Preload our schema..
-        BankAccountFieldType thisSchemaLoad = new BankAccountFieldType();
+        CurrencyCloudSettlement thisSchemaLoad = new CurrencyCloudSettlement();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public BankAccountFieldTypeCollection FetchAll()
+        public CurrencyCloudSettlementCollection FetchAll()
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection();
-            Query qry = new Query(BankAccountFieldType.Schema);
+            CurrencyCloudSettlementCollection coll = new CurrencyCloudSettlementCollection();
+            Query qry = new Query(CurrencyCloudSettlement.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public BankAccountFieldTypeCollection FetchByID(object BankAccountFieldTypeX)
+        public CurrencyCloudSettlementCollection FetchByID(object CurrencycloudSettlementKey)
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection().Where("bank_account_field_type", BankAccountFieldTypeX).Load();
+            CurrencyCloudSettlementCollection coll = new CurrencyCloudSettlementCollection().Where("currencycloud_settlement_key", CurrencycloudSettlementKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public BankAccountFieldTypeCollection FetchByQuery(Query qry)
+        public CurrencyCloudSettlementCollection FetchByQuery(Query qry)
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection();
+            CurrencyCloudSettlementCollection coll = new CurrencyCloudSettlementCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object BankAccountFieldTypeX)
+        public bool Delete(object CurrencycloudSettlementKey)
         {
-            return (BankAccountFieldType.Delete(BankAccountFieldTypeX) == 1);
+            return (CurrencyCloudSettlement.Delete(CurrencycloudSettlementKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object BankAccountFieldTypeX)
+        public bool Destroy(object CurrencycloudSettlementKey)
         {
-            return (BankAccountFieldType.Destroy(BankAccountFieldTypeX) == 1);
+            return (CurrencyCloudSettlement.Destroy(CurrencycloudSettlementKey) == 1);
         }
         
         
@@ -80,15 +80,15 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int BankAccountFieldTypeX,string BankAccountFieldName,string CurrencycloudField)
+	    public void Insert(string CcSettlementid,DateTime? Releasedate,DateTime? InitiatedDate)
 	    {
-		    BankAccountFieldType item = new BankAccountFieldType();
+		    CurrencyCloudSettlement item = new CurrencyCloudSettlement();
 		    
-            item.BankAccountFieldTypeX = BankAccountFieldTypeX;
+            item.CcSettlementid = CcSettlementid;
             
-            item.BankAccountFieldName = BankAccountFieldName;
+            item.Releasedate = Releasedate;
             
-            item.CurrencycloudField = CurrencycloudField;
+            item.InitiatedDate = InitiatedDate;
             
 	    
 		    item.Save(UserName);
@@ -98,17 +98,19 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int BankAccountFieldTypeX,string BankAccountFieldName,string CurrencycloudField)
+	    public void Update(long CurrencycloudSettlementKey,string CcSettlementid,DateTime? Releasedate,DateTime? InitiatedDate)
 	    {
-		    BankAccountFieldType item = new BankAccountFieldType();
+		    CurrencyCloudSettlement item = new CurrencyCloudSettlement();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.BankAccountFieldTypeX = BankAccountFieldTypeX;
+			item.CurrencycloudSettlementKey = CurrencycloudSettlementKey;
 				
-			item.BankAccountFieldName = BankAccountFieldName;
+			item.CcSettlementid = CcSettlementid;
 				
-			item.CurrencycloudField = CurrencycloudField;
+			item.Releasedate = Releasedate;
+				
+			item.InitiatedDate = InitiatedDate;
 				
 	        item.Save(UserName);
 	    }

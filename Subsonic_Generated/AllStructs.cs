@@ -34,6 +34,10 @@ namespace Peerfx_DB
         
 		public static readonly string BankAccount = @"Bank_Accounts";
         
+		public static readonly string CurrencyCloudSettlement = @"CurrencyCloud_Settlements";
+        
+		public static readonly string CurrencyCloudTrade = @"CurrencyCloud_Trades";
+        
 		public static readonly string EmbeeObject = @"Embee_Objects";
         
 		public static readonly string EmbeeCatalog = @"EmbeeCatalog";
@@ -67,6 +71,8 @@ namespace Peerfx_DB
 		public static readonly string PaymentSchedule = @"Payment_Schedule";
         
 		public static readonly string PaymentStatus = @"Payment_Status";
+        
+		public static readonly string PaymentTimingType = @"Payment_Timing_Types";
         
 		public static readonly string Payment = @"Payments";
         
@@ -155,6 +161,16 @@ namespace Peerfx_DB
             get { return DataService.GetSchema("Bank_Accounts", "Peerfx"); }
 		}
         
+		public static TableSchema.Table CurrencyCloudSettlement
+		{
+            get { return DataService.GetSchema("CurrencyCloud_Settlements", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table CurrencyCloudTrade
+		{
+            get { return DataService.GetSchema("CurrencyCloud_Trades", "Peerfx"); }
+		}
+        
 		public static TableSchema.Table EmbeeObject
 		{
             get { return DataService.GetSchema("Embee_Objects", "Peerfx"); }
@@ -238,6 +254,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table PaymentStatus
 		{
             get { return DataService.GetSchema("Payment_Status", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table PaymentTimingType
+		{
+            get { return DataService.GetSchema("Payment_Timing_Types", "Peerfx"); }
 		}
         
 		public static TableSchema.Table Payment
@@ -363,6 +384,8 @@ namespace Peerfx_DB
 		public static readonly string VwBankAccountsUser = @"vw_Bank_Accounts_Users";
         
 		public static readonly string VwCurrency = @"vw_currencies";
+        
+		public static readonly string VwCurrencyPairing = @"vw_currency_pairings";
         
 		public static readonly string VwInfoBank = @"vw_info_banks";
         

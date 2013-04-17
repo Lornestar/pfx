@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(decimal? SellAmount,int? SellCurrency,decimal? BuyAmount,int? BuyCurrency,decimal? Rate,decimal? ServiceFee,DateTime? PromisedDeliveryDate,DateTime? ActualDeliveryDate,DateTime DateCreated)
+	    public void Insert(decimal? SellAmount,int? SellCurrency,decimal? BuyAmount,int? BuyCurrency,decimal? Rate,decimal? ServiceFee,DateTime? PromisedDeliveryDate,DateTime? ActualDeliveryDate,DateTime DateCreated,int? Timing)
 	    {
 		    Quote item = new Quote();
 		    
@@ -102,6 +102,8 @@ namespace Peerfx_DB
             
             item.DateCreated = DateCreated;
             
+            item.Timing = Timing;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -110,7 +112,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int QuotesKey,decimal? SellAmount,int? SellCurrency,decimal? BuyAmount,int? BuyCurrency,decimal? Rate,decimal? ServiceFee,DateTime? PromisedDeliveryDate,DateTime? ActualDeliveryDate,DateTime DateCreated)
+	    public void Update(int QuotesKey,decimal? SellAmount,int? SellCurrency,decimal? BuyAmount,int? BuyCurrency,decimal? Rate,decimal? ServiceFee,DateTime? PromisedDeliveryDate,DateTime? ActualDeliveryDate,DateTime DateCreated,int? Timing)
 	    {
 		    Quote item = new Quote();
 	        item.MarkOld();
@@ -135,6 +137,8 @@ namespace Peerfx_DB
 			item.ActualDeliveryDate = ActualDeliveryDate;
 				
 			item.DateCreated = DateCreated;
+				
+			item.Timing = Timing;
 				
 	        item.Save(UserName);
 	    }

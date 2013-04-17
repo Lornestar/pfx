@@ -369,6 +369,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarEmail);
                 
+                TableSchema.TableColumn colvarCurrencyText = new TableSchema.TableColumn(schema);
+                colvarCurrencyText.ColumnName = "currency_text";
+                colvarCurrencyText.DataType = DbType.String;
+                colvarCurrencyText.MaxLength = 3;
+                colvarCurrencyText.AutoIncrement = false;
+                colvarCurrencyText.IsNullable = true;
+                colvarCurrencyText.IsPrimaryKey = false;
+                colvarCurrencyText.IsForeignKey = false;
+                colvarCurrencyText.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarCurrencyText);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -782,6 +794,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("email", value);
             }
         }
+	      
+        [XmlAttribute("CurrencyText")]
+        [Bindable(true)]
+        public string CurrencyText 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("currency_text");
+		    }
+            set 
+		    {
+			    SetColumnValue("currency_text", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -841,6 +867,8 @@ namespace Peerfx_DB{
             public static string Bsb = @"BSB";
             
             public static string Email = @"email";
+            
+            public static string CurrencyText = @"currency_text";
             
 	    }
 	    #endregion

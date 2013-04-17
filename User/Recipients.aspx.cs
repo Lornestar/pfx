@@ -37,6 +37,7 @@ namespace Peerfx.User
             //add new recipient
             pnladdnew.Visible = true;
             resetaddnew();
+            BankAccountEntry1.resetname();
         }
 
         protected void resetaddnew()

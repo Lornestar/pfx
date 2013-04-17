@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int? UserKey,int CurrencyKey,int? CountryKey,int? OrganizationKey,string BankAccountDescription,int UserKeyUpdated,string IpAddress,string AccountNumber,string Iban,string Bic,string ABArouting,string FirstName,string LastName,string BusinessName,DateTime LastChanged,DateTime? DateCreated,string SortCode,string Bsb,string Email)
+	    public void Insert(int? UserKey,int CurrencyKey,int? CountryKey,int? OrganizationKey,string BankAccountDescription,int UserKeyUpdated,string IpAddress,string AccountNumber,string Iban,string Bic,string ABArouting,string FirstName,string LastName,string BusinessName,DateTime LastChanged,DateTime? DateCreated,string SortCode,string Bsb,string Email,string BankName,string BranchCode,string InstitutionNumber)
 	    {
 		    BankAccount item = new BankAccount();
 		    
@@ -122,6 +122,12 @@ namespace Peerfx_DB
             
             item.Email = Email;
             
+            item.BankName = BankName;
+            
+            item.BranchCode = BranchCode;
+            
+            item.InstitutionNumber = InstitutionNumber;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -130,7 +136,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int BankAccountKey,int? UserKey,int CurrencyKey,int? CountryKey,int? OrganizationKey,string BankAccountDescription,int UserKeyUpdated,string IpAddress,string AccountNumber,string Iban,string Bic,string ABArouting,string FirstName,string LastName,string BusinessName,DateTime LastChanged,DateTime? DateCreated,string SortCode,string Bsb,string Email)
+	    public void Update(int BankAccountKey,int? UserKey,int CurrencyKey,int? CountryKey,int? OrganizationKey,string BankAccountDescription,int UserKeyUpdated,string IpAddress,string AccountNumber,string Iban,string Bic,string ABArouting,string FirstName,string LastName,string BusinessName,DateTime LastChanged,DateTime? DateCreated,string SortCode,string Bsb,string Email,string BankName,string BranchCode,string InstitutionNumber)
 	    {
 		    BankAccount item = new BankAccount();
 	        item.MarkOld();
@@ -175,6 +181,12 @@ namespace Peerfx_DB
 			item.Bsb = Bsb;
 				
 			item.Email = Email;
+				
+			item.BankName = BankName;
+				
+			item.BranchCode = BranchCode;
+				
+			item.InstitutionNumber = InstitutionNumber;
 				
 	        item.Save(UserName);
 	    }

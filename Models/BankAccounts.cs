@@ -32,6 +32,10 @@ namespace Peerfx.Models
         private string sortcode;
         private string bsb;
         private string email;
+        private Boolean islocalpayment;
+        private string bankname;
+        private string branchcode;
+        private string institutionnumber;
 
         public Int64 Payment_object_key
         {
@@ -332,5 +336,53 @@ namespace Peerfx.Models
                 email = value;
             }
         }
+
+        public Boolean Islocalpayment
+        {
+            get
+            {
+                return islocalpayment;
+            }
+            set
+            {
+                islocalpayment = value;
+            }
+        }                
+
+        public string Bankname
+        {
+            get
+            {
+                return bankname;
+            }
+            set
+            {
+                bankname = value;
+            }
+        }
+
+        public string Branchcode
+        {
+            get
+            {
+                return branchcode;
+            }
+            set
+            {
+                branchcode = value;
+            }
+        }
+
+        public string Institutionnumber
+        {
+            get
+            {
+                return institutionnumber;
+            }
+            set
+            {
+                institutionnumber = value;
+            }
+        }        
     }
 }

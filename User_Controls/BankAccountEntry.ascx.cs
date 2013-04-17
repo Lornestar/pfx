@@ -58,6 +58,15 @@ namespace Peerfx.User_Controls
                         case "7":
                             pnlnzdaccount.Visible = true;
                             break;
+                        case "8":
+                            pnlbankname.Visible = true;
+                            break;
+                        case "9":
+                            pnlinstitution.Visible = true;
+                            break;
+                        case "10":
+                            pnlbranchcode.Visible = true;
+                            break;
                     }
                 }
             }
@@ -77,6 +86,9 @@ namespace Peerfx.User_Controls
             pnlSortCode.Visible = false;
             pnlbsb.Visible = false;
             pnlnzdaccount.Visible = false;
+            pnlbankname.Visible = false;
+            pnlbranchcode.Visible = false;
+            pnlinstitution.Visible = false;
         }
 
         public void LoadFields(BankAccounts ba)
@@ -170,6 +182,21 @@ namespace Peerfx.User_Controls
                 txtemailreceiver.Text = ba.Email;
                 lblemailreceiver.Text = ba.Email;
             }
+            if (ba.Bankname != null)
+            {
+                txtbankname.Text = ba.Bankname;
+                lblbankname.Text = ba.Bankname;
+            }
+            if (ba.Institutionnumber != null)
+            {
+                txtinstitution.Text = ba.Institutionnumber;
+                lblinstitution.Text = ba.Institutionnumber;
+            }
+            if (ba.Branchcode != null)
+            {
+                txtbranchcode.Text = ba.Branchcode;
+                lblinstitution.Text = ba.Branchcode;
+            }
         }
 
         public void ViewasLabels()
@@ -189,6 +216,10 @@ namespace Peerfx.User_Controls
             txtsortcode1.Visible = false;
             txtsortcode2.Visible = false;
             txtsortcode3.Visible = false;
+            txtbankname.Visible = false;
+            txtbranchcode.Visible = false;
+            txtinstitution.Visible = false;
+
             ddlcurrency.Visible = false;
             lblABArouting.Visible = true;
             lblaccountnumber.Visible = true;
@@ -202,6 +233,9 @@ namespace Peerfx.User_Controls
             lblsortcode.Visible = true;
             lblcurrency.Visible = false;
             lblcurrencylabels.Visible = true;
+            lblbankname.Visible = true;
+            lblbranchcode.Visible = true;
+            lblinstitution.Visible = true;
         }
 
         public BankAccounts gettxtfields()
@@ -218,9 +252,18 @@ namespace Peerfx.User_Controls
             ba.BSB = txtbsb.Text;
             ba.Email = txtemailreceiver.Text;
             ba.Currency_key = Convert.ToInt32(ddlcurrency.SelectedValue);
+            ba.Currency_text = sitetemp.getcurrencycode(ba.Currency_key);
+            ba.Bankname = txtbankname.Text;
+            ba.Institutionnumber = txtinstitution.Text;
+            ba.Branchcode = txtbranchcode.Text;
             if (ba.Currency_key == 5)
             {
                 ba.Account_number = txtnzdaccount1.Text + txtnzdaccount2.Text + txtnzdaccount3.Text + txtnzdaccount4.Text;
+            }
+            ba.Islocalpayment = true;
+            if (ba.Currency_key == 7)
+            {
+                ba.Islocalpayment = false;
             }
 
             return ba;
@@ -241,7 +284,13 @@ namespace Peerfx.User_Controls
         protected void ddlcurrency_changed(object sender, EventArgs e)
         {
             resetaddnew();
-            UpdateRequiredFields();
+            UpdateRequiredFields();            
+        }
+
+        public void resetname()
+        {
+            txtfirstname.Text = "";
+            txtlastname.Text = "";
         }
 
         protected string getSortCode()
@@ -251,12 +300,10 @@ namespace Peerfx.User_Controls
 
         public void resetaddnew()
         {
+            CloseAllPanels();
             pnlIBAN.Visible = true;
-            pnlBankCode.Visible = true;
-            pnlAccountNumber.Visible = false;
-            pnlABArouting.Visible = false;
-            pnlbsb.Visible = false;
-            pnlnzdaccount.Visible = false;
+            pnlBankCode.Visible = true;            
+
             txtIbanAccount.Text = "";
             txtBankCode.Text = "";
             txtABArouting.Text = "";
@@ -264,13 +311,16 @@ namespace Peerfx.User_Controls
             txtsortcode1.Text = "";
             txtsortcode2.Text = "";
             txtsortcode3.Text = "";
-            txtfirstname.Text = "";
-            txtlastname.Text = "";
+            //txtfirstname.Text = "";
+            //txtlastname.Text = "";
             txtbsb.Text = "";
             txtnzdaccount1.Text = "";
             txtnzdaccount2.Text = "";
             txtnzdaccount3.Text = "";
             txtnzdaccount4.Text = "";
+            txtbankname.Text = "";
+            txtbranchcode.Text = "";
+            txtinstitution.Text = "";
         }
 
         public Boolean ValidateBankAccount()
@@ -282,8 +332,9 @@ namespace Peerfx.User_Controls
 
             if (sitetemp.isValidateBankAccount(Convert.ToInt32(ddlcurrency.SelectedValue)))
             {
+                BankAccounts ba = gettxtfields();
                 lblerror.Visible = false;
-                string strreturn = cc.Validate_BankAccount(Convert.ToInt32(ddlcurrency.SelectedValue), strfullname, txtABArouting.Text, txtaccountnumber.Text, "", "", txtBankCode.Text, "", txtbsb.Text, txtIbanAccount.Text, getSortCode());
+                string strreturn = cc.Validate_BankAccount(ba);
                 if (strreturn == "true"){
                     bankaccountisvalid = true;
                 }
@@ -318,13 +369,17 @@ namespace Peerfx.User_Controls
 
         public Int64 InsertBankAccount(int userkey)
         {
-            Int64 paymentobjectkey = sitetemp.insert_bank_account_returnpaymentobject(0, Convert.ToInt32(ddlcurrency.SelectedValue), 11, null, userkey, txtaccountnumber.Text, txtIbanAccount.Text, txtBankCode.Text, txtABArouting.Text, txtfirstname.Text, txtlastname.Text, null,getSortCode(),txtbsb.Text,txtemailreceiver.Text);
+            BankAccounts ba = gettxtfields();
+
+            Int64 paymentobjectkey = sitetemp.insert_bank_account_returnpaymentobject(0, ba.Currency_key, 11, null, userkey, ba.Account_number, ba.IBAN, ba.BIC, ba.ABArouting, ba.First_name, ba.Last_name, null,ba.Sortcode,ba.BSB,ba.Email,ba.Bankname,ba.Branchcode,ba.Institutionnumber);
             return paymentobjectkey;
         }
 
         public void UpdateBankAccount(int bankaccountkey, int userkey)
         {
-            Peerfx_DB.SPs.UpdateBankAccounts(bankaccountkey, null, Convert.ToInt32(ddlcurrency.SelectedValue), null, null, userkey, sitetemp.get_ipaddress(), txtaccountnumber.Text, txtIbanAccount.Text, txtBankCode.Text, txtABArouting.Text, txtfirstname.Text, txtlastname.Text, null, 0,getSortCode(),txtbsb.Text,txtemailreceiver.Text).Execute();
+            BankAccounts ba = gettxtfields();
+
+            Peerfx_DB.SPs.UpdateBankAccounts(bankaccountkey, null, ba.Currency_key, null, null, userkey, sitetemp.get_ipaddress(), ba.Account_number, ba.IBAN, ba.BIC, ba.ABArouting, ba.First_name, ba.Last_name, null, 0,ba.Sortcode,ba.BSB,ba.Email,ba.Bankname,ba.Branchcode,ba.Institutionnumber).Execute();
         }
 
     }

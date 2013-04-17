@@ -181,20 +181,27 @@
                                                 <tr>
                                                     <td>
                                                         <telerik:RadButton ID=btnconnectuser runat=server Text="Connect User" CommandName="btnconnectuser"></telerik:RadButton>                                                                               <telerik:RadButton ID=btnconnectpayment runat=server Text="Connect Payment" CommandName="btnconnectpayment"></telerik:RadButton>
+                                                        <telerik:RadButton ID=btnconnectCC runat=server Text="Connect CurrencyCloud" CommandName="btnconnectCC"></telerik:RadButton>
                                                         <telerik:RadButton ID=btnremovedeposit runat=server Text="Remove" CommandName="btnremovedeposit"></telerik:RadButton>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <telerik:RadComboBox ID=ddlconnectuser runat=server EmptyMessage="Choose User" >
+                                                        <telerik:RadComboBox ID=ddlconnectuser runat=server EmptyMessage="Choose User" Width=400 >
                                                         </telerik:RadComboBox>
                                                     </td>                                                    
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <telerik:RadComboBox ID=ddlconnectpayment runat=server EmptyMessage="Choose Payment" >
+                                                        <telerik:RadComboBox ID=ddlconnectpayment runat=server EmptyMessage="Choose Payment" Width=400>
                                                         </telerik:RadComboBox>
                                                         <asp:Label ID=lblerror runat=server Visible=false ForeColor=Red></asp:Label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td >
+                                                        <telerik:RadComboBox ID=ddlconnectCC runat=server EmptyMessage="Choose CurrencyCloud" Width=400>
+                                                        </telerik:RadComboBox>
                                                     </td>
                                                 </tr>
                                             </table>                                                                                        

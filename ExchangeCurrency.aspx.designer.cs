@@ -202,6 +202,33 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lbltopupinfo;
         
         /// <summary>
+        /// lblmoneyarrives control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmoneyarrives;
+        
+        /// <summary>
+        /// pnlpremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlpremium;
+        
+        /// <summary>
+        /// chkpremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton chkpremium;
+        
+        /// <summary>
         /// lblservicefee control.
         /// </summary>
         /// <remarks>

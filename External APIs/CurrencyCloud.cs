@@ -11,6 +11,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 using RestSharp;
+using Peerfx.Models;
 
 namespace Peerfx.External_APIs
 {
@@ -21,7 +22,7 @@ namespace Peerfx.External_APIs
         public string Authentication_New(){
             string strstatus = "error";
             Hashtable hstemp = new Hashtable();
-            hstemp.Add("login_id", "Lorne@Lornestar.com");
+            hstemp.Add("login_id", ConfigurationSettings.AppSettings["CurrencyCloud_login_id"]);
             hstemp.Add("api_key", getapikey());
             strstatus = Web_Request("/authentication/token/new", hstemp);
             
@@ -79,59 +80,15 @@ namespace Peerfx.External_APIs
             return hstemp;
         }
 
-        public string Validate_BankAccount(int currency, string FullName, string aba, string accountnumber, string SingaporeBankCode, string CanadaInstitutionNumber, string BIC, string BranchCode, string Australiabsbcode, string IBAN, string BritishSortCode)
+        public string Validate_BankAccount(BankAccounts ba)
         {
-            string currencycode = sitetemp.getcurrencycode(currency);
-            string countrycode = sitetemp.getCountryValueFromCurrency(currency);
+            string currencycode = sitetemp.getcurrencycode(ba.Currency_key);
+            string countrycode = sitetemp.getCountryValueFromCurrency(ba.Currency_key);
             Boolean isvalid = false;
             string strreturn = "";
 
             string strstatus = "error";
-            Hashtable hstemp = new Hashtable();
-            hstemp.Add("nickname", currencycode + " Account");
-            hstemp.Add("acct_ccy", currencycode);
-            hstemp.Add("beneficiary_name", FullName);
-            hstemp.Add("destination_country_code", countrycode);
-            hstemp.Add("is_beneficiary", "true");
-            hstemp.Add("is_source", "false");
-
-            if (aba.Length > 0)
-            {
-                hstemp.Add("aba", aba);
-            }
-            if (accountnumber.Length > 0)
-            {
-                hstemp.Add("acct_number", accountnumber);
-            }
-            if (SingaporeBankCode.Length > 0)
-            {
-                hstemp.Add("bank_code", SingaporeBankCode);
-            }
-            if (CanadaInstitutionNumber.Length > 0)
-            {
-                hstemp.Add("institution_no", CanadaInstitutionNumber);
-            }
-            if (BIC.Length > 0)
-            {
-                hstemp.Add("bic_swift", BIC);
-            }
-            if (BranchCode.Length > 0)
-            {
-                hstemp.Add("branch_code", BranchCode);
-            }
-            if (Australiabsbcode.Length > 0)
-            {
-                hstemp.Add("bsb_code", Australiabsbcode);
-            }
-            if (IBAN.Length > 0)
-            {
-                hstemp.Add("iban", IBAN);
-            }
-            if (BritishSortCode.Length > 0)
-            {
-                hstemp.Add("sort_code", BritishSortCode);
-            }
-            ///api/en/v1.0/:token/beneficiary/validate_details
+            Hashtable hstemp = ConvertBankAccountstoHashtable(ba);
 
             string strquery = sitetemp.ConvertHashtabletoString(hstemp);
             hstemp.Clear();
@@ -151,6 +108,93 @@ namespace Peerfx.External_APIs
             }
 
             return strreturn;
+        }
+
+        private Hashtable ConvertBankAccountstoHashtable(BankAccounts ba)
+        {
+            Hashtable hstemp = new Hashtable();
+
+            //Bank account info
+            string countrycode = sitetemp.getCountryValueFromCurrency(ba.Currency_key);
+            hstemp.Add("nickname", ba.Currency_text + " Account");
+            hstemp.Add("acct_ccy", ba.Currency_text);
+            hstemp.Add("beneficiary_name", ba.First_name + " " + ba.Last_name);
+            hstemp.Add("destination_country_code", countrycode);
+
+            if (ba.ABArouting != null)
+            {
+                if (ba.ABArouting != "")
+                {
+                    hstemp.Add("aba", ba.ABArouting);
+                }                
+            }
+            if (ba.Account_number != null)
+            {
+                if (ba.Account_number != "")
+                {
+                    hstemp.Add("acct_number", ba.Account_number);
+                }                
+            }
+            /*
+            if (SingaporeBankCode.Length > 0)
+            {
+                hstemp.Add("bank_code", SingaporeBankCode);
+            }*/
+            if (ba.Institutionnumber != null)
+            {
+                if (ba.Institutionnumber != "")
+                {
+                    hstemp.Add("institution_no", ba.Institutionnumber);
+                }                
+            }
+            if (ba.Bankname != null)
+            {
+                if (ba.Bankname != "")
+                {
+                    hstemp.Add("bank_name", ba.Bankname);
+                }                
+            }
+            if (ba.Branchcode != null)
+            {
+                if (ba.Branchcode != "")
+                {
+                    hstemp.Add("branch_code", ba.Branchcode);
+                }                
+            }
+            if (ba.BIC != null)
+            {
+                if (ba.BIC != "")
+                {
+                    hstemp.Add("bic_swift", ba.BIC);
+                }                
+            }
+            if (ba.BSB != null)
+            {
+                if (ba.BSB != "")
+                {
+                    hstemp.Add("bsb_code", ba.BSB);
+                }                
+            }
+            if (ba.IBAN != null)
+            {
+                if (ba.IBAN != "")
+                {
+                    hstemp.Add("iban", ba.IBAN);
+                }                
+            }
+            if (ba.Sortcode != null)
+            {
+                if (ba.Sortcode != "")
+                {
+                    hstemp.Add("sort_code", ba.Sortcode);
+                }                
+            }
+            if (ba.Islocalpayment)
+            {                
+                hstemp.Add("payment_types", "local");
+            }
+
+            return hstemp;
         }
 
         public Hashtable RequiredFields_BankAccounts(int currency)
@@ -190,7 +234,7 @@ namespace Peerfx.External_APIs
             string currencycode = sitetemp.getcurrencycode(currency);
             string countryvalue = sitetemp.getCountryValue(country);
             Hashtable hstemp = new Hashtable();
-            string responseString = CallWeb_Request("/beneficiaries/required_fields?ccy=" + currencycode + "&destination_country_code=" + countryvalue, hstemp);
+            string responseString = CallWeb_Request("/beneficiaries/required_fields?payment_type=local&ccy=" + currencycode + "&destination_country_code=" + countryvalue, hstemp);
 
             
 
@@ -199,6 +243,114 @@ namespace Peerfx.External_APIs
 
             return responseString;
         }
+
+        public Boolean Trade_Execute(int paymentkey)
+        {
+            Boolean tradesuccessful = false;
+            
+            Payment paymenttemp = sitetemp.getPayment(paymentkey);
+            BankAccounts ba = new BankAccounts();
+
+            if (paymenttemp.Directlyfromcurrencycloud == 0) //comes back to our local bank accounts
+            {
+                ba = sitetemp.getBankAccounts(0, sitetemp.get_Payment_Object_sendmoneyto_For_Payment(paymentkey, paymenttemp.Buy_currency));
+            }
+            else //goes directly to recipient's bank account
+            {
+                ba = sitetemp.getBankAccounts(0, paymenttemp.Payment_object_receiver);
+            }
+
+            string strstatus = "error";
+            Hashtable hstemp = ConvertBankAccountstoHashtable(ba);
+            hstemp.Add("buy_currency", paymenttemp.Buy_currency_text);
+            hstemp.Add("sell_currency", paymenttemp.Sell_currency_text);
+            hstemp.Add("side", "1");
+            hstemp.Add("amount", paymenttemp.Buy_amount.ToString("F"));
+            hstemp.Add("term_agreement", "true");
+            
+            strstatus = CallWeb_Request("/trade/execute_with_payment", hstemp);
+            JObject o = JObject.Parse(strstatus);
+            string status = (string)o["status"];
+            if (status == "success")
+            {
+                tradesuccessful = true;
+                //record new tradeid
+                JObject o2 = (JObject)o["data"];
+                string newtradeid = (string)o2["trade_id"];
+                Peerfx_DB.SPs.UpdateCurrencyCloudTrades(paymentkey, newtradeid).Execute();
+            }
+
+            return tradesuccessful;
+        }
+
+        public string Settlement_Create()
+        {
+            string strreturn = "";
+
+            Hashtable hstemp = new Hashtable();
+            strreturn = CallWeb_Request("/settlement/create", hstemp);
+            JObject o = JObject.Parse(strreturn);
+            string strstatus = (string)o["status"];           
+            if (strstatus == "success")
+            {
+                JObject o2 = (JObject)o["data"];
+                strreturn = (string)o2["settlement_id"];
+                Peerfx_DB.SPs.UpdateCurrencyCloudSettlements(strreturn).Execute();
+            }            
+
+            return strreturn;
+        }
+
+        public int Settlement_AddTrades(string settlementid, int cutoff)
+        {
+            int tradesadded = 0;
+            Hashtable hstemp = new Hashtable();
+
+            DataTable dttrades = Peerfx_DB.SPs.ViewCurrencyCloudTradesAwaitingSettlement(cutoff).GetDataSet().Tables[0];
+            foreach (DataRow dr in dttrades.Rows)
+            {
+                hstemp.Clear();
+                string cctradeid = dr["cc_tradeid"].ToString();
+                Int64 tradekey = Convert.ToInt64(dr["currencycloud_trade_key"]);
+                
+                //hstemp.Add("settlement_id", settlementid);
+                hstemp.Add("trade_id", cctradeid);
+
+                string strresponse = CallWeb_Request("/settlement/" + settlementid + "/add_trade", hstemp);
+                JObject o = JObject.Parse(strresponse);
+                string strstatus = (string)o["status"];
+                if (strstatus == "success")
+                {
+                    tradesadded += 1;
+                    Int64 settlementkey = sitetemp.getCurrencyCloudSettlementKey_From_ccsettlementid(settlementid);
+                    Peerfx_DB.SPs.UpdateCurrencyCloudTradesAddedtoSettlement(settlementkey, tradekey).Execute();
+                }
+            }                      
+            
+
+            return tradesadded;
+        }
+
+
+        public Boolean Settlement_Release(string settlementid)
+        {
+            Boolean issuccess = false;
+            
+            Hashtable hstemp = new Hashtable();
+            //hstemp.Add("settlement_id", settlementid);
+            string strresponse = CallWeb_Request("/settlement/" + settlementid + "/release", hstemp);
+            JObject o = JObject.Parse(strresponse);
+            string strstatus = (string)o["status"];
+            if (strstatus == "success")
+            {
+                issuccess = true;
+                Int64 settlementkey = sitetemp.getCurrencyCloudSettlementKey_From_ccsettlementid(settlementid);
+                Peerfx_DB.SPs.UpdateCurrencyCloudSettlementsReleased(settlementkey).Execute();
+            }
+
+            return issuccess;
+        }
+
 
 
         private string geturl()
@@ -318,7 +470,7 @@ namespace Peerfx.External_APIs
         {
             string strreturn;
             strreturn = Web_Request(callurl, hstemp);
-            if (strreturn.Contains("error"))
+            if ((strreturn.Contains("error")) || (strreturn == ""))
             {
                 string token = update_info_currencycloud_token();
                 strreturn = Web_Request(callurl, hstemp);

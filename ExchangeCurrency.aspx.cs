@@ -37,6 +37,7 @@ namespace Peerfx
                 ddlsellcurrency.SelectedIndex = 1;
 
                 LoadRates(true);
+                Checkifcanofferpremium();
 
                 DataTable dtcountries = sitetemp.populatecountrylist();
 
@@ -130,11 +131,14 @@ namespace Peerfx
             rdtemp4.Text = "Top Up Phone";
             ddlReceivers.Items.Add(rdtemp4);
 
-            DataTable dtuserbalance = sitetemp.getuserbalance_datatable(currentuser.User_key, Convert.ToInt32(ddlbuycurrency.SelectedValue));
-            RadListBoxItem rdtemp2 = new RadListBoxItem();
-            rdtemp2.Value = dtuserbalance.Rows[0]["payment_object_key"].ToString();
-            rdtemp2.Text = dtuserbalance.Rows[0]["user_balance_text"].ToString();
-            ddlReceivers.Items.Insert(0,rdtemp2);
+            if (sitetemp.isCurrencyCanhold(Convert.ToInt32(ddlbuycurrency.SelectedValue)))
+            {
+                DataTable dtuserbalance = sitetemp.getuserbalance_datatable(currentuser.User_key, Convert.ToInt32(ddlbuycurrency.SelectedValue));
+                RadListBoxItem rdtemp2 = new RadListBoxItem();
+                rdtemp2.Value = dtuserbalance.Rows[0]["payment_object_key"].ToString();
+                rdtemp2.Text = dtuserbalance.Rows[0]["user_balance_text"].ToString();
+                ddlReceivers.Items.Insert(0, rdtemp2);
+            }            
 
             ddlReceivers.SelectedIndex = 0;
 
@@ -153,7 +157,8 @@ namespace Peerfx
 
         protected void txtsell_TextChanged(object sender, EventArgs e)
         {
-            LoadRates(true);            
+            LoadRates(true);
+            Checkifcanofferpremium();
         }
 
         protected void ddlembeecountry_changed(object sender, EventArgs e)
@@ -183,7 +188,8 @@ namespace Peerfx
                 price = Convert.ToDecimal(dttemp.Rows[0]["price_in_dollars"]);
             }
             
-            Quote quotetemp = sitetemp.getQuote_reverse(price, Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue));
+            Quote quotetemp = sitetemp.getQuote_reverse(price, Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue), true);
+            
             LoadRatesFillinfo(quotetemp);
 
             txtembeephone.Visible = true;
@@ -232,7 +238,8 @@ namespace Peerfx
                 {
                     Loadtxtreceiverfields(Convert.ToInt64(ddlReceivers.SelectedValue));
                 }
-            }            
+            }
+            Checkifcanofferpremium();
         }
 
         protected void Loadtxtreceiverfields(Int64 paymentkey)
@@ -314,6 +321,7 @@ namespace Peerfx
             {
                 LoadRates(false);
             }
+            Checkifcanofferpremium();
         }
 
         protected void ddlbuycurrency_changed(object sender, EventArgs e)
@@ -337,7 +345,7 @@ namespace Peerfx
             {
                 LoadRates(false);
             }
-            
+            Checkifcanofferpremium();
                         
         }
 
@@ -391,14 +399,22 @@ namespace Peerfx
             decimal sellamount = Convert.ToDecimal(txtsell.Text);
             int sellcurrency = Convert.ToInt32(ddlsellcurrency.SelectedValue);
             Quote quotetemp;
-            if (ddlReceivers.SelectedValue != "-2")
+            if (ddlReceivers.SelectedValue != "-2")//is not embee
             {
-                quotetemp = sitetemp.getQuote(sellamount, sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
+                if (chkpremium.Checked)
+                {
+                    //calculate with premium rate
+                    quotetemp = sitetemp.getQuote(sellamount, sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue),true);
+                }
+                else
+                {
+                    quotetemp = sitetemp.getQuote(sellamount, sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue),false);
+                }                
             }
             else
             {
-                quotetemp = sitetemp.getQuote_reverse(Convert.ToDecimal(txtbuy.Text), sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue));
-            }
+                quotetemp = sitetemp.getQuote_reverse(Convert.ToDecimal(txtbuy.Text), sellcurrency, Convert.ToInt32(ddlbuycurrency.SelectedValue), true);
+            }            
 
             LoadRatesFillinfo(quotetemp);            
 
@@ -410,7 +426,8 @@ namespace Peerfx
                 {
                     LoadRecipientList();
                 }                
-            }            
+            }
+            
         }
 
         protected void btnContinue1_Click(object sender, EventArgs e)
@@ -445,18 +462,18 @@ namespace Peerfx
                     errormessage = "You must enter a phone number";
                 }
             }
+            else if (ddlReceivers.SelectedValue == "0") //sending to new bank account
+            {
+                isvalid = BankAccountEntry1.ValidateBankAccount();
+            }
+
 
             if (txtdescription.Text.Length < 1)
             {
                 isvalid = false;
                 errormessage = "You must write a description for this payment";
             }
-
-            if (isvalid)
-            {
-                isvalid = BankAccountEntry1.ValidateBankAccount();
-            }
-
+            
             if (isvalid)
             {
                 //Change tab & fill in tab2 with all the info
@@ -475,7 +492,7 @@ namespace Peerfx
         protected void btnContinue2_Click(object sender, EventArgs e)
         {            
 
-            LoadRates(false);
+            //LoadRates(false);
 
             //populate labels
             updatealreadyconfirmedtab();
@@ -567,6 +584,18 @@ namespace Peerfx
             lblpaymentnum.Text = payment_key.ToString();
             //update payment status to confirmed
             Peerfx_DB.SPs.UpdatePaymentStatus(payment_key, 2).Execute();
+            
+            //Assign proper treasury type
+            int treasurytype = 2; //default = cc
+            if (chkpremium.Checked)
+            {
+                treasurytype = 1;
+            }
+            if (sitetemp.getpaymentobjecttype(receiverpaymentobject) == 7)//receiver is embee
+            {
+                treasurytype = 1;
+            }
+            Peerfx_DB.SPs.UpdatePaymentTreasury(payment_key, treasurytype).Execute();
 
             bool isuserbalance = false;
             if (pnlloggedinsender.Visible)
@@ -580,7 +609,7 @@ namespace Peerfx
 
                     //instantly convert the payment, because source funding is balance
                     //initiate conversion
-                    sitetemp.payment_convert_currency(payment_key);
+                    sitetemp.payment_initiate(payment_key);
                     Response.Redirect("/User/Dashboard.aspx?notification=true");
                 }
             }
@@ -596,7 +625,7 @@ namespace Peerfx
             }  
           
             //figure out which bank account to receive payment            
-            lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(payment_key));
+            lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(payment_key, Convert.ToInt32(ddlsellcurrency.SelectedValue)));
         }
         
 
@@ -712,5 +741,59 @@ namespace Peerfx
             RadTabStrip1.SelectedIndex = selectedtab;
             RadMultiPage1.SelectedIndex = selectedtab;
         }
+
+        protected void LoadTiming()
+        {
+            if (ddlReceivers.SelectedValue == "-2")//embee top up
+            {
+                lblmoneyarrives.Text = sitetemp.getPaymentTimingDescription(4);
+            }
+            else if (chkpremium.Checked)
+            {
+                if (sitetemp.IsUserBalance(Convert.ToInt64(ddlReceivers.SelectedValue)))
+                {
+                    lblmoneyarrives.Text = sitetemp.getPaymentTimingDescription(3);
+                }
+                else
+                {
+                    lblmoneyarrives.Text = sitetemp.getPaymentTimingDescription(2);
+                }                
+            }
+            else
+            {
+                lblmoneyarrives.Text = sitetemp.getPaymentTimingDescription(1);
+            }
+
+        }
+
+        protected void Checkifcanofferpremium()
+        {
+            if (ddlReceivers.SelectedValue == "-2")//embee top up
+            {
+                pnlpremium.Visible = false;
+                chkpremium.Checked = true;
+            }
+            else
+            {
+                Boolean canofferpremium = sitetemp.Iscanofferpremium(Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue), Convert.ToDecimal(txtbuy.Text));
+                if (canofferpremium)
+                {
+                    pnlpremium.Visible = true;
+                }
+                else
+                {
+                    pnlpremium.Visible = false;
+                    chkpremium.Checked = false;
+                }
+            }            
+            LoadTiming();
+        }
+
+        protected void chkpremium_Click(object sender, EventArgs e)
+        {
+            LoadTiming();
+            LoadRates(false);
+        }
+
     }
 }

@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int QuoteKey,int? QuoteKeyActual,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
+	    public void Insert(int QuoteKey,int? QuoteKeyActual,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription,int? TreasuryType)
 	    {
 		    Payment item = new Payment();
 		    
@@ -100,6 +100,8 @@ namespace Peerfx_DB
             
             item.PaymentDescription = PaymentDescription;
             
+            item.TreasuryType = TreasuryType;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -108,7 +110,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int PaymentsKey,int QuoteKey,int? QuoteKeyActual,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription)
+	    public void Update(int PaymentsKey,int QuoteKey,int? QuoteKeyActual,int PaymentStatus,DateTime DateCreated,int? RequestorUserKey,long? PaymentObjectSender,long? PaymentObjectReceiver,string PaymentDescription,int? TreasuryType)
 	    {
 		    Payment item = new Payment();
 	        item.MarkOld();
@@ -131,6 +133,8 @@ namespace Peerfx_DB
 			item.PaymentObjectReceiver = PaymentObjectReceiver;
 				
 			item.PaymentDescription = PaymentDescription;
+				
+			item.TreasuryType = TreasuryType;
 				
 	        item.Save(UserName);
 	    }

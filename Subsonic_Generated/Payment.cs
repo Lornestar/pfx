@@ -243,6 +243,19 @@ namespace Peerfx_DB
 				colvarPaymentDescription.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPaymentDescription);
 				
+				TableSchema.TableColumn colvarTreasuryType = new TableSchema.TableColumn(schema);
+				colvarTreasuryType.ColumnName = "treasury_type";
+				colvarTreasuryType.DataType = DbType.Int32;
+				colvarTreasuryType.MaxLength = 0;
+				colvarTreasuryType.AutoIncrement = false;
+				colvarTreasuryType.IsNullable = true;
+				colvarTreasuryType.IsPrimaryKey = false;
+				colvarTreasuryType.IsForeignKey = false;
+				colvarTreasuryType.IsReadOnly = false;
+				colvarTreasuryType.DefaultSetting = @"";
+				colvarTreasuryType.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTreasuryType);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -324,6 +337,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.PaymentDescription); }
 			set { SetColumnValue(Columns.PaymentDescription, value); }
 		}
+		  
+		[XmlAttribute("TreasuryType")]
+		[Bindable(true)]
+		public int? TreasuryType 
+		{
+			get { return GetColumnValue<int?>(Columns.TreasuryType); }
+			set { SetColumnValue(Columns.TreasuryType, value); }
+		}
 		
 		#endregion
 		
@@ -344,7 +365,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varQuoteKey,int? varQuoteKeyActual,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription)
+		public static void Insert(int varQuoteKey,int? varQuoteKeyActual,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription,int? varTreasuryType)
 		{
 			Payment item = new Payment();
 			
@@ -364,6 +385,8 @@ namespace Peerfx_DB
 			
 			item.PaymentDescription = varPaymentDescription;
 			
+			item.TreasuryType = varTreasuryType;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -374,7 +397,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varPaymentsKey,int varQuoteKey,int? varQuoteKeyActual,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription)
+		public static void Update(int varPaymentsKey,int varQuoteKey,int? varQuoteKeyActual,int varPaymentStatus,DateTime varDateCreated,int? varRequestorUserKey,long? varPaymentObjectSender,long? varPaymentObjectReceiver,string varPaymentDescription,int? varTreasuryType)
 		{
 			Payment item = new Payment();
 			
@@ -395,6 +418,8 @@ namespace Peerfx_DB
 				item.PaymentObjectReceiver = varPaymentObjectReceiver;
 			
 				item.PaymentDescription = varPaymentDescription;
+			
+				item.TreasuryType = varTreasuryType;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -472,6 +497,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn TreasuryTypeColumn
+        {
+            get { return Schema.Columns[9]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -485,6 +517,7 @@ namespace Peerfx_DB
 			 public static string PaymentObjectSender = @"payment_object_sender";
 			 public static string PaymentObjectReceiver = @"payment_object_receiver";
 			 public static string PaymentDescription = @"payment_description";
+			 public static string TreasuryType = @"treasury_type";
 						
 		}
 		#endregion

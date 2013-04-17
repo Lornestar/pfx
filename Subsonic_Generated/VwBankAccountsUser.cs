@@ -336,7 +336,7 @@ namespace Peerfx_DB{
                 TableSchema.TableColumn colvarCurrencyText = new TableSchema.TableColumn(schema);
                 colvarCurrencyText.ColumnName = "currency_text";
                 colvarCurrencyText.DataType = DbType.String;
-                colvarCurrencyText.MaxLength = 50;
+                colvarCurrencyText.MaxLength = 3;
                 colvarCurrencyText.AutoIncrement = false;
                 colvarCurrencyText.IsNullable = true;
                 colvarCurrencyText.IsPrimaryKey = false;

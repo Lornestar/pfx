@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Bank_Account_Field_Type
+    /// Controller class for CurrencyCloud_Trades
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class BankAccountFieldTypeController
+    public partial class CurrencyCloudTradeController
     {
         // Preload our schema..
-        BankAccountFieldType thisSchemaLoad = new BankAccountFieldType();
+        CurrencyCloudTrade thisSchemaLoad = new CurrencyCloudTrade();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public BankAccountFieldTypeCollection FetchAll()
+        public CurrencyCloudTradeCollection FetchAll()
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection();
-            Query qry = new Query(BankAccountFieldType.Schema);
+            CurrencyCloudTradeCollection coll = new CurrencyCloudTradeCollection();
+            Query qry = new Query(CurrencyCloudTrade.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public BankAccountFieldTypeCollection FetchByID(object BankAccountFieldTypeX)
+        public CurrencyCloudTradeCollection FetchByID(object CurrencycloudTradeKey)
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection().Where("bank_account_field_type", BankAccountFieldTypeX).Load();
+            CurrencyCloudTradeCollection coll = new CurrencyCloudTradeCollection().Where("currencycloud_trade_key", CurrencycloudTradeKey).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public BankAccountFieldTypeCollection FetchByQuery(Query qry)
+        public CurrencyCloudTradeCollection FetchByQuery(Query qry)
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection();
+            CurrencyCloudTradeCollection coll = new CurrencyCloudTradeCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object BankAccountFieldTypeX)
+        public bool Delete(object CurrencycloudTradeKey)
         {
-            return (BankAccountFieldType.Delete(BankAccountFieldTypeX) == 1);
+            return (CurrencyCloudTrade.Delete(CurrencycloudTradeKey) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object BankAccountFieldTypeX)
+        public bool Destroy(object CurrencycloudTradeKey)
         {
-            return (BankAccountFieldType.Destroy(BankAccountFieldTypeX) == 1);
+            return (CurrencyCloudTrade.Destroy(CurrencycloudTradeKey) == 1);
         }
         
         
@@ -80,15 +80,21 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int BankAccountFieldTypeX,string BankAccountFieldName,string CurrencycloudField)
+	    public void Insert(int PaymentsKey,long? SettlementKey,DateTime InitiatedDate,string CcTradeid,DateTime? SettlementDate,DateTime? FundsreceivedDate)
 	    {
-		    BankAccountFieldType item = new BankAccountFieldType();
+		    CurrencyCloudTrade item = new CurrencyCloudTrade();
 		    
-            item.BankAccountFieldTypeX = BankAccountFieldTypeX;
+            item.PaymentsKey = PaymentsKey;
             
-            item.BankAccountFieldName = BankAccountFieldName;
+            item.SettlementKey = SettlementKey;
             
-            item.CurrencycloudField = CurrencycloudField;
+            item.InitiatedDate = InitiatedDate;
+            
+            item.CcTradeid = CcTradeid;
+            
+            item.SettlementDate = SettlementDate;
+            
+            item.FundsreceivedDate = FundsreceivedDate;
             
 	    
 		    item.Save(UserName);
@@ -98,17 +104,25 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int BankAccountFieldTypeX,string BankAccountFieldName,string CurrencycloudField)
+	    public void Update(long CurrencycloudTradeKey,int PaymentsKey,long? SettlementKey,DateTime InitiatedDate,string CcTradeid,DateTime? SettlementDate,DateTime? FundsreceivedDate)
 	    {
-		    BankAccountFieldType item = new BankAccountFieldType();
+		    CurrencyCloudTrade item = new CurrencyCloudTrade();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.BankAccountFieldTypeX = BankAccountFieldTypeX;
+			item.CurrencycloudTradeKey = CurrencycloudTradeKey;
 				
-			item.BankAccountFieldName = BankAccountFieldName;
+			item.PaymentsKey = PaymentsKey;
 				
-			item.CurrencycloudField = CurrencycloudField;
+			item.SettlementKey = SettlementKey;
+				
+			item.InitiatedDate = InitiatedDate;
+				
+			item.CcTradeid = CcTradeid;
+				
+			item.SettlementDate = SettlementDate;
+				
+			item.FundsreceivedDate = FundsreceivedDate;
 				
 	        item.Save(UserName);
 	    }

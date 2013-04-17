@@ -385,6 +385,18 @@ div.RadUpload .ruFakeInput
     font-size:smaller;
     color:Gray;
 }
+
+.checkRtl.rbToggleButton
+{
+    padding-left: 0;
+    padding-right: 23px;
+}
+.checkRtl .rbPrimaryIcon
+{
+    right: 4px;
+    left: auto;
+}
+
 /*
 div.RadUpload .ruFakeInput
 {

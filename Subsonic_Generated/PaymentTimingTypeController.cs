@@ -15,13 +15,13 @@ using SubSonic.Utilities;
 namespace Peerfx_DB
 {
     /// <summary>
-    /// Controller class for Bank_Account_Field_Type
+    /// Controller class for Payment_Timing_Types
     /// </summary>
     [System.ComponentModel.DataObject]
-    public partial class BankAccountFieldTypeController
+    public partial class PaymentTimingTypeController
     {
         // Preload our schema..
-        BankAccountFieldType thisSchemaLoad = new BankAccountFieldType();
+        PaymentTimingType thisSchemaLoad = new PaymentTimingType();
         private string userName = String.Empty;
         protected string UserName
         {
@@ -42,36 +42,36 @@ namespace Peerfx_DB
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, true)]
-        public BankAccountFieldTypeCollection FetchAll()
+        public PaymentTimingTypeCollection FetchAll()
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection();
-            Query qry = new Query(BankAccountFieldType.Schema);
+            PaymentTimingTypeCollection coll = new PaymentTimingTypeCollection();
+            Query qry = new Query(PaymentTimingType.Schema);
             coll.LoadAndCloseReader(qry.ExecuteReader());
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public BankAccountFieldTypeCollection FetchByID(object BankAccountFieldTypeX)
+        public PaymentTimingTypeCollection FetchByID(object PaymentTimingTypeX)
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection().Where("bank_account_field_type", BankAccountFieldTypeX).Load();
+            PaymentTimingTypeCollection coll = new PaymentTimingTypeCollection().Where("payment_timing_type", PaymentTimingTypeX).Load();
             return coll;
         }
 		
 		[DataObjectMethod(DataObjectMethodType.Select, false)]
-        public BankAccountFieldTypeCollection FetchByQuery(Query qry)
+        public PaymentTimingTypeCollection FetchByQuery(Query qry)
         {
-            BankAccountFieldTypeCollection coll = new BankAccountFieldTypeCollection();
+            PaymentTimingTypeCollection coll = new PaymentTimingTypeCollection();
             coll.LoadAndCloseReader(qry.ExecuteReader()); 
             return coll;
         }
         [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(object BankAccountFieldTypeX)
+        public bool Delete(object PaymentTimingTypeX)
         {
-            return (BankAccountFieldType.Delete(BankAccountFieldTypeX) == 1);
+            return (PaymentTimingType.Delete(PaymentTimingTypeX) == 1);
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public bool Destroy(object BankAccountFieldTypeX)
+        public bool Destroy(object PaymentTimingTypeX)
         {
-            return (BankAccountFieldType.Destroy(BankAccountFieldTypeX) == 1);
+            return (PaymentTimingType.Destroy(PaymentTimingTypeX) == 1);
         }
         
         
@@ -80,15 +80,13 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int BankAccountFieldTypeX,string BankAccountFieldName,string CurrencycloudField)
+	    public void Insert(int PaymentTimingTypeX,string PaymentTimingDescription)
 	    {
-		    BankAccountFieldType item = new BankAccountFieldType();
+		    PaymentTimingType item = new PaymentTimingType();
 		    
-            item.BankAccountFieldTypeX = BankAccountFieldTypeX;
+            item.PaymentTimingTypeX = PaymentTimingTypeX;
             
-            item.BankAccountFieldName = BankAccountFieldName;
-            
-            item.CurrencycloudField = CurrencycloudField;
+            item.PaymentTimingDescription = PaymentTimingDescription;
             
 	    
 		    item.Save(UserName);
@@ -98,17 +96,15 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int BankAccountFieldTypeX,string BankAccountFieldName,string CurrencycloudField)
+	    public void Update(int PaymentTimingTypeX,string PaymentTimingDescription)
 	    {
-		    BankAccountFieldType item = new BankAccountFieldType();
+		    PaymentTimingType item = new PaymentTimingType();
 	        item.MarkOld();
 	        item.IsLoaded = true;
 		    
-			item.BankAccountFieldTypeX = BankAccountFieldTypeX;
+			item.PaymentTimingTypeX = PaymentTimingTypeX;
 				
-			item.BankAccountFieldName = BankAccountFieldName;
-				
-			item.CurrencycloudField = CurrencycloudField;
+			item.PaymentTimingDescription = PaymentTimingDescription;
 				
 	        item.Save(UserName);
 	    }

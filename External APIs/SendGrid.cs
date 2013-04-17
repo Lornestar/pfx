@@ -103,7 +103,7 @@ namespace Peerfx.External_APIs
 
             Payment paymenttemp = sitetemp.getPayment(paymentkey);
 
-            string peerfxbankaccount = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(paymentkey));
+            string peerfxbankaccount = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(paymentkey,paymenttemp.Sell_currency));
 
             thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
             thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);

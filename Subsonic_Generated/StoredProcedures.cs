@@ -272,7 +272,7 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the Update_Bank_Accounts Procedure
         /// </summary>
-        public static StoredProcedure UpdateBankAccounts(int? bankaccountkey, int? userkey, int? currencykey, int? organizationkey, string bankaccountdescription, int? userkeyupdated, string ipaddress, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname, int? bankaccountkeyreturn, string sortcode, string bsb, string email)
+        public static StoredProcedure UpdateBankAccounts(int? bankaccountkey, int? userkey, int? currencykey, int? organizationkey, string bankaccountdescription, int? userkeyupdated, string ipaddress, string accountnumber, string IBAN, string BIC, string ABArouting, string firstname, string lastname, string businessname, int? bankaccountkeyreturn, string sortcode, string bsb, string email, string bankname, string branchcode, string institutionnumber)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Bank_Accounts", DataService.GetInstance("Peerfx"), "dbo");
         	
@@ -312,6 +312,12 @@ namespace Peerfx_DB{
         	
             sp.Command.AddParameter("@email", email, DbType.String, null, null);
         	
+            sp.Command.AddParameter("@bankname", bankname, DbType.String, null, null);
+        	
+            sp.Command.AddParameter("@branchcode", branchcode, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@institutionnumber", institutionnumber, DbType.AnsiString, null, null);
+        	
             return sp;
         }
         
@@ -331,6 +337,74 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@user_key_updated", userkeyupdated, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Convert_Currency_CurrencyCloud_SendtoCC Procedure
+        /// </summary>
+        public static StoredProcedure UpdateConvertCurrencyCurrencyCloudSendtoCC(int? paymentkey, string ipaddress, int? userkeyupdated)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Convert_Currency_CurrencyCloud_SendtoCC", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@ip_address", ipaddress, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@user_key_updated", userkeyupdated, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_CurrencyCloud_Settlements Procedure
+        /// </summary>
+        public static StoredProcedure UpdateCurrencyCloudSettlements(string ccsettlementid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_CurrencyCloud_Settlements", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@cc_settlementid", ccsettlementid, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_CurrencyCloud_Settlements_Released Procedure
+        /// </summary>
+        public static StoredProcedure UpdateCurrencyCloudSettlementsReleased(long? currencycloudsettlementkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_CurrencyCloud_Settlements_Released", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currencycloud_settlement_key", currencycloudsettlementkey, DbType.Int64, 0, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_CurrencyCloud_Trades Procedure
+        /// </summary>
+        public static StoredProcedure UpdateCurrencyCloudTrades(int? paymentkey, string cctradeid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_CurrencyCloud_Trades", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@cc_tradeid", cctradeid, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_CurrencyCloud_Trades_AddedtoSettlement Procedure
+        /// </summary>
+        public static StoredProcedure UpdateCurrencyCloudTradesAddedtoSettlement(long? settlementkey, long? currencycloudtradekey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_CurrencyCloud_Trades_AddedtoSettlement", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@settlementkey", settlementkey, DbType.Int64, 0, 19);
+        	
+            sp.Command.AddParameter("@currencycloud_trade_key", currencycloudtradekey, DbType.Int64, 0, 19);
         	
             return sp;
         }
@@ -501,6 +575,20 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@payments_key", paymentskey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@payment_status", paymentstatus, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the Update_Payment_Treasury Procedure
+        /// </summary>
+        public static StoredProcedure UpdatePaymentTreasury(int? paymentskey, int? treasurytype)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_Payment_Treasury", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@payments_key", paymentskey, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@treasurytype", treasurytype, DbType.Int32, 0, 10);
         	
             return sp;
         }
@@ -1086,6 +1174,100 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Currency_Pairings Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyPairings()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Currency_Pairings", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Currency_Pairings_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyPairingsSpecific(int? currency1, int? currency2)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Currency_Pairings_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currency1", currency1, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency2", currency2, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_CurrencyCloud_Settlement_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyCloudSettlementSpecific(long? currencycloudsettlementkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_CurrencyCloud_Settlement_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currencycloud_settlement_key", currencycloudsettlementkey, DbType.Int64, 0, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_CurrencyCloud_Settlement_Specific_ccsettlementid Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyCloudSettlementSpecificCcsettlementid(string ccsettlementid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_CurrencyCloud_Settlement_Specific_ccsettlementid", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@ccsettlementid", ccsettlementid, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_CurrencyCloud_Trades_AwaitingFundsReturned Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyCloudTradesAwaitingFundsReturned()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_CurrencyCloud_Trades_AwaitingFundsReturned", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_CurrencyCloud_Trades_AwaitingSettlement Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyCloudTradesAwaitingSettlement(int? cccutoff)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_CurrencyCloud_Trades_AwaitingSettlement", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@cc_cutoff", cccutoff, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_CurrencyCloud_Trades_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyCloudTradesSpecific(long? currencycloudtradekey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_CurrencyCloud_Trades_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@currencycloud_trade_key", currencycloudtradekey, DbType.Int64, 0, 19);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_CurrencyCloud_Trades_Specific_cctradeid Procedure
+        /// </summary>
+        public static StoredProcedure ViewCurrencyCloudTradesSpecificCctradeid(string cctradeid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_CurrencyCloud_Trades_Specific_cctradeid", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@cctradeid", cctradeid, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Embee_Catalog_bycountry Procedure
         /// </summary>
         public static StoredProcedure ViewEmbeeCatalogBycountry(int? country)
@@ -1423,6 +1605,28 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewPaymentStatus()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Status", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Payment_Timing_Types Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentTimingTypes()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Timing_Types", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Payment_Timing_Types_Specific Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentTimingTypesSpecific(int? typeid)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payment_Timing_Types_Specific", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@typeid", typeid, DbType.Int32, 0, 10);
         	
             return sp;
         }

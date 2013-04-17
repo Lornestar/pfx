@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 using Peerfx.Models;
 using System.Configuration;
+using System.Data;
 
 namespace Peerfx.User_Controls
 {
@@ -34,7 +35,7 @@ namespace Peerfx.User_Controls
 
                 ddlsellcurrency.SelectedIndex = 1;
 
-                LoadRates();
+                LoadRates();                
 
                 if (!sitetemp.isloggedin())
                 {
@@ -71,7 +72,7 @@ namespace Peerfx.User_Controls
                     ddlbuycurrency.SelectedIndex = 1;
                 }
             }
-            LoadRates();
+            LoadRates();            
         }
 
         protected void ddlbuycurrency_changed(object sender, EventArgs e)
@@ -87,14 +88,14 @@ namespace Peerfx.User_Controls
                     ddlsellcurrency.SelectedIndex = 1;
                 }
             }
-            LoadRates();
+            LoadRates();            
         }
 
         protected void LoadRates()
         {
             try
             {
-                Quote quotetemp = sitetemp.getQuote(Convert.ToDecimal(txtsell.Text), Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue));
+                Quote quotetemp = sitetemp.getQuote(Convert.ToDecimal(txtsell.Text), Convert.ToInt32(ddlsellcurrency.SelectedValue), Convert.ToInt32(ddlbuycurrency.SelectedValue), false);
 
                 hdbuyrate.Value = quotetemp.Peerfx_Rate.ToString();
                 hdbuycurrencysymbol.Value = sitetemp.GetCurrencySymbol(ddlbuycurrency.SelectedItem.Text) + " ";
@@ -116,7 +117,7 @@ namespace Peerfx.User_Controls
                 txtsell.Enabled = false;
                 btnExchange.Enabled = false;
             }
-        }
+        }        
 
     }
 }

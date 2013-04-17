@@ -417,6 +417,42 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarActualServiceFee);
                 
+                TableSchema.TableColumn colvarQuoteKeyActual = new TableSchema.TableColumn(schema);
+                colvarQuoteKeyActual.ColumnName = "quote_key_actual";
+                colvarQuoteKeyActual.DataType = DbType.Int32;
+                colvarQuoteKeyActual.MaxLength = 0;
+                colvarQuoteKeyActual.AutoIncrement = false;
+                colvarQuoteKeyActual.IsNullable = true;
+                colvarQuoteKeyActual.IsPrimaryKey = false;
+                colvarQuoteKeyActual.IsForeignKey = false;
+                colvarQuoteKeyActual.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarQuoteKeyActual);
+                
+                TableSchema.TableColumn colvarTreasuryType = new TableSchema.TableColumn(schema);
+                colvarTreasuryType.ColumnName = "treasury_type";
+                colvarTreasuryType.DataType = DbType.Int32;
+                colvarTreasuryType.MaxLength = 0;
+                colvarTreasuryType.AutoIncrement = false;
+                colvarTreasuryType.IsNullable = true;
+                colvarTreasuryType.IsPrimaryKey = false;
+                colvarTreasuryType.IsForeignKey = false;
+                colvarTreasuryType.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarTreasuryType);
+                
+                TableSchema.TableColumn colvarDirectlyfromcurrencycloud = new TableSchema.TableColumn(schema);
+                colvarDirectlyfromcurrencycloud.ColumnName = "directlyfromcurrencycloud";
+                colvarDirectlyfromcurrencycloud.DataType = DbType.Int32;
+                colvarDirectlyfromcurrencycloud.MaxLength = 0;
+                colvarDirectlyfromcurrencycloud.AutoIncrement = false;
+                colvarDirectlyfromcurrencycloud.IsNullable = false;
+                colvarDirectlyfromcurrencycloud.IsPrimaryKey = false;
+                colvarDirectlyfromcurrencycloud.IsForeignKey = false;
+                colvarDirectlyfromcurrencycloud.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarDirectlyfromcurrencycloud);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -886,6 +922,48 @@ namespace Peerfx_DB{
 			    SetColumnValue("actual_service_fee", value);
             }
         }
+	      
+        [XmlAttribute("QuoteKeyActual")]
+        [Bindable(true)]
+        public int? QuoteKeyActual 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("quote_key_actual");
+		    }
+            set 
+		    {
+			    SetColumnValue("quote_key_actual", value);
+            }
+        }
+	      
+        [XmlAttribute("TreasuryType")]
+        [Bindable(true)]
+        public int? TreasuryType 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("treasury_type");
+		    }
+            set 
+		    {
+			    SetColumnValue("treasury_type", value);
+            }
+        }
+	      
+        [XmlAttribute("Directlyfromcurrencycloud")]
+        [Bindable(true)]
+        public int Directlyfromcurrencycloud 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int>("directlyfromcurrencycloud");
+		    }
+            set 
+		    {
+			    SetColumnValue("directlyfromcurrencycloud", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -953,6 +1031,12 @@ namespace Peerfx_DB{
             public static string ActualTxtBuyFull = @"actual_txt_Buy_full";
             
             public static string ActualServiceFee = @"actual_service_fee";
+            
+            public static string QuoteKeyActual = @"quote_key_actual";
+            
+            public static string TreasuryType = @"treasury_type";
+            
+            public static string Directlyfromcurrencycloud = @"directlyfromcurrencycloud";
             
 	    }
 	    #endregion

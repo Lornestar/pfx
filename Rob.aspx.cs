@@ -71,6 +71,7 @@ namespace Peerfx
                 int payment_key = Convert.ToInt32(sp_UpdatePayments.Command.Parameters[3].ParameterValue.ToString());
                 //update payment status to confirmed
                 Peerfx_DB.SPs.UpdatePaymentStatus(payment_key, 2).Execute();
+                Peerfx_DB.SPs.UpdatePaymentTreasury(payment_key, 1).Execute();
 
                 //calculate proper amounts
                 int productid = Convert.ToInt32(ddlembeecatalog.SelectedValue);
@@ -88,7 +89,7 @@ namespace Peerfx
 
                 //instantly convert the payment, because source funding is balance
                 //initiate conversion
-                sitetemp.payment_convert_currency(payment_key);
+                sitetemp.payment_initiate(payment_key);
 
                 lblresult.Text = "Top Up Sent";
             }

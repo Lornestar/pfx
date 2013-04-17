@@ -94,12 +94,36 @@ namespace Peerfx.Admin
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectpayment");
                 if (ddlconnectuser.SelectedIndex > -1)
                 {
-                    int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
-                    Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, userkey).Execute();
+                    int paymentskey = Convert.ToInt32(ddlconnectuser.SelectedValue);
+                    Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, paymentskey).Execute();
                     RadGrid1.Rebind();
                     
+                    //Send to complete payment
+                    Models.Payment paymenttemp = sitetemp.getPayment(paymentskey);
+                    sitetemp.payment_complete(paymenttemp);
+                }
+                else
+                {
+                    Label lblerror = (Label)item.FindControl("lblerror");
+                    lblerror.Text = "You must select a payment";
+                    lblerror.Visible = true;
+                }
+            }
+            else if (e.CommandName == "btnconnectCC")
+            {
+                //connect tx to a payment
+                GridDataItem item = (GridDataItem)e.Item;
+                int txkey = Convert.ToInt32(item["tx_external_key"].Text);
+                RadComboBox ddlconnectCC = (RadComboBox)item.FindControl("ddlconnectCC");
+                if (ddlconnectCC.SelectedIndex > -1)
+                {
+                    int paymentskey = Convert.ToInt32(ddlconnectCC.SelectedValue);
+                    Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, paymentskey).Execute();
+                    RadGrid1.Rebind();
+
                     //Send to currency conversion
-                    sitetemp.payment_convert_currency(userkey);
+                    Models.Payment paymenttemp = sitetemp.getPayment(paymentskey);
+                    sitetemp.payment_complete(paymenttemp);
                 }
                 else
                 {
@@ -185,7 +209,13 @@ namespace Peerfx.Admin
                     ddlconnectpayment.DataTextField = "payments_info";
                     ddlconnectpayment.DataValueField = "payments_key";
                     ddlconnectpayment.DataSource = sitetemp.view_payments_confirmed();
-                    ddlconnectpayment.DataBind();             
+                    ddlconnectpayment.DataBind();
+
+                    RadComboBox ddlconnectCC = (RadComboBox)item.FindControl("ddlconnectCC");
+                    ddlconnectCC.DataTextField = "payments_info";
+                    ddlconnectCC.DataValueField = "payments_key";
+                    ddlconnectCC.DataSource = Peerfx_DB.SPs.ViewCurrencyCloudTradesAwaitingFundsReturned().GetDataSet().Tables[0];
+                    ddlconnectCC.DataBind();
                 }                                
             }                  
             
@@ -292,7 +322,7 @@ namespace Peerfx.Admin
                 decimal amount = Convert.ToDecimal((insertedItem["amount"].FindControl("txtamount") as RadNumericTextBox).Text);
                 string bankreference = (insertedItem["bank_reference"].Controls[0] as TextBox).Text;
 
-                StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, currency, Convert.ToInt32(sender_bank_key), null, currentuser.User_key, sitetemp.get_ipaddress(), sender_bankaccount, null, null, null, null, null, null, 0,"","","");
+                StoredProcedure sp_UpdateBank_account = Peerfx_DB.SPs.UpdateBankAccounts(0, null, currency, Convert.ToInt32(sender_bank_key), null, currentuser.User_key, sitetemp.get_ipaddress(), sender_bankaccount, null, null, null, null, null, null, 0,"","","","","","");
                 sp_UpdateBank_account.Execute();
                 int bank_account_key = Convert.ToInt32(sp_UpdateBank_account.Command.Parameters[14].ParameterValue.ToString());
                 //Save payment object

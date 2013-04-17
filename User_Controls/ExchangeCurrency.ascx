@@ -69,7 +69,7 @@ function updatetable() {
     <tr>
         <td style="text-align:right;">
             <asp:Panel ID=pnlworking runat=server>
-            <table width=100%>
+            <table width=100%>                
                 <tr>
                     <td>Service Fee</td>
                     <td><asp:Label ID=lblservicefee runat=server>0.00</asp:Label> </td>
