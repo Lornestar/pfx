@@ -159,7 +159,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="/Exchange_Currency.aspx">
+                                                        <a href="/user/Deposit.aspx">
                                                             <div>
                                                               <img src="/images/icons/sendmoney.png" /> Deposit Money
                                                             </div>
@@ -168,7 +168,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="/Exchange_Currency.aspx">
+                                                        <a href="/user/Withdrawl.aspx">
                                                             <div>
                                                               <img src="/images/icons/sendmoney.png" /> Withdraw Money
                                                             </div>

@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(string CcSettlementid,DateTime? Releasedate,DateTime? InitiatedDate)
+	    public void Insert(string CcSettlementid,DateTime? Releasedate,DateTime? InitiatedDate,DateTime? FundsreceivedDate,DateTime? WithdrawlsentDate)
 	    {
 		    CurrencyCloudSettlement item = new CurrencyCloudSettlement();
 		    
@@ -90,6 +90,10 @@ namespace Peerfx_DB
             
             item.InitiatedDate = InitiatedDate;
             
+            item.FundsreceivedDate = FundsreceivedDate;
+            
+            item.WithdrawlsentDate = WithdrawlsentDate;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -98,7 +102,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(long CurrencycloudSettlementKey,string CcSettlementid,DateTime? Releasedate,DateTime? InitiatedDate)
+	    public void Update(long CurrencycloudSettlementKey,string CcSettlementid,DateTime? Releasedate,DateTime? InitiatedDate,DateTime? FundsreceivedDate,DateTime? WithdrawlsentDate)
 	    {
 		    CurrencyCloudSettlement item = new CurrencyCloudSettlement();
 	        item.MarkOld();
@@ -111,6 +115,10 @@ namespace Peerfx_DB
 			item.Releasedate = Releasedate;
 				
 			item.InitiatedDate = InitiatedDate;
+				
+			item.FundsreceivedDate = FundsreceivedDate;
+				
+			item.WithdrawlsentDate = WithdrawlsentDate;
 				
 	        item.Save(UserName);
 	    }

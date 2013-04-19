@@ -162,7 +162,7 @@ namespace Peerfx.User_Controls
 
             //save image
 
-            string file = folder + "\\" + e.File.FileName;
+            string file = folder + "\\" + e.File.FileName.Replace(" ", "");
             //AsyncUpload1.UploadedFiles[0].SaveAs(file);
 
             string fullurl = Request.Url.AbsoluteUri;

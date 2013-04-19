@@ -10,61 +10,43 @@
 namespace Peerfx.User_Controls {
     
     
-    public partial class Admin_ScheduledTask_CurrencyCloud {
+    public partial class Admin_CurrencyCloud_Deposits {
         
         /// <summary>
-        /// lblrun1lasttime control.
+        /// RadAjaxPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblrun1lasttime;
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
         
         /// <summary>
-        /// lblpendingtrades1 control.
+        /// RadTabStrip1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblpendingtrades1;
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
         
         /// <summary>
-        /// btndorun1 control.
+        /// RadMultiPage1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btndorun1;
+        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
         
         /// <summary>
-        /// lblrun2lasttime control.
+        /// RadPageView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblrun2lasttime;
-        
-        /// <summary>
-        /// lblpendingtrades2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblpendingtrades2;
-        
-        /// <summary>
-        /// btndorun2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btndorun2;
+        protected global::Telerik.Web.UI.RadPageView RadPageView1;
         
         /// <summary>
         /// RadGrid1 control.
@@ -76,31 +58,13 @@ namespace Peerfx.User_Controls {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
-        /// btnretryTrades control.
+        /// pnlpaymentdetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnretryTrades;
-        
-        /// <summary>
-        /// RadGrid2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
-        
-        /// <summary>
-        /// pnltradedetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnltradedetails;
+        protected global::System.Web.UI.WebControls.Panel pnlpaymentdetails;
         
         /// <summary>
         /// Paymentdetails1 control.

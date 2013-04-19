@@ -12,7 +12,7 @@
     <script src="../Scripts/Mixpanel.js" type="text/javascript"></script>
     <link href="../Peerfx.css" rel="stylesheet" type="text/css" />    
 </head>
-<body>
+<body class="mainbody2">
     <form id="form1" runat="server">
     <div>
         <telerik:RadScriptManager ID="ScriptManager" runat="server" />            
@@ -48,6 +48,9 @@
                                                 | <a href="Admin_Scheduled_Tasks.aspx">Scheduled<br />Tasks</a>
                                             </td>
                                             <td>
+                                                | <a href="Admin_CurrencyCloud.aspx">CurrencyCloud</a>
+                                            </td>
+                                            <td>
                                                 | Contact us
                                             </td>
                                             <td>
@@ -62,10 +65,12 @@
                 </tr>
                 <tr>
                     <td>
+                    <div style="min-height:640px; margin-top:30px;">
                     <b>ADMIN PAGES</b>
                         <asp:ContentPlaceHolder ID="Main" runat="server">
         
                         </asp:ContentPlaceHolder>
+                    </div>
                     </td>
                 </tr>
                 <tr>

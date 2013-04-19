@@ -12,7 +12,7 @@
         <telerik:RadListView ID="RadListView1" runat="server" Width=100% ItemPlaceholderID="ListViewContainer">                                
                           <LayoutTemplate>                            
                                 <table id="products" width=100% style="border:1px solid black;text-align:center;">
-                                        <tr style="background-color:#DDDDDD;">
+                                        <tr class="RadListview_Header">
                                             <td style="width:20%">
                                                 Currency
                                             </td>
@@ -31,7 +31,7 @@
                                 </table>                            
                         </LayoutTemplate>
                             <ItemTemplate>
-                                    <tr style="border-bottom:1px solid black;">
+                                    <tr >
                                         <td style="text-align:left;">
                                                 <%# Eval("info_currency_description") %>                                                
                                         </td>
@@ -46,6 +46,22 @@
                                         </td>            
                                     </tr>                        
                             </ItemTemplate>
+                            <AlternatingItemTemplate>
+                                    <tr class=RadListview_Alternating>
+                                        <td style="text-align:left;">
+                                                <%# Eval("info_currency_description") %>                                                
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <%# Eval("user_balance")%>
+                                        </td>                  
+                                        <td style="text-align:center;">
+                                            <%# Eval("overall_balance")%>
+                                        </td>          
+                                        <td style="text-align:center;">
+                                            <%# Eval("system_account_info_text") %>
+                                        </td>            
+                                    </tr>
+                            </AlternatingItemTemplate>
                         </telerik:RadListView>
 
 

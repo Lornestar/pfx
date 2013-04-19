@@ -178,6 +178,32 @@ namespace Peerfx_DB
 				colvarInitiatedDate.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarInitiatedDate);
 				
+				TableSchema.TableColumn colvarFundsreceivedDate = new TableSchema.TableColumn(schema);
+				colvarFundsreceivedDate.ColumnName = "fundsreceived_date";
+				colvarFundsreceivedDate.DataType = DbType.DateTime;
+				colvarFundsreceivedDate.MaxLength = 0;
+				colvarFundsreceivedDate.AutoIncrement = false;
+				colvarFundsreceivedDate.IsNullable = true;
+				colvarFundsreceivedDate.IsPrimaryKey = false;
+				colvarFundsreceivedDate.IsForeignKey = false;
+				colvarFundsreceivedDate.IsReadOnly = false;
+				colvarFundsreceivedDate.DefaultSetting = @"";
+				colvarFundsreceivedDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFundsreceivedDate);
+				
+				TableSchema.TableColumn colvarWithdrawlsentDate = new TableSchema.TableColumn(schema);
+				colvarWithdrawlsentDate.ColumnName = "withdrawlsent_date";
+				colvarWithdrawlsentDate.DataType = DbType.DateTime;
+				colvarWithdrawlsentDate.MaxLength = 0;
+				colvarWithdrawlsentDate.AutoIncrement = false;
+				colvarWithdrawlsentDate.IsNullable = true;
+				colvarWithdrawlsentDate.IsPrimaryKey = false;
+				colvarWithdrawlsentDate.IsForeignKey = false;
+				colvarWithdrawlsentDate.IsReadOnly = false;
+				colvarWithdrawlsentDate.DefaultSetting = @"";
+				colvarWithdrawlsentDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarWithdrawlsentDate);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -219,6 +245,22 @@ namespace Peerfx_DB
 			get { return GetColumnValue<DateTime?>(Columns.InitiatedDate); }
 			set { SetColumnValue(Columns.InitiatedDate, value); }
 		}
+		  
+		[XmlAttribute("FundsreceivedDate")]
+		[Bindable(true)]
+		public DateTime? FundsreceivedDate 
+		{
+			get { return GetColumnValue<DateTime?>(Columns.FundsreceivedDate); }
+			set { SetColumnValue(Columns.FundsreceivedDate, value); }
+		}
+		  
+		[XmlAttribute("WithdrawlsentDate")]
+		[Bindable(true)]
+		public DateTime? WithdrawlsentDate 
+		{
+			get { return GetColumnValue<DateTime?>(Columns.WithdrawlsentDate); }
+			set { SetColumnValue(Columns.WithdrawlsentDate, value); }
+		}
 		
 		#endregion
 		
@@ -239,7 +281,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(string varCcSettlementid,DateTime? varReleasedate,DateTime? varInitiatedDate)
+		public static void Insert(string varCcSettlementid,DateTime? varReleasedate,DateTime? varInitiatedDate,DateTime? varFundsreceivedDate,DateTime? varWithdrawlsentDate)
 		{
 			CurrencyCloudSettlement item = new CurrencyCloudSettlement();
 			
@@ -248,6 +290,10 @@ namespace Peerfx_DB
 			item.Releasedate = varReleasedate;
 			
 			item.InitiatedDate = varInitiatedDate;
+			
+			item.FundsreceivedDate = varFundsreceivedDate;
+			
+			item.WithdrawlsentDate = varWithdrawlsentDate;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -259,7 +305,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(long varCurrencycloudSettlementKey,string varCcSettlementid,DateTime? varReleasedate,DateTime? varInitiatedDate)
+		public static void Update(long varCurrencycloudSettlementKey,string varCcSettlementid,DateTime? varReleasedate,DateTime? varInitiatedDate,DateTime? varFundsreceivedDate,DateTime? varWithdrawlsentDate)
 		{
 			CurrencyCloudSettlement item = new CurrencyCloudSettlement();
 			
@@ -270,6 +316,10 @@ namespace Peerfx_DB
 				item.Releasedate = varReleasedate;
 			
 				item.InitiatedDate = varInitiatedDate;
+			
+				item.FundsreceivedDate = varFundsreceivedDate;
+			
+				item.WithdrawlsentDate = varWithdrawlsentDate;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -312,6 +362,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn FundsreceivedDateColumn
+        {
+            get { return Schema.Columns[4]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn WithdrawlsentDateColumn
+        {
+            get { return Schema.Columns[5]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -320,6 +384,8 @@ namespace Peerfx_DB
 			 public static string CcSettlementid = @"cc_settlementid";
 			 public static string Releasedate = @"releasedate";
 			 public static string InitiatedDate = @"initiated_date";
+			 public static string FundsreceivedDate = @"fundsreceived_date";
+			 public static string WithdrawlsentDate = @"withdrawlsent_date";
 						
 		}
 		#endregion

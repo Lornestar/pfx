@@ -10,114 +10,105 @@
 namespace Peerfx.User_Controls {
     
     
-    public partial class Admin_ScheduledTask_CurrencyCloud {
+    public partial class CurrencyCloud_TradeDetails {
         
         /// <summary>
-        /// lblrun1lasttime control.
+        /// lbltradeid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblrun1lasttime;
+        protected global::System.Web.UI.WebControls.Label lbltradeid;
         
         /// <summary>
-        /// lblpendingtrades1 control.
+        /// lblsellamount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblpendingtrades1;
+        protected global::System.Web.UI.WebControls.Label lblsellamount;
         
         /// <summary>
-        /// btndorun1 control.
+        /// lblsellcurrency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btndorun1;
+        protected global::System.Web.UI.WebControls.Label lblsellcurrency;
         
         /// <summary>
-        /// lblrun2lasttime control.
+        /// lblbuyamount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblrun2lasttime;
+        protected global::System.Web.UI.WebControls.Label lblbuyamount;
         
         /// <summary>
-        /// lblpendingtrades2 control.
+        /// lblbuycurrency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblpendingtrades2;
+        protected global::System.Web.UI.WebControls.Label lblbuycurrency;
         
         /// <summary>
-        /// btndorun2 control.
+        /// lblmarketrate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btndorun2;
+        protected global::System.Web.UI.WebControls.Label lblmarketrate;
         
         /// <summary>
-        /// RadGrid1 control.
+        /// lblclientrate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::System.Web.UI.WebControls.Label lblclientrate;
         
         /// <summary>
-        /// btnretryTrades control.
+        /// lbltradeddate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnretryTrades;
+        protected global::System.Web.UI.WebControls.Label lbltradeddate;
         
         /// <summary>
-        /// RadGrid2 control.
+        /// lblsettlementdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        protected global::System.Web.UI.WebControls.Label lblsettlementdate;
         
         /// <summary>
-        /// pnltradedetails control.
+        /// lbldeliverydate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnltradedetails;
+        protected global::System.Web.UI.WebControls.Label lbldeliverydate;
         
         /// <summary>
-        /// Paymentdetails1 control.
+        /// lblstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Peerfx.User_Controls.Payment_Details Paymentdetails1;
-        
-        /// <summary>
-        /// CCTradeDetails1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Peerfx.User_Controls.CurrencyCloud_TradeDetails CCTradeDetails1;
+        protected global::System.Web.UI.WebControls.Label lblstatus;
     }
 }

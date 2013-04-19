@@ -602,6 +602,10 @@ namespace Peerfx
             {
                 paymenttemp.Directlyfromcurrencycloud = Convert.ToInt32(dstemp.Tables[0].Rows[0]["directlyfromcurrencycloud"]);
             }
+            if (dstemp.Tables[0].Rows[0]["cc_tradeid"] != DBNull.Value)
+            {
+                paymenttemp.Currencycloudtradeid = dstemp.Tables[0].Rows[0]["cc_tradeid"].ToString();
+            }
             return paymenttemp;
         }
 
@@ -1473,7 +1477,7 @@ namespace Peerfx
             cc.Trade_Execute(paymenttemp.Payments_Key);
 
             //move money from payment object to cc object
-            Peerfx_DB.SPs.UpdateConvertCurrencyCurrencyCloudSendtoCC(paymenttemp.Payments_Key, get_ipaddress(), paymenttemp.Requestor_user_key).Execute();
+            Peerfx_DB.SPs.UpdateConvertCurrencyCurrencyCloudSendtoCC(paymenttemp.Payments_Key, get_ipaddress(), paymenttemp.Requestor_user_key).Execute();            
         }
 
         public void payment_insert_actual_quote(Payment paymenttemp)
@@ -1822,6 +1826,14 @@ namespace Peerfx
             return sendtopaymentobject;
         }
 
+        public Int64 get_PaymentObject_AdminBankAccounts(int currency, int country)
+        {
+            DataSet dstemp = Peerfx_DB.SPs.ViewAdminBankAccountCurrencyExchange(currency, country).GetDataSet();
+            Int64 sendtopaymentobject = Convert.ToInt64(dstemp.Tables[0].Rows[0]["payment_object_key"]);
+
+            return sendtopaymentobject;
+        }
+
         public Users get_treasury_account()
         {
             Users currentuser = new Users();
@@ -1908,6 +1920,19 @@ namespace Peerfx
             }
 
             return strreturn;
+        }
+
+        public int getCountryFromCurrency(int currencykey)
+        {
+            int intreturn = 0;
+
+            DataTable dttemp = Peerfx_DB.SPs.ViewInfoCurrenciesSpecific(currencykey).GetDataSet().Tables[0];
+            if (dttemp.Rows[0]["info_country_key"] != DBNull.Value)
+            {
+                intreturn = Convert.ToInt32(dttemp.Rows[0]["info_country_key"].ToString());
+            }
+
+            return intreturn;
         }
 
         public string getCountryValue(int countrykey)

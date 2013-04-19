@@ -38,6 +38,8 @@ namespace Peerfx_DB
         
 		public static readonly string CurrencyCloudTrade = @"CurrencyCloud_Trades";
         
+		public static readonly string CurrencyCloudTradesError = @"CurrencyCloud_Trades_Errors";
+        
 		public static readonly string EmbeeObject = @"Embee_Objects";
         
 		public static readonly string EmbeeCatalog = @"EmbeeCatalog";
@@ -169,6 +171,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table CurrencyCloudTrade
 		{
             get { return DataService.GetSchema("CurrencyCloud_Trades", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table CurrencyCloudTradesError
+		{
+            get { return DataService.GetSchema("CurrencyCloud_Trades_Errors", "Peerfx"); }
 		}
         
 		public static TableSchema.Table EmbeeObject
@@ -386,6 +393,12 @@ namespace Peerfx_DB
 		public static readonly string VwCurrency = @"vw_currencies";
         
 		public static readonly string VwCurrencyPairing = @"vw_currency_pairings";
+        
+		public static readonly string VwCurrencyCloudSettlement = @"vw_CurrencyCloud_Settlements";
+        
+		public static readonly string VwCurrencyCloudTrade = @"vw_CurrencyCloud_Trades";
+        
+		public static readonly string VwCurrencyCloudTradesError = @"vw_CurrencyCloud_Trades_Errors";
         
 		public static readonly string VwInfoBank = @"vw_info_banks";
         

@@ -253,7 +253,8 @@ namespace Peerfx.External_APIs
 
             if (paymenttemp.Directlyfromcurrencycloud == 0) //comes back to our local bank accounts
             {
-                ba = sitetemp.getBankAccounts(0, sitetemp.get_Payment_Object_sendmoneyto_For_Payment(paymentkey, paymenttemp.Buy_currency));
+                int country = sitetemp.getCountryFromCurrency(paymenttemp.Buy_currency);
+                ba = sitetemp.getBankAccounts(0, sitetemp.get_PaymentObject_AdminBankAccounts(paymenttemp.Buy_currency, country));
             }
             else //goes directly to recipient's bank account
             {
@@ -268,6 +269,8 @@ namespace Peerfx.External_APIs
             hstemp.Add("amount", paymenttemp.Buy_amount.ToString("F"));
             hstemp.Add("term_agreement", "true");
             
+            string strrequest = sitetemp.ConvertHashtabletoString(hstemp);
+
             strstatus = CallWeb_Request("/trade/execute_with_payment", hstemp);
             JObject o = JObject.Parse(strstatus);
             string status = (string)o["status"];
@@ -278,6 +281,14 @@ namespace Peerfx.External_APIs
                 JObject o2 = (JObject)o["data"];
                 string newtradeid = (string)o2["trade_id"];
                 Peerfx_DB.SPs.UpdateCurrencyCloudTrades(paymentkey, newtradeid).Execute();
+                Peerfx_DB.SPs.UpdatePaymentStatus(paymenttemp.Payments_Key, 9).Execute();
+                Peerfx_DB.SPs.DeleteCurrencyCloudTradesErrors(paymenttemp.Payments_Key).Execute();
+            }
+            else
+            {
+                tradesuccessful = false;
+                string message = (string)o["message"];
+                Peerfx_DB.SPs.UpdateCurrencyCloudTradesErrors(paymentkey, strrequest, strstatus).Execute();
             }
 
             return tradesuccessful;
@@ -351,7 +362,22 @@ namespace Peerfx.External_APIs
             return issuccess;
         }
 
+        public Hashtable getTradeDetails(string cctradeid)
+        {            
+            Hashtable hstemp = new Hashtable();
+            string strresponse = CallWeb_Request("/trade/" + cctradeid + "?", hstemp);
 
+            JObject o = JObject.Parse(strresponse);
+            string strstatus = (string)o["status"];
+            if (strstatus == "success")
+            {
+                JObject data = (JObject)o["data"];
+                hstemp.Clear();
+                hstemp = JsonConvert.DeserializeObject<Hashtable>(data.ToString());
+            }
+
+            return hstemp;
+        }
 
         private string geturl()
         {

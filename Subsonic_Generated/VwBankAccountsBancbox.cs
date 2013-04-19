@@ -381,6 +381,42 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarEmail);
                 
+                TableSchema.TableColumn colvarInstitutionNumber = new TableSchema.TableColumn(schema);
+                colvarInstitutionNumber.ColumnName = "institution_number";
+                colvarInstitutionNumber.DataType = DbType.AnsiString;
+                colvarInstitutionNumber.MaxLength = 4;
+                colvarInstitutionNumber.AutoIncrement = false;
+                colvarInstitutionNumber.IsNullable = true;
+                colvarInstitutionNumber.IsPrimaryKey = false;
+                colvarInstitutionNumber.IsForeignKey = false;
+                colvarInstitutionNumber.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarInstitutionNumber);
+                
+                TableSchema.TableColumn colvarBranchCode = new TableSchema.TableColumn(schema);
+                colvarBranchCode.ColumnName = "branch_code";
+                colvarBranchCode.DataType = DbType.AnsiString;
+                colvarBranchCode.MaxLength = 50;
+                colvarBranchCode.AutoIncrement = false;
+                colvarBranchCode.IsNullable = true;
+                colvarBranchCode.IsPrimaryKey = false;
+                colvarBranchCode.IsForeignKey = false;
+                colvarBranchCode.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBranchCode);
+                
+                TableSchema.TableColumn colvarBankName = new TableSchema.TableColumn(schema);
+                colvarBankName.ColumnName = "bank_name";
+                colvarBankName.DataType = DbType.String;
+                colvarBankName.MaxLength = 100;
+                colvarBankName.AutoIncrement = false;
+                colvarBankName.IsNullable = true;
+                colvarBankName.IsPrimaryKey = false;
+                colvarBankName.IsForeignKey = false;
+                colvarBankName.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarBankName);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -808,6 +844,48 @@ namespace Peerfx_DB{
 			    SetColumnValue("email", value);
             }
         }
+	      
+        [XmlAttribute("InstitutionNumber")]
+        [Bindable(true)]
+        public string InstitutionNumber 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("institution_number");
+		    }
+            set 
+		    {
+			    SetColumnValue("institution_number", value);
+            }
+        }
+	      
+        [XmlAttribute("BranchCode")]
+        [Bindable(true)]
+        public string BranchCode 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("branch_code");
+		    }
+            set 
+		    {
+			    SetColumnValue("branch_code", value);
+            }
+        }
+	      
+        [XmlAttribute("BankName")]
+        [Bindable(true)]
+        public string BankName 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("bank_name");
+		    }
+            set 
+		    {
+			    SetColumnValue("bank_name", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -869,6 +947,12 @@ namespace Peerfx_DB{
             public static string SortCode = @"SortCode";
             
             public static string Email = @"email";
+            
+            public static string InstitutionNumber = @"institution_number";
+            
+            public static string BranchCode = @"branch_code";
+            
+            public static string BankName = @"bank_name";
             
 	    }
 	    #endregion

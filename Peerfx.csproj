@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Admin_CurrencyCloud.aspx" />
     <Content Include="Admin\Admin_Default.aspx" />
     <Content Include="Admin\Admin_Deposits.aspx" />
     <Content Include="Admin\Admin_Payment.aspx" />
@@ -187,15 +188,19 @@
     <Content Include="Testing\TestScraping.aspx" />
     <Content Include="User\Add_Funds.aspx" />
     <Content Include="User\Dashboard.aspx" />
+    <Content Include="User\Deposit.aspx" />
     <Content Include="User\History.aspx" />
     <Content Include="User\Payment.aspx" />
     <Content Include="User\Recipients.aspx" />
     <Content Include="User\Settings.aspx" />
     <Content Include="User\Verification.aspx" />
     <Content Include="User\Withdraw.aspx" />
+    <Content Include="User\Withdrawl.aspx" />
+    <Content Include="User_Controls\Admin_CurrencyCloud_Deposits.ascx" />
     <Content Include="User_Controls\Admin_ScheduledTask_CurrencyCloud.ascx" />
     <Content Include="User_Controls\Admin_ScheduledTask_Embee.ascx" />
     <Content Include="User_Controls\BankAccountEntry.ascx" />
+    <Content Include="User_Controls\CurrencyCloud_TradeDetails.ascx" />
     <Content Include="User_Controls\ExchangeCurrency.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_FinePrint.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_NextSteps.ascx" />
@@ -228,6 +233,13 @@
     </Compile>
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Admin_CurrencyCloud.aspx.cs">
+      <DependentUpon>Admin_CurrencyCloud.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin_CurrencyCloud.aspx.designer.cs">
+      <DependentUpon>Admin_CurrencyCloud.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Admin_Default.aspx.cs">
       <DependentUpon>Admin_Default.aspx</DependentUpon>
@@ -480,6 +492,13 @@
     <Compile Include="User\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\Deposit.aspx.cs">
+      <DependentUpon>Deposit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Deposit.aspx.designer.cs">
+      <DependentUpon>Deposit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\History.aspx.cs">
       <DependentUpon>History.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -522,6 +541,20 @@
     <Compile Include="User\Withdraw.aspx.designer.cs">
       <DependentUpon>Withdraw.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\Withdrawl.aspx.cs">
+      <DependentUpon>Withdrawl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Withdrawl.aspx.designer.cs">
+      <DependentUpon>Withdrawl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\Admin_CurrencyCloud_Deposits.ascx.cs">
+      <DependentUpon>Admin_CurrencyCloud_Deposits.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\Admin_CurrencyCloud_Deposits.ascx.designer.cs">
+      <DependentUpon>Admin_CurrencyCloud_Deposits.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\Admin_ScheduledTask_CurrencyCloud.ascx.cs">
       <DependentUpon>Admin_ScheduledTask_CurrencyCloud.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -542,6 +575,13 @@
     </Compile>
     <Compile Include="User_Controls\BankAccountEntry.ascx.designer.cs">
       <DependentUpon>BankAccountEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\CurrencyCloud_TradeDetails.ascx.cs">
+      <DependentUpon>CurrencyCloud_TradeDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\CurrencyCloud_TradeDetails.ascx.designer.cs">
+      <DependentUpon>CurrencyCloud_TradeDetails.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\ExchangeCurrency.ascx.cs">
       <DependentUpon>ExchangeCurrency.ascx</DependentUpon>
@@ -687,7 +727,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

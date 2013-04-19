@@ -36,11 +36,11 @@
                                         <td>
                                             <table>
                                                 <tr>
-                                                    <td>Sender Paid</td>
+                                                    <td>Sender Pays</td>
                                                     <td><asp:Label ID="lblconfirmquotesendamount" runat=server>Send Amount</asp:Label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Receiver Got</td>
+                                                    <td>Receiver Gets</td>
                                                     <td><asp:Label ID="lblconfirmquotereceiveamount" runat=server>Get Amount</asp:Label></td>
                                                 </tr>
                                             </table>
@@ -60,7 +60,7 @@
                                                     <td><asp:Label ID=lblconfirmquoteservicefee runat=server>0.00</asp:Label> </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Receiver Got</td>
+                                                    <td>Receiver Gets</td>
                                                     <td><asp:Label ID="lblconfirmquoteyouget" runat=server>0.00</asp:Label></td>
                                                 </tr>
                                                 <tr>

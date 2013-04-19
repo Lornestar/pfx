@@ -40,6 +40,7 @@ namespace Peerfx.Models
         private int quote_key_actual;
         private int treasury_type;
         private int directlyfromcurrencycloud;
+        private string currencycloudtradeid;
 
         public int Payments_Key
         {
@@ -435,7 +436,19 @@ namespace Peerfx.Models
             {
                 directlyfromcurrencycloud = value;
             }
-        }        
+        }
+
+        public string Currencycloudtradeid
+        {
+            get
+            {
+                return currencycloudtradeid;
+            }
+            set
+            {
+                currencycloudtradeid = value;
+            }
+        }
 
     }
 }

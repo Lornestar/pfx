@@ -80,7 +80,7 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int PaymentsKey,long? SettlementKey,DateTime InitiatedDate,string CcTradeid,DateTime? SettlementDate,DateTime? FundsreceivedDate)
+	    public void Insert(int PaymentsKey,long? SettlementKey,DateTime InitiatedDate,string CcTradeid,DateTime? SettlementDate,DateTime? FundsreceivedDate,DateTime? WithdrawlsentDate)
 	    {
 		    CurrencyCloudTrade item = new CurrencyCloudTrade();
 		    
@@ -96,6 +96,8 @@ namespace Peerfx_DB
             
             item.FundsreceivedDate = FundsreceivedDate;
             
+            item.WithdrawlsentDate = WithdrawlsentDate;
+            
 	    
 		    item.Save(UserName);
 	    }
@@ -104,7 +106,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(long CurrencycloudTradeKey,int PaymentsKey,long? SettlementKey,DateTime InitiatedDate,string CcTradeid,DateTime? SettlementDate,DateTime? FundsreceivedDate)
+	    public void Update(long CurrencycloudTradeKey,int PaymentsKey,long? SettlementKey,DateTime InitiatedDate,string CcTradeid,DateTime? SettlementDate,DateTime? FundsreceivedDate,DateTime? WithdrawlsentDate)
 	    {
 		    CurrencyCloudTrade item = new CurrencyCloudTrade();
 	        item.MarkOld();
@@ -123,6 +125,8 @@ namespace Peerfx_DB
 			item.SettlementDate = SettlementDate;
 				
 			item.FundsreceivedDate = FundsreceivedDate;
+				
+			item.WithdrawlsentDate = WithdrawlsentDate;
 				
 	        item.Save(UserName);
 	    }
