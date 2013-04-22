@@ -56,39 +56,26 @@ namespace Peerfx.External_APIs
 
         public void Send_Email_Verification(int user_key)
         {
-            Site sitetemp = new Site();
+            Users currentuser = sitetemp.get_user_info(user_key);
             //create unique code & update db with it            
             string struniquecode = sitetemp.GenerateCode();            
             Peerfx_DB.SPs.UpdateVerificationEmail(user_key, false, sitetemp.get_ipaddress(), struniquecode).Execute();
 
-            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/account_created.txt"));
+            string thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/account_created.txt")) + getFooter();
 
             DataSet dstemp = Peerfx_DB.SPs.ViewUsersInfo(user_key).GetDataSet();
-
-            string first_name = "";
-            string last_name = "";
-            string email = "";
             string the_url = ConfigurationSettings.AppSettings["Verification_URL"] + struniquecode;
 
-            if (dstemp.Tables[0].Rows[0]["first_name"] != DBNull.Value)
-            { first_name = dstemp.Tables[0].Rows[0]["first_name"].ToString(); }
-            if (dstemp.Tables[0].Rows[0]["last_name"] != DBNull.Value)
-            { last_name = dstemp.Tables[0].Rows[0]["last_name"].ToString(); }
-            if (dstemp.Tables[0].Rows[0]["email"] != DBNull.Value)
-            { email = dstemp.Tables[0].Rows[0]["email"].ToString(); }            
-
-            thebody = thebody.Replace("FIRST_NAME", first_name);
-            thebody = thebody.Replace("LAST_NAME", last_name);
             thebody = thebody.Replace("THE_URL", the_url);
 
-            SimpleEmail(first_name + " " + last_name, "", email, "", thebody, "Passport email verification");
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport email verification");
         }
 
         public void Send_Email_Verification_Confirmed(int user_key)
         {
-            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/email_verification.txt"));
-
             Users currentuser = sitetemp.get_user_info(user_key);
+
+            string thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/email_verification.txt")) + getFooter();
 
             thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
             thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
@@ -99,33 +86,92 @@ namespace Peerfx.External_APIs
 
         public void Send_Email_Payment_Confirmed(int paymentkey, Users currentuser)
         {
-            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed.txt"));
+            Payment paymenttemp = sitetemp.getPayment(paymentkey);            
 
-            Payment paymenttemp = sitetemp.getPayment(paymentkey);
+            if (paymenttemp.Payment_object_receiver_type == 7)//embee top up
+            {
+                Send_Email_Payment_Confirmed_Embee(paymentkey);
+            }
+            else //all other types of payments
+            {
 
-            string peerfxbankaccount = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(paymentkey,paymenttemp.Sell_currency));
+                string thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed.txt")) + getPaymentdetails(paymentkey) + getFooter();
 
-            thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
-            thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
-            thebody = thebody.Replace("PAYMENTNUM", paymentkey.ToString());
-            thebody = thebody.Replace("SENDAMOUNT", sitetemp.GetCurrencySymbol(paymenttemp.Sell_currency) + " " + paymenttemp.Sell_amount.ToString("F"));
-            thebody = thebody.Replace("RECEIVERNAME", paymenttemp.Receiver_name);
-            thebody = thebody.Replace("BANKACCOUNTINFO", sitetemp.getBankAccountDescription(paymenttemp.Payment_object_receiver));
-            thebody = thebody.Replace("DESCRIPTION", paymenttemp.Payment_description);
-            thebody = thebody.Replace("BANKACCOUNT", peerfxbankaccount);
-            thebody = thebody.Replace("NEXTSTEPS", sitetemp.RenderUserControl("~/User_Controls/ExchangeCurrency_NextSteps.ascx"));
+                if (sitetemp.IsUserBalance(paymenttemp.Payment_object_sender)) //funding source is user balance
+                {                    
+                    thebody = thebody.Replace("DEPOSITINSTRUCTIONS", "");
+                }
+                else
+                {
+                    //funding source is bank account, include deposit instructions
+                    string thebodydepositinstructions = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed_depositinstructions.txt"));
+                    string peerfxbankaccount = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(currentuser.User_key, paymenttemp.Sell_currency));
 
-            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Payment Confirmed");
+                    thebody = thebody.Replace("DEPOSITINSTRUCTIONS", thebodydepositinstructions);
+                    thebody = thebody.Replace("BANKACCOUNT", peerfxbankaccount);
+                    thebody = thebody.Replace("NEXTSTEPS", sitetemp.RenderUserControl("~/User_Controls/ExchangeCurrency_NextSteps.ascx"));
+                }
+
+                     
+
+                SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Payment Confirmed");
+            }                     
         }
 
+        public void Send_Email_Payment_Completed(int paymentkey, Users currentuser)
+        {
+            Payment paymenttemp = sitetemp.getPayment(paymentkey);            
+
+            string thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_completed.txt")) + getPaymentdetails(paymentkey) + getFooter();
+
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Payment Completed");
+        }
+
+        public string getHeader(string fullname)
+        {
+            string strreturn = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/header.txt"));
+            strreturn = strreturn.Replace("FULL_NAME", fullname);
+            return strreturn;
+        }
+
+        public string getFooter()
+        {
+            string strreturn = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/footer.txt"));            
+            return strreturn;
+        }
+
+        public string getPaymentdetails(int paymentkey)
+        {
+            string strreturn = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_details.txt"));
+            Payment paymenttemp = sitetemp.getPayment(paymentkey);
+
+            if (paymenttemp.Payment_object_receiver_type == 3)
+            {
+                //going to user balance
+                strreturn = strreturn.Replace("BANKACCOUNTINFO", "Passport Balance");
+            }
+            else //going to bank account
+            {
+                strreturn = strreturn.Replace("BANKACCOUNTINFO", sitetemp.getBankAccountDescription(paymenttemp.Payment_object_receiver));
+            }
+
+
+            strreturn = strreturn.Replace("PAYMENTNUM", paymentkey.ToString());
+            strreturn = strreturn.Replace("SENDAMOUNT", sitetemp.GetCurrencySymbol(paymenttemp.Sell_currency) + " " + paymenttemp.Sell_amount.ToString("F") + " " + sitetemp.getcurrencycode(paymenttemp.Sell_currency));
+            strreturn = strreturn.Replace("RECEIVERNAME", paymenttemp.Receiver_name);
+            strreturn = strreturn.Replace("DESCRIPTION", paymenttemp.Payment_description);           
+
+            return strreturn;
+        }
 
         public void Send_Email_Payment_Completed_Embee(int paymentkey)
-        {
-            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_completed_embee.txt"));
+        {            
 
             EmbeeObject embeetemp = sitetemp.getEmbeeObject(paymentkey);
             Payment paymenttemp = sitetemp.getPayment(embeetemp.Payment_key);
             Users currentuser = sitetemp.get_user_info(paymenttemp.Requestor_user_key);
+
+            string thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_completed_embee.txt")) + getFooter();
 
             thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
             thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
@@ -140,11 +186,12 @@ namespace Peerfx.External_APIs
 
         public void Send_Email_Payment_Confirmed_Embee(int paymentkey)
         {
-            string thebody = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed_embee.txt"));
-
+            
             EmbeeObject embeetemp = sitetemp.getEmbeeObject(paymentkey);
             Payment paymenttemp = sitetemp.getPayment(embeetemp.Payment_key);
             Users currentuser = sitetemp.get_user_info(paymenttemp.Requestor_user_key);
+
+            string thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/payment_confirmed_embee.txt")) + getFooter();
 
             thebody = thebody.Replace("FIRST_NAME", currentuser.First_name);
             thebody = thebody.Replace("LAST_NAME", currentuser.Last_name);
@@ -156,6 +203,35 @@ namespace Peerfx.External_APIs
 
             SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Top Up Confirmed");
         }
+
+
+        public void Send_Email_Deposit_Received(int userkey, int paymentkey, int deposittype, decimal amount, int currency)
+        {
+            //deposit types -->
+            // 0 = user balance
+            // 1 = payment
+            Users currentuser = sitetemp.get_user_info(userkey);
+
+            string thebody;                     
+
+            string thebodymessage;
+            if (deposittype == 0)
+            {
+                thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/deposit_received.txt")) + getFooter();
+                thebodymessage = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/deposit_received_messageuserbalance.txt"));
+                thebody = thebody.Replace("THEMESSAGE", thebodymessage);
+            }
+            else
+            {
+                thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/deposit_received.txt")) + getPaymentdetails(paymentkey) + getFooter();
+                thebodymessage = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/deposit_received_messagepayment.txt"));
+                thebody = thebody.Replace("THEMESSAGE", thebodymessage);
+            }
+
+            thebody = thebody.Replace("THEAMOUNT", sitetemp.GetCurrencySymbol(currency) + amount.ToString("F") + " " + sitetemp.getcurrencycode(currency) );
+
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Deposit Received");
+        }        
 
     }
 }

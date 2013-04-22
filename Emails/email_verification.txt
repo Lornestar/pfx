@@ -1,6 +1,4 @@
-﻿<div>
-Hi FIRST_NAME LAST_NAME,
-</div>
+﻿
 <p>
 Thank you for confirming your email.
 </p>
@@ -12,8 +10,4 @@ Start exchange money at <a href="THE_URL">THE_URL</a>
 
 <p>
 Thanks again for joining up!
-<br />
-At your service
 </p>
-
-Passport Service Team.

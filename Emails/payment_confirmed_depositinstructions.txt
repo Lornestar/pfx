@@ -1,0 +1,27 @@
+﻿<table style="background-color:EEEEEE;">
+    <tr valign=top>
+        <td>
+            NEXTSTEPS
+        </td>
+        <td style="border:1px solid black; width:50%">
+            <table>
+                <tr>
+                    <td>PassportFX Deposit Account</td>
+                </tr>
+                <tr>
+                    <td>Amount:
+                        <br />
+                        SENDAMOUNT
+                    </td>
+                </tr>                
+                <tr>
+                    <td>
+                        Send To:
+                        <br />
+                        BANKACCOUNT
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

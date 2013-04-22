@@ -149,6 +149,8 @@
                                     <telerik:GridDropDownColumn DataField="receiver_bank_name" HeaderText="System Bank Account" SortExpression="bank_name" DropDownControlType=RadComboBox 
                                         UniqueName="receiver_bank_name">
                                     </telerik:GridDropDownColumn>                                    
+                                    <telerik:GridBoundColumn DataField="info_currencies_key" HeaderText="Currency" UniqueName="info_currencies_key" Visible=false>
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridTemplateColumn DataField="info_currency_code" HeaderText="Currency" UniqueName="info_currency_code" >
                                         <InsertItemTemplate>
                                             <telerik:RadComboBox ID="ddlcurrency" runat="server" Width="150px">
@@ -181,7 +183,7 @@
                                                 <tr>
                                                     <td>
                                                         <telerik:RadButton ID=btnconnectuser runat=server Text="Connect User" CommandName="btnconnectuser"></telerik:RadButton>                                                                               <telerik:RadButton ID=btnconnectpayment runat=server Text="Connect Payment" CommandName="btnconnectpayment"></telerik:RadButton>
-                                                        <telerik:RadButton ID=btnconnectCC runat=server Text="Connect CurrencyCloud" CommandName="btnconnectCC"></telerik:RadButton>
+                                                        <telerik:RadButton ID=btnconnectCC runat=server Text="Connect CurrencyCloud" CommandName="btnconnectCC" Visible=false></telerik:RadButton>
                                                         <telerik:RadButton ID=btnremovedeposit runat=server Text="Remove" CommandName="btnremovedeposit"></telerik:RadButton>
                                                     </td>
                                                 </tr>
@@ -200,7 +202,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <telerik:RadComboBox ID=ddlconnectCC runat=server EmptyMessage="Choose CurrencyCloud" Width=400>
+                                                        <telerik:RadComboBox ID=ddlconnectCC runat=server EmptyMessage="Choose CurrencyCloud" Width=400 Visible=false>
                                                         </telerik:RadComboBox>
                                                     </td>
                                                 </tr>

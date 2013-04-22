@@ -17,6 +17,19 @@ namespace Peerfx.User_Controls
 
         public void LoadInfo(string cctradeid)
         {
+
+            lblbuyamount.Text = "";
+            lblbuycurrency.Text = "";
+            lblclientrate.Text = "";
+            lbldeliverydate.Text = "";
+            lblmarketrate.Text = "";
+            lblsellamount.Text = "";
+            lblsellcurrency.Text = "";
+            lblsettlementdate.Text = "";
+            lblstatus.Text = "";
+            lbltradeddate.Text = "";
+            lbltradeid.Text = "";
+
             if (cctradeid != null)
             {
                 if (cctradeid != "")

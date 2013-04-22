@@ -99,6 +99,7 @@ namespace Peerfx.User_Controls
             Paymentdetails1.LoadInfo(paymentskey);
             Payment paymenttemp = sitetemp.getPayment(paymentskey);
             CCTradeDetails1.LoadInfo(paymenttemp.Currencycloudtradeid);
+            CCPaymentDetails1.LoadInfo(paymenttemp.Currencycloudpaymentid);
         }
 
         protected void btnretryTrades_Click(object sender, EventArgs e)

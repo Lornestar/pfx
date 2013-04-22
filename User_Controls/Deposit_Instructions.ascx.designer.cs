@@ -7,45 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Peerfx.User {
+namespace Peerfx.User_Controls {
     
     
-    public partial class Deposit {
+    public partial class Deposit_Instructions {
         
         /// <summary>
-        /// RadAjaxPanel1 control.
+        /// BankAccountEntry1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
+        protected global::Peerfx.User_Controls.BankAccountEntry BankAccountEntry1;
         
         /// <summary>
-        /// ddlcurrency control.
+        /// pnlreference control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox ddlcurrency;
+        protected global::System.Web.UI.WebControls.Panel pnlreference;
         
         /// <summary>
-        /// pnlinstructions control.
+        /// lblreference control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlinstructions;
-        
-        /// <summary>
-        /// DepositInstructions1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Peerfx.User_Controls.Deposit_Instructions DepositInstructions1;
+        protected global::System.Web.UI.WebControls.Label lblreference;
     }
 }

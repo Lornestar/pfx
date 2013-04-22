@@ -27,6 +27,8 @@ namespace Peerfx.User_Controls
                 RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Clear();                
                 RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Add(new GridGroupByExpression("sell_currency_text Group By sell_currency_text"));
                 RadGrid1.MasterTableView.Columns[5].Visible = true;
+                RadGrid1.MasterTableView.DetailTables[0].Columns[5].Visible = true;
+                RadGrid1.MasterTableView.DetailTables[0].Columns[6].Visible = false;
             }
             else if (RadTabStrip1.SelectedIndex == 1)
             {
@@ -35,13 +37,17 @@ namespace Peerfx.User_Controls
                 RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Clear();
                 RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Add(new GridGroupByExpression("buy_currency_text Group By buy_currency_text"));
                 RadGrid1.MasterTableView.Columns[5].Visible = true;
+                RadGrid1.MasterTableView.DetailTables[0].Columns[5].Visible = true;
+                RadGrid1.MasterTableView.DetailTables[0].Columns[6].Visible = false;
             }
             else if (RadTabStrip1.SelectedIndex == 2)
             {
                 RadGrid1.DataSource = Peerfx_DB.SPs.ViewCurrencyCloudSettlementBystatus(4).GetDataSet().Tables[0];
                 RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Clear();
-                RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Add(new GridGroupByExpression("buy_currency_text Group By buy_currency_text"));
+                //RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Add(new GridGroupByExpression("buy_currency_text Group By buy_currency_text"));
                 RadGrid1.MasterTableView.Columns[5].Visible = false;
+                RadGrid1.MasterTableView.DetailTables[0].Columns[5].Visible = false;
+                RadGrid1.MasterTableView.DetailTables[0].Columns[6].Visible = true;
             }
         }
 
@@ -67,7 +73,7 @@ namespace Peerfx.User_Controls
             int cc_settlement_key = Convert.ToInt32(dataItem.GetDataKeyValue("currencycloud_settlement_key"));
 
             DataTable dttemp = new DataTable();
-            if ((RadTabStrip1.SelectedIndex == 1) || (RadTabStrip1.SelectedIndex == 2))
+            if ((RadTabStrip1.SelectedIndex == 0) || (RadTabStrip1.SelectedIndex == 1))
             {
                 dttemp = Peerfx_DB.SPs.ViewCurrencyCloudTradesBysettlementkeyBydirectlyfromcurrencycloud(cc_settlement_key, 0).GetDataSet().Tables[0];
             }
@@ -123,6 +129,7 @@ namespace Peerfx.User_Controls
             Paymentdetails1.LoadInfo(paymentskey);
             Payment paymenttemp = sitetemp.getPayment(paymentskey);
             CCTradeDetails1.LoadInfo(paymenttemp.Currencycloudtradeid);
+            CCPaymentDetails1.LoadInfo(paymenttemp.Currencycloudpaymentid);
         }
         
     }

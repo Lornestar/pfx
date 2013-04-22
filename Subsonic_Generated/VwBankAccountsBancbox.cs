@@ -321,22 +321,10 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarOrganizationName);
                 
-                TableSchema.TableColumn colvarCountryText = new TableSchema.TableColumn(schema);
-                colvarCountryText.ColumnName = "country_text";
-                colvarCountryText.DataType = DbType.String;
-                colvarCountryText.MaxLength = 50;
-                colvarCountryText.AutoIncrement = false;
-                colvarCountryText.IsNullable = true;
-                colvarCountryText.IsPrimaryKey = false;
-                colvarCountryText.IsForeignKey = false;
-                colvarCountryText.IsReadOnly = false;
-                
-                schema.Columns.Add(colvarCountryText);
-                
                 TableSchema.TableColumn colvarCurrencyText = new TableSchema.TableColumn(schema);
                 colvarCurrencyText.ColumnName = "currency_text";
                 colvarCurrencyText.DataType = DbType.String;
-                colvarCurrencyText.MaxLength = 50;
+                colvarCurrencyText.MaxLength = 3;
                 colvarCurrencyText.AutoIncrement = false;
                 colvarCurrencyText.IsNullable = true;
                 colvarCurrencyText.IsPrimaryKey = false;
@@ -344,6 +332,18 @@ namespace Peerfx_DB{
                 colvarCurrencyText.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarCurrencyText);
+                
+                TableSchema.TableColumn colvarExpr2 = new TableSchema.TableColumn(schema);
+                colvarExpr2.ColumnName = "Expr2";
+                colvarExpr2.DataType = DbType.String;
+                colvarExpr2.MaxLength = 50;
+                colvarExpr2.AutoIncrement = false;
+                colvarExpr2.IsNullable = true;
+                colvarExpr2.IsPrimaryKey = false;
+                colvarExpr2.IsForeignKey = false;
+                colvarExpr2.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarExpr2);
                 
                 TableSchema.TableColumn colvarBsb = new TableSchema.TableColumn(schema);
                 colvarBsb.ColumnName = "BSB";
@@ -416,6 +416,18 @@ namespace Peerfx_DB{
                 colvarBankName.IsReadOnly = false;
                 
                 schema.Columns.Add(colvarBankName);
+                
+                TableSchema.TableColumn colvarCountryText = new TableSchema.TableColumn(schema);
+                colvarCountryText.ColumnName = "country_text";
+                colvarCountryText.DataType = DbType.String;
+                colvarCountryText.MaxLength = 50;
+                colvarCountryText.AutoIncrement = false;
+                colvarCountryText.IsNullable = true;
+                colvarCountryText.IsPrimaryKey = false;
+                colvarCountryText.IsForeignKey = false;
+                colvarCountryText.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarCountryText);
                 
                 
                 BaseSchema = schema;
@@ -775,20 +787,6 @@ namespace Peerfx_DB{
             }
         }
 	      
-        [XmlAttribute("CountryText")]
-        [Bindable(true)]
-        public string CountryText 
-	    {
-		    get
-		    {
-			    return GetColumnValue<string>("country_text");
-		    }
-            set 
-		    {
-			    SetColumnValue("country_text", value);
-            }
-        }
-	      
         [XmlAttribute("CurrencyText")]
         [Bindable(true)]
         public string CurrencyText 
@@ -800,6 +798,20 @@ namespace Peerfx_DB{
             set 
 		    {
 			    SetColumnValue("currency_text", value);
+            }
+        }
+	      
+        [XmlAttribute("Expr2")]
+        [Bindable(true)]
+        public string Expr2 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("Expr2");
+		    }
+            set 
+		    {
+			    SetColumnValue("Expr2", value);
             }
         }
 	      
@@ -886,6 +898,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("bank_name", value);
             }
         }
+	      
+        [XmlAttribute("CountryText")]
+        [Bindable(true)]
+        public string CountryText 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("country_text");
+		    }
+            set 
+		    {
+			    SetColumnValue("country_text", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -938,9 +964,9 @@ namespace Peerfx_DB{
             
             public static string OrganizationName = @"organization_name";
             
-            public static string CountryText = @"country_text";
-            
             public static string CurrencyText = @"currency_text";
+            
+            public static string Expr2 = @"Expr2";
             
             public static string Bsb = @"BSB";
             
@@ -953,6 +979,8 @@ namespace Peerfx_DB{
             public static string BranchCode = @"branch_code";
             
             public static string BankName = @"bank_name";
+            
+            public static string CountryText = @"country_text";
             
 	    }
 	    #endregion

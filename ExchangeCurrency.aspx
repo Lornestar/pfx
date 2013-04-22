@@ -4,6 +4,7 @@
 <%@ Register Src="~/User_Controls/ExchangeCurrency_FinePrint.ascx" tagname="ExchangeCurrency_FinePrint" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/ExchangeCurrency_NextSteps.ascx" tagname="ExchangeCurrency_NextSteps" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/BankAccountEntry.ascx" tagname="BankAccountEntry" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/Deposit_Instructions.ascx" tagname="DepositInstructions" tagprefix="uc1" %>
 
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
 
@@ -449,6 +450,10 @@
                                         <td>
                                             <table>
                                                 <tr>
+                                                    <td>Money Arrives</td>
+                                                    <td><asp:Label ID=lblconfirmmoneyarrives runat=server></asp:Label></td>
+                                                </tr>
+                                                <tr>
                                                     <td>Service Fee</td>
                                                     <td><asp:Label ID=lblconfirmquoteservicefee runat=server>0.00</asp:Label> </td>
                                                 </tr>
@@ -615,7 +620,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td colspan=2>
                                             <uc1:ExchangeCurrency_FinePrint id="ExchangeCurrency_FinePrint3" runat="server"></uc1:ExchangeCurrency_FinePrint>
                                         </td>
                                     </tr>
@@ -628,27 +633,8 @@
                                         <td>
                                             <uc1:ExchangeCurrency_NextSteps id="ExchangeCurrency_NextSteps" runat=server></uc1:ExchangeCurrency_NextSteps>
                                         </td>
-                                        <td style="border:1px solid black; width:50%">
-                                            <table>
-                                                <tr>
-                                                    <td><b>Peerfx Deposit Account</b>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    Amount:
-                                                    <br />
-                                                    <asp:Label ID=lblalreadyconfirmedquotesenderamount2 runat=server>amount</asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Send To:
-                                                        <br />
-                                                        <asp:Label ID=lblalreadyconfirmedpeerfxbankaccount runat=server></asp:Label>
-                                                    </td>
-                                                </tr>                                                
-                                            </table>
+                                        <td style="width:50%">
+                                            <uc1:DepositInstructions id="DepositInstructions1" runat=server></uc1:DepositInstructions>                                            
                                         </td>                                        
                                     </tr>
                                 </table>

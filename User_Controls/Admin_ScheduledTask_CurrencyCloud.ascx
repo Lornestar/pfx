@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Admin_ScheduledTask_CurrencyCloud.ascx.cs" Inherits="Peerfx.User_Controls.Admin_ScheduledTask_CurrencyCloud" %>
+
 <%@ Register Src="~/User_Controls/Payment_Details.ascx" tagname="PaymentDetails" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/CurrencyCloud_TradeDetails.ascx" tagname="CCTradeDetails" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/CurrencyCloud_PaymentDetails.ascx" tagname="CCPaymentDetails" tagprefix="uc1" %>
 
 <center>
 <table width=100%>
@@ -103,11 +105,21 @@
     <tr>
         <td>
             <asp:Panel ID=pnltradedetails runat=server Visible=false>
-            <div class="Exchange_Header">Payment Details</div>
+            <div class="Exchange_Header">Payment Details</div>            
                     <uc1:PaymentDetails id="Paymentdetails1" runat="server"></uc1:PaymentDetails>
                     <hr />
-                    <div class="Exchange_Header">Trade details (from CC)</div>
-                    <uc1:CCTradeDetails id="CCTradeDetails1" runat="server"></uc1:CCTradeDetails>
+                    <table width=100%>
+                        <tr valign=top>
+                            <td>
+                                <div class="Exchange_Header">Trade details (from CC)</div>
+                                <uc1:CCTradeDetails id="CCTradeDetails1" runat="server"></uc1:CCTradeDetails>
+                            </td>
+                            <td>
+                                <div class="Exchange_Header">CC Payment details (from CC)</div>                                
+                                <uc1:CCPaymentDetails ID="CCPaymentDetails1" runat=server ></uc1:CCPaymentDetails>
+                            </td>
+                        </tr>
+                    </table>                    
                 </asp:Panel>
         </td>
     </tr>

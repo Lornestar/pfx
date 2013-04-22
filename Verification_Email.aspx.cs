@@ -35,6 +35,8 @@ namespace Peerfx
                     //Send email to confirm validation
                     Peerfx.External_APIs.SendGrid se = new External_APIs.SendGrid();
                     se.Send_Email_Verification_Confirmed(user_key);
+
+                    sitetemp.VerificationReward(1, user_key);
                 }
             }
         }

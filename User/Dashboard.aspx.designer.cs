@@ -94,6 +94,15 @@ namespace Peerfx.User {
         protected global::Telerik.Web.UI.RadProgressArea RadProgressArea1;
         
         /// <summary>
+        /// lblaccountnumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblaccountnumber;
+        
+        /// <summary>
         /// pnlnetbalance control.
         /// </summary>
         /// <remarks>

@@ -1,7 +1,4 @@
-﻿<div>
-Hi FIRST_NAME LAST_NAME,
-</div>
-<p>
+﻿<p>
 Your Top Up request has been completed:
 <br />
 $ TOPUPPRICE USD - TOPUPDESCRIPTION
@@ -14,8 +11,3 @@ Message - THEMESSAGE
 <br />
 </p>      
 
-<p>
-At your service
-<br />
-Passport Service Team.
-</p>

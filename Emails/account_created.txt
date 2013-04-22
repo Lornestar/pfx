@@ -1,7 +1,4 @@
-﻿<div>
-Hi FIRST_NAME LAST_NAME,
-</div>
-<p>
+﻿<p>
 Thank you for joining up - we're delighted!
 </p>
 <p style="background-color:#EEEEEE;">
@@ -17,8 +14,4 @@ Once you are happy with your account, please activate it by completing your "abo
 
 <p>
 Thanks again for joining up!
-<br />
-At your service
 </p>
-
-Passport Service Team.

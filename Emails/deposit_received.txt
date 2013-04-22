@@ -1,0 +1,3 @@
+﻿<p>
+We have received your deposit of THEAMOUNT. THEMESSAGE
+</p>

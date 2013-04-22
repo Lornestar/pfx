@@ -2,6 +2,7 @@
 
 <%@ Register Src="~/User_Controls/Payment_Details.ascx" tagname="PaymentDetails" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/CurrencyCloud_TradeDetails.ascx" tagname="CCTradeDetails" tagprefix="uc1" %>
+<%@ Register Src="~/User_Controls/CurrencyCloud_PaymentDetails.ascx" tagname="CCPaymentDetails" tagprefix="uc1" %>
 
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1">
 
@@ -44,6 +45,8 @@
                                             <telerik:GridBoundColumn DataField="txt_Buy_full" HeaderText="Buying" SortExpression="txt_Buy_full">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="initiated_date" HeaderText="Initiated Date" SortExpression="initiated_date">
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="directlyfromcurrencycloud" HeaderText="CC sends directly to bank (1=YES)" SortExpression="directlyfromcurrencycloud">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridTemplateColumn HeaderText="Actions">
                                                         <ItemTemplate>
@@ -90,9 +93,19 @@
                     <div class="Exchange_Header">Payment Details</div>
                     <uc1:PaymentDetails id="Paymentdetails1" runat="server"></uc1:PaymentDetails>
                     <hr />
-                    <div class="Exchange_Header">CC Trade details (from CC)</div>
-                    <uc1:CCTradeDetails id="CCTradeDetails1" runat="server"></uc1:CCTradeDetails>                    
-                    </div>
+                    <table width=100%>
+                        <tr valign=top>
+                            <td>
+                                <div class="Exchange_Header">CC Trade details (from CC)</div>
+                                <uc1:CCTradeDetails id="CCTradeDetails1" runat="server"></uc1:CCTradeDetails>                    
+                            </td>
+                            <td>
+                                <div class="Exchange_Header">CC Payment details (from CC)</div>
+                                <uc1:CCPaymentDetails ID="CCPaymentDetails1" runat=server />
+                            </td>
+                        </tr>
+                    </table>                    
+                    
                     </asp:panel>
                 
 

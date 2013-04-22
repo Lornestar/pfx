@@ -1,0 +1,25 @@
+﻿<table>
+    <tr>
+        <td><b>Payment #PAYMENTNUM</b></td>
+    </tr>
+    <tr>        
+        <td>
+            SENDAMOUNT
+        </td>
+    </tr>
+    <tr>        
+        <td>
+            send to RECEIVERNAME
+        </td>
+    </tr>
+    <tr>
+        <td>
+            BANKACCOUNTINFO
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Description - DESCRIPTION
+        </td>
+    </tr>
+</table>

@@ -268,6 +268,7 @@ namespace Peerfx.External_APIs
             hstemp.Add("side", "1");
             hstemp.Add("amount", paymenttemp.Buy_amount.ToString("F"));
             hstemp.Add("term_agreement", "true");
+            hstemp.Add("return_details", "true");
             
             string strrequest = sitetemp.ConvertHashtabletoString(hstemp);
 
@@ -280,7 +281,10 @@ namespace Peerfx.External_APIs
                 //record new tradeid
                 JObject o2 = (JObject)o["data"];
                 string newtradeid = (string)o2["trade_id"];
-                Peerfx_DB.SPs.UpdateCurrencyCloudTrades(paymentkey, newtradeid).Execute();
+                JArray o3 = (JArray)o2["payments"];
+                string newccpaymentid = (string)o3[0];
+
+                Peerfx_DB.SPs.UpdateCurrencyCloudTrades(paymentkey, newtradeid,newccpaymentid).Execute();
                 Peerfx_DB.SPs.UpdatePaymentStatus(paymenttemp.Payments_Key, 9).Execute();
                 Peerfx_DB.SPs.DeleteCurrencyCloudTradesErrors(paymenttemp.Payments_Key).Execute();
             }
@@ -374,6 +378,26 @@ namespace Peerfx.External_APIs
                 JObject data = (JObject)o["data"];
                 hstemp.Clear();
                 hstemp = JsonConvert.DeserializeObject<Hashtable>(data.ToString());
+            }
+
+            return hstemp;
+        }
+
+        public Hashtable getPaymentDetails(string ccpaymentid)
+        {
+            Hashtable hstemp = new Hashtable();
+            string strresponse = CallWeb_Request("/payment/" + ccpaymentid + "?", hstemp);
+
+            JObject o = JObject.Parse(strresponse);
+            string strstatus = (string)o["status"];
+            if (strstatus == "success")
+            {
+                JObject data = (JObject)o["data"];
+                hstemp.Clear();
+                if (data != null)
+                {
+                    hstemp = JsonConvert.DeserializeObject<Hashtable>(data.ToString());
+                }                
             }
 
             return hstemp;

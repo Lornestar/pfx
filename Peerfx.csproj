@@ -144,15 +144,27 @@
     <Content Include="Default.aspx" />
     <Content Include="Emails\account_created.html" />
     <Content Include="Emails\account_created.txt" />
+    <Content Include="Emails\deposit_received.html" />
+    <Content Include="Emails\deposit_received.txt" />
+    <Content Include="Emails\deposit_received_messagepayment.txt" />
+    <Content Include="Emails\deposit_received_messageuserbalance.txt" />
     <Content Include="Emails\email_verification.htm" />
     <Content Include="Emails\email_verification.txt" />
     <Content Include="Emails\ErrorEmail.htm" />
     <Content Include="Emails\ErrorEmail.txt" />
+    <Content Include="Emails\footer.txt" />
+    <Content Include="Emails\header.txt" />
+    <Content Include="Emails\payment_completed.html" />
+    <Content Include="Emails\payment_completed.txt" />
+    <Content Include="Emails\payment_confirmed_depositinstructions.html" />
+    <Content Include="Emails\payment_confirmed_depositinstructions.txt" />
     <Content Include="Emails\payment_confirmed_Embee.html" />
     <Content Include="Emails\payment_completed_Embee.htm" />
     <Content Include="Emails\payment_completed_embee.txt" />
     <Content Include="Emails\payment_confirmed.html" />
     <Content Include="Emails\payment_confirmed.txt" />
+    <Content Include="Emails\payment_confirmed_Embee.txt" />
+    <Content Include="Emails\payment_details.txt" />
     <Content Include="Embee\EmbeeIPN.aspx" />
     <Content Include="ExchangeCurrency.aspx" />
     <Content Include="External APIs\homesendtest.txt" />
@@ -195,12 +207,13 @@
     <Content Include="User\Settings.aspx" />
     <Content Include="User\Verification.aspx" />
     <Content Include="User\Withdraw.aspx" />
-    <Content Include="User\Withdrawl.aspx" />
     <Content Include="User_Controls\Admin_CurrencyCloud_Deposits.ascx" />
     <Content Include="User_Controls\Admin_ScheduledTask_CurrencyCloud.ascx" />
     <Content Include="User_Controls\Admin_ScheduledTask_Embee.ascx" />
     <Content Include="User_Controls\BankAccountEntry.ascx" />
+    <Content Include="User_Controls\CurrencyCloud_PaymentDetails.ascx" />
     <Content Include="User_Controls\CurrencyCloud_TradeDetails.ascx" />
+    <Content Include="User_Controls\Deposit_Instructions.ascx" />
     <Content Include="User_Controls\ExchangeCurrency.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_FinePrint.ascx" />
     <Content Include="User_Controls\ExchangeCurrency_NextSteps.ascx" />
@@ -541,13 +554,6 @@
     <Compile Include="User\Withdraw.aspx.designer.cs">
       <DependentUpon>Withdraw.aspx</DependentUpon>
     </Compile>
-    <Compile Include="User\Withdrawl.aspx.cs">
-      <DependentUpon>Withdrawl.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\Withdrawl.aspx.designer.cs">
-      <DependentUpon>Withdrawl.aspx</DependentUpon>
-    </Compile>
     <Compile Include="User_Controls\Admin_CurrencyCloud_Deposits.ascx.cs">
       <DependentUpon>Admin_CurrencyCloud_Deposits.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -576,12 +582,26 @@
     <Compile Include="User_Controls\BankAccountEntry.ascx.designer.cs">
       <DependentUpon>BankAccountEntry.ascx</DependentUpon>
     </Compile>
+    <Compile Include="User_Controls\CurrencyCloud_PaymentDetails.ascx.cs">
+      <DependentUpon>CurrencyCloud_PaymentDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\CurrencyCloud_PaymentDetails.ascx.designer.cs">
+      <DependentUpon>CurrencyCloud_PaymentDetails.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\CurrencyCloud_TradeDetails.ascx.cs">
       <DependentUpon>CurrencyCloud_TradeDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User_Controls\CurrencyCloud_TradeDetails.ascx.designer.cs">
       <DependentUpon>CurrencyCloud_TradeDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\Deposit_Instructions.ascx.cs">
+      <DependentUpon>Deposit_Instructions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\Deposit_Instructions.ascx.designer.cs">
+      <DependentUpon>Deposit_Instructions.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\ExchangeCurrency.ascx.cs">
       <DependentUpon>ExchangeCurrency.ascx</DependentUpon>

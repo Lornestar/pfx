@@ -119,11 +119,14 @@ namespace Peerfx
             rdtemp.Text = "Bank Account";
             ddlReceivers.Items.Add(rdtemp);
 
-            //Add Other Passport User
-            RadListBoxItem rdtemp3 = new RadListBoxItem();
-            rdtemp3.Value = "-1";
-            rdtemp3.Text = "Another Passport User";
-            ddlReceivers.Items.Add(rdtemp3);
+            if (sitetemp.isCurrencyCanhold(Convert.ToInt32(ddlbuycurrency.SelectedValue)))
+            {
+                //Add Other Passport User
+                RadListBoxItem rdtemp3 = new RadListBoxItem();
+                rdtemp3.Value = "-1";
+                rdtemp3.Text = "Another Passport User";
+                ddlReceivers.Items.Add(rdtemp3);
+            }            
 
             //Add Embee Telco
             RadListBoxItem rdtemp4 = new RadListBoxItem();
@@ -492,10 +495,7 @@ namespace Peerfx
         protected void btnContinue2_Click(object sender, EventArgs e)
         {            
 
-            //LoadRates(false);
-
-            //populate labels
-            updatealreadyconfirmedtab();
+            //LoadRates(false);            
 
             //Save current user
             int currentuserkey = 0;
@@ -563,10 +563,16 @@ namespace Peerfx
 
             if (pnlloggedinsender.Visible)
             {
-                if (sitetemp.IsUserBalance(Convert.ToInt64(ddlpaymentmethod.SelectedValue)))
+                if (sitetemp.IsUserBalance(Convert.ToInt64(hdsenderpaymentobjectkey.Value)))
                 {
-                    senderpaymentobject = Convert.ToInt64(ddlpaymentmethod.SelectedValue);
-                }               
+                    //user balance
+                    senderpaymentobject = Convert.ToInt64(hdsenderpaymentobjectkey.Value);
+                }
+                else
+                {
+                    //bank account
+                    senderpaymentobject = 0;
+                }
             }            
             
 
@@ -597,6 +603,10 @@ namespace Peerfx
             }
             Peerfx_DB.SPs.UpdatePaymentTreasury(payment_key, treasurytype).Execute();
 
+            //Send confirmation email with instructions etc.
+            Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
+            sg.Send_Email_Payment_Confirmed(payment_key, currentuser);
+
             bool isuserbalance = false;
             if (pnlloggedinsender.Visible)
             {
@@ -615,17 +625,17 @@ namespace Peerfx
             }
             
             if (!isuserbalance)            
-            {
-                //Send email with instructions etc.
-                Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
-                sg.Send_Email_Payment_Confirmed(payment_key, currentuser);
+            {                
 
                 //Change tab to bank transfer info
                 changetab(2);
-            }  
-          
-            //figure out which bank account to receive payment            
-            lblalreadyconfirmedpeerfxbankaccount.Text = sitetemp.getBankAccountDescription(sitetemp.get_Payment_Object_sendmoneyto_For_Payment(payment_key, Convert.ToInt32(ddlsellcurrency.SelectedValue)));
+
+                //Status to Awaiting User Deposit
+                Peerfx_DB.SPs.UpdatePaymentStatus(payment_key, 11).Execute();
+            }            
+
+            //populate labels
+            updatealreadyconfirmedtab();
         }
         
 
@@ -643,6 +653,7 @@ namespace Peerfx
             lblconfirmquoteyouget.Text = lblconfirmquotereceiveamount.Text;
             lblconfirmquoteexchangerate.Text = lblrate.Text;
             lblconfirmquoteservicefee.Text = lblservicefee.Text + " " + ddlbuycurrency.SelectedItem.Text;
+            lblconfirmmoneyarrives.Text = lblmoneyarrives.Text;
 
             lblconfirmsenderfullname.Text = txtfirstnamesender.Text + " " + txtlastnamesender.Text;
             lblconfirmsenderdob.Text = txtbirthday.Text + "/" + txtbirthmonth.Text + "/" + txtbirthyear.Text;
@@ -720,7 +731,13 @@ namespace Peerfx
             BankAccountEntry3.ViewasLabels();
             BankAccountEntry3.LoadFields(ba);
             
-            lblalreadyconfirmeddescription.Text = txtdescription.Text;            
+            lblalreadyconfirmeddescription.Text = txtdescription.Text;
+            
+            lblalreadyconfirmedquotesenderamount.Text = lblconfirmquotesendamount.Text;
+
+            //figure out which bank account to receive payment            
+            DepositInstructions1.LoadInfo(currentuser.User_key, Convert.ToInt32(ddlsellcurrency.SelectedValue));
+            DepositInstructions1.LoadReference("P" + lblpaymentnum.Text);            
         }
 
         protected void changetab(int selectedtab)

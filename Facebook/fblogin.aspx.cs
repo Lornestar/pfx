@@ -34,7 +34,9 @@ namespace Peerfx.Facebook
             string accesstoken = fb.getaccesstoken(oauth, HttpContext.Current.Request.Url.AbsoluteUri,currentuser.User_key);
 
             //Get user id
-            fb.updateuserinfo(currentuser.User_key);                       
+            fb.updateuserinfo(currentuser.User_key);
+
+            sitetemp.VerificationReward(5, currentuser.User_key);
 
             //redirect back to verification page
             Response.Redirect("/User/Verification.aspx");

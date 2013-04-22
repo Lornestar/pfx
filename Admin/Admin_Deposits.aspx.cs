@@ -72,12 +72,18 @@ namespace Peerfx.Admin
             {
                 GridDataItem item = (GridDataItem)e.Item;
                 int txkey = Convert.ToInt32(item["tx_external_key"].Text);
+                decimal amount = Convert.ToDecimal(item["amount"].Text);
+                int currency = Convert.ToInt32(item["info_currencies_key"].Text);
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectuser");
                 if (ddlconnectuser.SelectedIndex > -1)
                 {
                     int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
                     Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 2, userkey).Execute();
                     RadGrid1.Rebind();
+
+                    //deposit to user, send email
+                    External_APIs.SendGrid sg = new External_APIs.SendGrid();
+                    sg.Send_Email_Deposit_Received(userkey, 0, 0, amount, currency);
                 }
                 else
                 {
@@ -91,16 +97,24 @@ namespace Peerfx.Admin
                 //connect tx to a payment
                 GridDataItem item = (GridDataItem)e.Item;
                 int txkey = Convert.ToInt32(item["tx_external_key"].Text);
+                decimal amount = Convert.ToDecimal(item["amount"].Text);
+                int currency = Convert.ToInt32(item["info_currencies_key"].Text);
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectpayment");
                 if (ddlconnectuser.SelectedIndex > -1)
                 {
                     int paymentskey = Convert.ToInt32(ddlconnectuser.SelectedValue);
+                    //Move money to payment object & change status to 3
                     Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 1, paymentskey).Execute();
                     RadGrid1.Rebind();
                     
                     //Send to complete payment
                     Models.Payment paymenttemp = sitetemp.getPayment(paymentskey);
                     sitetemp.payment_complete(paymenttemp);
+                    
+                    int userkey = paymenttemp.Requestor_user_key;
+                    //deposit to payment, send email
+                    External_APIs.SendGrid sg = new External_APIs.SendGrid();
+                    sg.Send_Email_Deposit_Received(userkey, paymentskey, 1, amount, currency);
                 }
                 else
                 {

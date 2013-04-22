@@ -124,13 +124,13 @@
                                         <telerik:RadMaskedTextBox ID=txtnzdaccount2 runat=server Mask="####" HideOnBlur=true EmptyMessage="1234" Width="60"></telerik:RadMaskedTextBox>
                                         <telerik:RadMaskedTextBox ID=txtnzdaccount3 runat=server Mask="#######" HideOnBlur=true EmptyMessage="0123456" Width="80"></telerik:RadMaskedTextBox>
                                         <telerik:RadMaskedTextBox ID=txtnzdaccount4 runat=server Mask="###" HideOnBlur=true EmptyMessage="012" Width="45"></telerik:RadMaskedTextBox>
-                                        </asp:Panel>
                                         <asp:Label ID=lblnzdaccount runat=server Visible=false></asp:Label>
+                                        </asp:Panel>                                        
                                     </td>
                                 </tr>                                         
                                 <tr>
                                     <td>
-                                        Email
+                                        <asp:Label ID=lblemailword runat=server>Email</asp:Label>
                                                                                     <br />
                                                                                     <telerik:RadTextBox ID="txtemailreceiver" runat=server></telerik:RadTextBox>
                                                                                     <asp:Label ID=lblemailreceiver runat=server Visible=false></asp:Label>

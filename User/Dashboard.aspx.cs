@@ -29,7 +29,8 @@ namespace Peerfx.User
                 LoadCurrencyTable();
                 LoadPaymentTable();
                 lblusername.Text = currentuser.Full_name;
-                lbluseremail.Text = currentuser.Email;                
+                lbluseremail.Text = currentuser.Email;
+                lblaccountnumber.Text = currentuser.Account_number;
                 if (Request.QueryString["notification"] == "true")
                 {
                     Master.NotificationShow("Your Payment went through.<br/><br/>You should receive an email with information about your Request.");

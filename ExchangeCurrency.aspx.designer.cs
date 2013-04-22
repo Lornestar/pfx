@@ -589,6 +589,15 @@ namespace Peerfx {
         protected global::System.Web.UI.WebControls.Label lblconfirmquotearrivaldate;
         
         /// <summary>
+        /// lblconfirmmoneyarrives control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblconfirmmoneyarrives;
+        
+        /// <summary>
         /// lblconfirmquoteservicefee control.
         /// </summary>
         /// <remarks>
@@ -886,21 +895,12 @@ namespace Peerfx {
         protected global::Peerfx.User_Controls.ExchangeCurrency_NextSteps ExchangeCurrency_NextSteps;
         
         /// <summary>
-        /// lblalreadyconfirmedquotesenderamount2 control.
+        /// DepositInstructions1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedquotesenderamount2;
-        
-        /// <summary>
-        /// lblalreadyconfirmedpeerfxbankaccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblalreadyconfirmedpeerfxbankaccount;
+        protected global::Peerfx.User_Controls.Deposit_Instructions DepositInstructions1;
     }
 }

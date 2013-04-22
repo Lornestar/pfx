@@ -230,6 +230,19 @@ namespace Peerfx_DB
 				colvarWithdrawlsentDate.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarWithdrawlsentDate);
 				
+				TableSchema.TableColumn colvarCcPaymentid = new TableSchema.TableColumn(schema);
+				colvarCcPaymentid.ColumnName = "cc_paymentid";
+				colvarCcPaymentid.DataType = DbType.AnsiString;
+				colvarCcPaymentid.MaxLength = 50;
+				colvarCcPaymentid.AutoIncrement = false;
+				colvarCcPaymentid.IsNullable = true;
+				colvarCcPaymentid.IsPrimaryKey = false;
+				colvarCcPaymentid.IsForeignKey = false;
+				colvarCcPaymentid.IsReadOnly = false;
+				colvarCcPaymentid.DefaultSetting = @"";
+				colvarCcPaymentid.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCcPaymentid);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -303,6 +316,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<DateTime?>(Columns.WithdrawlsentDate); }
 			set { SetColumnValue(Columns.WithdrawlsentDate, value); }
 		}
+		  
+		[XmlAttribute("CcPaymentid")]
+		[Bindable(true)]
+		public string CcPaymentid 
+		{
+			get { return GetColumnValue<string>(Columns.CcPaymentid); }
+			set { SetColumnValue(Columns.CcPaymentid, value); }
+		}
 		
 		#endregion
 		
@@ -323,7 +344,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varPaymentsKey,long? varSettlementKey,DateTime varInitiatedDate,string varCcTradeid,DateTime? varSettlementDate,DateTime? varFundsreceivedDate,DateTime? varWithdrawlsentDate)
+		public static void Insert(int varPaymentsKey,long? varSettlementKey,DateTime varInitiatedDate,string varCcTradeid,DateTime? varSettlementDate,DateTime? varFundsreceivedDate,DateTime? varWithdrawlsentDate,string varCcPaymentid)
 		{
 			CurrencyCloudTrade item = new CurrencyCloudTrade();
 			
@@ -341,6 +362,8 @@ namespace Peerfx_DB
 			
 			item.WithdrawlsentDate = varWithdrawlsentDate;
 			
+			item.CcPaymentid = varCcPaymentid;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -351,7 +374,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(long varCurrencycloudTradeKey,int varPaymentsKey,long? varSettlementKey,DateTime varInitiatedDate,string varCcTradeid,DateTime? varSettlementDate,DateTime? varFundsreceivedDate,DateTime? varWithdrawlsentDate)
+		public static void Update(long varCurrencycloudTradeKey,int varPaymentsKey,long? varSettlementKey,DateTime varInitiatedDate,string varCcTradeid,DateTime? varSettlementDate,DateTime? varFundsreceivedDate,DateTime? varWithdrawlsentDate,string varCcPaymentid)
 		{
 			CurrencyCloudTrade item = new CurrencyCloudTrade();
 			
@@ -370,6 +393,8 @@ namespace Peerfx_DB
 				item.FundsreceivedDate = varFundsreceivedDate;
 			
 				item.WithdrawlsentDate = varWithdrawlsentDate;
+			
+				item.CcPaymentid = varCcPaymentid;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -440,6 +465,13 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn CcPaymentidColumn
+        {
+            get { return Schema.Columns[8]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -452,6 +484,7 @@ namespace Peerfx_DB
 			 public static string SettlementDate = @"settlement_date";
 			 public static string FundsreceivedDate = @"fundsreceived_date";
 			 public static string WithdrawlsentDate = @"withdrawlsent_date";
+			 public static string CcPaymentid = @"cc_paymentid";
 						
 		}
 		#endregion

@@ -290,6 +290,10 @@ namespace Peerfx.User_Controls
                 lblphoneerror2.Text = "Correct code.  Your phone has been connected";
                 lblphoneerror2.ForeColor = System.Drawing.Color.Blue;
                 Peerfx_DB.SPs.UpdateVerification(Convert.ToInt32(hduserkey.Value), 4, true, sitetemp.get_ipaddress(),txtphonecode.Text).Execute();
+
+                sitetemp.VerificationReward(4, Convert.ToInt32(hduserkey.Value));
+
+                Response.Redirect("/User/Verification.aspx");
             }
             else
             {

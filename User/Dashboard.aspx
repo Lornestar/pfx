@@ -90,7 +90,16 @@
                                             <br />
                             <br />
                                             </td>
-                                        </tr>                                                                                      
+                                        </tr>  
+                                        <tr>
+                                            <td style="text-align:left;">
+                                                <div class="Dashboard_Netbalance_words">
+                                                    Account Number:
+                                                    
+                                                    <asp:Label ID=lblaccountnumber runat=server></asp:Label>
+                                                </div>
+                                            </td>
+                                        </tr>                                                                                    
                                     </table>
                                     </asp:Panel>
                             </td>
@@ -168,7 +177,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="/user/Withdrawl.aspx">
+                                                        <a href="/user/Withdraw.aspx">
                                                             <div>
                                                               <img src="/images/icons/sendmoney.png" /> Withdraw Money
                                                             </div>

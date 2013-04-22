@@ -152,6 +152,19 @@ namespace Peerfx_DB
 				colvarPaymentStatusDescription.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPaymentStatusDescription);
 				
+				TableSchema.TableColumn colvarPaymentStatusAdmindescription = new TableSchema.TableColumn(schema);
+				colvarPaymentStatusAdmindescription.ColumnName = "payment_status_admindescription";
+				colvarPaymentStatusAdmindescription.DataType = DbType.String;
+				colvarPaymentStatusAdmindescription.MaxLength = 50;
+				colvarPaymentStatusAdmindescription.AutoIncrement = false;
+				colvarPaymentStatusAdmindescription.IsNullable = true;
+				colvarPaymentStatusAdmindescription.IsPrimaryKey = false;
+				colvarPaymentStatusAdmindescription.IsForeignKey = false;
+				colvarPaymentStatusAdmindescription.IsReadOnly = false;
+				colvarPaymentStatusAdmindescription.DefaultSetting = @"";
+				colvarPaymentStatusAdmindescription.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPaymentStatusAdmindescription);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -177,6 +190,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.PaymentStatusDescription); }
 			set { SetColumnValue(Columns.PaymentStatusDescription, value); }
 		}
+		  
+		[XmlAttribute("PaymentStatusAdmindescription")]
+		[Bindable(true)]
+		public string PaymentStatusAdmindescription 
+		{
+			get { return GetColumnValue<string>(Columns.PaymentStatusAdmindescription); }
+			set { SetColumnValue(Columns.PaymentStatusAdmindescription, value); }
+		}
 		
 		#endregion
 		
@@ -197,13 +218,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varPaymentStatusKey,string varPaymentStatusDescription)
+		public static void Insert(int varPaymentStatusKey,string varPaymentStatusDescription,string varPaymentStatusAdmindescription)
 		{
 			PaymentStatus item = new PaymentStatus();
 			
 			item.PaymentStatusKey = varPaymentStatusKey;
 			
 			item.PaymentStatusDescription = varPaymentStatusDescription;
+			
+			item.PaymentStatusAdmindescription = varPaymentStatusAdmindescription;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -215,13 +238,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varPaymentStatusKey,string varPaymentStatusDescription)
+		public static void Update(int varPaymentStatusKey,string varPaymentStatusDescription,string varPaymentStatusAdmindescription)
 		{
 			PaymentStatus item = new PaymentStatus();
 			
 				item.PaymentStatusKey = varPaymentStatusKey;
 			
 				item.PaymentStatusDescription = varPaymentStatusDescription;
+			
+				item.PaymentStatusAdmindescription = varPaymentStatusAdmindescription;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -250,12 +275,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn PaymentStatusAdmindescriptionColumn
+        {
+            get { return Schema.Columns[2]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
 		{
 			 public static string PaymentStatusKey = @"payment_status_key";
 			 public static string PaymentStatusDescription = @"payment_status_description";
+			 public static string PaymentStatusAdmindescription = @"payment_status_admindescription";
 						
 		}
 		#endregion

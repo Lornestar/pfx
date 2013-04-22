@@ -88,7 +88,7 @@ namespace Peerfx.User_Controls
             pnlnzdaccount.Visible = false;
             pnlbankname.Visible = false;
             pnlbranchcode.Visible = false;
-            pnlinstitution.Visible = false;
+            pnlinstitution.Visible = false;            
         }
 
         public void LoadFields(BankAccounts ba)
@@ -98,7 +98,7 @@ namespace Peerfx.User_Controls
             if (ba.Currency_key != 0)
             {
                 ddlcurrency.SelectedValue = ba.Currency_key.ToString();
-                lblcurrencylabels.Text += " " + sitetemp.getcurrencycode(ba.Currency_key);
+                lblcurrencylabels.Text = sitetemp.getcurrencycode(ba.Currency_key);
             }
             UpdateRequiredFields();
 
@@ -181,6 +181,7 @@ namespace Peerfx.User_Controls
             {
                 txtemailreceiver.Text = ba.Email;
                 lblemailreceiver.Text = ba.Email;
+                lblemailword.Visible = true;
             }
             if (ba.Bankname != null)
             {
@@ -236,6 +237,7 @@ namespace Peerfx.User_Controls
             lblbankname.Visible = true;
             lblbranchcode.Visible = true;
             lblinstitution.Visible = true;
+            lblemailword.Visible = false;
         }
 
         public BankAccounts gettxtfields()

@@ -420,13 +420,15 @@ namespace Peerfx_DB{
         /// <summary>
         /// Creates an object wrapper for the Update_CurrencyCloud_Trades Procedure
         /// </summary>
-        public static StoredProcedure UpdateCurrencyCloudTrades(int? paymentkey, string cctradeid)
+        public static StoredProcedure UpdateCurrencyCloudTrades(int? paymentkey, string cctradeid, string ccpaymentid)
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("Update_CurrencyCloud_Trades", DataService.GetInstance("Peerfx"), "dbo");
         	
             sp.Command.AddParameter("@paymentkey", paymentkey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@cc_tradeid", cctradeid, DbType.AnsiString, null, null);
+        	
+            sp.Command.AddParameter("@ccpaymentid", ccpaymentid, DbType.AnsiString, null, null);
         	
             return sp;
         }
@@ -1526,6 +1528,16 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Info_Currencies_CanHold Procedure
+        /// </summary>
+        public static StoredProcedure ViewInfoCurrenciesCanHold()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Info_Currencies_CanHold", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Info_Currencies_CanSell Procedure
         /// </summary>
         public static StoredProcedure ViewInfoCurrenciesCanSell()
@@ -1981,6 +1993,18 @@ namespace Peerfx_DB{
             sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
         	
             sp.Command.AddParameter("@currency", currency, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_User_Currencies_hasBalancein Procedure
+        /// </summary>
+        public static StoredProcedure ViewUserCurrenciesHasBalancein(int? userkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_User_Currencies_hasBalancein", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@user_key", userkey, DbType.Int32, 0, 10);
         	
             return sp;
         }
