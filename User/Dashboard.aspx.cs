@@ -42,12 +42,20 @@ namespace Peerfx.User
                 ddlcurrencyview.DataSource = sitetemp.view_info_currencies_cansell();
                 ddlcurrencyview.DataBind();
 
+                ddltimezone.DataTextField = "info_timezone_name";
+                ddltimezone.DataValueField = "info_timezone_key";
+                ddltimezone.DataSource = Peerfx_DB.SPs.ViewInfoTimezones().GetDataSet().Tables[0];
+                ddltimezone.DataBind();
+                ddltimezone.SelectedValue = currentuser.Timezonekey.ToString();
+
                 if (currentuser.Default_currency > 0)
                 {
                     ddlcurrencyview.SelectedValue = currentuser.Default_currency.ToString();
                 }
 
                 LoadNetBalance();
+
+                Page.ClientScript.RegisterStartupScript(GetType(), "mixpanelalias", "mixpanel.name_tag('" + currentuser.First_name + "_" + currentuser.Last_name + "_" + currentuser.Account_number + "');", true);
             }
             //insert profile img
             if (currentuser.Image_url != null)
@@ -196,6 +204,13 @@ namespace Peerfx.User
         protected void ddlcurrencyview_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             LoadNetBalance();            
+        }
+
+        protected void ddltimezone_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            //update user timezone
+            Peerfx_DB.SPs.UpdateUsersTimezone(currentuser.User_key, Convert.ToInt32(ddltimezone.SelectedValue)).Execute();
+            ucUserRecentPayment1.LoadPayments(currentuser.User_key);
         }
                
     }

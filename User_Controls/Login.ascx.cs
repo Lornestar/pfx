@@ -24,7 +24,18 @@ namespace Peerfx.User_Controls
                 if (users.Isadmin)
                 {
                     hypAdmin.Visible = true;
-                }                
+                }
+
+                string strscript = "mixpanel.identify('" + users.User_key + "');";
+                strscript += "mixpanel.people.set({";
+                strscript += "'$email': '" + users.Email + "',";
+                strscript += "'$created': '" + users.Signed_up.ToString() + "',";
+                strscript += "'$last_login' : new Date(),";         // properties can be dates...
+                strscript += "'$name': '" + users.Full_name +"'";   // feel free to define your own properties
+                strscript += "});";
+
+                Page.ClientScript.RegisterStartupScript(GetType(), "mixpanelid", strscript, true);
+                
             }
         }
 

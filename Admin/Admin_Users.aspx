@@ -24,19 +24,19 @@
                 OnItemCommand="RadGrid1_ItemCommand" PageSize=25>
                      <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="account_number" AutoGenerateColumns="False">
                         <Columns>
-                            <telerik:GridBoundColumn DataField="account_number" HeaderText="Account Number" UniqueName="account_number">
+                            <telerik:GridBoundColumn DataField="account_number" HeaderText="Account Number" UniqueName="account_number" SortExpression="account_number">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="user_key" HeaderText="user_key" UniqueName="user_key" Visible=false>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="first_name" HeaderText="First Name" UniqueName="first_name">
+                            <telerik:GridBoundColumn DataField="first_name" HeaderText="First Name" UniqueName="first_name" SortExpression="first_name">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="last_name" HeaderText="Last Name" UniqueName="last_name">
+                            <telerik:GridBoundColumn DataField="last_name" HeaderText="Last Name" UniqueName="last_name" SortExpression="last_name">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="user_balance" HeaderText="Current Balance" UniqueName="user_balance">
+                            <telerik:GridBoundColumn DataField="user_balance" HeaderText="Current Balance" UniqueName="user_balance" SortExpression="user_balance">
                             </telerik:GridBoundColumn>                
-                            <telerik:GridBoundColumn DataField="user_status_text" HeaderText="Status" UniqueName="user_status_text">
+                            <telerik:GridBoundColumn DataField="user_status_text" HeaderText="Status" UniqueName="user_status_text" SortExpression="user_status_text">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="last_online" HeaderText="Last Online" UniqueName="last_online">
+                            <telerik:GridBoundColumn DataField="last_online" HeaderText="Last Online" UniqueName="last_online" SortExpression="last_online">
                             </telerik:GridBoundColumn>  
                             <telerik:GridButtonColumn DataTextFormatString="Details" DataTextField="user_key" Text="Details" CommandName="Details"></telerik:GridButtonColumn>                            
                         </Columns>

@@ -12,8 +12,10 @@ using System.Text;
 using System.Web.Security;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
+using System.Globalization;
 using System.IO;
 using SubSonic;
+using System.Net;
 
 namespace Peerfx
 {
@@ -21,7 +23,15 @@ namespace Peerfx
     {
 
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["msg"] != null)
+                {
+                    string msg = Request.QueryString["msg"].ToString();
+                    NotificationShow(msg);
+                }
+            }
 
             if (isloggedin())
             {
@@ -302,6 +312,25 @@ namespace Peerfx
             {
                 users.Default_currency = Convert.ToInt32(dstemp.Tables[0].Rows[0]["default_currency"]);
             }
+
+            if (dstemp.Tables[0].Rows[0]["timezone"] != DBNull.Value)
+            {
+                users.Timezonekey = Convert.ToInt32(dstemp.Tables[0].Rows[0]["timezone"]);
+            }
+            else
+            {
+                users.Timezonekey = 2;
+            }
+
+            if (dstemp.Tables[0].Rows[0]["timezoneid"] != DBNull.Value)
+            {
+                users.Timezoneid = dstemp.Tables[0].Rows[0]["timezoneid"].ToString();
+            }
+            else
+            {
+                users.Timezoneid = "UTC";
+            }
+
             //check if file exists
             string fullurl = HttpContext.Current.Server.MapPath("/Files/UserImages/") + "\\" + users.User_key.ToString() + ".jpg";
             if (File.Exists(fullurl))
@@ -317,6 +346,12 @@ namespace Peerfx
                     users.Isverified = true;
                 }
             }
+
+            if (dstemp.Tables[0].Rows[0]["referral"] != DBNull.Value)
+            {
+                users.Referral = dstemp.Tables[0].Rows[0]["referral"].ToString();
+            }
+
             return users;
         }
 
@@ -1524,13 +1559,7 @@ namespace Peerfx
 
             //Execute trade with CC
             External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
-            cc.Trade_Execute(paymenttemp.Payments_Key);
-
-            //move money from payment object to cc object
-            Peerfx_DB.SPs.UpdateConvertCurrencyCurrencyCloudSendtoCC(paymenttemp.Payments_Key, get_ipaddress(), paymenttemp.Requestor_user_key).Execute();            
-
-            //change status to 9, Processing Transaction/At CurrencyCloud
-            Peerfx_DB.SPs.UpdatePaymentStatus(paymenttemp.Payments_Key, 9).Execute();
+            cc.Trade_Execute(paymenttemp.Payments_Key);            
         }
 
         public void payment_insert_actual_quote(Payment paymenttemp)
@@ -1665,7 +1694,7 @@ namespace Peerfx
 
         public void payment_refill_treasury(Payment paymenttemp)
         {
-            Users treasury = get_treasury_account();
+            Users treasury = get_treasury_account(1);
             Int64 senderpaymentobject = getpaymentobject_UserBalance(treasury.User_key, paymenttemp.Sell_currency);
             Int64 receiverpaymentobject = getpaymentobject_UserBalance(treasury.User_key, paymenttemp.Buy_currency);
 
@@ -1714,7 +1743,7 @@ namespace Peerfx
         public void AdjustExternalBanks(Payment paymenttemp)
         {
             Users user_sender = get_user_info(paymenttemp.Requestor_user_key);
-            Users user_treasury = get_treasury_account();
+            Users user_treasury = get_treasury_account(1);
             External_APIs.BancBox bb = new External_APIs.BancBox();
 
             //Adjust Sender's ext banks
@@ -1893,10 +1922,10 @@ namespace Peerfx
             return sendtopaymentobject;
         }
 
-        public Users get_treasury_account()
+        public Users get_treasury_account(int treasury_type)
         {
             Users currentuser = new Users();
-            DataTable dttemp = Peerfx_DB.SPs.ViewTreasuryAccount().GetDataSet().Tables[0];
+            DataTable dttemp = Peerfx_DB.SPs.ViewTreasuryAccount(treasury_type).GetDataSet().Tables[0];
             if (dttemp.Rows.Count > 0)
             {
                 if (dttemp.Rows[0]["user_key"] != DBNull.Value){
@@ -2082,7 +2111,7 @@ namespace Peerfx
 
         public decimal get_treasury_balance_specific_currency(int currency)
         {
-            Users treasury = get_treasury_account();
+            Users treasury = get_treasury_account(1);
             return get_user_balance_specific_currency(treasury.User_key, currency);
         }
 
@@ -2193,10 +2222,125 @@ namespace Peerfx
 
         public void VerificationReward(int verificationtype, int userkey)
         {
-            Users treasury = get_treasury_account();
+            Users treasury = get_treasury_account(1);
             Int64 senderpaymentobject =  getpaymentobject_UserBalance(treasury.User_key, 2);
             Int64 receiverpaymentobject = getpaymentobject_UserBalance(userkey,2);
             InternalTransaction(2, 50, senderpaymentobject, receiverpaymentobject, userkey, "Verification Reward", 3, 0);
+        }
+
+        public bool IsValidEmail(string strIn)
+        {
+            bool invalid = false;
+            if (String.IsNullOrEmpty(strIn))
+                return false;
+
+            // Use IdnMapping class to convert Unicode domain names.
+            strIn = Regex.Replace(strIn, @"(@)(.+)$", this.DomainMapper);
+            if (invalid)
+                return false;
+
+            // Return true if strIn is in valid e-mail format.
+            return Regex.IsMatch(strIn,
+                   @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                   @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$",
+                   RegexOptions.IgnoreCase);
+        }
+
+        private string DomainMapper(Match match)
+        {
+            // IdnMapping class with default property values.
+            IdnMapping idn = new IdnMapping();
+
+            string domainName = match.Groups[2].Value;
+            try
+            {
+                domainName = idn.GetAscii(domainName);
+            }
+            catch (ArgumentException)
+            {
+                 bool invalid = true;
+            }
+            return match.Groups[1].Value + domainName;
+        }
+
+        public string getTimezoneName(string timezoneid){
+            string strreturn = "";
+            if (timezoneid == null)
+            {
+                timezoneid = "UTC";
+            }
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById(timezoneid);
+            if (zone.IsDaylightSavingTime(DateTime.Now))
+            {
+                strreturn = zone.DaylightName;
+            }
+            else
+            {
+                strreturn = zone.StandardName;
+            }            
+
+            return strreturn;
+        }
+
+        /*
+        public void inserttimezones()
+        {
+            var infos = TimeZoneInfo.GetSystemTimeZones();
+            foreach (var info in infos)
+            {
+                Peerfx_DB.SPs.UpdateInfoTimezones(info.Id, info.DisplayName).Execute();
+                
+            }
+        }*/
+
+        public int getTimezoneOffset(string timezoneid)
+        {
+            if (timezoneid == null)
+            {
+                timezoneid = "UTC";
+            }
+            int intreturn = 0;
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById(timezoneid);
+            intreturn = Convert.ToInt32(zone.GetUtcOffset(DateTime.Now).TotalHours);
+            return intreturn;
+        }
+
+        public string EncodeTo64(string toEncode)
+        {
+            byte[] toEncodeAsBytes
+                  = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            string returnValue
+                  = System.Convert.ToBase64String(toEncodeAsBytes);
+            return returnValue;
+        }
+
+        public void SaveImagefromInternet(string file, string imgurl)
+        {            
+            byte[] imageBytes;
+            HttpWebRequest imageRequest = (HttpWebRequest)WebRequest.Create(imgurl);
+            WebResponse imageResponse = imageRequest.GetResponse();
+
+            Stream responseStream = imageResponse.GetResponseStream();
+
+            using (BinaryReader br = new BinaryReader(responseStream))
+            {
+                imageBytes = br.ReadBytes(500000);
+                br.Close();
+            }
+            responseStream.Close();
+            imageResponse.Close();
+
+            FileStream fs = new FileStream(file, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            try
+            {
+                bw.Write(imageBytes);
+            }
+            finally
+            {
+                fs.Close();
+                bw.Close();
+            }
         }
 
     }    

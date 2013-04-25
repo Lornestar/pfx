@@ -80,13 +80,15 @@ namespace Peerfx_DB
 	    /// Inserts a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Insert, true)]
-	    public void Insert(int TreasuryTypeKey,string TreasuryName)
+	    public void Insert(int TreasuryTypeKey,string TreasuryName,int? UserKey)
 	    {
 		    TreasuryType item = new TreasuryType();
 		    
             item.TreasuryTypeKey = TreasuryTypeKey;
             
             item.TreasuryName = TreasuryName;
+            
+            item.UserKey = UserKey;
             
 	    
 		    item.Save(UserName);
@@ -96,7 +98,7 @@ namespace Peerfx_DB
 	    /// Updates a record, can be used with the Object Data Source
 	    /// </summary>
         [DataObjectMethod(DataObjectMethodType.Update, true)]
-	    public void Update(int TreasuryTypeKey,string TreasuryName)
+	    public void Update(int TreasuryTypeKey,string TreasuryName,int? UserKey)
 	    {
 		    TreasuryType item = new TreasuryType();
 	        item.MarkOld();
@@ -105,6 +107,8 @@ namespace Peerfx_DB
 			item.TreasuryTypeKey = TreasuryTypeKey;
 				
 			item.TreasuryName = TreasuryName;
+				
+			item.UserKey = UserKey;
 				
 	        item.Save(UserName);
 	    }

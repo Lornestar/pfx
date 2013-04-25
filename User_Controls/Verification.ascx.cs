@@ -70,11 +70,21 @@ namespace Peerfx.User_Controls
                         break;
                     case 5: if (verificationtemp.Isverified)
                         {
+                            //fb verified
                             imgvalid5.ImageUrl = checkmarkurl;
                             imgfbbutton.Visible = false;
                             btnFacebook.Visible = true;
                             btnFacebook.Enabled = false;
                             btnFacebook.Text = "Verification Complete";
+
+                            //check if need to upload fb image to user
+                            string file = Server.MapPath("/Files/UserImages/") + "\\" + currentuser.User_key.ToString() + ".jpg";
+                            if (currentuser.Image_url == null)
+                            {
+                                Models.Users_Facebook fbuser = sitetemp.get_user_Facebook(currentuser.User_key);
+                                string url = "https://graph.facebook.com/" + fbuser.fb_uid.ToString() + "/picture?type=large";
+                                sitetemp.SaveImagefromInternet(file, url);
+                            }
                         }
                         break;
                 }

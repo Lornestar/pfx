@@ -95,17 +95,25 @@ namespace Peerfx.External_APIs
 
             strstatus = CallWeb_Request("/beneficiary/validate_details?"+strquery, hstemp);
 
-            JObject o = JObject.Parse(strstatus);
-            string status = (string)o["status"];
-            if (status == "success")
+            try
             {
-                isvalid = true;
-                strreturn = "true";
+                JObject o = JObject.Parse(strstatus);
+                string status = (string)o["status"];
+                if (status == "success")
+                {
+                    isvalid = true;
+                    strreturn = "true";
+                }
+                else
+                {
+                    strreturn = (string)o["message"];
+                }
             }
-            else
+            catch
             {
-                strreturn = (string)o["message"];
+                strreturn = "error validating bank account";
             }
+            
 
             return strreturn;
         }
@@ -493,8 +501,12 @@ namespace Peerfx.External_APIs
                 responseString = reader.ReadToEnd();
                 reader.Close();
             }
-            catch
+            catch (Exception e)
             {
+                Peerfx_DB.SPs.UpdateApiErrors(1,request,e.Message,url).Execute(); 
+                string Toemail = System.Configuration.ConfigurationSettings.AppSettings.Get("ErrorToEmail").ToString();
+                SendGrid sg = new SendGrid();
+                sg.SimpleEmail("Lorne", "Passportfx API Error", Toemail, "Error@passportfx.com", e.Message, "CurrencyCloud Error");                
             }            
                         
             return responseString;

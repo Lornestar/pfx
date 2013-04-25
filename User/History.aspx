@@ -14,12 +14,10 @@ Payments History
                         <Columns>
                             <telerik:GridBoundColumn DataField="payments_key" HeaderText="Payments Key" UniqueName="payments_key" Visible=false>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="date_created" HeaderText="Date" UniqueName="date_created">
+                            <telerik:GridBoundColumn DataField="date_created" HeaderText="Confirmation Date"  UniqueName="datecreated">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="payment_type" HeaderText="Type" UniqueName="payment_type">
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="name" HeaderText="Name" UniqueName="name">
-                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="payment_description" HeaderText="Description" UniqueName="payment_description">
+                            </telerik:GridBoundColumn>                            
                             <telerik:GridBoundColumn DataField="payment_status_text" HeaderText="Payment Status" UniqueName="payment_status_text">
                             </telerik:GridBoundColumn>                
                             <telerik:GridBoundColumn DataField="txt_Sell_full" HeaderText="Amount Sent" UniqueName="txt_Sell_full">

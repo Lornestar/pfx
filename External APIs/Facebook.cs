@@ -37,7 +37,15 @@ namespace Peerfx.External_APIs
             Users_Facebook fbuser = sitetemp.get_user_Facebook(userkey);
             WebClient wc = new WebClient();
             wc.Encoding = System.Text.Encoding.UTF8; //This is if you have non english characters
-            string result2 = wc.DownloadString("https://graph.facebook.com/me?access_token=" + fbuser.fb_access_token);
+            string result2 = "";
+            try
+            {
+                result2 = wc.DownloadString("https://graph.facebook.com/me?access_token=" + fbuser.fb_access_token);
+            }
+            catch (Exception e)
+            {
+                Peerfx_DB.SPs.UpdateApiErrors(4, fbuser.fb_access_token, e.Message, result2).Execute();
+            }
 
             try
             {

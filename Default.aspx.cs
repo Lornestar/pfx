@@ -22,9 +22,5 @@ namespace Peerfx
             }
         }
 
-        protected void btnsignup_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Signup.aspx");
-        }
     }
 }

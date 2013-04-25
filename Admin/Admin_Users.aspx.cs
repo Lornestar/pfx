@@ -26,10 +26,13 @@ namespace Peerfx.Admin
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewUsersAll().GetDataSet();
             RadGrid1.DataSource = dstemp.Tables[0];
-            GridSortExpression expression = new GridSortExpression();
-            expression.FieldName = "last_online";
-            expression.SortOrder = GridSortOrder.Descending;
-            RadGrid1.MasterTableView.SortExpressions.AddSortExpression(expression);
+            if (!IsPostBack)
+            {
+                GridSortExpression expression = new GridSortExpression();
+                expression.FieldName = "last_online";
+                expression.SortOrder = GridSortOrder.Descending;
+                RadGrid1.MasterTableView.SortExpressions.AddSortExpression(expression);
+            }            
             //RadGrid1.MasterTableView.Rebind();
         }
 
@@ -145,8 +148,15 @@ namespace Peerfx.Admin
             {
                 DataTable dttemp = Peerfx_DB.SPs.ViewVerificationMethods().GetDataSet().Tables[0];
                 RadListViewDataItem lvdi = (RadListViewDataItem)e.ListViewItem;
-                Peerfx_DB.SPs.UpdateVerification(Convert.ToInt32(hduserkey.Value), Convert.ToInt32(dttemp.Rows[lvdi.DataItemIndex]["verification_method_key"]), true, sitetemp.get_ipaddress(), null).Execute();
+                int userkey = Convert.ToInt32(hduserkey.Value);
+                int verificationmethod = Convert.ToInt32(dttemp.Rows[lvdi.DataItemIndex]["verification_method_key"]);
+                Peerfx_DB.SPs.UpdateVerification(userkey, verificationmethod, true, sitetemp.get_ipaddress(), null).Execute();
                 LoadUserProfile(Convert.ToInt32(hduserkey.Value));
+                if ((verificationmethod == 2) || (verificationmethod == 3))
+                {
+                    External_APIs.SendGrid sg = new External_APIs.SendGrid();
+                    sg.Send_Email_Verification_Approved(userkey, verificationmethod);                        
+                }
             }
             else if (e.CommandName == "Reject")
             {

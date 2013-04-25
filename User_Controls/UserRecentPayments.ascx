@@ -2,7 +2,7 @@
 
 
 <telerik:RadListView ID="RadListView2" runat="server" Width=100% ItemPlaceholderID="ListViewContainer" AllowPaging=true PageSize=5
-                          Skin="Vista">
+                          Skin="Vista" OnItemDataBound="RadListView2_ItemDataBound" >
                           <LayoutTemplate>                                                              
                                 <table id="products" width=100% class="RadListview_Table">
                                     </tr>
@@ -33,8 +33,7 @@
                             
                                     <tr >
                                         <td >
-                                        
-                                            <%# Eval("date_created") %>                               
+                                        <asp:Label ID=lbldatecreated runat=server></asp:Label>                                           
                                         
                                         </td>
                                         <td>
@@ -57,8 +56,7 @@
                             <AlternatingItemTemplate>
                                 <tr class=RadListview_Alternating>
                                         <td >
-                                        
-                                            <%# Eval("date_created")%>                               
+                                        <asp:Label ID=lbldatecreated runat=server></asp:Label>                                                   
                                         
                                         </td>
                                         <td>

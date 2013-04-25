@@ -152,6 +152,19 @@ namespace Peerfx_DB
 				colvarTreasuryName.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarTreasuryName);
 				
+				TableSchema.TableColumn colvarUserKey = new TableSchema.TableColumn(schema);
+				colvarUserKey.ColumnName = "user_key";
+				colvarUserKey.DataType = DbType.Int32;
+				colvarUserKey.MaxLength = 0;
+				colvarUserKey.AutoIncrement = false;
+				colvarUserKey.IsNullable = true;
+				colvarUserKey.IsPrimaryKey = false;
+				colvarUserKey.IsForeignKey = false;
+				colvarUserKey.IsReadOnly = false;
+				colvarUserKey.DefaultSetting = @"";
+				colvarUserKey.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarUserKey);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -177,6 +190,14 @@ namespace Peerfx_DB
 			get { return GetColumnValue<string>(Columns.TreasuryName); }
 			set { SetColumnValue(Columns.TreasuryName, value); }
 		}
+		  
+		[XmlAttribute("UserKey")]
+		[Bindable(true)]
+		public int? UserKey 
+		{
+			get { return GetColumnValue<int?>(Columns.UserKey); }
+			set { SetColumnValue(Columns.UserKey, value); }
+		}
 		
 		#endregion
 		
@@ -197,13 +218,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varTreasuryTypeKey,string varTreasuryName)
+		public static void Insert(int varTreasuryTypeKey,string varTreasuryName,int? varUserKey)
 		{
 			TreasuryType item = new TreasuryType();
 			
 			item.TreasuryTypeKey = varTreasuryTypeKey;
 			
 			item.TreasuryName = varTreasuryName;
+			
+			item.UserKey = varUserKey;
 			
 		
 			if (System.Web.HttpContext.Current != null)
@@ -215,13 +238,15 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varTreasuryTypeKey,string varTreasuryName)
+		public static void Update(int varTreasuryTypeKey,string varTreasuryName,int? varUserKey)
 		{
 			TreasuryType item = new TreasuryType();
 			
 				item.TreasuryTypeKey = varTreasuryTypeKey;
 			
 				item.TreasuryName = varTreasuryName;
+			
+				item.UserKey = varUserKey;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -250,12 +275,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn UserKeyColumn
+        {
+            get { return Schema.Columns[2]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
 		{
 			 public static string TreasuryTypeKey = @"treasury_type_key";
 			 public static string TreasuryName = @"treasury_name";
+			 public static string UserKey = @"user_key";
 						
 		}
 		#endregion

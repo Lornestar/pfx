@@ -14,21 +14,19 @@
                         </telerik:RadTab>
                         <telerik:RadTab Text="Deposits">
                         </telerik:RadTab>                        
-                        <telerik:RadTab Text="Completed Settlements" >
+                        <telerik:RadTab Text="Completed Trades" >
                         </telerik:RadTab>                        
                     </Tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0">
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
-                    <div class="Exchange_Header">Settlements</div>
+                    <div class="Exchange_Header">Trades</div>
                         
 
-                        <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False" AllowAutomaticUpdates="False" OnNeedDataSource="RadGrid1_NeedDataSource"                                 OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true" OnDetailTableDataBind="RadGrid1_DetailTableDataBind" ShowFooter=false>
-                            <MasterTableView Width="100%" DataKeyNames="currencycloud_settlement_key" AutoGenerateColumns="False" InsertItemPageIndexAction="ShowItemOnCurrentPage" Name="CurrencyCloud" >
-                                <DetailTables>
-                                    <telerik:GridTableView DataKeyNames="currencycloud_trade_key" Name="Trades" Width="100%" AutoGenerateColumns="False" ShowGroupFooter=true>
-                                        <Columns>
-                                            <telerik:GridBoundColumn DataField="cc_tradeid" HeaderText="CurrencyCloud Trade ID" SortExpression="cc_tradeid" Aggregate=Count FooterText="Total Trades: ">
+                        <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False" AllowAutomaticUpdates="False" OnNeedDataSource="RadGrid1_NeedDataSource"                                 OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true" OnDetailTableDataBind="RadGrid1_DetailTableDataBind" PageSize=100>
+                            <MasterTableView Width="100%" DataKeyNames="currencycloud_trade_key" AutoGenerateColumns="False" InsertItemPageIndexAction="ShowItemOnCurrentPage" Name="CurrencyCloud"  ShowGroupFooter=true>
+                                <Columns>
+                                    <telerik:GridBoundColumn DataField="cc_tradeid" HeaderText="CurrencyCloud Trade ID" SortExpression="cc_tradeid" Aggregate=Count FooterText="Total Trades: ">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="currencycloud_trade_key" HeaderText="Key" SortExpression="currencycloud_trade_key" Visible=false>
                                             </telerik:GridBoundColumn>
@@ -39,18 +37,25 @@
                                             <telerik:GridBoundColumn DataField="buy_currency" HeaderText="Buy Currency" SortExpression="buy_currency" Visible=false>
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="sell_amount" HeaderText="Sell Amount" SortExpression="sell_amount" Aggregate=Sum FooterText="Currency Total: ">
-                                            </telerik:GridBoundColumn>
+                                            </telerik:GridBoundColumn>                                            
                                             <telerik:GridBoundColumn DataField="txt_Sell_full" HeaderText="Selling" SortExpression="txt_Sell_full" Visible=false>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="buy_amount" HeaderText="Buy Amount" SortExpression="buy_amount" Aggregate=Sum FooterText="Currency Total: ">
                                             </telerik:GridBoundColumn>                                            
                                             <telerik:GridBoundColumn DataField="txt_Buy_full" HeaderText="Buying" SortExpression="txt_Buy_full">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="initiated_date" HeaderText="Initiated Date" SortExpression="initiated_date">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="directlyfromcurrencycloud" HeaderText="CC sends directly to bank (1=YES)" SortExpression="directlyfromcurrencycloud">
+                                            <telerik:GridBoundColumn DataField="directlyfromcurrencycloud" HeaderText="CC sends directly to bankaccount (1=YES)" SortExpression="directlyfromcurrencycloud">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridTemplateColumn HeaderText="Actions">
+                                            <telerik:GridBoundColumn DataField="cctrade_status" HeaderText="Status" SortExpression="cctrade_status" Visible=false>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="cc_settlementid" HeaderText="Settlementid" SortExpression="cc_settlementid">
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridTemplateColumn HeaderText="Actions" UniqueName="Actions">
                                                         <ItemTemplate>
                                                             <telerik:RadButton ID=btnDetails runat=server Text="View Payment Details" CommandName="btntradedetails" ButtonType=LinkButton BorderStyle=None></telerik:RadButton>
+                                                            <telerik:RadButton ID=btnProcessTrade runat=server Text="Process Trade" CommandName="btnProcessTrade"></telerik:RadButton>
                                                         </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                         </Columns>
@@ -63,26 +68,7 @@
                                                     <telerik:GridGroupByField FieldName="sell_currency_text" HeaderText="Sell Currency"></telerik:GridGroupByField>
                                                 </SelectFields>
                                             </telerik:GridGroupByExpression>
-                                        </GroupByExpressions>
-                                    </telerik:GridTableView>
-                                </DetailTables>
-                                <Columns>
-                                    <telerik:GridBoundColumn DataField="currencycloud_settlement_key" HeaderText="Key" SortExpression="currencycloud_settlement_key">
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="cc_settlementid" HeaderText="CC SettlementID" SortExpression="cc_settlementid">
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="releasedate" HeaderText="Release Date" SortExpression="releasedate">
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="number_of_trades" HeaderText="# of Trades" SortExpression="number_of_trades">
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="status" HeaderText="Status" SortExpression="status" Visible=false>
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridTemplateColumn HeaderText="Actions">
-                                                <ItemTemplate>
-                                                    <telerik:RadButton ID=btnProcessSettlement runat=server Text="Process Settlement" CommandName="btnProcessSettlement"></telerik:RadButton>
-                                                </ItemTemplate>
-                                    </telerik:GridTemplateColumn>
-                                </Columns>
+                                        </GroupByExpressions>                                
                             </MasterTableView>
                          </telerik:RadGrid>
 

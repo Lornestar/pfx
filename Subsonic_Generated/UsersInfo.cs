@@ -412,6 +412,32 @@ namespace Peerfx_DB
 				colvarDefaultCurrency.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarDefaultCurrency);
 				
+				TableSchema.TableColumn colvarTimezone = new TableSchema.TableColumn(schema);
+				colvarTimezone.ColumnName = "timezone";
+				colvarTimezone.DataType = DbType.Int32;
+				colvarTimezone.MaxLength = 0;
+				colvarTimezone.AutoIncrement = false;
+				colvarTimezone.IsNullable = true;
+				colvarTimezone.IsPrimaryKey = false;
+				colvarTimezone.IsForeignKey = false;
+				colvarTimezone.IsReadOnly = false;
+				colvarTimezone.DefaultSetting = @"";
+				colvarTimezone.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTimezone);
+				
+				TableSchema.TableColumn colvarReferral = new TableSchema.TableColumn(schema);
+				colvarReferral.ColumnName = "referral";
+				colvarReferral.DataType = DbType.AnsiString;
+				colvarReferral.MaxLength = 2147483647;
+				colvarReferral.AutoIncrement = false;
+				colvarReferral.IsNullable = true;
+				colvarReferral.IsPrimaryKey = false;
+				colvarReferral.IsForeignKey = false;
+				colvarReferral.IsReadOnly = false;
+				colvarReferral.DefaultSetting = @"";
+				colvarReferral.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarReferral);
+				
 				BaseSchema = schema;
 				//add this schema to the provider
 				//so we can query it later
@@ -597,6 +623,22 @@ namespace Peerfx_DB
 			get { return GetColumnValue<int?>(Columns.DefaultCurrency); }
 			set { SetColumnValue(Columns.DefaultCurrency, value); }
 		}
+		  
+		[XmlAttribute("Timezone")]
+		[Bindable(true)]
+		public int? Timezone 
+		{
+			get { return GetColumnValue<int?>(Columns.Timezone); }
+			set { SetColumnValue(Columns.Timezone, value); }
+		}
+		  
+		[XmlAttribute("Referral")]
+		[Bindable(true)]
+		public string Referral 
+		{
+			get { return GetColumnValue<string>(Columns.Referral); }
+			set { SetColumnValue(Columns.Referral, value); }
+		}
 		
 		#endregion
 		
@@ -617,7 +659,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Inserts a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl,int? varDefaultCurrency)
+		public static void Insert(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl,int? varDefaultCurrency,int? varTimezone,string varReferral)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -665,6 +707,10 @@ namespace Peerfx_DB
 			
 			item.DefaultCurrency = varDefaultCurrency;
 			
+			item.Timezone = varTimezone;
+			
+			item.Referral = varReferral;
+			
 		
 			if (System.Web.HttpContext.Current != null)
 				item.Save(System.Web.HttpContext.Current.User.Identity.Name);
@@ -675,7 +721,7 @@ namespace Peerfx_DB
 		/// <summary>
 		/// Updates a record, can be used with the Object Data Source
 		/// </summary>
-		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl,int? varDefaultCurrency)
+		public static void Update(int varUserKey,string varAddress1,string varAddress2,string varCity,string varState,int? varCountry,string varPostalcode,int? varPhonecountrycode1,int? varPhonetype1,string varPhonenumber1,int? varPhonecountrycode2,int? varPhonetype2,string varPhonenumber2,int? varIdentitynationality,string varOccupation,string varPassportnumber,DateTime? varLastChanged,string varUsername,string varPassword,string varSsn,string varImageUrl,int? varDefaultCurrency,int? varTimezone,string varReferral)
 		{
 			UsersInfo item = new UsersInfo();
 			
@@ -722,6 +768,10 @@ namespace Peerfx_DB
 				item.ImageUrl = varImageUrl;
 			
 				item.DefaultCurrency = varDefaultCurrency;
+			
+				item.Timezone = varTimezone;
+			
+				item.Referral = varReferral;
 			
 			item.IsNew = false;
 			if (System.Web.HttpContext.Current != null)
@@ -890,6 +940,20 @@ namespace Peerfx_DB
         
         
         
+        public static TableSchema.TableColumn TimezoneColumn
+        {
+            get { return Schema.Columns[22]; }
+        }
+        
+        
+        
+        public static TableSchema.TableColumn ReferralColumn
+        {
+            get { return Schema.Columns[23]; }
+        }
+        
+        
+        
         #endregion
 		#region Columns Struct
 		public struct Columns
@@ -916,6 +980,8 @@ namespace Peerfx_DB
 			 public static string Ssn = @"ssn";
 			 public static string ImageUrl = @"Image_URL";
 			 public static string DefaultCurrency = @"default_currency";
+			 public static string Timezone = @"timezone";
+			 public static string Referral = @"referral";
 						
 		}
 		#endregion

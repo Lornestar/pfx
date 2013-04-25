@@ -39,6 +39,9 @@
                                                 | <a href="Admin_Deposits.aspx">Deposits</a>
                                             </td>
                                             <td>
+                                                | <a href="Admin_Withdrawl.aspx">Withdrawls</a>
+                                            </td>
+                                            <td>
                                                 | <a href="Admin_Users.aspx">Users</a>
                                             </td>
                                             <td>

@@ -573,6 +573,42 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarDefaultCurrency);
                 
+                TableSchema.TableColumn colvarTimezoneid = new TableSchema.TableColumn(schema);
+                colvarTimezoneid.ColumnName = "timezoneid";
+                colvarTimezoneid.DataType = DbType.AnsiString;
+                colvarTimezoneid.MaxLength = 50;
+                colvarTimezoneid.AutoIncrement = false;
+                colvarTimezoneid.IsNullable = true;
+                colvarTimezoneid.IsPrimaryKey = false;
+                colvarTimezoneid.IsForeignKey = false;
+                colvarTimezoneid.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarTimezoneid);
+                
+                TableSchema.TableColumn colvarTimezone = new TableSchema.TableColumn(schema);
+                colvarTimezone.ColumnName = "timezone";
+                colvarTimezone.DataType = DbType.Int32;
+                colvarTimezone.MaxLength = 0;
+                colvarTimezone.AutoIncrement = false;
+                colvarTimezone.IsNullable = true;
+                colvarTimezone.IsPrimaryKey = false;
+                colvarTimezone.IsForeignKey = false;
+                colvarTimezone.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarTimezone);
+                
+                TableSchema.TableColumn colvarReferral = new TableSchema.TableColumn(schema);
+                colvarReferral.ColumnName = "referral";
+                colvarReferral.DataType = DbType.AnsiString;
+                colvarReferral.MaxLength = 2147483647;
+                colvarReferral.AutoIncrement = false;
+                colvarReferral.IsNullable = true;
+                colvarReferral.IsPrimaryKey = false;
+                colvarReferral.IsForeignKey = false;
+                colvarReferral.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarReferral);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -1224,6 +1260,48 @@ namespace Peerfx_DB{
 			    SetColumnValue("default_currency", value);
             }
         }
+	      
+        [XmlAttribute("Timezoneid")]
+        [Bindable(true)]
+        public string Timezoneid 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("timezoneid");
+		    }
+            set 
+		    {
+			    SetColumnValue("timezoneid", value);
+            }
+        }
+	      
+        [XmlAttribute("Timezone")]
+        [Bindable(true)]
+        public int? Timezone 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int?>("timezone");
+		    }
+            set 
+		    {
+			    SetColumnValue("timezone", value);
+            }
+        }
+	      
+        [XmlAttribute("Referral")]
+        [Bindable(true)]
+        public string Referral 
+	    {
+		    get
+		    {
+			    return GetColumnValue<string>("referral");
+		    }
+            set 
+		    {
+			    SetColumnValue("referral", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -1317,6 +1395,12 @@ namespace Peerfx_DB{
             public static string LastOnline = @"last_online";
             
             public static string DefaultCurrency = @"default_currency";
+            
+            public static string Timezoneid = @"timezoneid";
+            
+            public static string Timezone = @"timezone";
+            
+            public static string Referral = @"referral";
             
 	    }
 	    #endregion

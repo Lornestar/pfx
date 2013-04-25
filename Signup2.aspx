@@ -39,7 +39,7 @@
             First Name
             </td>
             <td>
-                <telerik:RadTextBox ID=txtfirstname runat=server Width=200></telerik:RadTextBox>
+                <telerik:RadTextBox ID=txtfirstname runat=server Width=200 AutoCompleteType=Disabled></telerik:RadTextBox>
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
             Last Name
             </td>
             <td>
-                <telerik:RadTextBox ID=txtlastname runat=server Width=200></telerik:RadTextBox>
+                <telerik:RadTextBox ID=txtlastname runat=server Width=200 AutoCompleteType=Disabled></telerik:RadTextBox>
             </td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
                 Email
             </td>
             <td>
-                <telerik:RadTextBox ID=txtemail runat=server Width=200></telerik:RadTextBox>
+                <telerik:RadTextBox ID=txtemail runat=server Width=200 AutoCompleteType=Disabled></telerik:RadTextBox>
             </td>
         </tr>
         <tr>
@@ -63,7 +63,7 @@
                 Password
             </td>
             <td>
-                <telerik:RadTextBox ID=txtpassword runat=server Width=200 TextMode=Password></telerik:RadTextBox>
+                <telerik:RadTextBox ID=txtpassword runat=server Width=200 TextMode=Password AutoCompleteType=Disabled></telerik:RadTextBox>
             </td>
         </tr>
         <tr>
@@ -81,8 +81,7 @@
             </td>
         </tr>
     </table>    
-    </center>
-
+    </center>    
     </div>
     </form>
 </body>

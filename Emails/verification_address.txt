@@ -1,0 +1,1 @@
+﻿<p>Congratulations, we have successfully verified your address.</p>

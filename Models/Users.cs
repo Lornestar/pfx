@@ -48,6 +48,9 @@ namespace Peerfx.Models
         private DateTime last_online;
         private bool isverified;
         private int default_currency;
+        private string timezoneid;
+        private int timezonekey;
+        private string referral;
 
         public int User_key
         {
@@ -539,5 +542,39 @@ namespace Peerfx.Models
             }
         }
 
+        public string Timezoneid
+        {
+            get
+            {
+                return timezoneid;
+            }
+            set
+            {
+                timezoneid = value;
+            }
+        }
+        public int Timezonekey
+        {
+            get
+            {
+                return timezonekey;
+            }
+            set
+            {
+                timezonekey = value;
+            }
+        }        
+
+        public string Referral{
+            get
+            {
+                return referral;
+            }
+            set
+            {
+                referral = value;
+            }
+        }
+        
     }
 }

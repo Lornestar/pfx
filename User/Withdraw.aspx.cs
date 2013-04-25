@@ -21,7 +21,10 @@ namespace Peerfx.User
             if (!IsPostBack)
             {
                 Loadcurrency();
-                Loadreceiverlist();
+                if (ddlcurrency.SelectedIndex > -1)
+                {
+                    Loadreceiverlist();
+                }                
                 BankAccountEntry1.hidecurrency();                
             }
         }
@@ -94,8 +97,11 @@ namespace Peerfx.User
 
         protected void setamountmax()
         {
-            DataTable dtfundingsources = Peerfx_DB.SPs.ViewUserCurrenciesHasBalancein(currentuser.User_key).GetDataSet().Tables[0];
-            txtamount.MaxValue = Convert.ToDouble(dtfundingsources.Rows[ddlcurrency.SelectedIndex]["user_balance_money"]);
+            if (ddlcurrency.SelectedIndex > -1)
+            {
+                DataTable dtfundingsources = Peerfx_DB.SPs.ViewUserCurrenciesHasBalancein(currentuser.User_key).GetDataSet().Tables[0];
+                txtamount.MaxValue = Convert.ToDouble(dtfundingsources.Rows[ddlcurrency.SelectedIndex]["user_balance_money"]);
+            }            
         }
 
         protected void btncontinue1_Click(object sender, EventArgs e)

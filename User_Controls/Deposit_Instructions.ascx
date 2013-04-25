@@ -3,6 +3,7 @@
 <%@ Register Src="~/User_Controls/ExchangeCurrency_NextSteps.ascx" tagname="ExchangeCurrency_NextSteps" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/BankAccountEntry.ascx" tagname="BankAccountEntry" tagprefix="uc1" %>
 
+Please send the amount you wish to deposit to the following bank account:
 <table width=100%>
                                     <tr valign=top>
                                         <td style="border:1px solid black; width:50%">

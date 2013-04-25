@@ -79,11 +79,12 @@ namespace Peerfx
                     LoadRecipientList();
 
                     //check if verified or not
+                    /*
                     if (currentuser.Verification_points < 100)
                     {
                         btnContinue1.Visible = false;
                         btnNotVerified.Visible = true;
-                    }
+                    }*/
                 }
             }
             else if (hduserkey.Value != "0")
@@ -129,10 +130,11 @@ namespace Peerfx
             }            
 
             //Add Embee Telco
-            RadListBoxItem rdtemp4 = new RadListBoxItem();
+            /*RadListBoxItem rdtemp4 = new RadListBoxItem();
             rdtemp4.Value = "-2";
             rdtemp4.Text = "Top Up Phone";
             ddlReceivers.Items.Add(rdtemp4);
+            */
 
             if (sitetemp.isCurrencyCanhold(Convert.ToInt32(ddlbuycurrency.SelectedValue)))
             {
@@ -143,13 +145,17 @@ namespace Peerfx
                 ddlReceivers.Items.Insert(0, rdtemp2);
             }            
 
-            ddlReceivers.SelectedIndex = 0;
+            ddlReceivers.SelectedIndex = 0;            
 
             pnlembee.Visible = false;
             pnlotherpassportuser.Visible = false;
             pnlnewreceiver.Visible = false;
             pnlexistingreceiver.Visible = true;
-            
+
+            if (ddlReceivers.SelectedValue == "0")
+            {
+                openbankaccountentry();
+            }
             /*else
             {
                 pnlnewreceiver.Visible = true;
@@ -200,6 +206,15 @@ namespace Peerfx
             UpdatePaymentMethod(Convert.ToInt32(ddlsellcurrency.SelectedValue),Convert.ToDecimal(txtsell.Value));
         }
 
+        protected void openbankaccountentry()
+        {
+            //open new recipient
+            pnlnewreceiver.Visible = true;
+            Cleartxtreceiverfields();            
+            BankAccountEntry1.hidecurrency();
+            BankAccountEntry1.updatecurrency(Convert.ToInt32(ddlbuycurrency.SelectedValue));
+        }
+
         protected void ddlexistingreceiver_changed(object sender, EventArgs e)
         {
             pnlnewreceiver.Visible = false;
@@ -211,11 +226,7 @@ namespace Peerfx
 
             if (ddlReceivers.SelectedValue == "0")
             {
-                //open new recipient
-                pnlnewreceiver.Visible = true;                
-                Cleartxtreceiverfields();
-                BankAccountEntry1.hidecurrency();
-                BankAccountEntry1.updatecurrency(Convert.ToInt32(ddlbuycurrency.SelectedValue));
+                openbankaccountentry();
             }
             else if (ddlReceivers.SelectedValue == "-1")
             {
@@ -260,6 +271,7 @@ namespace Peerfx
 
         protected void Cleartxtreceiverfields()
         {
+            BankAccountEntry1.resetname();
             BankAccountEntry1.resetaddnew();
             txtdescription.Text = "";
         }

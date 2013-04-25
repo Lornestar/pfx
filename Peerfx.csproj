@@ -104,6 +104,7 @@
     <Content Include="Admin\Admin_Payment_Schedule.aspx" />
     <Content Include="Admin\Admin_Scheduled_Tasks.aspx" />
     <Content Include="Admin\Admin_Users.aspx" />
+    <Content Include="Admin\Admin_Withdrawl.aspx" />
     <Content Include="App_Data\RadCaptcha\0.wav" />
     <Content Include="App_Data\RadCaptcha\1.wav" />
     <Content Include="App_Data\RadCaptcha\2.wav" />
@@ -165,7 +166,11 @@
     <Content Include="Emails\payment_confirmed.txt" />
     <Content Include="Emails\payment_confirmed_Embee.txt" />
     <Content Include="Emails\payment_details.txt" />
+    <Content Include="Emails\verification_address.txt" />
+    <Content Include="Emails\verification_current_status.txt" />
+    <Content Include="Emails\verification_id.txt" />
     <Content Include="Embee\EmbeeIPN.aspx" />
+    <Content Include="Embee\Signup_Embee.aspx" />
     <Content Include="ExchangeCurrency.aspx" />
     <Content Include="External APIs\homesendtest.txt" />
     <Content Include="Facebook\fblogin.aspx" />
@@ -196,6 +201,7 @@
     <Content Include="Testing\TestEmbee.aspx" />
     <Content Include="Testing\TestError.aspx" />
     <Content Include="Testing\Testhomesend.aspx" />
+    <Content Include="Testing\TestMixpanel.aspx" />
     <Content Include="Testing\TestRadgrid.aspx" />
     <Content Include="Testing\TestScraping.aspx" />
     <Content Include="User\Add_Funds.aspx" />
@@ -296,6 +302,13 @@
     <Compile Include="Admin\Admin_Users.aspx.designer.cs">
       <DependentUpon>Admin_Users.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Admin_Withdrawl.aspx.cs">
+      <DependentUpon>Admin_Withdrawl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin_Withdrawl.aspx.designer.cs">
+      <DependentUpon>Admin_Withdrawl.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CustomError.aspx.cs">
       <DependentUpon>CustomError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -317,6 +330,13 @@
     <Compile Include="Embee\EmbeeIPN.aspx.designer.cs">
       <DependentUpon>EmbeeIPN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Embee\Signup_Embee.aspx.cs">
+      <DependentUpon>Signup_Embee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Embee\Signup_Embee.aspx.designer.cs">
+      <DependentUpon>Signup_Embee.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ExchangeCurrency.aspx.cs">
       <DependentUpon>ExchangeCurrency.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,6 +349,7 @@
     <Compile Include="External APIs\Embee.cs" />
     <Compile Include="External APIs\Facebook.cs" />
     <Compile Include="External APIs\Homesend.cs" />
+    <Compile Include="External APIs\Mixpanel.cs" />
     <Compile Include="External APIs\Twilio.cs" />
     <Compile Include="Facebook\fblogin.aspx.cs">
       <DependentUpon>fblogin.aspx</DependentUpon>
@@ -475,6 +496,13 @@
     </Compile>
     <Compile Include="Testing\Testhomesend.aspx.designer.cs">
       <DependentUpon>Testhomesend.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Testing\TestMixpanel.aspx.cs">
+      <DependentUpon>TestMixpanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Testing\TestMixpanel.aspx.designer.cs">
+      <DependentUpon>TestMixpanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Testing\TestRadgrid.aspx.cs">
       <DependentUpon>TestRadgrid.aspx</DependentUpon>

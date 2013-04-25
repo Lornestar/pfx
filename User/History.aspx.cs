@@ -26,6 +26,11 @@ namespace Peerfx.User
         {
             DataSet dstemp = Peerfx_DB.SPs.ViewPaymentsRequestedbyuser(currentuser.User_key).GetDataSet();
             RadGrid1.DataSource = dstemp.Tables[0];
+
+            GridSortExpression expression = new GridSortExpression();
+            expression.FieldName = "date_created";
+            expression.SortOrder = GridSortOrder.Descending;
+            RadGrid1.MasterTableView.SortExpressions.AddSortExpression(expression);
         }
 
 
@@ -38,6 +43,11 @@ namespace Peerfx.User
                 string paymentkey = row["payments_key"].ToString();
                 HyperLink hyppayment = (HyperLink)item.FindControl("hyppayment");
                 hyppayment.NavigateUrl = "/User/Payment.aspx?paymentkey=" + paymentkey;
+
+                                
+                DateTime datecreated = (DateTime)row["date_created"];
+                item["datecreated"].Text = datecreated.AddHours(sitetemp.getTimezoneOffset(currentuser.Timezoneid)).ToString();
+ 
             }
         }
 

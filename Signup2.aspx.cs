@@ -12,6 +12,7 @@ namespace Peerfx
 {
     public partial class Signup2 : System.Web.UI.Page
     {
+        Site sitetemp = new Site();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -40,6 +41,10 @@ namespace Peerfx
             {
                 lblerror.Text = "Please enter email address";
             }
+            else if (!sitetemp.IsValidEmail(txtemail.Text))
+            {
+                lblerror.Text = "Please enter a valid email address";
+            }
             else if (txtfirstname.Text == "")
             {
                 lblerror.Text = "Please enter first name";
@@ -64,9 +69,9 @@ namespace Peerfx
 
                 Peerfx_DB.SPs.UpdateUsersInfoSignupTab3(temp_user_key, "", txtpassword.Text).Execute();
 
-                
 
-                Site sitetemp = new Site();
+
+                
                 Users user = sitetemp.view_users_info_email(txtemail.Text);
                 HttpContext.Current.Session["currentuser"] = user;
                 //Response.Redirect("/User/Dashboard.aspx");

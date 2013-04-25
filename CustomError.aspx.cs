@@ -37,7 +37,7 @@ namespace Peerfx
             string Toemail = System.Configuration.ConfigurationSettings.AppSettings.Get("ErrorToEmail").ToString();
 
             SendGrid sg = new SendGrid();
-            sg.SimpleEmail("Lorne", "Peerfx Error", Toemail, "Error@peerfx.com", thebody, "Peerfx Error");
+            sg.SimpleEmail("Lorne", "Passportfx Error", Toemail, "Error@passportfx.com", thebody, "Passportfx Error");
         }
     }
 }

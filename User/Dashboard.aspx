@@ -31,9 +31,10 @@
         }
 
         function validationFailed(sender, args) {
-            $telerik.$(".invalid")
+            /*$telerik.$(".invalid")
                 .html("Invalid extension, please choose a jpg image file");
-            sender.deleteFileInputAt(0);
+            sender.deleteFileInputAt(0);*/
+            alert("Please select an image smaller than 500kb, and of type jpg/jpeg");
         }
 
     </script>
@@ -185,6 +186,14 @@
                                                     </td>
                                                 </tr>
                                             </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            <center>
+                                                <telerik:RadComboBox ID=ddltimezone runat=server Width=100% NoWrap=true DropDownWidth=380
+                                                    onselectedindexchanged="ddltimezone_SelectedIndexChanged" AutoPostBack=true></telerik:RadComboBox>
+                                            </center>
                                         </td>
                                     </tr>
                                 </table>

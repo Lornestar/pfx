@@ -18,7 +18,9 @@ namespace Peerfx.User_Controls
 
         public void LoadInfo(int userkey, int currency)
         {
-            Int64 adminpaymentobject = sitetemp.get_Payment_Object_sendmoneyto_For_Payment(userkey, currency);
+            Users treasury = sitetemp.get_treasury_account(1);
+
+            Int64 adminpaymentobject = sitetemp.get_Payment_Object_sendmoneyto_For_Payment(treasury.User_key, currency);
             BankAccounts baadmin = sitetemp.getBankAccounts(0, adminpaymentobject);
             BankAccountEntry1.ViewasLabels();
             BankAccountEntry1.LoadFields(baadmin);

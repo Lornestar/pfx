@@ -561,6 +561,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarCcPaymentid);
                 
+                TableSchema.TableColumn colvarCctradeStatus = new TableSchema.TableColumn(schema);
+                colvarCctradeStatus.ColumnName = "cctrade_status";
+                colvarCctradeStatus.DataType = DbType.Int32;
+                colvarCctradeStatus.MaxLength = 0;
+                colvarCctradeStatus.AutoIncrement = false;
+                colvarCctradeStatus.IsNullable = false;
+                colvarCctradeStatus.IsPrimaryKey = false;
+                colvarCctradeStatus.IsForeignKey = false;
+                colvarCctradeStatus.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarCctradeStatus);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -1198,6 +1210,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("cc_paymentid", value);
             }
         }
+	      
+        [XmlAttribute("CctradeStatus")]
+        [Bindable(true)]
+        public int CctradeStatus 
+	    {
+		    get
+		    {
+			    return GetColumnValue<int>("cctrade_status");
+		    }
+            set 
+		    {
+			    SetColumnValue("cctrade_status", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -1289,6 +1315,8 @@ namespace Peerfx_DB{
             public static string CcCutoff = @"cc_cutoff";
             
             public static string CcPaymentid = @"cc_paymentid";
+            
+            public static string CctradeStatus = @"cctrade_status";
             
 	    }
 	    #endregion

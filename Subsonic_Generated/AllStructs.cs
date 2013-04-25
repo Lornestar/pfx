@@ -20,6 +20,10 @@ namespace Peerfx_DB
 		
 		public static readonly string AdminBankAccount = @"Admin_Bank_Accounts";
         
+		public static readonly string ApiError = @"API_Errors";
+        
+		public static readonly string ApiErrorsType = @"API_Errors_Types";
+        
 		public static readonly string AspnetApplication = @"aspnet_Applications";
         
 		public static readonly string AspnetSchemaVersion = @"aspnet_SchemaVersions";
@@ -63,6 +67,8 @@ namespace Peerfx_DB
 		public static readonly string InfoPhoneType = @"Info_Phone_Type";
         
 		public static readonly string InfoSecurityQuestion = @"Info_Security_Questions";
+        
+		public static readonly string InfoTimezone = @"Info_Timezones";
         
 		public static readonly string InfoVerificationMethod = @"Info_Verification_Methods";
         
@@ -126,6 +132,16 @@ namespace Peerfx_DB
 		public static TableSchema.Table AdminBankAccount
 		{
             get { return DataService.GetSchema("Admin_Bank_Accounts", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table ApiError
+		{
+            get { return DataService.GetSchema("API_Errors", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table ApiErrorsType
+		{
+            get { return DataService.GetSchema("API_Errors_Types", "Peerfx"); }
 		}
         
 		public static TableSchema.Table AspnetApplication
@@ -236,6 +252,11 @@ namespace Peerfx_DB
 		public static TableSchema.Table InfoSecurityQuestion
 		{
             get { return DataService.GetSchema("Info_Security_Questions", "Peerfx"); }
+		}
+        
+		public static TableSchema.Table InfoTimezone
+		{
+            get { return DataService.GetSchema("Info_Timezones", "Peerfx"); }
 		}
         
 		public static TableSchema.Table InfoVerificationMethod

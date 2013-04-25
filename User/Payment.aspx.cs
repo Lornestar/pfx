@@ -27,7 +27,7 @@ namespace Peerfx.User
             {
                 if (paymentkey != 0)
                 {
-                    Paymentdetails.LoadInfo(paymentkey);
+                    Paymentdetails.LoadInfo(paymentkey,currentuser.User_key);
                 }                
             }
 

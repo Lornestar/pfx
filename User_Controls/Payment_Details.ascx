@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Payment_Details.ascx.cs" Inherits="Peerfx.User_Controls.Payment_Details" %>
 <%@ Register Src="~/User_Controls/UserInfo.ascx" tagname="UserInfo" tagprefix="uc1" %>
 <%@ Register Src="~/User_Controls/ExchangeCurrency_FinePrint.ascx" tagname="ExchangeCurrency_FinePrint" tagprefix="uc1" %>
+
+<asp:HiddenField ID=hduserkey runat=server Value="0"/>
+
 <table>
 <tr>
     <td colspan=2>

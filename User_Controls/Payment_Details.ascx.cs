@@ -11,14 +11,15 @@ namespace Peerfx.User_Controls
     public partial class Payment_Details : System.Web.UI.UserControl
     {
         Site sitetemp = new Site();
+        Users currentuser;
         protected void Page_Load(object sender, EventArgs e)
-        {
-
+        {            
         }
 
-        public void LoadInfo(int paymentkey)
+        public void LoadInfo(int paymentkey, int userkey)
         {
-            //Load payment info
+            //Load payment info                        
+            currentuser = sitetemp.get_user_info(userkey);
 
             Payment paymenttemp = sitetemp.getPayment(paymentkey);
 
@@ -153,7 +154,7 @@ namespace Peerfx.User_Controls
 
             lblconfirmreceiverdescription.Text = paymenttemp.Payment_description;
             //lblconfirmreceiveremail.Text = txtemailreceiver.Text;
-            lblCreatedDate.Text = paymenttemp.Date_created.ToString();
+            lblCreatedDate.Text = paymenttemp.Date_created.AddHours(sitetemp.getTimezoneOffset(currentuser.Timezoneid)).ToString();
             lblStatus.Text = paymenttemp.Payment_status_text;
         }
     }

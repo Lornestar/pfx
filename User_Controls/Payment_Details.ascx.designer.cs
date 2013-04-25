@@ -13,6 +13,15 @@ namespace Peerfx.User_Controls {
     public partial class Payment_Details {
         
         /// <summary>
+        /// hduserkey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hduserkey;
+        
+        /// <summary>
         /// lblType control.
         /// </summary>
         /// <remarks>

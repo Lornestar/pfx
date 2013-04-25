@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
 using Peerfx.Models;
+using System.Collections;
 
 namespace Peerfx.External_APIs
 {
@@ -231,7 +232,71 @@ namespace Peerfx.External_APIs
             thebody = thebody.Replace("THEAMOUNT", sitetemp.GetCurrencySymbol(currency) + amount.ToString("F") + " " + sitetemp.getcurrencycode(currency) );
 
             SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Deposit Received");
-        }        
+        }
+
+        public void Send_Email_Verification_Approved(int userkey, int verificationmethod)
+        {
+            Users currentuser = sitetemp.get_user_info(userkey);
+
+            string thebody;
+            string thesubject;
+
+            if (verificationmethod == 2)
+            {
+                //passport
+                thesubject = "Passport ID verified";
+                thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/verification_id.txt")) + getverificationstatus(userkey) + getFooter();
+            }
+            else 
+            {
+                //address
+                thesubject = "Passport Address verified";
+                thebody = getHeader(currentuser.Full_name) + System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/verification_address.txt")) + getverificationstatus(userkey) + getFooter();
+            }
+
+            SimpleEmail(currentuser.Full_name, "", currentuser.Email, "", thebody, "Passport Deposit Received");
+
+        }
+
+        protected string getverificationstatus(int userkey)
+        {
+            string strreturn = "";
+
+            strreturn = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/verification_current_status.txt"));            
+
+            Hashtable hsverifications = sitetemp.getusersverified(userkey);
+            foreach (DictionaryEntry entry in hsverifications)
+            {
+                Peerfx.Models.Verification verificationtemp = (Peerfx.Models.Verification)entry.Value;
+                int methodkey = Convert.ToInt32(entry.Key);
+                switch (methodkey)
+                {
+                    case 1: if (verificationtemp.Isverified)
+                        {
+                            //Email verified
+                            strreturn = strreturn.Replace("EMAILVERIFIED", "Approved");
+                        }
+                        break;
+                    case 2: if (verificationtemp.Isverified)
+                        {
+                            //Passport verified
+                            strreturn = strreturn.Replace("IDVERIFIED", "Approved");
+                        }
+                        break;
+                    case 3: if (verificationtemp.Isverified)
+                        {
+                            //Address verified
+                            strreturn = strreturn.Replace("ADDRESSVERIFIED", "Approved");
+                        }
+                        break;
+                }
+            }
+            strreturn = strreturn.Replace("EMAILVERIFIED", "Not Approved");
+            strreturn = strreturn.Replace("IDVERIFIED", "Not Approved");
+            strreturn = strreturn.Replace("ADDRESSVERIFIED", "Not Approved");
+
+            return strreturn;
+        }
 
     }
 }

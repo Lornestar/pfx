@@ -11,7 +11,7 @@
     <div>    
     <img src="../Images/Peerfx_logo.png" />
     <br />
-        An error has occured.  We apologize for the inconvenience.  Please try again.
+        An error has occurred.  We apologize for the inconvenience.  Please try again.
     </div>
     </form>
 </body>

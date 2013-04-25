@@ -14,10 +14,11 @@ namespace Peerfx.User_Controls
     public partial class Admin_ScheduledTask_CurrencyCloud : System.Web.UI.UserControl
     {
         Site sitetemp = new Site();
-
+        Users currentuser;
         protected void Page_Load(object sender, EventArgs e)
         {
             LastUpdated();
+            currentuser = sitetemp.getcurrentuser(true);
         }
 
         public void LastUpdated()
@@ -52,6 +53,7 @@ namespace Peerfx.User_Controls
             ScheduledTasks.CurrencyCloud_Settlements ccs = new ScheduledTasks.CurrencyCloud_Settlements();
             ccs.dorun(1);
             LastUpdated();
+            RadGrid1.Rebind();
         }
 
         protected void btndorun2_Click(object sender, EventArgs e)
@@ -59,6 +61,7 @@ namespace Peerfx.User_Controls
             ScheduledTasks.CurrencyCloud_Settlements ccs = new ScheduledTasks.CurrencyCloud_Settlements();
             ccs.dorun(2);
             LastUpdated();
+            RadGrid1.Rebind();
         }
 
         protected void RadGrid1_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -96,7 +99,7 @@ namespace Peerfx.User_Controls
 
         protected void LoadTradeDetails(int paymentskey)
         {
-            Paymentdetails1.LoadInfo(paymentskey);
+            Paymentdetails1.LoadInfo(paymentskey,currentuser.User_key);
             Payment paymenttemp = sitetemp.getPayment(paymentskey);
             CCTradeDetails1.LoadInfo(paymenttemp.Currencycloudtradeid);
             CCPaymentDetails1.LoadInfo(paymenttemp.Currencycloudpaymentid);

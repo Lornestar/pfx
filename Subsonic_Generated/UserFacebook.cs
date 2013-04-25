@@ -193,8 +193,8 @@ namespace Peerfx_DB
 				
 				TableSchema.TableColumn colvarFbAccessToken = new TableSchema.TableColumn(schema);
 				colvarFbAccessToken.ColumnName = "fb_access_token";
-				colvarFbAccessToken.DataType = DbType.String;
-				colvarFbAccessToken.MaxLength = 200;
+				colvarFbAccessToken.DataType = DbType.AnsiString;
+				colvarFbAccessToken.MaxLength = 2147483647;
 				colvarFbAccessToken.AutoIncrement = false;
 				colvarFbAccessToken.IsNullable = true;
 				colvarFbAccessToken.IsPrimaryKey = false;
