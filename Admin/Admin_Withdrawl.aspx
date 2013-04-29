@@ -42,6 +42,7 @@
                                 <telerik:GridTemplateColumn HeaderText="Actions">
                                     <ItemTemplate>
                                         <telerik:RadButton ID=btnDetails runat=server Text="View Details" CommandName="btntradedetails" ButtonType=LinkButton BorderStyle=None></telerik:RadButton>
+                                        <telerik:RadButton ID=btnWithdraw runat=server Text="Process Withdrawl" CommandName="btnWithdraw"></telerik:RadButton>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                             </Columns>

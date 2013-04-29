@@ -13,6 +13,8 @@
                         <telerik:RadTab Text="Withdrawls">
                         </telerik:RadTab>
                         <telerik:RadTab Text="Deposits">
+                        </telerik:RadTab>
+                        <telerik:RadTab Text="Direct from CC">
                         </telerik:RadTab>                        
                         <telerik:RadTab Text="Completed Trades" >
                         </telerik:RadTab>                        
@@ -21,7 +23,12 @@
                 <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0">
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
                     <div class="Exchange_Header">Trades</div>
-                        
+                     <asp:Panel ID=pnlcheckdirectpayment runat=server Visible=false>
+                        Last Check: <asp:Label ID=lbldirectpayment runat=server></asp:Label>
+                        <br />
+                        <telerik:RadButton ID=btndirectpayment runat=server Text="Run Check Trades Direct Payment"
+                            onclick="btndirectpayment_Click"></telerik:RadButton>
+                     </asp:Panel>   
 
                         <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False" AllowAutomaticUpdates="False" OnNeedDataSource="RadGrid1_NeedDataSource"                                 OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true" OnDetailTableDataBind="RadGrid1_DetailTableDataBind" PageSize=100>
                             <MasterTableView Width="100%" DataKeyNames="currencycloud_trade_key" AutoGenerateColumns="False" InsertItemPageIndexAction="ShowItemOnCurrentPage" Name="CurrencyCloud"  ShowGroupFooter=true>

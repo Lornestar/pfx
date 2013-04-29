@@ -12,6 +12,8 @@ namespace Peerfx
     public partial class Login : System.Web.UI.Page
     {
         Site sitetemp = new Site();
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -23,6 +25,7 @@ namespace Peerfx
             //Try to login
             DataTable dttemp = Peerfx_DB.SPs.ViewUsersLogin(txtemail.Text, txtpassword.Text).GetDataSet().Tables[0];
             int userkey = 0;
+            
             if (dttemp.Rows.Count > 0)
             {
                 if (dttemp.Rows[0]["user_key"] != DBNull.Value){
@@ -32,10 +35,11 @@ namespace Peerfx
             }            
 
             if (isvalidlogin)
-            {
+            {                
                 //log them in           
                 Users user = sitetemp.get_user_info(userkey);
                 HttpContext.Current.Session["currentuser"] = user;
+                mx.TrackEvent("Login - Successful Login", user.User_key, null);
                 Response.Redirect("/User/Dashboard.aspx");
             }
             else

@@ -35,7 +35,7 @@ namespace Peerfx.User_Controls
                 strscript += "});";
 
                 Page.ClientScript.RegisterStartupScript(GetType(), "mixpanelid", strscript, true);
-                
+                Page.ClientScript.RegisterStartupScript(GetType(), "mixpanelalias", "mixpanel.name_tag('" + users.First_name + "_" + users.Last_name + "_" + users.Account_number + "');", true);  
             }
         }
 

@@ -18,8 +18,11 @@ namespace Peerfx.Testing
 
         protected void btntest_Click(object sender, EventArgs e)
         {
+            System.Collections.Hashtable hstemp = new System.Collections.Hashtable();
+            hstemp.Add("testingproperty", "5464");
+
             External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
-            mx.TrackEvent("Testing", 10);
+            mx.TrackEvent("Testing", 10,hstemp);
         }
     }
 }

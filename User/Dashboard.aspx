@@ -34,7 +34,7 @@
             /*$telerik.$(".invalid")
                 .html("Invalid extension, please choose a jpg image file");
             sender.deleteFileInputAt(0);*/
-            alert("Please select an image smaller than 500kb, and of type jpg/jpeg");
+            alert("Please select an image smaller than 4MB, and of type jpg/jpeg");
         }
 
     </script>
@@ -80,7 +80,7 @@
                                                         <td>
                                                             <telerik:RadAsyncUpload runat="server" ID="AsyncUpload1" MultipleFileSelection=Disabled OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" 
                                                                                                 OnFileUploaded="AsyncUpload1_FileUploaded" AllowedFileExtensions="jpeg,jpg" 
-                                                                                                 MaxFileSize="524288"><Localization Select="" />                                                                                                 </telerik:RadAsyncUpload>                                
+                                                                                                 MaxFileSize="4024288"><Localization Select="" />                                                                                                 </telerik:RadAsyncUpload>                                
                                                         </td>
                                                     </tr>
                                                 </table>                                                                                                         </center>                                        

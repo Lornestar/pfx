@@ -597,10 +597,6 @@ namespace Peerfx
             {
                 paymenttemp.Requiresmanualexport = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["requiresmanualexport"]);
             }
-            if (dstemp.Tables[0].Rows[0]["requiresmanualexport"] != DBNull.Value)
-            {
-                paymenttemp.Requiresmanualexport = Convert.ToBoolean(dstemp.Tables[0].Rows[0]["requiresmanualexport"]);
-            }
             if (dstemp.Tables[0].Rows[0]["requestor_user_key"] != DBNull.Value)
             {
                 paymenttemp.Requestor_user_key = Convert.ToInt32(dstemp.Tables[0].Rows[0]["requestor_user_key"]);

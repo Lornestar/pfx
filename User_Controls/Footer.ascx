@@ -31,6 +31,9 @@
             <td width=280px>
                 COPYRIGHT 2013 / 2014 UBNZ MARKETS
             </td>
+            <td>
+                <a href="http://mixpanel.com/f/partner"><img src="http://mixpanel.com/site_media/images/partner/badge_blue.png" alt="Mobile Analytics" /></a>
+            </td>
         </tr>
     </table>    
 </center>

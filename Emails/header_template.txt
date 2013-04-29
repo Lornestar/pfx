@@ -1,0 +1,8 @@
+﻿<div style="padding: 20px !important;">
+<div style="background-color:#EEE;width:100%;margin:0px; padding:0px;">
+<div style="padding:20px;">
+<div style="padding:8px;background-color:#FFF;-moz-border-radius:7px;-webkit-border-radius:7px;">
+<a href="http://www.tradepfx.com" "_blank"="" target="_blank"><img alt="" src="http://www.tradepfx.com/images/passport_logo.png" style="width: 236px; height: 61px;"></a>
+<br>
+<div style="clear:both;">&nbsp;</div>
+<div style="color:#848484;">

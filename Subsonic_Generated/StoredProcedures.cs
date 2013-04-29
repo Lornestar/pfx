@@ -1946,6 +1946,16 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Payments_Processed_Withdrawls Procedure
+        /// </summary>
+        public static StoredProcedure ViewPaymentsProcessedWithdrawls()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Payments_Processed_Withdrawls", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Payments_Requestedbyuser Procedure
         /// </summary>
         public static StoredProcedure ViewPaymentsRequestedbyuser(int? userkey)

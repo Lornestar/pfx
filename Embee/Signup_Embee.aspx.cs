@@ -13,6 +13,7 @@ namespace Peerfx.Embee
     public partial class Signup_Embee : System.Web.UI.Page
     {
         Site sitetemp = new Site();
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
         protected void Page_Load(object sender, EventArgs e)
         {
                             
@@ -74,6 +75,7 @@ namespace Peerfx.Embee
 
                 Peerfx_DB.SPs.UpdateUsersReferral(temp_user_key, strid).Execute();
 
+                mx.TrackEvent("Sign Up - Embee", temp_user_key, null);
 
                 Users user = sitetemp.view_users_info_email(txtemail.Text);
                 HttpContext.Current.Session["currentuser"] = user;

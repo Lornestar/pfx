@@ -154,7 +154,9 @@
     <Content Include="Emails\ErrorEmail.htm" />
     <Content Include="Emails\ErrorEmail.txt" />
     <Content Include="Emails\footer.txt" />
+    <Content Include="Emails\footer_template.txt" />
     <Content Include="Emails\header.txt" />
+    <Content Include="Emails\header_template.txt" />
     <Content Include="Emails\payment_completed.html" />
     <Content Include="Emails\payment_completed.txt" />
     <Content Include="Emails\payment_confirmed_depositinstructions.html" />
@@ -181,6 +183,7 @@
     <Content Include="Peerfx.css" />
     <Content Include="Rob.aspx" />
     <Content Include="ScheduledTasks\CurrencyCloud_Settlements.aspx" />
+    <Content Include="ScheduledTasks\CurrencyCloud_Trades_DirectPayment.aspx" />
     <Content Include="ScheduledTasks\PollEmbeeTransStatus.aspx" />
     <Content Include="ScheduledTasks\UpdateCurrencyCloudRates.aspx" />
     <Content Include="ScheduledTasks\UpdateEmbeeCatalog.aspx" />
@@ -400,6 +403,13 @@
     </Compile>
     <Compile Include="ScheduledTasks\CurrencyCloud_Settlements.aspx.designer.cs">
       <DependentUpon>CurrencyCloud_Settlements.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduledTasks\CurrencyCloud_Trades_DirectPayment.aspx.cs">
+      <DependentUpon>CurrencyCloud_Trades_DirectPayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScheduledTasks\CurrencyCloud_Trades_DirectPayment.aspx.designer.cs">
+      <DependentUpon>CurrencyCloud_Trades_DirectPayment.aspx</DependentUpon>
     </Compile>
     <Compile Include="ScheduledTasks\PollEmbeeTransStatus.aspx.cs">
       <DependentUpon>PollEmbeeTransStatus.aspx</DependentUpon>
@@ -775,7 +785,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

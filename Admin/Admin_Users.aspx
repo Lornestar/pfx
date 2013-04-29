@@ -21,23 +21,27 @@
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
 
                 <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False"  OnNeedDataSource="RadGrid1_NeedDataSource" AllowSorting="true"
-                OnItemCommand="RadGrid1_ItemCommand" PageSize=25>
-                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="account_number" AutoGenerateColumns="False">
+                OnItemCommand="RadGrid1_ItemCommand" PageSize=25 AllowFilteringByColumn=true>
+                <groupingsettings casesensitive="false"></groupingsettings>
+                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="account_number" AutoGenerateColumns="False" >
                         <Columns>
-                            <telerik:GridBoundColumn DataField="account_number" HeaderText="Account Number" UniqueName="account_number" SortExpression="account_number">
+                            <telerik:GridBoundColumn DataField="account_number" HeaderText="Account Number" UniqueName="account_number" SortExpression="account_number" CurrentFilterFunction=Contains FilterDelay=1500>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="user_key" HeaderText="user_key" UniqueName="user_key" Visible=false>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="first_name" HeaderText="First Name" UniqueName="first_name" SortExpression="first_name">
+                            <telerik:GridBoundColumn DataField="first_name" HeaderText="First Name" UniqueName="first_name" SortExpression="first_name" CurrentFilterFunction=Contains FilterDelay=1500>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="last_name" HeaderText="Last Name" UniqueName="last_name" SortExpression="last_name">
+                            <telerik:GridBoundColumn DataField="last_name" HeaderText="Last Name" UniqueName="last_name" SortExpression="last_name" CurrentFilterFunction=Contains FilterDelay=1500>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="user_balance" HeaderText="Current Balance" UniqueName="user_balance" SortExpression="user_balance">
+                            <telerik:GridBoundColumn DataField="email" HeaderText="Email" UniqueName="email" SortExpression="email" CurrentFilterFunction=Contains FilterDelay=1500>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="user_balance" HeaderText="Current Balance" UniqueName="user_balance" SortExpression="user_balance" AllowFiltering=false>
                             </telerik:GridBoundColumn>                
-                            <telerik:GridBoundColumn DataField="user_status_text" HeaderText="Status" UniqueName="user_status_text" SortExpression="user_status_text">
+                            <telerik:GridBoundColumn DataField="user_status_text" HeaderText="Status" UniqueName="user_status_text" SortExpression="user_status_text" AllowFiltering=false>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="last_online" HeaderText="Last Online" UniqueName="last_online" SortExpression="last_online">
-                            </telerik:GridBoundColumn>  
+                            <telerik:GridDateTimeColumn DataField="last_online" HeaderText="Last Online" UniqueName="last_online" SortExpression="last_online" PickerType="DatePicker"
+                    EnableRangeFiltering="true">
+                            </telerik:GridDateTimeColumn>  
                             <telerik:GridButtonColumn DataTextFormatString="Details" DataTextField="user_key" Text="Details" CommandName="Details"></telerik:GridButtonColumn>                            
                         </Columns>
                         <CommandItemSettings ShowAddNewRecordButton=false />

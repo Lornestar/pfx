@@ -46,6 +46,15 @@ namespace Peerfx.User_Controls
 
             dttrades = Peerfx_DB.SPs.ViewCurrencyCloudTradesAwaitingSettlement(2).GetDataSet().Tables[0];
             lblpendingtrades2.Text = dttrades.Rows.Count.ToString();
+
+            dttemp = Peerfx_DB.SPs.ViewScheduledTask(4).GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                if (dttemp.Rows[0]["date_changed"] != DBNull.Value)
+                {
+                    lbldirectpayment.Text = dttemp.Rows[0]["date_changed"].ToString();
+                }
+            }
         }
 
         protected void btndorun1_Click(object sender, EventArgs e)
@@ -116,6 +125,13 @@ namespace Peerfx.User_Controls
             RadGrid1.Rebind();
             RadGrid2.Rebind();
         }
+
+        protected void btndirectpayment_Click(object sender, EventArgs e)
+        {
+            External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
+            cc.CheckCC_Trades_DirectPayment();
+            LastUpdated();
+        }        
 
     }
 }

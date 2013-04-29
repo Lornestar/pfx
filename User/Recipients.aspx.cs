@@ -14,6 +14,7 @@ namespace Peerfx.User
     {
         Site sitetemp = new Site();
         Users currentuser;
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,12 +60,16 @@ namespace Peerfx.User
                     //insert new bank account                    
                     Int64 paymentobjectkey = BankAccountEntry1.InsertBankAccount(currentuser.User_key);
                     Peerfx_DB.SPs.UpdateRecipients(0, currentuser.User_key, paymentobjectkey).Execute();
+
+                    mx.TrackEvent("Recipients - Added Recipient", currentuser.User_key, null);
                 }
                 else
                 {
                     //update existing
                     int bankaccountkey = Convert.ToInt32(hdcurrentbankaccountkey.Value);
                     BankAccountEntry1.UpdateBankAccount(bankaccountkey, currentuser.User_key);
+                    
+                    mx.TrackEvent("Recipients - Updated Recipient", currentuser.User_key, null);
                 }
                 LoadListView();
                 pnladdnew.Visible = false;

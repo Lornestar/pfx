@@ -20,6 +20,7 @@ namespace Peerfx.User_Controls
         Site sitetemp = new Site();
         string checkmarkurl = "/images/checkmark.png";
         Site currentsite;
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();            
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -136,6 +137,8 @@ namespace Peerfx.User_Controls
 
             RadNotification1.Text = "A verification email has just been sent to your email address.";
             RadNotification1.Show();
+
+            mx.TrackEvent("Verification - Email Initiated", Convert.ToInt32(hduserkey.Value), null);
         }
 
         protected void btnaddress_Click(object sender, EventArgs e)
@@ -147,12 +150,15 @@ namespace Peerfx.User_Controls
         {
             UploadFiles("Verification/ID",e);
             ViewUploadedPics1.LoadPics("/Files/Verification/ID/" + hduserkey.Value);
+
+            mx.TrackEvent("Verification - PassportID Image Added", Convert.ToInt32(hduserkey.Value), null);
         }
 
         protected void AsyncUpload2_FileUploaded(object sender, FileUploadedEventArgs e)
         {
             UploadFiles("Verification/Address", e);
             ViewUploadedPics2.LoadPics("/Files/Verification/Address/" + hduserkey.Value);
+            mx.TrackEvent("Verification - Address Image Added", Convert.ToInt32(hduserkey.Value), null);
         }
 
         protected void UploadFiles(string thisfolder, FileUploadedEventArgs e)
@@ -218,6 +224,8 @@ namespace Peerfx.User_Controls
 
                 //Show existing pics
                 ViewUploadedPics1.LoadPics("/Files/Verification/ID/" + hduserkey.Value);
+
+                mx.TrackEvent("Verification - PassportID Added", Convert.ToInt32(hduserkey.Value), null);
             }
             else
             {
@@ -242,6 +250,8 @@ namespace Peerfx.User_Controls
                 pnladdressimage.Visible = true;
 
                 ViewUploadedPics2.LoadPics("/Files/Verification/Address/" + hduserkey.Value);
+
+                mx.TrackEvent("Verification - Address Added", Convert.ToInt32(hduserkey.Value), null);
             }
             else
             {
@@ -276,7 +286,9 @@ namespace Peerfx.User_Controls
                 Peerfx_DB.SPs.UpdateVerification(Convert.ToInt32(hduserkey.Value), 4, false, sitetemp.get_ipaddress(), strcode).Execute();
 
                 RadNotification1.Text = "After you receive an sms in the next 30 seconds, enter the Passport account code, to complete Phone Verification.";
-                RadNotification1.Show();                
+                RadNotification1.Show();
+
+                mx.TrackEvent("Verification - Phone Initiated", Convert.ToInt32(hduserkey.Value), null);
             }
             else
             {
@@ -302,6 +314,7 @@ namespace Peerfx.User_Controls
                 Peerfx_DB.SPs.UpdateVerification(Convert.ToInt32(hduserkey.Value), 4, true, sitetemp.get_ipaddress(),txtphonecode.Text).Execute();
 
                 sitetemp.VerificationReward(4, Convert.ToInt32(hduserkey.Value));
+                mx.TrackEvent("Verification - Phone Connected", Convert.ToInt32(hduserkey.Value), null);
 
                 Response.Redirect("/User/Verification.aspx");
             }

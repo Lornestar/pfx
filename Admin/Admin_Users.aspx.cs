@@ -16,6 +16,7 @@ namespace Peerfx.Admin
         Site sitetemp = new Site();
         Users currentuser;
         string notavailable = "Not Available";
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -155,7 +156,16 @@ namespace Peerfx.Admin
                 if ((verificationmethod == 2) || (verificationmethod == 3))
                 {
                     External_APIs.SendGrid sg = new External_APIs.SendGrid();
-                    sg.Send_Email_Verification_Approved(userkey, verificationmethod);                        
+                    sg.Send_Email_Verification_Approved(userkey, verificationmethod);
+
+                    if (verificationmethod == 2)
+                    {
+                        mx.TrackEvent("Verification - Passport ID Confirmed", userkey, null);
+                    }
+                    else
+                    {
+                        mx.TrackEvent("Verification - Address Confirmed", userkey, null);
+                    }
                 }
             }
             else if (e.CommandName == "Reject")

@@ -19,13 +19,21 @@ namespace Peerfx.External_APIs
     {
         Site sitetemp = new Site();
 
-        public void TrackEvent(string eventname,int userkey)
+        public void TrackEvent(string eventname,int userkey, Hashtable hspropertiesadditional)
         {
             string token = ConfigurationSettings.AppSettings["Mixpaneltoken"];
             Hashtable hsproperties = new Hashtable();
             hsproperties.Add("distinct_id", userkey.ToString());
             hsproperties.Add("ip", sitetemp.get_ipaddress());
             hsproperties.Add("token", token);
+
+            if (hspropertiesadditional != null)
+            {
+                foreach (DictionaryEntry Item in hspropertiesadditional)
+                {
+                    hsproperties.Add(Item.Key, Item.Value);
+                }
+            }            
 
             Hashtable hstemp = new Hashtable();
             hstemp.Add("event", eventname);

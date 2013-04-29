@@ -54,9 +54,6 @@
                                                 | <a href="Admin_CurrencyCloud.aspx">CurrencyCloud</a>
                                             </td>
                                             <td>
-                                                | Contact us
-                                            </td>
-                                            <td>
                                                 <uc1:Login id="ucLogin" runat="Server"></uc1:Login>
                                             </td>
                                         </tr>

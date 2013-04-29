@@ -67,6 +67,24 @@ namespace Peerfx.User_Controls {
         protected global::Telerik.Web.UI.RadButton btndorun2;
         
         /// <summary>
+        /// lbldirectpayment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbldirectpayment;
+        
+        /// <summary>
+        /// btndirectpayment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btndirectpayment;
+        
+        /// <summary>
         /// RadGrid1 control.
         /// </summary>
         /// <remarks>

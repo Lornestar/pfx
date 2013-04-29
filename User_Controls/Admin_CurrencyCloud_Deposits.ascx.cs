@@ -16,10 +16,20 @@ namespace Peerfx.User_Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             currentuser = sitetemp.getcurrentuser(true);
+            if (!IsPostBack)
+            {
+                LastUpdated();
+            }
         }
 
         protected void RadGrid1_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            pnlcheckdirectpayment.Visible = false;
+            //waiting to be released = 1
+            //widthrawls = 2
+            //deposits = 3
+            // completed = 4
+            // waiting cc to send payment to user = 5
             if (RadTabStrip1.SelectedIndex == 0)
             {
                 //withdrawls
@@ -46,14 +56,27 @@ namespace Peerfx.User_Controls
             }
             else if (RadTabStrip1.SelectedIndex == 2)
             {
+                //Waiting for Currencycloud to complete payment
+                RadGrid1.DataSource = Peerfx_DB.SPs.ViewCurrencyCloudTradeBystatus(5).GetDataSet().Tables[0];
+                RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                RadGrid1.MasterTableView.GroupByExpressions.Add(new GridGroupByExpression("buy_currency_text Group By buy_currency_text"));
+                RadGrid1.MasterTableView.Columns[5].Visible = false;
+                RadGrid1.MasterTableView.Columns[8].Visible = true;
+                RadGrid1.MasterTableView.Columns[6].Visible = true;
+                RadGrid1.MasterTableView.Columns[7].Visible = false;
+
+                pnlcheckdirectpayment.Visible = true;
+            }
+            else if (RadTabStrip1.SelectedIndex == 3)
+            {
                 RadGrid1.DataSource = Peerfx_DB.SPs.ViewCurrencyCloudTradeBystatus(4).GetDataSet().Tables[0];
                 RadGrid1.MasterTableView.GroupByExpressions.Clear();
                 //RadGrid1.MasterTableView.DetailTables[0].GroupByExpressions.Add(new GridGroupByExpression("buy_currency_text Group By buy_currency_text"));
                 //RadGrid1.MasterTableView.Columns[5].Visible = false;
-                RadGrid1.MasterTableView.Columns[5].Visible = true;
-                RadGrid1.MasterTableView.Columns[8].Visible = false;
-                RadGrid1.MasterTableView.Columns[6].Visible = false;
-                RadGrid1.MasterTableView.Columns[7].Visible = true;                
+                RadGrid1.MasterTableView.Columns[5].Visible = false;
+                RadGrid1.MasterTableView.Columns[8].Visible = true;
+                RadGrid1.MasterTableView.Columns[6].Visible = true;
+                RadGrid1.MasterTableView.Columns[7].Visible = false;
             }
         }
 
@@ -155,12 +178,20 @@ namespace Peerfx.User_Controls
             {
                 GridDataItem item = (GridDataItem)e.Item;
                 RadButton radbtn = (RadButton)item["Actions"].FindControl("btnProcessTrade");
-                if (RadTabStrip1.SelectedIndex == 2)
+                if ((RadTabStrip1.SelectedIndex == 2) || (RadTabStrip1.SelectedIndex == 3))
                 {
                     radbtn.Visible = false;
                 }
                 else
                 {
+                    if (RadTabStrip1.SelectedIndex == 0)
+                    {
+                        radbtn.Text = "Process Withdrawl";
+                    }
+                    else if (RadTabStrip1.SelectedIndex == 1)
+                    {
+                        radbtn.Text = "Process Deposit";
+                    }
                     radbtn.Visible = true;
                 }
             } 
@@ -172,6 +203,26 @@ namespace Peerfx.User_Controls
             Payment paymenttemp = sitetemp.getPayment(paymentskey);
             CCTradeDetails1.LoadInfo(paymenttemp.Currencycloudtradeid);
             CCPaymentDetails1.LoadInfo(paymenttemp.Currencycloudpaymentid);
+        }
+
+        protected void btndirectpayment_Click(object sender, EventArgs e)
+        {
+            External_APIs.CurrencyCloud cc = new External_APIs.CurrencyCloud();
+            cc.CheckCC_Trades_DirectPayment();
+            LastUpdated();
+            RadGrid1.Rebind();
+        }
+
+        protected void LastUpdated()
+        {
+            DataTable dttemp = Peerfx_DB.SPs.ViewScheduledTask(4).GetDataSet().Tables[0];
+            if (dttemp.Rows.Count > 0)
+            {
+                if (dttemp.Rows[0]["date_changed"] != DBNull.Value)
+                {
+                    lbldirectpayment.Text = dttemp.Rows[0]["date_changed"].ToString();
+                }
+            }
         }
         
     }

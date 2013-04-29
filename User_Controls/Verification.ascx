@@ -56,7 +56,7 @@
         }
 
         function validationFailed(sender, args) {
-            alert("Please select an image smaller than 500kb, and of type jpg/jpeg/gif/png");
+            alert("Please select an image smaller than 4MB, and of type jpg/jpeg/gif/png");
         }
 
     </script>
@@ -195,7 +195,7 @@ Verifications
                         <asp:Panel ID=pnlPassportPhoto runat=server Visible=false>
                         Upload an image of your Passport Photo (jpeg,jpg,gif,png)
                         <telerik:RadAsyncUpload runat="server" ID="AsyncUpload1" OnFileUploaded="AsyncUpload1_FileUploaded" AllowedFileExtensions="jpeg,jpg,gif,png" 
-                                       OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="524288">                                       <Localization Select="" />
+                                       OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="4024288">                                       <Localization Select="" />
                                                                                              </telerik:RadAsyncUpload>            
                                                                                              <telerik:RadProgressManager runat="server" ID="RadProgressManager1" />
                             <telerik:RadProgressArea runat="server" ID="RadProgressArea1" />
@@ -290,7 +290,7 @@ Verifications
                                 <asp:Panel ID=pnladdressimage runat=server Visible=false>
                                Upload images of a Utility bill with your address (jpeg,jpg,gif,png)
                                 <telerik:RadAsyncUpload runat="server" ID="RadAsyncUpload2" OnFileUploaded="AsyncUpload2_FileUploaded" AllowedFileExtensions="jpeg,jpg,gif,png" 
-                                                   OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="524288">
+                                                   OnClientFileUploaded="fileUploaded" OnClientValidationFailed="validationFailed" MultipleFileSelection="Automatic"  MaxFileSize="4024288">
                                                    
                                                                                                          <Localization Select="" />
                                                                                                          </telerik:RadAsyncUpload>        

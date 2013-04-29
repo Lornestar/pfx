@@ -37,8 +37,10 @@ namespace Peerfx.External_APIs
 
                 // Subject and multipart/alternative Body
                 mailMsg.Subject = strSubject;
-                //string text = "text body";
-                string html = body;
+                //string text = "text body";                
+                string headertemplate = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/header_template.txt"));
+                string footertemplate = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("/Emails/footer_template.txt"));
+                string html = headertemplate + body + footertemplate;
                 //mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
                 mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 

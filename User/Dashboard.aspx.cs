@@ -18,6 +18,7 @@ namespace Peerfx.User
     {
         Site sitetemp = new Site();
         Users currentuser;
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,8 +55,7 @@ namespace Peerfx.User
                 }
 
                 LoadNetBalance();
-
-                Page.ClientScript.RegisterStartupScript(GetType(), "mixpanelalias", "mixpanel.name_tag('" + currentuser.First_name + "_" + currentuser.Last_name + "_" + currentuser.Account_number + "');", true);
+                
             }
             //insert profile img
             if (currentuser.Image_url != null)
@@ -211,6 +211,10 @@ namespace Peerfx.User
             //update user timezone
             Peerfx_DB.SPs.UpdateUsersTimezone(currentuser.User_key, Convert.ToInt32(ddltimezone.SelectedValue)).Execute();
             ucUserRecentPayment1.LoadPayments(currentuser.User_key);
+
+            Hashtable hstemp = new Hashtable();
+            hstemp.Add("timezone",ddltimezone.SelectedItem.Text);
+            mx.TrackEvent("Dashboard - Changed Timezone", currentuser.User_key, hstemp);
         }
                
     }

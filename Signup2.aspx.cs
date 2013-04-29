@@ -13,6 +13,8 @@ namespace Peerfx
     public partial class Signup2 : System.Web.UI.Page
     {
         Site sitetemp = new Site();
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -70,7 +72,7 @@ namespace Peerfx
                 Peerfx_DB.SPs.UpdateUsersInfoSignupTab3(temp_user_key, "", txtpassword.Text).Execute();
 
 
-
+                mx.TrackEvent("Sign Up", temp_user_key, null);
                 
                 Users user = sitetemp.view_users_info_email(txtemail.Text);
                 HttpContext.Current.Session["currentuser"] = user;

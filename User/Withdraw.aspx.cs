@@ -8,12 +8,15 @@ using System.Data;
 using Peerfx.Models;
 using Telerik.Web.UI;
 using SubSonic;
+using System.Collections;
+
 namespace Peerfx.User
 {
     public partial class Withdraw : System.Web.UI.Page
     {
         Site sitetemp = new Site();
         Users currentuser;
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -106,6 +109,9 @@ namespace Peerfx.User
 
         protected void btncontinue1_Click(object sender, EventArgs e)
         {
+            Hashtable hstemp = BankAccountEntry1.gettxtfields_hashtable();            
+            mx.TrackEvent("Withdrawl - Attempted Initiated Payment", currentuser.User_key, hstemp);
+
             Boolean isvalid = false;
             if (ddlReceivers.SelectedValue == "0")
             {
@@ -138,6 +144,8 @@ namespace Peerfx.User
                 BankAccountEntry2.LoadFields(ba);
 
                 RadMultiPage1.SelectedIndex = 1;
+
+                mx.TrackEvent("Withdrawl - Initiated Payment", currentuser.User_key, hstemp);
             }
             
         }
@@ -186,6 +194,9 @@ namespace Peerfx.User
 
             //initiate conversion
             sitetemp.payment_initiate(payment_key);
+
+            mx.TrackEvent("Withdrawl - Confirmed Payment", currentuser.User_key, null);
+
             Response.Redirect("/User/Dashboard.aspx?notification=true");
         }
 

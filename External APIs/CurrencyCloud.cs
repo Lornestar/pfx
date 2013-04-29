@@ -411,6 +411,45 @@ namespace Peerfx.External_APIs
             return hstemp;
         }
 
+        public void CheckCC_Trades_DirectPayment()
+        {
+            //trades currently awaiting payment from CC
+            DataTable dttemp = Peerfx_DB.SPs.ViewCurrencyCloudTradeBystatus(5).GetDataSet().Tables[0];
+
+            foreach (DataRow dr in dttemp.Rows){
+                if (dr["cc_paymentid"].ToString().Length > 0)
+                {
+                    Hashtable hstemp = getPaymentDetails(dr["cc_paymentid"].ToString());
+                    if (hstemp.Count > 0)
+                    {
+                        if (hstemp["status"].ToString() == "completed")
+                        {
+                            //trade has finally been sent to recipient
+                            Int64 cctradekey = Convert.ToInt64(dr["currencycloud_trade_key"]);
+                            int paymentskey = Convert.ToInt32(dr["payments_key"]);
+                            Payment paymenttemp = sitetemp.getPayment(paymentskey);
+
+                            Peerfx_DB.SPs.UpdateCurrencyCloudTradesFundsreceived(cctradekey).Execute();
+
+                            //move money from cc object to payment object
+                            Users cctreasury = sitetemp.get_treasury_account(2);
+                            Int64 cctreasurypaymentobject = sitetemp.getpaymentobject_UserBalance(cctreasury.User_key, paymenttemp.Buy_currency);
+                            sitetemp.InternalTransaction(paymenttemp.Buy_currency, paymenttemp.Buy_amount, cctreasurypaymentobject, paymenttemp.Payment_object_receiver, paymenttemp.Requestor_user_key, "CurrencyCloud to Receiver Object", 1, paymentskey);
+
+                            //change status to Transaction Complete
+                            Peerfx_DB.SPs.UpdatePaymentStatus(paymentskey, 5).Execute();
+
+                            //payment in Payment Sent, send email                                        
+                            Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
+                            Users user_requestor = sitetemp.get_user_info(paymenttemp.Requestor_user_key);
+                            sg.Send_Email_Payment_Completed(paymenttemp.Payments_Key, user_requestor);
+                        }
+                    }
+                }                
+            }
+            Peerfx_DB.SPs.UpdateScheduledTask(4).Execute();
+        }
+
         private string geturl()
         {
             string url = "";
@@ -504,9 +543,9 @@ namespace Peerfx.External_APIs
             catch (Exception e)
             {
                 Peerfx_DB.SPs.UpdateApiErrors(1,request,e.Message,url).Execute(); 
-                string Toemail = System.Configuration.ConfigurationSettings.AppSettings.Get("ErrorToEmail").ToString();
-                SendGrid sg = new SendGrid();
-                sg.SimpleEmail("Lorne", "Passportfx API Error", Toemail, "Error@passportfx.com", e.Message, "CurrencyCloud Error");                
+                //string Toemail = System.Configuration.ConfigurationSettings.AppSettings.Get("ErrorToEmail").ToString();
+                //SendGrid sg = new SendGrid();
+                //sg.SimpleEmail("Lorne", "Passportfx API Error", Toemail, "Error@passportfx.com", e.Message, "CurrencyCloud Error");                
             }            
                         
             return responseString;

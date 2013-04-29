@@ -11,6 +11,7 @@ namespace Peerfx
 {
     public partial class Verification_Email : System.Web.UI.Page
     {
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
         protected void Page_Load(object sender, EventArgs e)
         {
             if ((Request.QueryString["code"] != null) && (Request.QueryString["code"] != ""))
@@ -37,6 +38,7 @@ namespace Peerfx
                     se.Send_Email_Verification_Confirmed(user_key);
 
                     sitetemp.VerificationReward(1, user_key);
+                    mx.TrackEvent("Verification - Email Connected", user_key, null);
                 }
             }
         }

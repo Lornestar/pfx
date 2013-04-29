@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Peerfx.Models;
+using System.Collections;
 
 namespace Peerfx.User_Controls
 {
@@ -269,6 +270,27 @@ namespace Peerfx.User_Controls
             }
 
             return ba;
+        }
+
+        public Hashtable gettxtfields_hashtable()
+        {
+            BankAccounts ba = gettxtfields();
+            Hashtable hstemp = new Hashtable();
+            hstemp.Add("First_name", ba.First_name);
+            hstemp.Add("Last_name", ba.Last_name);
+            hstemp.Add("BIC", ba.BIC);
+            hstemp.Add("Account_number", ba.Account_number);
+            hstemp.Add("ABArouting", ba.ABArouting);
+            hstemp.Add("IBAN", ba.IBAN);
+            hstemp.Add("Sortcode", ba.Sortcode);
+            hstemp.Add("BSB", ba.BSB);
+            hstemp.Add("Email", ba.Email);
+            hstemp.Add("Currency", ba.Currency_text);
+            hstemp.Add("Bankname", ba.Bankname);
+            hstemp.Add("Institutionnumber", ba.Institutionnumber);
+            hstemp.Add("Branchcode", ba.Branchcode);
+            hstemp.Add("Islocalpayment", ba.Islocalpayment);
+            return hstemp;
         }
 
         public void hidecurrency()

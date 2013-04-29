@@ -8,6 +8,7 @@ using Peerfx.Models;
 using System.Data;
 using SubSonic;
 using Telerik.Web.UI;
+using System.Collections;
 
 namespace Peerfx
 {
@@ -16,6 +17,7 @@ namespace Peerfx
 
         Site sitetemp = new Site();
         Users currentuser;
+        External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -446,7 +448,10 @@ namespace Peerfx
         }
 
         protected void btnContinue1_Click(object sender, EventArgs e)
-        {            
+        {
+            Hashtable hstemp = BankAccountEntry1.gettxtfields_hashtable();
+            mx.TrackEvent("ExchangeCurrency - Attempted Initiated Payment", currentuser.User_key, hstemp);
+
             //update seller & receiver payment objects
             hdsenderpaymentobjectkey.Value = ddlpaymentmethod.SelectedValue;
 
@@ -496,6 +501,8 @@ namespace Peerfx
                 updateconfirmationtab();
                 LoadRates(false);
                 lblerrormessage.Visible = false;
+                
+                mx.TrackEvent("ExchangeCurrency - Initiated Payment", currentuser.User_key, hstemp);
             }
             else
             {
@@ -618,6 +625,15 @@ namespace Peerfx
             //Send confirmation email with instructions etc.
             Peerfx.External_APIs.SendGrid sg = new Peerfx.External_APIs.SendGrid();
             sg.Send_Email_Payment_Confirmed(payment_key, currentuser);
+
+            Hashtable hstemp = new Hashtable();
+            hstemp.Add("Treasury Type", treasurytype.ToString());
+            hstemp.Add("Payment Key", payment_key);
+            hstemp.Add("Sell Currency", ddlsellcurrency.SelectedItem.Text);
+            hstemp.Add("Sell Amount", txtsell.Text);            
+            hstemp.Add("Buy Currency", ddlbuycurrency.SelectedItem.Text);
+            hstemp.Add("Buy Amount", txtbuy.Text);
+            mx.TrackEvent("ExchangeCurrency - Confirmed Payment", currentuser.User_key, hstemp);
 
             bool isuserbalance = false;
             if (pnlloggedinsender.Visible)

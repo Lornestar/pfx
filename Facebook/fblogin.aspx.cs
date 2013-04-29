@@ -44,7 +44,7 @@ namespace Peerfx.Facebook
             sitetemp.VerificationReward(5, currentuser.User_key);
 
             External_APIs.Mixpanel mx = new External_APIs.Mixpanel();
-            mx.TrackEvent("Verification - Facebook Connected",currentuser.User_key);
+            mx.TrackEvent("Verification - Facebook Connected",currentuser.User_key,null);
 
             string msg = "";
             if (currentuser.Referral != null)
@@ -74,7 +74,7 @@ namespace Peerfx.Facebook
                     StreamReader reader = new StreamReader(webResponse.GetResponseStream());
                     responseString = reader.ReadToEnd();
                     reader.Close();
-                    mx.TrackEvent("Referral Complete", currentuser.User_key);
+                    mx.TrackEvent("Referral Complete", currentuser.User_key,null);
                     msg = "?msg=You have completed your Embee task. Thanks! Feel free to continue to play around with our site.";
                 }
                 catch (Exception e)

@@ -35,14 +35,22 @@
             <telerik:RadButton ID=btndorun2 runat=server Text="Do Run 2" 
                 onclick="btndorun2_Click"></telerik:RadButton>
         </td>
+        <td>
+            Check Trades Direct Payment
+            <br />
+            Last Check: <asp:Label ID=lbldirectpayment runat=server></asp:Label>
+            <br />
+            <telerik:RadButton ID=btndirectpayment runat=server Text="Run Check Trades Direct Payment"
+                onclick="btndirectpayment_Click"></telerik:RadButton>
+        </td>
     </tr>
     <tr>
-        <td colspan=2>
+        <td colspan=3>
             <hr />
         </td>
     </tr>
     <tr>
-        <td colspan=2>
+        <td colspan=3>
             <div class="Exchange_Header">Trades Awaiting Settlement</div>
             <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" PageSize=50 AllowAutomaticInserts="False" AllowAutomaticUpdates="False" OnNeedDataSource="RadGrid1_NeedDataSource"                                 OnItemDataBound="RadGrid1_ItemDataBound" OnItemCommand="RadGrid1_ItemCommand" AllowSorting="true" ShowFooter=true>
                             <MasterTableView Width="100%" DataKeyNames="currencycloud_trade_key" AutoGenerateColumns="False" Name="CurrencyCloud" ShowGroupFooter=true>
