@@ -199,7 +199,7 @@ namespace Peerfx.External_APIs
             }
             if (ba.Islocalpayment)
             {                
-                hstemp.Add("payment_types", "local");
+                hstemp.Add("payment_type", "local");
             }
 
             return hstemp;

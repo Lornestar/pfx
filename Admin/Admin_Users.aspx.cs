@@ -25,8 +25,7 @@ namespace Peerfx.Admin
 
         protected void RadGrid1_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dstemp = Peerfx_DB.SPs.ViewUsersAll().GetDataSet();
-            RadGrid1.DataSource = dstemp.Tables[0];
+            RadGrid1.DataSource = Peerfx_DB.SPs.ViewUsersAllAdminUsers().GetDataSet().Tables[0]; //Peerfx_DB.SPs.ViewUsersAll().GetDataSet().Tables[0];
             if (!IsPostBack)
             {
                 GridSortExpression expression = new GridSortExpression();
@@ -141,6 +140,22 @@ namespace Peerfx.Admin
 
             }
 
+        }
+
+        protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                DataRowView row = (DataRowView)e.Item.DataItem;
+                int userkey = Convert.ToInt32(row["user_key"]);
+                string userbalancetxt = "";
+                DataTable dttemp = Peerfx_DB.SPs.ViewUsersBalanceTxt(userkey).GetDataSet().Tables[0];
+                if (dttemp.Rows[0]["user_balance"] != DBNull.Value){
+                    userbalancetxt = dttemp.Rows[0]["user_balance"].ToString();
+                }
+                item["user_balance"].Text = userbalancetxt;
+            }
         }
 
         protected void RadListView1_ItemCommand(object source, RadListViewCommandEventArgs e)

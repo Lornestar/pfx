@@ -17,11 +17,11 @@
                     </Tabs>
                 </telerik:RadTabStrip>
 
-                <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0">
+                <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0" RenderSelectedPageOnly=true>
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
 
                 <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False"  OnNeedDataSource="RadGrid1_NeedDataSource" AllowSorting="true"
-                OnItemCommand="RadGrid1_ItemCommand" PageSize=25 AllowFilteringByColumn=true>
+                OnItemCommand="RadGrid1_ItemCommand" PageSize=25 AllowFilteringByColumn=true OnItemDataBound="RadGrid1_ItemDataBound">
                 <groupingsettings casesensitive="false"></groupingsettings>
                      <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="account_number" AutoGenerateColumns="False" >
                         <Columns>
@@ -306,7 +306,7 @@
                     </telerik:RadPageView>
 
                 </telerik:RadMultiPage>
-
+                
 
 </telerik:RadAjaxPanel>
 

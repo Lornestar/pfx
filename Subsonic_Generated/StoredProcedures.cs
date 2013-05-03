@@ -2196,6 +2196,40 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Users_All_AdminDeposits Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersAllAdminDeposits(string txt)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_All_AdminDeposits", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@txt", txt, DbType.AnsiString, null, null);
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_All_AdminUsers Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersAllAdminUsers()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_All_AdminUsers", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_Balance_txt Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersBalanceTxt(int? userkey)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_Balance_txt", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@userkey", userkey, DbType.Int32, 0, 10);
+        	
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_Users_DropDown Procedure
         /// </summary>
         public static StoredProcedure ViewUsersDropDown(string textX)

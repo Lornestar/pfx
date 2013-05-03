@@ -213,11 +213,11 @@ namespace Peerfx.Admin
                     item["amount"].Text = row["amount"].ToString();
                     item["last_changed"].Text = row["last_changed"].ToString();
                     item["proceeds"].Text = row["proceeds"].ToString();
-                    RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectuser");
+                   /* RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectuser");
                     ddlconnectuser.DataTextField = "user_info_full";
                     ddlconnectuser.DataValueField = "user_key";
-                    ddlconnectuser.DataSource = sitetemp.view_users_all();
-                    ddlconnectuser.DataBind();
+                    ddlconnectuser.DataSource = Peerfx_DB.SPs.ViewUsersAllAdminDeposits().GetDataSet().Tables[0];
+                    ddlconnectuser.DataBind();*/
 
                     RadComboBox ddlconnectpayment = (RadComboBox)item.FindControl("ddlconnectpayment");
                     ddlconnectpayment.DataTextField = "payments_info";
@@ -366,6 +366,23 @@ namespace Peerfx.Admin
                 Peerfx_DB.SPs.UpdateTransactionFees(0, 0, tx_key, amount, currency, Description, null, 0).Execute();
             }
             
+        }
+
+        protected void RadComboBox2_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = Peerfx_DB.SPs.ViewUsersAllAdminDeposits(e.Text).GetDataSet().Tables[0];
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + 10, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            RadComboBox rdc = (RadComboBox)sender;
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                 rdc.Items.Add(new RadComboBoxItem(data.Rows[i]["user_info_full"].ToString(), data.Rows[i]["user_key"].ToString()));
+            }
+
+            //e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
         
     }

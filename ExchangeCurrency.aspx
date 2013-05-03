@@ -23,7 +23,7 @@
 <telerik:RadAjaxLoadingPanel runat="server" ID="LoadingPanelExchangeCurrency">
         </telerik:RadAjaxLoadingPanel>
 
-<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">        
+<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" >        
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="txtsell">
                 <UpdatedControls>

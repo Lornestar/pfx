@@ -23,7 +23,15 @@ namespace Peerfx.External_APIs
             wc.Encoding = System.Text.Encoding.UTF8; //This is if you have non english characters
 
             string strsend = "https://graph.facebook.com/oauth/access_token?client_id=" + ConfigurationSettings.AppSettings["fb_app_id"].ToString() + "&redirect_uri=" + thereturnpage + "&client_secret=" + ConfigurationSettings.AppSettings["fb_app_secret"].ToString() + "&code=" + oauth;
-            string result = wc.DownloadString(strsend);
+            string result = "";
+            try
+            {
+                result = wc.DownloadString(strsend);
+            }
+            catch (Exception e)
+            {
+                Peerfx_DB.SPs.UpdateApiErrors(4, strsend, e.Message, result).Execute();
+            }
             string accesstoken = result.Replace("access_token=", "");
 
             Peerfx_DB.SPs.UpdateFacebookAccessToken(userkey, accesstoken).Execute();

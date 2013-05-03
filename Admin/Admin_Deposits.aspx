@@ -2,7 +2,7 @@
 
 <%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ContentPlaceHolderID=Main ID=content1 runat=server>
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1">
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1" >
 
 <telerik:RadTabStrip ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" OnTabClick="RadTabStrip1_TabClick">
                     <Tabs>
@@ -189,7 +189,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <telerik:RadComboBox ID=ddlconnectuser runat=server EmptyMessage="Choose User" Width=400 >
+                                                        <telerik:RadComboBox ID=ddlconnectuser runat=server EmptyMessage="Choose User" Width=400 EnableLoadOnDemand="True" ShowMoreResultsBox="true" EnableVirtualScrolling="true" ItemsPerRequest="10" OnItemsRequested="RadComboBox2_ItemsRequested">
                                                         </telerik:RadComboBox>
                                                     </td>                                                    
                                                 </tr>
