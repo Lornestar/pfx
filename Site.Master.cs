@@ -2339,5 +2339,16 @@ namespace Peerfx
             }
         }
 
+        public decimal getAmountinOtherCurrency(decimal amount, int currency1, int currency2)
+        {
+            decimal amount2 = 0;
+
+            StoredProcedure spviewamount = Peerfx_DB.SPs.ViewAmountInOtherCurrency(amount, currency1, currency2,0);
+            spviewamount.Execute();
+            amount2 = Convert.ToDecimal(spviewamount.Command.Parameters[3].ParameterValue);            
+
+            return amount2;
+        }
+
     }    
 }

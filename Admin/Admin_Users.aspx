@@ -8,7 +8,7 @@
 
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" LoadingPanelID="RadAjaxLoadingPanel1">
 <asp:HiddenField ID=hduserkey runat=server Value="0" />
-<telerik:RadTabStrip ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1">
+<telerik:RadTabStrip ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" AutoPostBack=true>
                     <Tabs>
                         <telerik:RadTab Text="Users">
                         </telerik:RadTab>
@@ -19,6 +19,9 @@
 
                 <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0" RenderSelectedPageOnly=true>
                     <telerik:RadPageView runat="server" ID="RadPageView1" CssClass="Admin_Tabs">
+
+                    <telerik:RadButton ID=btnawaitingverification runat=server 
+                            Text="View Users Awaiting Verification" onclick="btnawaitingverification_Click"></telerik:RadButton>
 
                 <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="true" AllowAutomaticInserts="False"  OnNeedDataSource="RadGrid1_NeedDataSource" AllowSorting="true"
                 OnItemCommand="RadGrid1_ItemCommand" PageSize=25 AllowFilteringByColumn=true OnItemDataBound="RadGrid1_ItemDataBound">

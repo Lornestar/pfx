@@ -18,15 +18,17 @@
                 </tr>
             </table>             
             </asp:Panel>
-            <asp:Panel ID=pnlSignedIn runat=server Visible=false>
+            <asp:Panel ID=pnlSignedIn runat=server Visible=false>            
             <div style=" position:absolute; top:0px; right:200px;">                          
                 <div class="Loggedin">
+                    <a href="/User/dashboard.aspx">
                             <div style="background-image:url('/Images/Buttons/Loggedin_left.png'); width:50px;">&nbsp;</div>
                             <div style="background-image:url('/Images/Buttons/Loggedin_middle.png'); background-repeat:repeat-x;  text-indent:4px;">
                             <asp:Label ID=lblusername runat=server>Email Address</asp:Label>
                             </div>
                             <div style="background-image:url('/Images/Buttons/Loggedin_middle.png'); width:10px; background-repeat:repeat-x;">
-                            </div>                            
+                            </div>            
+                            </a>                
                             <div style="background-image:url('/Images/Buttons/Loggedin_right.png');  width:92px; text-indent:5px;"> 
                             <telerik:RadButton ID=btnlogout runat=server Text="Logout" 
                         onclick="btnlogout_Click" Width=80px ForeColor=White>

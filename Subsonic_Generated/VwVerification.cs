@@ -177,6 +177,18 @@ namespace Peerfx_DB{
                 
                 schema.Columns.Add(colvarIsmandatory);
                 
+                TableSchema.TableColumn colvarRequiresmanualapproval = new TableSchema.TableColumn(schema);
+                colvarRequiresmanualapproval.ColumnName = "requiresmanualapproval";
+                colvarRequiresmanualapproval.DataType = DbType.Boolean;
+                colvarRequiresmanualapproval.MaxLength = 0;
+                colvarRequiresmanualapproval.AutoIncrement = false;
+                colvarRequiresmanualapproval.IsNullable = true;
+                colvarRequiresmanualapproval.IsPrimaryKey = false;
+                colvarRequiresmanualapproval.IsForeignKey = false;
+                colvarRequiresmanualapproval.IsReadOnly = false;
+                
+                schema.Columns.Add(colvarRequiresmanualapproval);
+                
                 
                 BaseSchema = schema;
                 //add this schema to the provider
@@ -366,6 +378,20 @@ namespace Peerfx_DB{
 			    SetColumnValue("ismandatory", value);
             }
         }
+	      
+        [XmlAttribute("Requiresmanualapproval")]
+        [Bindable(true)]
+        public bool? Requiresmanualapproval 
+	    {
+		    get
+		    {
+			    return GetColumnValue<bool?>("requiresmanualapproval");
+		    }
+            set 
+		    {
+			    SetColumnValue("requiresmanualapproval", value);
+            }
+        }
 	    
 	    #endregion
     
@@ -393,6 +419,8 @@ namespace Peerfx_DB{
             public static string Points = @"points";
             
             public static string Ismandatory = @"ismandatory";
+            
+            public static string Requiresmanualapproval = @"requiresmanualapproval";
             
 	    }
 	    #endregion

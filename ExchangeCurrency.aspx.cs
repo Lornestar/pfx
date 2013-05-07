@@ -59,7 +59,7 @@ namespace Peerfx
                 ddlembeecountry.DataTextField = "country_text";
                 ddlembeecountry.DataValueField = "country";
                 ddlembeecountry.DataSource = Peerfx_DB.SPs.ViewEmbeeCountries().GetDataSet().Tables[0];
-                ddlembeecountry.DataBind();                
+                ddlembeecountry.DataBind();
                 
             }
             if (sitetemp.isloggedin())
@@ -401,6 +401,8 @@ namespace Peerfx
             txtbuy.Value = Convert.ToDouble(quotetemp.Buyamount);
             txtsell.Value = Convert.ToDouble(quotetemp.Sellamount);
 
+            SetMinSellValue();
+
             /*lblconfirmquotereceiveamount.Text = lblyouget.Text;
             lblconfirmquoteservicefee.Text = lblservicefee.Text;
             lblconfirmquoteyouget.Text = lblyouget.Text;
@@ -409,6 +411,13 @@ namespace Peerfx
             lblalreadyconfirmedquotesenderamount2.Text = hdsellcurrencysymbol.Value + txtsell.Text;
             lblalreadyconfirmedquotesenderamount.Text = lblalreadyconfirmedquotesenderamount2.Text;
              */
+        }
+
+        protected void SetMinSellValue()
+        {
+            //set min value for txtsell
+            decimal minsellvalue = sitetemp.getAmountinOtherCurrency(11,2,Convert.ToInt32(ddlsellcurrency.SelectedValue));
+            txtsell.MinValue = Convert.ToDouble(minsellvalue);
         }
 
         protected void LoadRates(bool updaterecipientlist)

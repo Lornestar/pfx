@@ -1256,6 +1256,24 @@ namespace Peerfx_DB{
         }
         
         /// <summary>
+        /// Creates an object wrapper for the View_Amount_In_Other_Currency Procedure
+        /// </summary>
+        public static StoredProcedure ViewAmountInOtherCurrency(decimal? amount, int? currency1, int? currency2, decimal? tempbalance)
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Amount_In_Other_Currency", DataService.GetInstance("Peerfx"), "dbo");
+        	
+            sp.Command.AddParameter("@amount", amount, DbType.Currency, 4, 19);
+        	
+            sp.Command.AddParameter("@currency1", currency1, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddParameter("@currency2", currency2, DbType.Int32, 0, 10);
+        	
+            sp.Command.AddOutputParameter("@tempbalance", DbType.Currency, 4, 19);
+            
+            return sp;
+        }
+        
+        /// <summary>
         /// Creates an object wrapper for the View_BancBox_Accounts Procedure
         /// </summary>
         public static StoredProcedure ViewBancBoxAccounts()
@@ -2213,6 +2231,16 @@ namespace Peerfx_DB{
         public static StoredProcedure ViewUsersAllAdminUsers()
         {
             SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_All_AdminUsers", DataService.GetInstance("Peerfx"), "");
+        	
+            return sp;
+        }
+        
+        /// <summary>
+        /// Creates an object wrapper for the View_Users_AwaitingVerification_AdminUsers Procedure
+        /// </summary>
+        public static StoredProcedure ViewUsersAwaitingVerificationAdminUsers()
+        {
+            SubSonic.StoredProcedure sp = new SubSonic.StoredProcedure("View_Users_AwaitingVerification_AdminUsers", DataService.GetInstance("Peerfx"), "");
         	
             return sp;
         }

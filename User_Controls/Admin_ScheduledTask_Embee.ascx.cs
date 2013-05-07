@@ -17,6 +17,10 @@ namespace Peerfx.User_Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             currentuser = sitetemp.getcurrentuser(true);
+            if (!IsPostBack)
+            {
+                LastUpdated();
+            }
         }        
 
         protected void btnEmbeeCatalog_Click(object sender, EventArgs e)

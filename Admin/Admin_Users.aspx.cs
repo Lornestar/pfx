@@ -192,5 +192,11 @@ namespace Peerfx.Admin
             }
         }
 
+        protected void btnawaitingverification_Click(object sender, EventArgs e)
+        {
+            RadGrid1.DataSource = Peerfx_DB.SPs.ViewUsersAwaitingVerificationAdminUsers().GetDataSet().Tables[0];
+            RadGrid1.Rebind();
+        }
+
     }
 }

@@ -75,7 +75,7 @@ namespace Peerfx.Admin
                 decimal amount = Convert.ToDecimal(item["amount"].Text);
                 int currency = Convert.ToInt32(item["info_currencies_key"].Text);
                 RadComboBox ddlconnectuser = (RadComboBox)item.FindControl("ddlconnectuser");
-                if (ddlconnectuser.SelectedIndex > -1)
+                if (ddlconnectuser.SelectedValue != "")
                 {
                     int userkey = Convert.ToInt32(ddlconnectuser.SelectedValue);
                     Peerfx_DB.SPs.UpdateProcessDeposit(txkey, 2, userkey).Execute();
